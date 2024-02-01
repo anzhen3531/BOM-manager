@@ -30,4 +30,5 @@ bin/
 
 .idea/
 out/
+codebase/WEB-INF/lib/
 *iml
