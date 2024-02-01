@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="gb2312"?>
+<project name="starcharge" basedir="." default="-h">
+    <description>
+    	starCharge Customization Build System
+    	       Author: theron huang
+			   Date: 2022.1.5
+    </description>
+
+	<property environment="env" />
+	<property name="base" location="." />
+	<property name="wthome" location="${env.WT_HOME}" />
+	<property name="bin" location="${wthome}/bin"/>
+	<property name="classpath" location="${env.CLASSPATH}"/>
+	<property name="wtcodebase" location="${wthome}/codebase"/>
+	<property name="wtsrc" location="${wthome}/src" />
+	<property name="wtsrcext" location="${wtsrc}/ext"/>
+	<property name="export" location="${base}/export"/>
+
+	<target name="all" depends="check_path, clean_ext, fc, jc, resourcebuild, custombundle, modelInstall, replaceTagdefine, config_ext, mkj" />
+	<target name="build" depends="check_path, filecopy, javac" />
+	<target name="buildall" depends="build, rb, mkj"/>
+	<!--====================================================================-->
+	<!-- Echo Build Description                                             -->
+	<!--====================================================================-->
+	<target name="-h">
+		<echo message="Project ${ant.project.name} build file."/>
+	</target>
+	<!--====================================================================-->
+	<!-- Install Custom XCONF file                                          -->
+	<!--====================================================================-->
+	<target name="config_ext">
+	</target>
+	<!--====================================================================-->
+	<!-- Model Install                                                      -->
+	<!--====================================================================-->
+	<target name="modelInstall" depends="installClassRegistry, installModelRegistry, installDescendentRegistry"/>
+	<target name="installClassRegistry" unless="classRegistry_installed">
+	</target>
+	<target name="installModelRegistry" unless="modelRegistry_installed">
+	</target>
+	<target name="installDescendentRegistry" unless="descendentRegistry_installed">
+	</target>
+	<!--====================================================================-->
+	<!-- components.tld replace                                             -->
+	<!--====================================================================-->
+	<target name="replaceTagdefine">
+	</target>
+
+	<!--====================================================================-->
+	<!-- Clean Custom Code                                                  -->
+	<!--====================================================================-->
+	<target name="clean_ext">
+		<delete dir="${wtcodebase}/ext" />
+	</target>
+      
+	<!--====================================================================-->
+	<!-- Build rbInfo Resource Files                                        -->
+	<!--====================================================================-->
+	<target name="rb" depends="filecopy,resourcebuild, custombundle"/>
+	<target name="resourcebuild">
+	   	<ant antfile="${bin}/tools.xml" target="bundle">
+	   		<property name="bundle.includes" value="ext/**"/>
+			<property name="bundle.buildLoales" value="true"/>
+			<property name="bundle.forceCompile" value="true"/>
+		</ant>
+	</target>
+    <target name="custombundle">
+        <ant antfile="${bin}/tools.xml" target="bundle_custom"/>
+    </target>
+
+	<!--====================================================================-->
+	<!-- MakeJar: call windchill MakeJar build                              -->
+	<!--====================================================================-->
+	<target name="makejar" depends="check_path, resourcebuild, custombundle, mkj"/>
+	<target name="mkj">
+	    <ant antfile="${wtcodebase}/MakeJar.xml" target="custUpdate" dir="${wtcodebase}"/>
+	</target>
+	<!--====================================================================-->
+    <!-- Copy Non-java and Non-rbInfo Files                                 -->
+    <!--====================================================================-->
+	<target name="filecopy" depends="check_path,fc"/>
+    <target name="fc">
+        <copy todir="${wtcodebase}" verbose="true" overwrite="true" preservelastmodified="true">
+        	<fileset dir="${wtsrc}">
+        		<include name="ext/**/*"/>
+        		<exclude name="ext/**/*.java" />
+                <exclude name="ext/**/*.rbInfo" />
+                <exclude name="ext/**/*.cat" />
+                <exclude name="ext/**/*.mData" />
+                <exclude name="ext/**/*.bak" />
+            	<exclude name="ext/**/Thumbs.db" />
+		            
+        		<include name="config/actions/*.xml"/>
+				<include name="config/mvc/*.xml"/>
+        		<include name="WEB-INF/**/*"/>
+        		<include name="netmarkets/**/*"/>
+				<include name="wt/clients/images/wvs/*.gif"/>
+        	</fileset>
+        </copy>
+    </target>
+  
+	<!--====================================================================-->
+	<!-- Compiling Java Source                                              -->
+	<!--====================================================================-->
+	<target name="javac" depends="check_path, jc"/>
+	<target name="jc">
+	    <javac srcdir="${wtsrc}" destdir="${wtcodebase}" listfiles="on" debug="on" encoding="UTF-8" deprecation="off" failonerror="true" includeantruntime="false">
+	    	<classpath>
+				<pathelement location="${wthome}/srclib/servlet.jar"/>
+				<fileset dir="${wthome}/codebase/WEB-INF/lib" includes="*.jar"/>
+				<fileset dir="${wthome}/codebase/lib" includes="*.jar"/>
+				<fileset dir="${wthome}/lib" includes="*.jar"/>
+				<fileset dir="${wthome}/srclib/tool" includes="Annotations.jar"/>
+			</classpath>
+	        <!-- <include name="ext/sail/**/*.java" /> -->
+			<include name="ext/ziang/**/*.java" />
+	    </javac>
+	</target>
+        
+	<!--====================================================================-->
+	<!-- archive deploy files                                  -->
+	<!--====================================================================-->
+	<target name="archive" description="export deploy files">
+		<tstamp>
+			<format property="timestamp" pattern="yyyyMMdd" timezone="GMT+8" />
+		</tstamp>
+		<mkdir dir="${export}"/>
+		<delete file="${export}/${ant.project.name}-deploy-${timestamp}.zip" />
+		<zip destfile="${export}/${ant.project.name}-deploy-${timestamp}.zip" basedir="${base}" duplicate="preserve" filesonly="true" encoding="GBK">
+			<include name="src/**/*"/>
+			<include name="db/**/*"/>
+			<include name="loadFiles/**/*"/>
+			<include name="loadXMLFiles/**/*"/>
+			<include name="tasks/**/*"/>
+			<include name="wtCustom/**/*"/>
+			<include name="*.txt"/>
+			<include name="*.xml"/>
+			<exclude name="**/*.bak"/>
+			<exclude name="**/*.rar"/>
+			<exclude name="**/*.zip"/>
+			<exclude name="**/*.class"/>
+			<exclude name="**/Thumbs.db"/>
+		</zip>
+	</target>
+
+	<!--====================================================================-->
+	<!--====================================================================-->
+	<!--                                                                    -->
+	<!-- Initialization                                                     -->
+	<!--                                                                    -->
+	<!--====================================================================-->
+	<!--====================================================================-->
+	<target name="init_os">
+	    <condition property="is_win32">
+	        <os family="windows"/>
+	    </condition>
+	    <condition property="is_unix">
+	        <os family="unix"/>
+	    </condition>
+	</target>
+	<target name="init_win32" depends="init_os" if="is_win32">
+	    <echo message="initializing win32 commands"/>
+	    <property name="shell" value="cmd.exe"/>
+	    <property name="shopt" value="/c"/>
+	    <property name="JavaGen" value="${wthome}\bin\JavaGen.bat"/>
+	</target>
+	<target name="init_unix" depends="init_os" if="is_unix">
+	    <echo message="initializing unix commands"/>
+	    <property name="shell" value="/bin/sh"/>
+	    <property name="shopt" value=""/>
+	    <property name="JavaGen" value="${wthome}/bin/JavaGen.sh"/>
+	</target>
+	<target name="check_path" depends="init_win32, init_unix">
+	    <condition property="path_correct">
+	        <and>
+	            <available file="${wthome}/site.xconf"/>
+	            <available file="${wthome}/codebase/wt.properties.xconf"/>
+	            <available file="${wthome}/codebase/ie/InfoEngine/ie.xconf"/>
+	        </and>
+	    </condition>
+	    <fail message="WT_HOME not correct, should work in windchill shell." unless="path_correct"/>
+	</target>
+</project>
