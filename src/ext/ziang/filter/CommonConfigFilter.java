@@ -1,4 +1,4 @@
-package ext.ziang;
+package ext.ziang.filter;
 
 /**
  * 通用配置过滤器
