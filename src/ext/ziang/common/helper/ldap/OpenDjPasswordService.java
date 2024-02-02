@@ -88,12 +88,9 @@ public class OpenDjPasswordService {
         try {
             SearchControls constraints = new SearchControls();
             constraints.setSearchScope(SearchControls.SUBTREE_SCOPE);
-
+            // 编写查询文件
             Attributes attributes = new BasicAttributes();
-            //attributes.put("uid", uid);
-            attributes.put("o", "trinasolar");
-            attributes.put("sn", "shicheng.deng");
-
+            attributes.put("uid", uid);
 
             NamingEnumeration<SearchResult> en = LDAP_CONTEXT.search("", attributes);
             if (en == null || !en.hasMoreElements()) {
@@ -106,8 +103,6 @@ public class OpenDjPasswordService {
                     SearchResult si = (SearchResult) obj;
                     System.out.println("si = " + si);
                     userDN += si.getName();
-
-
                     Attributes attrs = si.getAttributes();
                     Attribute attr = attrs.get("userPassword");
                     String password = new String((byte[]) attr.get());

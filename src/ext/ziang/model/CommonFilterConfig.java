@@ -2,8 +2,11 @@ package ext.ziang.model;
 
 import com.ptc.windchill.annotations.metadata.GenAsPersistable;
 import com.ptc.windchill.annotations.metadata.GeneratedProperty;
+import com.ptc.windchill.annotations.metadata.IconProperties;
+import com.ptc.windchill.annotations.metadata.OracleTableSize;
 import com.ptc.windchill.annotations.metadata.PropertyConstraints;
 import com.ptc.windchill.annotations.metadata.SupportedAPI;
+import com.ptc.windchill.annotations.metadata.TableProperties;
 import wt.fc.WTObject;
 import wt.util.WTException;
 
@@ -49,8 +52,17 @@ import java.io.Externalizable;
                 type = String.class,
                 constraints = @PropertyConstraints(upperLimit = 64),
                 supportedAPI = SupportedAPI.PUBLIC,
-                javaDoc = "生命周期状态"),
-})
+                javaDoc = "生命周期状态")
+        },
+        tableProperties = @TableProperties(
+                compositeIndex2 = "+ actionName + lifecycleState",
+                oracleTableSize = OracleTableSize.HUGE
+        ),
+        iconProperties = @IconProperties(
+                standardIcon = "wtcore/images/part.gif",
+                openIcon = "wtcore/images/part.gif"
+        )
+)
 public class CommonFilterConfig extends _CommonFilterConfig {
     /**
      * 序列化id
