@@ -1,6 +1,8 @@
 package ext.ziang.oauth;
 
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.sun.jndi.toolkit.chars.BASE64Encoder;
 import wt.util.WTRuntimeException;
 
@@ -13,10 +15,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Map;
 
 /**
  * OAuth 索引页筛选器
@@ -82,11 +86,19 @@ public class OAuthIndexPageFilter implements Filter {
                 RequestWrap requestWrap = newWrapRequest(httpServletRequest, authorization, session);
                 filterChain.doFilter(requestWrap, httpResponse);
             } else {
-                String code = request.getParameter("code");
-                // 可以获取body进行验证
-                String username = request.getParameter("username");
-                String password = request.getParameter("password");
                 try {
+                    String code = request.getParameter("code");
+                    // 获取请求主体数据
+                    BufferedReader reader = request.getReader();
+                    StringBuilder requestBody = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        requestBody.append(line);
+                    }
+                    JSONObject body = JSON.parseObject(requestBody.toString());
+                    // 可以获取body进行验证
+                    String username = body.getString("username");
+                    String password = body.getString("password");
                     if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
                         OpenDjPasswordService service = new OpenDjPasswordService();
                         if (service.authentication(username, password)) {
@@ -105,7 +117,8 @@ public class OAuthIndexPageFilter implements Filter {
                         // httpResponse.sendRedirect(String.valueOf((requestWrap.getRequestURL())));
                         return;
                     } else {
-                        httpResponse.sendRedirect("/Windchill/netmarkets/jsp/custom/login.jsp");
+                        // 默认登录地址
+                        httpResponse.sendRedirect("http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
                         return;
                     }
                 } catch (Exception e) {
@@ -155,4 +168,5 @@ public class OAuthIndexPageFilter implements Filter {
     public void destroy() {
         System.out.println("销毁首页拦截器");
     }
+
 }

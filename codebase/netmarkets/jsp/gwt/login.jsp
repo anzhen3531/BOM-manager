@@ -59,17 +59,31 @@
 
 <script>
     document.getElementById("login-form").addEventListener("submit", function (event) {
-        event.preventDefault(); // Prevent form submission
-        // Get username and password values
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
+        event.preventDefault();
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
 
-        // Perform simple validation (You can implement more robust validation as needed)
-        if (username === "wcadmin" && password === "wcadmin") {
-            alert("login success")
-        } else {
-            // 返回登录失败的报文
-        }
+        let url = 'http://win-fv1tfp5mpk5.ziang.com/Windchill/app/';
+        let data = {
+            username: username,
+            password: password
+        };
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(function (response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            console(response)
+        }).then(function (data) {
+            console.log(data);
+        }).catch(function (error) {
+            console.error('There has been a problem with your fetch operation:', error.message);
+        });
     });
 </script>
 </body>
