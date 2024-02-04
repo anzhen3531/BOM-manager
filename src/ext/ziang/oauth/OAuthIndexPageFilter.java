@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
-import java.util.Map;
 
 /**
  * OAuth 索引页筛选器
@@ -96,20 +95,22 @@ public class OAuthIndexPageFilter implements Filter {
                         requestBody.append(line);
                     }
                     JSONObject body = JSON.parseObject(requestBody.toString());
-                    // 可以获取body进行验证
-                    String username = body.getString("username");
-                    String password = body.getString("password");
-                    if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
-                        OpenDjPasswordService service = new OpenDjPasswordService();
-                        if (service.authentication(username, password)) {
-                            String input = StrUtil.format("{}:{}", username, password);
-                            String encoding = new BASE64Encoder().encode(input.getBytes());
-                            System.out.println("encoding = " + encoding);
-                            RequestWrap requestWrap = newWrapRequest(httpServletRequest, encoding, session);
-                            httpResponse.sendRedirect(requestWrap.getRequestURL().toString());
-                            return;
-                        } else {
-                            throw new WTRuntimeException("当前用户账号密码错误！");
+                    if (body != null) {
+                        // 可以获取body进行验证
+                        String username = body.getString("username");
+                        String password = body.getString("password");
+                        if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
+                            OpenDjPasswordService service = new OpenDjPasswordService();
+                            if (service.authentication(username, password)) {
+                                String input = StrUtil.format("{}:{}", username, password);
+                                String encoding = new BASE64Encoder().encode(input.getBytes());
+                                System.out.println("encoding = " + encoding);
+                                RequestWrap requestWrap = newWrapRequest(httpServletRequest, encoding, session);
+                                httpResponse.sendRedirect(requestWrap.getRequestURL().toString());
+                                return;
+                            } else {
+                                throw new WTRuntimeException("当前用户账号密码错误！");
+                            }
                         }
                     } else if (StrUtil.isNotBlank(code)) {
                         // TODO 进行Github登录
