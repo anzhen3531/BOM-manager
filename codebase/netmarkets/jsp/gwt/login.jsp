@@ -78,7 +78,7 @@
                 throw new Error('Network response was not ok');
             }
             // 跳转首页页面
-            if (response.getStatus() === 200) {
+            if (response.status === 200) {
                 window.href = url;
             }
         }).then(function (data) {
