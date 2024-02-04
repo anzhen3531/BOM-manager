@@ -75,7 +75,7 @@ public class OAuthIndexPageFilter implements Filter {
         System.out.println("url = " + httpServletRequest.getRequestURL());
         String authorization = httpServletRequest.getHeader("Authorization");
         System.out.println("authorization = " + authorization);
-        if (WHITE_LIST_URLS.contains(url.toString()) ||
+        if (validateContains(WHITE_LIST_URLS, url) ||
                 StrUtil.isNotBlank(remoteUser)) {
             filterChain.doFilter(request, httpResponse);
         } else {
@@ -120,8 +120,8 @@ public class OAuthIndexPageFilter implements Filter {
                         return;
                     } else {
                         // 默认登录地址
-                         httpResponse.sendRedirect("http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
-                         return;
+                        httpResponse.sendRedirect("http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
+                        return;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -129,6 +129,22 @@ public class OAuthIndexPageFilter implements Filter {
                 }
             }
         }
+    }
+
+    /**
+     * 验证包含
+     *
+     * @param whiteListUrls 白名单网址
+     * @param url           网址
+     * @return boolean
+     */
+    private boolean validateContains(List<String> whiteListUrls, String url) {
+        for (String whiteListUrl : whiteListUrls) {
+            if (url.contains(whiteListUrl)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
