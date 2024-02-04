@@ -77,7 +77,10 @@
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            console.log(response)
+            // 跳转首页页面
+            if (response.getStatus() === 200) {
+                window.href = url;
+            }
         }).then(function (data) {
             console.log(data);
         }).catch(function (error) {
