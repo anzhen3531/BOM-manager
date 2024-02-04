@@ -19,6 +19,9 @@ import java.util.Hashtable;
  * ext.trinasolar.oauth.OpenDjPasswordService
  */
 public class OpenDjPasswordService {
+    /**
+     * LDAP 上下文
+     */
     private LdapContext LDAP_CONTEXT = null;
     /**
      * 连接 CTLS
@@ -43,7 +46,7 @@ public class OpenDjPasswordService {
     /**
      * 基本 DN
      */
-    public static String BASE_DN = ",cn=AdministrativeLdap,cn=Windchill_11.0,o=ptc";
+    public static String BASE_DN = ",ou=people,cn=AdministrativeLdap,cn=Windchill_11.0,o=ptc";
 
     public static void main(String[] args) {
         OpenDjPasswordService service = new OpenDjPasswordService();
@@ -122,6 +125,7 @@ public class OpenDjPasswordService {
     public boolean authentication(String UID, String password) {
         boolean valide;
         String userDN = getUserDN(UID);
+        System.out.println("userDN = " + userDN);
         try {
             LDAP_CONTEXT.addToEnvironment(Context.SECURITY_PRINCIPAL, userDN);
             LDAP_CONTEXT.addToEnvironment(Context.SECURITY_CREDENTIALS, password);
