@@ -53,7 +53,7 @@ import java.io.Externalizable;
                 constraints = @PropertyConstraints(upperLimit = 64),
                 supportedAPI = SupportedAPI.PUBLIC,
                 javaDoc = "生命周期状态")
-        },
+},
         tableProperties = @TableProperties(
                 compositeIndex2 = "+ actionName + lifecycleState",
                 oracleTableSize = OracleTableSize.HUGE

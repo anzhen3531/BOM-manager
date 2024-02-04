@@ -7,7 +7,5 @@ package ext.ziang.filter;
  * @date 2024/02/01
  */
 public class CommonConfigFilter {
-    // 编写配置文件
 
-    // 增加统一注册
 }
