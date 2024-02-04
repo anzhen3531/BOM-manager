@@ -48,6 +48,7 @@ public class OAuthIndexPageFilter implements Filter {
         WHITE_LIST_URLS.add("/Windchill/servlet/XML4Cognos");
         WHITE_LIST_URLS.add("/Windchill/wt.properties");
         WHITE_LIST_URLS.add("/netmarkets/login/login.jsp");
+        WHITE_LIST_URLS.add("/Windchill/netmarkets/jsp/gwt/login.jsp");
         System.out.println("初始化首页拦截器");
     }
 
@@ -119,8 +120,8 @@ public class OAuthIndexPageFilter implements Filter {
                         return;
                     } else {
                         // 默认登录地址
-                        httpResponse.sendRedirect("http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
-                        return;
+                         httpResponse.sendRedirect("http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
+                         return;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

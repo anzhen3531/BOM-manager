@@ -62,7 +62,6 @@
         event.preventDefault();
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
-
         let url = 'http://win-fv1tfp5mpk5.ziang.com/Windchill/app/';
         let data = {
             username: username,
@@ -78,7 +77,7 @@
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            console(response)
+            console.log(response)
         }).then(function (data) {
             console.log(data);
         }).catch(function (error) {
