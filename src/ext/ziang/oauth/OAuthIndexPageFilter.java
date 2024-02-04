@@ -99,7 +99,9 @@ public class OAuthIndexPageFilter implements Filter {
                     if (body != null) {
                         // 可以获取body进行验证
                         String username = body.getString("username");
+                        System.out.println("username = " + username);
                         String password = body.getString("password");
+                        System.out.println("password = " + password);
                         if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
                             OpenDjPasswordService service = new OpenDjPasswordService();
                             if (service.authentication(username, password)) {
