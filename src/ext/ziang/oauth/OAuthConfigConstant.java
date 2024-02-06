@@ -31,7 +31,7 @@ public class OAuthConfigConstant {
      */
     public static String REDIRECT_PAGE_URI = "/Windchill/app/";
     /**
-     * 访问令牌 URL
+     * 访问令牌 URL github
      */
     public static String ACCESS_TOKEN_URL = "https://iam.trinasolar.com/mga/sps/oauth/oauth20/token";
     /**
@@ -48,8 +48,8 @@ public class OAuthConfigConstant {
         }
         CLIENT_ID = "6b4ecccee521e3c0ada6";
         CLIENT_SECRET = "3af56830138359d761d3868df61712db1ab36815";
+        // 地址需要更换
         REDIRECT_URI = "http://pdm-test.trinasolar.com" + REDIRECT_PAGE_URI;
-
     }
 
     /**
