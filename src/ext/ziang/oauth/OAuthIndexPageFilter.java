@@ -86,6 +86,7 @@ public class OAuthIndexPageFilter implements Filter {
             } else {
                 try {
                     String code = request.getParameter("code");
+                    System.out.println("code = " + code);
                     // 获取请求主体数据
                     BufferedReader reader = request.getReader();
                     StringBuilder requestBody = new StringBuilder();
