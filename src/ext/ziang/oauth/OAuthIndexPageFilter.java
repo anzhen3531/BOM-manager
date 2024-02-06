@@ -62,8 +62,7 @@ public class OAuthIndexPageFilter implements Filter {
      * @throws ServletException Servlet 异常
      */
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
-            throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpSession session = httpServletRequest.getSession();
@@ -75,8 +74,7 @@ public class OAuthIndexPageFilter implements Filter {
         System.out.println("url = " + httpServletRequest.getRequestURL());
         String authorization = httpServletRequest.getHeader("Authorization");
         System.out.println("authorization = " + authorization);
-        if (validateContains(WHITE_LIST_URLS, url) ||
-                StrUtil.isNotBlank(remoteUser)) {
+        if (validateContains(WHITE_LIST_URLS, url) || StrUtil.isNotBlank(remoteUser)) {
             filterChain.doFilter(request, httpResponse);
         } else {
             if (StrUtil.isNotBlank(auth)) {
@@ -96,7 +94,21 @@ public class OAuthIndexPageFilter implements Filter {
                         requestBody.append(line);
                     }
                     JSONObject body = JSON.parseObject(requestBody.toString());
-                    if (body != null) {
+                    if (StrUtil.isNotBlank(code)) {
+                        String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, url);
+                        System.out.println("token = " + token);
+                        if (StrUtil.isBlank(token)) {
+                            throw new WTRuntimeException("获取登录Token失败!");
+                        }
+                        JSONObject userInfo = GithubOAuthProvider.getUserInfo(token);
+                        System.out.println("userInfo = " + userInfo);
+                        String input = StrUtil.format("{}:{}", "wcadmin", "wcadmin");
+                        String encoding = new BASE64Encoder().encode(input.getBytes());
+                        RequestWrap requestWrap = newWrapRequest(httpServletRequest, encoding, session);
+                        session.setAttribute("iamToken", token);
+                        httpResponse.sendRedirect(String.valueOf((requestWrap.getRequestURL())));
+                        return;
+                    } else if (body != null) {
                         // 可以获取body进行验证
                         String username = body.getString("username");
                         System.out.println("username = " + username);
@@ -115,11 +127,6 @@ public class OAuthIndexPageFilter implements Filter {
                                 throw new WTRuntimeException("当前用户账号密码错误！");
                             }
                         }
-                    } else if (StrUtil.isNotBlank(code)) {
-                        // TODO 进行Github登录
-                        // 重定向 系统默认接口
-                        // httpResponse.sendRedirect(String.valueOf((requestWrap.getRequestURL())));
-                        return;
                     } else {
                         // 默认登录地址
                         httpResponse.sendRedirect("http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
