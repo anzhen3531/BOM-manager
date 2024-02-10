@@ -134,9 +134,9 @@ public class OAuthIndexPageFilter implements Filter {
                             }
                         }
                     } else {
-                        // 默认登录地址
-                        httpResponse.sendRedirect("http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
-                        return;
+//                        // 默认登录地址
+//                        httpResponse.sendRedirect("http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
+//                        return;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
