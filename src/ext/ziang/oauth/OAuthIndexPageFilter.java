@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * OAuth 索引页筛选器
- * ext.trinasolar.oauth.OAuthIndexPageFilter
+ * ext.ziang.oauth.OAuthIndexPageFilter
  *
  * @author ander
  * @date 2023/12/25
@@ -37,6 +37,7 @@ public class OAuthIndexPageFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
+        // 配置文件中的拦截器
         WHITE_LIST_URLS.add("/Windchill/wtcore/getWtProperties.jsp");
         WHITE_LIST_URLS.add("/Windchill/netmarkets/register/");
         WHITE_LIST_URLS.add("/Windchill/infoengine/verifyCredentials.html");
@@ -94,7 +95,11 @@ public class OAuthIndexPageFilter implements Filter {
                     while ((line = reader.readLine()) != null) {
                         requestBody.append(line);
                     }
-                    JSONObject body = JSON.parseObject(requestBody.toString());
+                    JSONObject body = null;
+                    if (StrUtil.isNotBlank(requestBody.toString())) {
+                        body = JSON.parseObject(requestBody.toString());
+                    }
+                    // 验证code
                     if (StrUtil.isNotBlank(code)) {
                         String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, url);
                         System.out.println("token = " + token);
