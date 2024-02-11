@@ -91,12 +91,10 @@ public class OpenDjPasswordService {
             // 编写查询文件
             Attributes attributes = new BasicAttributes();
             attributes.put("uid", uid);
-
             NamingEnumeration<SearchResult> en = LDAP_CONTEXT.search("", attributes);
             if (en == null || !en.hasMoreElements()) {
                 System.out.println("未找到该用户");
             }
-
             while (en != null && en.hasMoreElements()) {
                 Object obj = en.nextElement();
                 if (obj instanceof SearchResult) {
@@ -117,7 +115,6 @@ public class OpenDjPasswordService {
             System.out.println("查找用户时产生异常。");
             e.printStackTrace();
         }
-
         return userDN;
     }
 
