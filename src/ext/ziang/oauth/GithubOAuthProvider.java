@@ -7,6 +7,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -41,7 +42,7 @@ public class GithubOAuthProvider {
         params.add(new BasicNameValuePair("redirect_uri", url));
         params.add(new BasicNameValuePair("code", code));
         params.add(new BasicNameValuePair("client_secret", OAuthConfigConstant.CLIENT_SECRET));
-        String response = buildCommonRequest(OAuthConfigConstant.ACCESS_TOKEN_URL, null, false, params);
+        String response = buildCommonRequestTOPost(OAuthConfigConstant.ACCESS_TOKEN_URL, null, false, params);
         System.out.println("response = " + response);
         if (StrUtil.isBlank(response)) {
             throw new WTException("登录失败");
@@ -58,7 +59,7 @@ public class GithubOAuthProvider {
      */
     public static JSONObject getUserInfo(String token) {
         token = "Bearer " + token;
-        String response = buildCommonRequest(OAuthConfigConstant.GET_USER_INFO_URL, token, true, null);
+        String response = buildCommonRequestTOGet(OAuthConfigConstant.GET_USER_INFO_URL, token);
         return JSON.parseObject(response);
     }
 
@@ -69,7 +70,7 @@ public class GithubOAuthProvider {
      * @param path 路径
      * @return {@link String}
      */
-    public static synchronized String buildCommonRequest(String path, String token, boolean isSendUserInfo, List<BasicNameValuePair> params) {
+    public static synchronized String buildCommonRequestTOPost(String path, String token, boolean isSendUserInfo, List<BasicNameValuePair> params) {
         System.out.println("GithubOAuthProvider.buildCommonRequest INTO " + LocalDateTime.now());
         String responseString = null;
         CloseableHttpClient httpclient = null;
@@ -85,10 +86,12 @@ public class GithubOAuthProvider {
                 httpPost.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
                 httpPost.setHeader(HttpHeaders.AUTHORIZATION, token);
             } else {
-                httpPost.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+                httpPost.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+                httpPost.setHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON_VALUE);
                 httpPost.setEntity(new UrlEncodedFormEntity(params));
             }
             response = httpclient.execute(httpPost);
+            System.out.println("response = " + response);
             int statusCode = response.getStatusLine().getStatusCode();
             HttpEntity entity = response.getEntity();
             responseString = EntityUtils.toString(entity, StandardCharsets.UTF_8);
@@ -110,6 +113,53 @@ public class GithubOAuthProvider {
             }
         }
         System.out.println("GithubOAuthProvider.buildCommonRequest END " + LocalDateTime.now());
+        return responseString;
+    }
+
+    /**
+     * 构建公共请求 to get
+     *
+     * @param path  路径
+     * @param token 令 牌
+     * @return {@link String}
+     */
+    public static synchronized String buildCommonRequestTOGet(String path, String token) {
+        System.out.println("GithubOAuthProvider.buildCommonRequestTOGet INTO " + LocalDateTime.now());
+        String responseString = null;
+        CloseableHttpClient httpclient = null;
+        CloseableHttpResponse response = null;
+        try {
+            // start build 构建用户名密码
+            URIBuilder builder = new URIBuilder(path);
+            httpclient = HttpClients.createDefault();
+            // create POST
+            HttpGet http = new HttpGet(builder.build());
+            http.setHeader(HttpHeaders.CONTENT_ENCODING, StandardCharsets.UTF_8.name());
+            http.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+            http.setHeader(HttpHeaders.AUTHORIZATION, token);
+            response = httpclient.execute(http);
+            System.out.println("response = " + response);
+            int statusCode = response.getStatusLine().getStatusCode();
+            HttpEntity entity = response.getEntity();
+            responseString = EntityUtils.toString(entity, StandardCharsets.UTF_8);
+            if (statusCode != 200) {
+                System.out.println("接口调用失败！");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (response != null) {
+                    response.close();
+                }
+                if (httpclient != null) {
+                    httpclient.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("GithubOAuthProvider.buildCommonRequestTOGet END " + LocalDateTime.now());
         return responseString;
     }
 }

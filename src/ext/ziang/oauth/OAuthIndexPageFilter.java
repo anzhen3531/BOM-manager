@@ -104,15 +104,17 @@ public class OAuthIndexPageFilter implements Filter {
                     if (StrUtil.isNotBlank(code)) {
                         String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, url);
                         System.out.println("token = " + token);
+                        session.setAttribute("token", token);
                         if (StrUtil.isBlank(token)) {
                             throw new WTRuntimeException("获取登录Token失败!");
                         }
+                        // JDBC 验证用户是否存在
                         JSONObject userInfo = GithubOAuthProvider.getUserInfo(token);
                         System.out.println("userInfo = " + userInfo);
-                        String input = StrUtil.format("{}:{}", "wcadmin", "wcadmin");
+                        String loginUserName = userInfo.getString("login");
+                        String input = StrUtil.format("{}:{}", loginUserName, loginUserName);
                         String encoding = new BASE64Encoder().encode(input.getBytes());
                         RequestWrap requestWrap = newWrapRequest(httpServletRequest, encoding, session);
-                        session.setAttribute("iamToken", token);
                         httpResponse.sendRedirect(String.valueOf((requestWrap.getRequestURL())));
                         return;
                     } else if (body != null) {
