@@ -85,11 +85,10 @@ public class GithubOAuthProvider {
                 httpPost.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
                 httpPost.setHeader(HttpHeaders.AUTHORIZATION, token);
             } else {
-                httpPost.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE);
+                httpPost.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
                 httpPost.setEntity(new UrlEncodedFormEntity(params));
             }
             response = httpclient.execute(httpPost);
-            // handel response
             int statusCode = response.getStatusLine().getStatusCode();
             HttpEntity entity = response.getEntity();
             responseString = EntityUtils.toString(entity, StandardCharsets.UTF_8);
