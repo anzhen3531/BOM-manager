@@ -42,10 +42,11 @@ public class GithubOAuthProvider {
         params.add(new BasicNameValuePair("code", code));
         params.add(new BasicNameValuePair("client_secret", OAuthConfigConstant.CLIENT_SECRET));
         String response = buildCommonRequest(OAuthConfigConstant.ACCESS_TOKEN_URL, null, false, params);
+        System.out.println("response = " + response);
         if (StrUtil.isBlank(response)) {
             throw new WTException("登录失败");
         }
-        JSONObject result = JSON.parseObject(response);
+        JSONObject result = JSONObject.parseObject(response);
         return result.getString("access_token");
     }
 

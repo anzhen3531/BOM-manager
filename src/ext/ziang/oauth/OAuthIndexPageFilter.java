@@ -39,6 +39,7 @@ public class OAuthIndexPageFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
         // 配置文件中的拦截器
         WHITE_LIST_URLS.add("/Windchill/wtcore/getWtProperties.jsp");
+        WHITE_LIST_URLS.add("/Windchill/servlet/WindchillGW/wt.httpgw.HTTPServer/ping");
         WHITE_LIST_URLS.add("/Windchill/netmarkets/register/");
         WHITE_LIST_URLS.add("/Windchill/infoengine/verifyCredentials.html");
         WHITE_LIST_URLS.add("/Windchill/protocolAuth/");
@@ -134,9 +135,9 @@ public class OAuthIndexPageFilter implements Filter {
                             }
                         }
                     } else {
-//                        // 默认登录地址
-//                        httpResponse.sendRedirect("http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
-//                        return;
+                        // 默认登录地址
+                        httpResponse.sendRedirect("http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
+                        return;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
