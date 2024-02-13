@@ -7,5 +7,5 @@ package ext.ziang.filter;
  * @date 2024/02/01
  */
 public class CommonConfigFilter {
-
+    // 详细配置
 }

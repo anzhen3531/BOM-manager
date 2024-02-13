@@ -29,6 +29,9 @@ import java.util.List;
  * @date 2023/12/25
  */
 public class OAuthIndexPageFilter implements Filter {
+    /**
+     * 白名单网址
+     */
     public List<String> WHITE_LIST_URLS = new ArrayList<>();
     /**
      * Windchill 命令行免密登录
