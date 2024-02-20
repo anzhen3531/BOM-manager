@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE Configuration SYSTEM "xconf.dtd">
 <Configuration>
-
-
-    <Service name="ext.trinasolar.rest.productFolder"
-             targetFile="codebase/com/ptc/windchill/rest/rest.properties">
-        <Option serviceClass="ext.trinasolar.mvc.controller.ProductFolderController"
-                requestor="null" selector="ProductFolderController" cardinality="singleton"/>
-    </Service>
-
     <!--  原料申请相关信息	-->
     <Service context="default" name="com.ptc.core.components.descriptor.DataUtility"
              targetFile="codebase/service.properties">
-        <Option serviceClass="ext.trinasolar.part.datautility.ApplyFormalMaterialDataUtility"
-                requestor="null" selector="ApplyFormalMaterialDataUtility" cardinality="singleton"/>
+        <Option serviceClass="ext.ziang.part.ExperimentNumberDataUtility"
+                requestor="null" selector="ExperimentNumberDataUtility" cardinality="singleton"/>
     </Service>
-
-    <!--  注册更改信息  -->
-    <Property name="wt.services.service.100400" overridable="true"
-              targetFile="codebase/wt.properties"
-              default="ext.trinasolar.part.listen.PartOperationListenService/ext.trinasolar.part.listen.PartDescriptionGenerateListener"/>
 </Configuration>
