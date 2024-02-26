@@ -142,6 +142,7 @@ public class GithubOAuthProvider {
             int statusCode = response.getStatusLine().getStatusCode();
             HttpEntity entity = response.getEntity();
             responseString = EntityUtils.toString(entity, StandardCharsets.UTF_8);
+            System.out.println("responseString = " + responseString);
             if (statusCode != 200) {
                 System.out.println("接口调用失败！");
             }

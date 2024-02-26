@@ -1,8 +1,5 @@
 package ext.ziang.oauth;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-
 /**
  * OAuth 配置常量
  *
@@ -40,12 +37,6 @@ public class OAuthConfigConstant {
     public static String GET_USER_INFO_URL = "https://api.github.com/user";
 
     static {
-        InetAddress address = null;
-        try {
-            address = InetAddress.getLocalHost();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        }
         CLIENT_ID = "6b4ecccee521e3c0ada6";
         CLIENT_SECRET = "3af56830138359d761d3868df61712db1ab36815";
         // 地址需要更换
