@@ -4,12 +4,12 @@
 
 <%
     try {
-        CommonOperationAttrUtil.createAttr("testCreateAttr",
+        CommonOperationAttrUtil.createReusableAttribute("testCreateAttr",
                 null,
                 "wt.iba.definition.StringDefinition",
                 "test",
                 "测试创建属性",
-                "OR:wt.iba.definition.AttributeOrganizer:156004");
+                "OR:wt.iba.definition.AttributeOrganizer:156004", null);
     } catch (WTException e) {
         throw new RuntimeException(e);
     }

@@ -1,5 +1,6 @@
 package ext.ziang.common.util;
 
+import cn.hutool.core.util.StrUtil;
 import com.ptc.core.lwc.common.BaseDefinitionService;
 import com.ptc.core.lwc.common.OidHelper;
 import com.ptc.core.lwc.common.view.PropertyDefinitionReadView;
@@ -11,8 +12,11 @@ import com.ptc.core.meta.common.CorrectableException;
 import wt.fc.ObjectIdentifier;
 import wt.iba.definition.AbstractAttributeDefinition;
 import wt.iba.definition.IBADefinitionException;
+import wt.iba.definition.ReferenceDefinition;
+import wt.iba.definition.UnitDefinition;
 import wt.inf.container.WTContainerHelper;
 import wt.inf.container.WTContainerRef;
+import wt.org.WTOrganization;
 import wt.services.ServiceFactory;
 import wt.util.WTException;
 
@@ -28,27 +32,41 @@ import java.util.Map;
 public class CommonOperationAttrUtil {
     private static final BaseDefinitionService BASE_DEF_SERVICE = (BaseDefinitionService) ServiceFactory.getService(BaseDefinitionService.class);
 
+    /**
+     * 主要
+     *
+     * @param args 参数
+     * @throws WTException WT异常
+     */
     public static void main(String[] args) throws WTException {
-        createAttr("testCreateAttr",
+        createReusableAttribute(
+                "testCreateAttr",
                 null,
                 "wt.iba.definition.StringDefinition",
                 "test",
                 "测试创建属性",
-                "OR:wt.iba.definition.AttributeOrganizer:156004");
+                "OR:wt.iba.definition.AttributeOrganizer:156004",
+                null);
+        //   TODO
+        //                          CreateAttributeFormProcessor 创建属性关联
+        //                          NewConstraintFormProcessor 创建枚举关联
+        //                          CreateEntryFormProcessor 创建枚举关联根枚举
     }
 
     /**
-     * 创建 Attr
+     * 创建 可重用属性
      *
-     * @param internalName      内部名称
-     * @param logicalIdentifier 逻辑标识符
-     * @param dataType          数据类型
-     * @param description       描述
-     * @param displayName       显示名称
-     * @param oid               oid
+     * @param internalName      内部名称  ->   字符串
+     * @param logicalIdentifier 逻辑标识符 ->   字符串
+     * @param dataType          数据类型  ->  内部名称
+     * @param description       描述   ->  字符串
+     * @param displayName       显示名称 ->  字符串
+     * @param oid               oid -> 父对象oid
+     * @param qtyOfMeasure      测量数量 -> 当数据类型为：测量单位时
+     * @return {@link ReusableAttributeReadView}
      * @throws WTException WT异常
      */
-    public static ReusableAttributeReadView createAttr(String internalName, String logicalIdentifier, String dataType, String description, String displayName, String oid) throws WTException {
+    public static ReusableAttributeReadView createReusableAttribute(String internalName, String logicalIdentifier, String dataType, String description, String displayName, String oid, String qtyOfMeasure) throws WTException {
         ReusableAttributeReadView reusableAttributeReadView = null;
         if (oid == null) {
             throw new WTException("New reusable attribute needs to have a reusable organizer as parent!");
@@ -63,9 +81,21 @@ public class CommonOperationAttrUtil {
             if (description == null || description.isEmpty()) {
                 description = internalName;
             }
+
+            if (UnitDefinition.class.getName().equals(dataType)) {
+                if (StrUtil.isBlank(qtyOfMeasure)) {
+                    qtyOfMeasure = "Acceleration";
+                }
+            }
+
+            String orgName = null;
+            if (ReferenceDefinition.class.getName().equals(dataType)) {
+                orgName = WTOrganization.class.getName();
+            }
+
+            // 获取父级对象oid 父级对象类型 AttributeOrganizer 可以编写高级查询查询
             ObjectIdentifier parentIdentifier = OidHelper.getOid(oid);
-            ReusableAttributeWriteView reusableAttribute = createReusableAttribute(internalName, dataType, null, null,
-                    description, displayName, internalName, logicalIdentifier, parentIdentifier);
+            ReusableAttributeWriteView reusableAttribute = createReusableAttribute(internalName, dataType, qtyOfMeasure, orgName, description, displayName, internalName, logicalIdentifier, parentIdentifier);
             try {
                 reusableAttributeReadView = BASE_DEF_SERVICE.createReusableAttribute(reusableAttribute);
                 return reusableAttributeReadView;
@@ -75,49 +105,52 @@ public class CommonOperationAttrUtil {
         }
     }
 
-
     /**
      * 创建可重用属性
      *
-     * @param var1 变量1
-     * @param var2 变量2
-     * @param var3 var3
-     * @param var4 var4
-     * @param var5 var5
-     * @param var6 var6
-     * @param var7 变量7
-     * @param var8 var8
-     * @param var9 var9
+     * @param internalName      内部名称
+     * @param dataType          数据类型
+     * @param description       描述
+     * @param displayName       显示名称
+     * @param internalName1     内部名称1
+     * @param logicalIdentifier 逻辑标识符
+     * @param parentIdentifier  父标识符
+     * @param qtyOfMeasure      测量数量
+     * @param orgName           组织名称
      * @return {@link ReusableAttributeWriteView}
      * @throws WTException WT异常
      */
-    private static ReusableAttributeWriteView createReusableAttribute(String var1, String var2, String var3, String var4, String var5, String var6, String var7, String var8, ObjectIdentifier var9) throws WTException {
-        WTContainerRef var10 = WTContainerHelper.service.getExchangeRef();
-        ReusableAttributeWriteView var11 = new ReusableAttributeWriteView(var1, var10, var9, (Collection) null, var2, var4, (Map) null, false, (ReadViewIdentifier) null);
-        ObjectIdentifier var12 = var11.getOid();
-        var11.setProperty(createPropertyValueReadView(var12, "internalName", var1));
-        var11.setProperty(createPropertyValueReadView(var12, "hierarchyDisplayName", var7));
-        var11.setProperty(createPropertyValueReadView(var12, "displayName", var6));
-        var11.setProperty(createPropertyValueReadView(var12, "logicalIdentifier", var8));
-        var11.setProperty(createPropertyValueReadView(var12, "description", var5));
-        var11.setProperty(createPropertyValueReadView(var12, "referenceClass", var3));
-        return var11;
+    private static ReusableAttributeWriteView createReusableAttribute(String internalName, String dataType, String qtyOfMeasure, String orgName, String description, String displayName, String internalName1, String logicalIdentifier, ObjectIdentifier parentIdentifier) throws WTException {
+        WTContainerRef containerRef = WTContainerHelper.service.getExchangeRef();
+        ReusableAttributeWriteView attributeWriteView = new ReusableAttributeWriteView(internalName, containerRef, parentIdentifier, (Collection) null,
+                dataType, orgName, (Map) null,
+                false, (ReadViewIdentifier) null);
+        ObjectIdentifier objectIdentifier = attributeWriteView.getOid();
+        attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "internalName", internalName));
+        attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "hierarchyDisplayName", internalName1));
+        attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "displayName", displayName));
+        attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "logicalIdentifier", logicalIdentifier));
+        attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "description", description));
+        attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "referenceClass", qtyOfMeasure));
+        return attributeWriteView;
     }
 
     /**
      * 创建属性值读取视图
      *
-     * @param var1 变量1
-     * @param var2 变量2
-     * @param var3 var3
+     * @param objectIdentifier 对象标识符
+     * @param referenceClass   引用类
+     * @param qtyOfMeasure     测量数量
      * @return {@link PropertyValueReadView}
      */
-    private static PropertyValueReadView createPropertyValueReadView(ObjectIdentifier var1, String var2, String var3) {
-        Object var4 = null;
-        Object var5 = null;
-        Object var7 = null;
-        PropertyDefinitionReadView var9 = new PropertyDefinitionReadView(AbstractAttributeDefinition.class.getName(), var2, String.class.getName());
-        PropertyValueReadView var10 = new PropertyValueReadView(var1, var9, var3, (Map) var4, (ObjectIdentifier) var5, false, (ReadViewIdentifier) var7, false);
-        return var10;
+    private static PropertyValueReadView createPropertyValueReadView(ObjectIdentifier objectIdentifier, String referenceClass, String qtyOfMeasure) {
+        PropertyDefinitionReadView readView = new PropertyDefinitionReadView(AbstractAttributeDefinition.class.getName(),
+                referenceClass, String.class.getName());
+        PropertyValueReadView propertyValueReadView = new PropertyValueReadView(objectIdentifier, readView,
+                qtyOfMeasure, (Map) null, (ObjectIdentifier) null,
+                false, (ReadViewIdentifier) null, false);
+        return propertyValueReadView;
     }
+
+
 }
