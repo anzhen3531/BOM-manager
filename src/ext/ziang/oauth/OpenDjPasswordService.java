@@ -61,7 +61,7 @@ public class OpenDjPasswordService {
     }
 
     /**
-     * 初始化 ldapclient
+     * 初始化 ldap client
      */
     private void initLDAPClient() {
         Hashtable<String, String> env = new Hashtable<>();
@@ -115,8 +115,7 @@ public class OpenDjPasswordService {
     }
 
     /**
-     * LDAP Authenricate
-     * Authenricate 验证用户密码
+     * LDAP Authenticate 验证用户密码
      *
      * @param UID      uid
      * @param password 密码
