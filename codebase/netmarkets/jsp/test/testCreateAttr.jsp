@@ -1,6 +1,6 @@
 <%@ page import="ext.ziang.common.util.CommonOperationAttrUtil" %>
 <%@ page import="wt.util.WTException" %>
-
+<%@ page language="java" pageEncoding="UTF-8" %>
 
 <%
     try {
