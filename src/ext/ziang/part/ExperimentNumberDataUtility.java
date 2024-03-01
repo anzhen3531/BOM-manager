@@ -60,6 +60,7 @@ public class ExperimentNumberDataUtility extends DefaultDataUtility {
         // 编写表格
         textDisplayComponent.setValue(part.getNumber());
         textDisplayComponent.setCheckXSS(false);
+        request.setAttribute("partNumber", part.getNumber());
         guicomponentarray.addGUIComponent(textDisplayComponent);
         return guicomponentarray;
     }
