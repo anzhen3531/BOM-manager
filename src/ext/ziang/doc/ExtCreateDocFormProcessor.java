@@ -31,6 +31,8 @@ public class ExtCreateDocFormProcessor extends CreateDocFormProcessor {
         Object obj = objectbean.getObject();
         if (obj instanceof WTDocument) {
             HttpServletRequest request = nmCommandBean.getRequest();
+            String partOid = request.getParameter("partOid");//部件的oid
+            System.out.println("partOid = " + partOid);
             System.out.println("request.getAttribute(\"partNumber\") = " + request.getAttribute("partNumber"));
         }
         return rs;
