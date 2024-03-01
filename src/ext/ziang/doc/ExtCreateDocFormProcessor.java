@@ -28,12 +28,12 @@ public class ExtCreateDocFormProcessor extends CreateDocFormProcessor {
         System.out.println("text = " + text);
         HashMap textArea = nmCommandBean.getTextArea();
         System.out.println("textArea = " + textArea);
+        HttpServletRequest request = nmCommandBean.getRequest();
+        String partOid = request.getParameter("partOid");//部件的oid
+        System.out.println("partOid = " + partOid);
+        System.out.println("request.getAttribute(\"partNumber\") = " + request.getAttribute("partNumber"));
         Object obj = objectbean.getObject();
         if (obj instanceof WTDocument) {
-            HttpServletRequest request = nmCommandBean.getRequest();
-            String partOid = request.getParameter("partOid");//部件的oid
-            System.out.println("partOid = " + partOid);
-            System.out.println("request.getAttribute(\"partNumber\") = " + request.getAttribute("partNumber"));
         }
         return rs;
     }
