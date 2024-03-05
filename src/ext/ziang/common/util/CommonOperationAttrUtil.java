@@ -343,7 +343,6 @@ public class CommonOperationAttrUtil {
 			} catch (Exception e) {
 				throw new WTException(e, "Error retrieving IBA for \"" + ibaInternalName + "\"");
 			}
-
 			AttributeDefinition definition = IBA_DEF_CACHE.getAttributeDefinition(ibaInternalName);
 			if (definition instanceof UnitDefinition) {
 				unitDefinitionClassName = ((UnitDefinition) definition).getQuantityOfMeasure().getName();
@@ -379,38 +378,44 @@ public class CommonOperationAttrUtil {
 			addSingleValuedConstraint(attrDefWriteView);
 		}
 		Set allPropertyDefViews = TYPE_DEF_SERVICE.getAllPropertyDefViews(selectIbaClassTypeName,
-				typeDefReadView.getReadViewIdentifier(),
-				readView);
-		System.out.println("allPropertyDefViews = " + allPropertyDefViews);
+				typeDefReadView.getReadViewIdentifier(), readView);
 		if (allPropertyDefViews != null && !allPropertyDefViews.isEmpty()) {
 			for (Object allPropertyDefView : allPropertyDefViews) {
 				PropertyDefinitionReadView propertyDefReadView = (PropertyDefinitionReadView) allPropertyDefView;
 				String propertyDefReadViewName = propertyDefReadView.getName();
+				System.out.println("propertyDefReadViewName = " + propertyDefReadViewName);
 				String classifyName = "lwc_" + propertyDefReadViewName;
 				// 更新属性值数据
 				System.out.println("classifyName = " + classifyName);
-				ArrayList newPropertyValueData = PropertyDefinitionHelper.getNewPropertyValueData(null,
-						propertyDefReadView, classifyName);
-				String var29 = (String) newPropertyValueData.get(0);
-				boolean var30 = newPropertyValueData.size() > 1 ? Boolean.valueOf((String) newPropertyValueData.get(1))
-						: false;
-				boolean var31 = PropertyDefinitionHelper.updatePropertyValue(propertyDefReadView,
-						(ReadViewIdentifier) null,
-						(PropertyValueWriteView) null, var29, (Map) null, var30);
-				if (var31) {
-					PropertyValueWriteView var32 = new PropertyValueWriteView((ObjectIdentifier) null,
-							propertyDefReadView, var29,
-							(Map) null, identifier, false, (ReadViewIdentifier) null, false);
-					attrDefWriteView.setProperty(var32);
-				}
+				// ArrayList newPropertyValueData = PropertyDefinitionHelper.getNewPropertyValueData(null,
+				// 		propertyDefReadView, classifyName);
+				// String valueData = (String) newPropertyValueData.get(0);
+				// // 判断这个是否是一个属性值
+				// boolean isMultValue = newPropertyValueData.size() > 1
+				// 		? Boolean.valueOf((String) newPropertyValueData.get(1))
+				// 		: false;
+				// boolean isUpdateSuccess = PropertyDefinitionHelper.updatePropertyValue(propertyDefReadView,
+				// 		(ReadViewIdentifier) null,
+				// 		(PropertyValueWriteView) null, valueData,
+				// 		(Map) null,
+				// 		isMultValue);
+				// if (isUpdateSuccess) {
+				// 	PropertyValueWriteView propertyValueWriteView = new PropertyValueWriteView((ObjectIdentifier) null,
+				// 			propertyDefReadView, valueData,
+				// 			(Map) null, identifier, false, (ReadViewIdentifier) null, false);
+				// 	attrDefWriteView.setProperty(propertyValueWriteView);
+				// }
 			}
 		}
-
-		typeDefWriteView.setAttribute(attrDefWriteView);
-		typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
-		AttributeDefinitionReadView readViewAttributeByName = typeDefReadView
-				.getAttributeByName(attrDefWriteView.getName());
-		return typeDefReadView.getAttributeByName(innerName);
+		// // 类型设置属性
+		// typeDefWriteView.setAttribute(attrDefWriteView);
+		// // 更新类型
+		// typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
+		// AttributeDefinitionReadView readViewAttributeByName = typeDefReadView
+		// 		.getAttributeByName(attrDefWriteView.getName());
+		// System.out.println("readViewAttributeByName = " + readViewAttributeByName);
+		// return typeDefReadView.getAttributeByName(innerName);
+		return null;
 	}
 
 	/**
