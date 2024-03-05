@@ -391,8 +391,8 @@ public class CommonOperationAttrUtil {
 				// 更新属性值数据
 				System.out.println("classifyName = " + classifyName);
 				if (propertyDefReadViewName.equals("displayName") || propertyDefReadViewName.equals("description")) {
-					ArrayList newPropertyValueData = PropertyDefinitionHelper.getNewPropertyValueData(null,
-							propertyDefReadView, classifyName);
+//					ArrayList newPropertyValueData = PropertyDefinitionHelper.getNewPropertyValueData(null,
+//							propertyDefReadView, classifyName);
 					String valueData;
 					if (propertyDefReadViewName.equals("displayName")) {
 						valueData = lwcDisplayName;
