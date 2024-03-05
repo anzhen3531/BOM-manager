@@ -12,8 +12,10 @@
 //                "OR:wt.iba.definition.AttributeOrganizer:156004", null);
 
 
-        CommonOperationAttrUtil.createAttributeDefinition("consumption", "用量", "用量",
-                "OR:wt.iba.definition.UnitDefinition:112124",
+        CommonOperationAttrUtil.createAttributeDefinition("materialMark",
+                "材料备注",
+                "materialMark",
+                "OR:wt.iba.definition.StringDefinition:116710",
                 "OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:112108");
     } catch (WTException e) {
         throw new RuntimeException(e);
