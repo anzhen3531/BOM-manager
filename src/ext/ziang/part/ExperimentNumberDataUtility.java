@@ -42,6 +42,7 @@ public class ExperimentNumberDataUtility extends DefaultDataUtility {
         HashMap text = nmCommandBean.getText();
         System.out.println("text = " + text);
 
+
         String partOid = request.getParameter("partOid");//部件的oid
         ArrayList<GuiComponent> components = new ArrayList<>(1);
         TextBox textBox = new TextBox();

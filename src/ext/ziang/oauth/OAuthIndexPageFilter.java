@@ -103,6 +103,7 @@ public class OAuthIndexPageFilter implements Filter {
                     if (StrUtil.isNotBlank(requestBody.toString())) {
                         body = JSON.parseObject(requestBody.toString());
                     }
+                    System.out.println("body = " + body);
                     // 验证code
                     if (StrUtil.isNotBlank(code)) {
                         String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, url);
