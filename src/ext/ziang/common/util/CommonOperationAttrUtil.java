@@ -3,12 +3,9 @@ package ext.ziang.common.util;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import com.ptc.core.components.beans.ObjectBean;
-import com.ptc.core.lwc.client.commands.AttributesCacheManager;
 import com.ptc.core.lwc.client.commands.LWCCommands;
 import com.ptc.core.lwc.client.util.AttributeTemplateFlavorHelper;
 import com.ptc.core.lwc.client.util.PropertyDefinitionHelper;
@@ -37,7 +34,6 @@ import com.ptc.core.lwc.server.TypeDefinitionServiceHelper;
 import com.ptc.core.meta.common.CorrectableException;
 import com.ptc.core.meta.container.common.impl.SingleValuedConstraint;
 import com.ptc.netmarkets.model.NmOid;
-import com.ptc.netmarkets.util.beans.NmCommandBean;
 
 import cn.hutool.core.util.StrUtil;
 import wt.fc.ObjectIdentifier;
@@ -244,7 +240,7 @@ public class CommonOperationAttrUtil {
 	}
 
 	/**
-	 * 创建属性值读取视图  TODO 等待处理
+	 * 创建属性值读取视图 TODO 等待处理
 	 *
 	 *
 	 * @param objectIdentifier
@@ -267,159 +263,152 @@ public class CommonOperationAttrUtil {
 	}
 
 	/**
+	 * 创建属性定义
 	 * 创建属性映射
 	 *
-	 * @param var1
-	 *            变量1
-	 * @param var2
-	 *            变量2
+	 * @param innerName
+	 *            内部名称
+	 * @param lwcDisplayName
+	 *            LWC 显示名称
+	 * @param lwcDescription
+	 *            LWC 描述
+	 * @param ibaSelectAttrOid
+	 *            iba 选择 attr oid
+	 * @param classifyAttrOid
+	 *            分类 Attr OID
 	 * @return {@link AttributeDefinitionReadView}
 	 * @throws WTException
 	 *             WT异常
 	 */
-	public AttributeDefinitionReadView createAttributeDefinition(NmCommandBean var1, ObjectBean var2)
+	public static AttributeDefinitionReadView createAttributeDefinition(String innerName,
+			String lwcDisplayName,
+			String lwcDescription,
+			String ibaSelectAttrOid, String classifyAttrOid)
 			throws WTException {
-		String var3 = var2.getTextParameter("null___attributeName___textbox");
-		String var4 = null;
-		Map var5 = var2.getRadio();
-		Iterator var6 = var5.keySet().iterator();
-
-		String var7;
-		while (var6.hasNext()) {
-			var7 = (String) var6.next();
-			if (var7.contains("attributeType")) {
-				var4 = (String) var5.get(var7);
+		System.out.println("CommonOperationAttrUtil.createAttributeDefinition");
+		System.out.println("innerName = " + innerName + ", lwcDisplayName = " + lwcDisplayName + ", lwcDescription = "
+				+ lwcDescription + ", ibaSelectAttrOid = " + ibaSelectAttrOid + ", classifyAttrOid = "
+				+ classifyAttrOid);
+		String selectIbaClassTypeName = null;
+		// 通过oid获取内部属性
+		// OR:wt.iba.definition.UnitDefinition:112124
+		String ibaInternalName = LWCCommands.getIbaInternalName(ibaSelectAttrOid);
+		// value="OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:112108"
+		// 分类属性oid
+		NmOid nmOid = NmOid.newNmOid(classifyAttrOid);
+		ObjectIdentifier identifier = nmOid.getOidObject();
+		AttributeTemplateFlavor attributeType = AttributeTemplateFlavorHelper.getFlavor(nmOid);
+		if (attributeType.equals(AttributeTemplateFlavor.LWCSTRUCT)) {
+			if (innerName == null || innerName.isEmpty()) {
+				innerName = "csmAttr_" + System.currentTimeMillis();
 			}
+			// 类名
+			selectIbaClassTypeName = LWCIBAAttDefinition.class.getName();
 		}
+		System.out.println("attributeType = " + attributeType);
 
-		String var36 = var2.getTextParameter("selectedIba");
-		var7 = LWCCommands.getIbaInternalName(var36);
-		String var8 = var1.getTextParameter("attributeContext");
-		NmOid var9 = NmOid.newNmOid(var8);
-		ObjectIdentifier var10 = var9.getOidObject();
-		AttributeTemplateFlavor var11 = AttributeTemplateFlavorHelper.getFlavor(var9);
-		if (var11.equals(AttributeTemplateFlavor.LWCSTRUCT)) {
-			if (var3 == null || var3.isEmpty()) {
-				var3 = "csmAttr_" + System.currentTimeMillis();
-			}
-
-			var4 = LWCIBAAttDefinition.class.getName();
-		}
-
-		String var12;
-		DatatypeReadView var13;
-		boolean var14 = var4.contains("LWCTranslatedTextAttDefinition");
-		if (var4.contains("LWCIBAAttDefinition")) {
-			var12 = LWCCommands.getIbaDatatype(var36);
-			var13 = BASE_DEF_SERVICE.getDatatypeView(var12);
-		} else if (var14) {
-			var12 = String.class.getName();
-			var13 = BASE_DEF_SERVICE.getDatatypeView(var12);
+		String ibaDataTypeName;
+		DatatypeReadView readView = null;
+		// 判断类型是否包含文本翻译类型
+		boolean flag = selectIbaClassTypeName.contains("LWCTranslatedTextAttDefinition");
+		if (selectIbaClassTypeName.contains("LWCIBAAttDefinition")) {
+			ibaDataTypeName = LWCCommands.getIbaDatatype(ibaSelectAttrOid);
+			readView = BASE_DEF_SERVICE.getDatatypeView(ibaDataTypeName);
+		} else if (flag) {
+			ibaDataTypeName = String.class.getName();
+			readView = BASE_DEF_SERVICE.getDatatypeView(ibaDataTypeName);
 		} else {
-			var12 = var2.getTextParameter("null___attributeDatatype___combobox");
-			var13 = BASE_DEF_SERVICE.getDatatypeView(var12);
+			// 没有进入
+			ibaDataTypeName = "";
+			// readView = BASE_DEF_SERVICE.getDatatypeView(ibaDataTypeName);
 		}
 
-		if (var4.contains("calculated")) {
-			if (var12.contains("AttributeTypeIdentifierSet")) {
-				var4 = "com.ptc.core.lwc.server.LWCAttributeSetAttDefinition";
+		if (selectIbaClassTypeName.contains("calculated")) {
+			if (ibaDataTypeName.contains("AttributeTypeIdentifierSet")) {
+				selectIbaClassTypeName = "com.ptc.core.lwc.server.LWCAttributeSetAttDefinition";
 			} else {
-				var4 = "com.ptc.core.lwc.server.LWCNonPersistedAttDefinition";
+				selectIbaClassTypeName = "com.ptc.core.lwc.server.LWCNonPersistedAttDefinition";
 			}
 		}
 
-		AttributeDefDefaultView var15 = null;
-		String var16 = null;
-		if (var4.contains("LWCIBAAttDefinition")) {
+		AttributeDefDefaultView defDefaultView = null;
+		String unitDefinitionClassName = null;
+		if (selectIbaClassTypeName.contains("LWCIBAAttDefinition")) {
 			try {
-				var15 = IBA_DEF_SERVICE.getAttributeDefDefaultViewByPath(var7);
-				if (var15 == null) {
-					throw new WTException("Error retrieving IBA for \"" + var7 + "\"");
+				// 通过路径查找属性
+				defDefaultView = IBA_DEF_SERVICE.getAttributeDefDefaultViewByPath(ibaInternalName);
+				if (defDefaultView == null) {
+					throw new WTException("Error retrieving IBA for \"" + ibaInternalName + "\"");
 				}
-			} catch (Exception var35) {
-				throw new WTException(var35, "Error retrieving IBA for \"" + var7 + "\"");
+			} catch (Exception e) {
+				throw new WTException(e, "Error retrieving IBA for \"" + ibaInternalName + "\"");
 			}
 
-			AttributeDefinition var17 = IBA_DEF_CACHE.getAttributeDefinition(var7);
-			if (var17 instanceof UnitDefinition) {
-				var16 = ((UnitDefinition) var17).getQuantityOfMeasure().getName();
+			AttributeDefinition definition = IBA_DEF_CACHE.getAttributeDefinition(ibaInternalName);
+			if (definition instanceof UnitDefinition) {
+				unitDefinitionClassName = ((UnitDefinition) definition).getQuantityOfMeasure().getName();
 			} else {
-				var16 = null;
+				unitDefinitionClassName = null;
 			}
 		}
 
-		QuantityOfMeasureDefaultView var37 = null;
-		String var18 = null;
-		String var19 = null;
-		if (var4.contains("LWCIBAAttDefinition") && var16 != null) {
+		QuantityOfMeasureDefaultView quantityOfMeasureDefaultView = null;
+		if (selectIbaClassTypeName.contains("LWCIBAAttDefinition") && unitDefinitionClassName != null) {
 			try {
-				var37 = UNITS_SERVICE.getQuantityOfMeasureDefaultView(var16);
+				quantityOfMeasureDefaultView = UNITS_SERVICE.getQuantityOfMeasureDefaultView(unitDefinitionClassName);
 			} catch (Exception var34) {
-				throw new WTException(var34, "Error retrieving QoM for \"" + var16 + "\"");
+				throw new WTException(var34, "Error retrieving QoM for \"" + unitDefinitionClassName + "\"");
 			}
-
-			if (var37 == null) {
-				throw new WTException("Error retrieving QoM for \"" + var16 + "\"");
-			}
-		} else if (var14) {
-			var18 = var2.getTextParameter("null___transDictionary___textbox");
-			var19 = var2.getTextParameter("selectedSourceText");
-		} else if (var12.contains("FloatingPointWithUnits")
-				&& (var4.contains("LWCFlexAttDefinition") || var4.contains("LWCNonPersistedAttDefinition"))) {
-			var16 = var2.getTextParameter("null___attributeQom___combobox");
-			try {
-				var37 = UNITS_SERVICE.getQuantityOfMeasureDefaultView(var16);
-			} catch (Exception var33) {
-				throw new WTException(var33, "Error retrieving QoM for \"" + var16 + "\"");
-			}
-			if (var37 == null) {
-				throw new WTException("Error retrieving QoM for \"" + var16 + "\"");
+			if (quantityOfMeasureDefaultView == null) {
+				throw new WTException("Error retrieving QoM for \"" + unitDefinitionClassName + "\"");
 			}
 		}
 
-		TypeDefinitionReadView var20 = TYPE_DEF_SERVICE.getTypeDefView(AttributeTemplateFlavorHelper.getFlavor(var9),
-				var10.getId());
-		TypeDefinitionWriteView var21 = var20.getWritableView();
-		AttributeDefinitionWriteView var22 = new AttributeDefinitionWriteView(var4, var3, var13, var15, var37,
-				(DisplayStyleReadView) null, (DisplayStyleReadView) null, (Collection) null, false, (Collection) null);
-		var22.setTypeDefId(var10);
-		if (var14) {
-			var22.setTranslationDictionary(var18);
-			long var23 = OidHelper.getOid(var19).getId();
-			AttributeDefinitionReadView var25 = var21.getAttributeById(var23);
-			var22.setSourceTextAttribute(var25.getWritableView());
+		TypeDefinitionReadView typeDefReadView = TYPE_DEF_SERVICE.getTypeDefView(
+				AttributeTemplateFlavorHelper.getFlavor(nmOid),
+				identifier.getId());
+		TypeDefinitionWriteView typeDefWriteView = typeDefReadView.getWritableView();
+		AttributeDefinitionWriteView attrDefWriteView = new AttributeDefinitionWriteView(selectIbaClassTypeName,
+				innerName,
+				readView, defDefaultView, quantityOfMeasureDefaultView,
+				(DisplayStyleReadView) null, (DisplayStyleReadView) null,
+				(Collection) null, false, (Collection) null);
+		attrDefWriteView.setTypeDefId(identifier);
+		if (AUTO_ADD_SINGLE_VALUE_CONSTRAINT_TO_NEW_GLOBAL_ATT && defDefaultView != null) {
+			addSingleValuedConstraint(attrDefWriteView);
 		}
-
-		if (AUTO_ADD_SINGLE_VALUE_CONSTRAINT_TO_NEW_GLOBAL_ATT && var15 != null) {
-			this.addSingleValuedConstraint(var22);
-		}
-
-		Set var38 = TYPE_DEF_SERVICE.getAllPropertyDefViews(var4, var20.getReadViewIdentifier(), var13);
-		if (var38 != null && var38.size() > 0) {
-			Iterator var24 = var38.iterator();
-
-			while (var24.hasNext()) {
-				PropertyDefinitionReadView var40 = (PropertyDefinitionReadView) var24.next();
-				String var26 = var40.getName();
-				String var27 = "lwc_" + var26;
-				ArrayList var28 = PropertyDefinitionHelper.getNewPropertyValueData(var2, var40, var27);
-				String var29 = (String) var28.get(0);
-				boolean var30 = var28.size() > 1 ? Boolean.valueOf((String) var28.get(1)) : false;
-				boolean var31 = PropertyDefinitionHelper.updatePropertyValue(var40, (ReadViewIdentifier) null,
+		Set allPropertyDefViews = TYPE_DEF_SERVICE.getAllPropertyDefViews(selectIbaClassTypeName,
+				typeDefReadView.getReadViewIdentifier(),
+				readView);
+		if (allPropertyDefViews != null && !allPropertyDefViews.isEmpty()) {
+			for (Object allPropertyDefView : allPropertyDefViews) {
+				PropertyDefinitionReadView propertyDefReadView = (PropertyDefinitionReadView) allPropertyDefView;
+				String propertyDefReadViewName = propertyDefReadView.getName();
+				String classifyName = "lwc_" + propertyDefReadViewName;
+				// 更新属性值数据
+				System.out.println("classifyName = " + classifyName);
+				ArrayList newPropertyValueData = PropertyDefinitionHelper.getNewPropertyValueData(null,
+						propertyDefReadView, classifyName);
+				String var29 = (String) newPropertyValueData.get(0);
+				boolean var30 = newPropertyValueData.size() > 1 ? Boolean.valueOf((String) newPropertyValueData.get(1))
+						: false;
+				boolean var31 = PropertyDefinitionHelper.updatePropertyValue(propertyDefReadView,
+						(ReadViewIdentifier) null,
 						(PropertyValueWriteView) null, var29, (Map) null, var30);
 				if (var31) {
-					PropertyValueWriteView var32 = new PropertyValueWriteView((ObjectIdentifier) null, var40, var29,
-							(Map) null, var10, false, (ReadViewIdentifier) null, false);
-					var22.setProperty(var32);
+					PropertyValueWriteView var32 = new PropertyValueWriteView((ObjectIdentifier) null,
+							propertyDefReadView, var29,
+							(Map) null, identifier, false, (ReadViewIdentifier) null, false);
+					attrDefWriteView.setProperty(var32);
 				}
 			}
 		}
 
-		var21.setAttribute(var22);
-		var20 = TYPE_DEF_SERVICE.updateTypeDef(var21);
-		AttributeDefinitionReadView var39 = var20.getAttributeByName(var22.getName());
-		AttributesCacheManager.putAttributeIntoCache(var39, var1);
-		return var20.getAttributeByName(var3);
+		typeDefWriteView.setAttribute(attrDefWriteView);
+		typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
+		AttributeDefinitionReadView readViewAttributeByName = typeDefReadView
+				.getAttributeByName(attrDefWriteView.getName());
+		return typeDefReadView.getAttributeByName(innerName);
 	}
 
 	/**
@@ -430,7 +419,7 @@ public class CommonOperationAttrUtil {
 	 * @throws WTException
 	 *             WT异常
 	 */
-	private void addSingleValuedConstraint(AttributeDefinitionWriteView attributeDefView) throws WTException {
+	private static void addSingleValuedConstraint(AttributeDefinitionWriteView attributeDefView) throws WTException {
 		ConstraintRuleDefinitionReadView readView = BASE_DEF_SERVICE.getConstraintRuleDefView(
 				SingleValuedConstraint.class.getName(), LWCBasicConstraint.class.getName(),
 				attributeDefView.getDatatype().getId(),
