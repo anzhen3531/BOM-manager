@@ -76,6 +76,7 @@
 </body>
 </html>
 
+<script type="text/javascript" src="js/simpleAjax.min.js"></script>
 <script>
     document.getElementById("login-form").addEventListener("submit", function (event) {
         event.preventDefault();
@@ -86,39 +87,33 @@
             username: username,
             password: password
         };
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(function (response) {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            // 回调主页
-            window.location.href = url;
-        }).catch(function (error) {
-            console.error('There has been a problem with your fetch operation:', error.message);
-        });
-    });
+        http.post('http://win-fv1tfp5mpk5.ziang.com/Windchill/app/',
+            data, (err, user) => {
+                if (err) {
+                    console.error('There has been a problem with your fetch operation:', error.message);
+                } else {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // 回调主页
+                    window.location.href = url;
+                }
+            });
 
-    // Ext.Ajax.request({
-    //     url: '/Windchill/app/',
-    //     body: {
-    //         username: username,
-    //         password: password,
-    //     },
-    //     method: 'post',
-    //     success: function (response, options) {
-    //         let responseText = response.responseText;
-    //         if (response.status === 200) {
-    //             window.location.href = url;
-    //         }
-    //     },
-    //     failure: function (response, options) {
-    //         console.log(response);
-    //         Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：' + response.status);
-    //     }
-    // });
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // }).then(function (response) {
+        //     if (!response.ok) {
+        //         throw new Error('Network response was not ok');
+        //     }
+        //     // 回调主页
+        //     window.location.href = url;
+        // }).catch(function (error) {
+        //     console.error('There has been a problem with your fetch operation:', error.message);
+        // });
+    });
 </script>
