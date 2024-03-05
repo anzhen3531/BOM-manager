@@ -330,7 +330,7 @@ public class CommonOperationAttrUtil {
 				selectIbaClassTypeName = "com.ptc.core.lwc.server.LWCNonPersistedAttDefinition";
 			}
 		}
-
+		System.out.println("selectIbaClassTypeName = " + selectIbaClassTypeName);
 		AttributeDefDefaultView defDefaultView = null;
 		String unitDefinitionClassName = null;
 		if (selectIbaClassTypeName.contains("LWCIBAAttDefinition")) {
@@ -351,7 +351,7 @@ public class CommonOperationAttrUtil {
 				unitDefinitionClassName = null;
 			}
 		}
-
+		System.out.println("unitDefinitionClassName = " + unitDefinitionClassName);
 		QuantityOfMeasureDefaultView quantityOfMeasureDefaultView = null;
 		if (selectIbaClassTypeName.contains("LWCIBAAttDefinition") && unitDefinitionClassName != null) {
 			try {
@@ -373,6 +373,7 @@ public class CommonOperationAttrUtil {
 				readView, defDefaultView, quantityOfMeasureDefaultView,
 				(DisplayStyleReadView) null, (DisplayStyleReadView) null,
 				(Collection) null, false, (Collection) null);
+		System.out.println("attrDefWriteView = " + attrDefWriteView);
 		attrDefWriteView.setTypeDefId(identifier);
 		if (AUTO_ADD_SINGLE_VALUE_CONSTRAINT_TO_NEW_GLOBAL_ATT && defDefaultView != null) {
 			addSingleValuedConstraint(attrDefWriteView);
@@ -380,6 +381,7 @@ public class CommonOperationAttrUtil {
 		Set allPropertyDefViews = TYPE_DEF_SERVICE.getAllPropertyDefViews(selectIbaClassTypeName,
 				typeDefReadView.getReadViewIdentifier(),
 				readView);
+		System.out.println("allPropertyDefViews = " + allPropertyDefViews);
 		if (allPropertyDefViews != null && !allPropertyDefViews.isEmpty()) {
 			for (Object allPropertyDefView : allPropertyDefViews) {
 				PropertyDefinitionReadView propertyDefReadView = (PropertyDefinitionReadView) allPropertyDefView;
