@@ -1,5 +1,3 @@
-<%@ include file="/netmarkets/jsp/util/begin.jspf" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -78,50 +76,49 @@
 </body>
 </html>
 
-<%@ include file="/netmarkets/jsp/util/end.jspf" %>
-
-
 <script>
-    function submitLogin() {
+    document.getElementById("login-form").addEventListener("submit", function (event) {
+        event.preventDefault();
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
-        // let url = 'http://win-fv1tfp5mpk5.ziang.com/Windchill/app/';
-
-        // let data = {
-        //     username: username,
-        Ext.Ajax.request({
-            url: '/Windchill/app/',
-            body: {
-                username: username,
-                password: password,
+        let url = 'http://win-fv1tfp5mpk5.ziang.com/Windchill/app/';
+        let data = {
+            username: username,
+            password: password
+        };
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             },
-            method: 'post',
-            success: function (response, options) {
-                console.log(response);
-                let responseText = response.responseText;
-                console.log(responseText);
-            },
-            failure: function (response, options) {
-                console.log(response);
-                Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：' + response.status);
+            body: JSON.stringify(data)
+        }).then(function (response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
+            // 回调主页
+            window.location.href = url;
+        }).catch(function (error) {
+            console.error('There has been a problem with your fetch operation:', error.message);
         });
-        //     password: password
-        // };
-        // fetch(url, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(data)
-        // }).then(function (response) {
-        //     if (!response.ok) {
-        //         throw new Error('Network response was not ok');
-        //     }
-        //     // 回调主页
-        //     window.location.href = url;
-        // }).catch(function (error) {
-        //     console.error('There has been a problem with your fetch operation:', error.message);
-        // });
-    }
+    });
+
+    // Ext.Ajax.request({
+    //     url: '/Windchill/app/',
+    //     body: {
+    //         username: username,
+    //         password: password,
+    //     },
+    //     method: 'post',
+    //     success: function (response, options) {
+    //         let responseText = response.responseText;
+    //         if (response.status === 200) {
+    //             window.location.href = url;
+    //         }
+    //     },
+    //     failure: function (response, options) {
+    //         console.log(response);
+    //         Ext.MessageBox.alert('失败', '请求超时或网络故障,错误编号：' + response.status);
+    //     }
+    // });
 </script>
