@@ -8,6 +8,7 @@ import com.ptc.core.components.rendering.GuiComponent;
 import com.ptc.core.components.rendering.guicomponents.GUIComponentArray;
 import com.ptc.core.components.rendering.guicomponents.TextBox;
 import com.ptc.core.components.rendering.guicomponents.TextDisplayComponent;
+import com.ptc.netmarkets.util.beans.NmCommandBean;
 import ext.ziang.common.util.ToolUtils;
 import wt.fc.Persistable;
 import wt.part.WTPart;
@@ -15,6 +16,7 @@ import wt.util.WTException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * 实验原材料数据单元
@@ -32,9 +34,14 @@ public class ExperimentNumberDataUtility extends DefaultDataUtility {
      */
     @Override
     public Object getDataValue(String componentId, Object obj, ModelContext modelContext) throws WTException {
+
         GUIComponentArray guicomponentarray = new GUIComponentArray();
         System.out.println("====================》进入getDataValue");
-        HttpServletRequest request = modelContext.getNmCommandBean().getRequest();
+        NmCommandBean nmCommandBean = modelContext.getNmCommandBean();
+        HttpServletRequest request =nmCommandBean.getRequest();
+        HashMap text = nmCommandBean.getText();
+        System.out.println("text = " + text);
+
         String partOid = request.getParameter("partOid");//部件的oid
         ArrayList<GuiComponent> components = new ArrayList<>(1);
         TextBox textBox = new TextBox();

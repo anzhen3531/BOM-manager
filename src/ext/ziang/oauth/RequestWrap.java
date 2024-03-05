@@ -1,13 +1,14 @@
 package ext.ziang.oauth;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequestWrapper;
 
 /**
  * 请求换行
@@ -34,7 +35,8 @@ public class RequestWrap extends HttpServletRequestWrapper {
 	/**
 	 * 请求换行
 	 *
-	 * @param request 请求
+	 * @param request
+	 *            请求
 	 */
 	public RequestWrap(HttpServletRequest request) {
 		super(request);
@@ -51,8 +53,7 @@ public class RequestWrap extends HttpServletRequestWrapper {
 				if (enumeration1 != null) {
 					ArrayList arraylist = new ArrayList();
 					headers.put(s.toLowerCase(), arraylist);
-					for (; enumeration1.hasMoreElements();
-						 arraylist.add(enumeration1.nextElement()))
+					for (; enumeration1.hasMoreElements(); arraylist.add(enumeration1.nextElement()))
 						;
 					arraylist.trimToSize();
 				}
@@ -99,7 +100,8 @@ public class RequestWrap extends HttpServletRequestWrapper {
 	/**
 	 * 获取标头
 	 *
-	 * @param s s
+	 * @param s
+	 *            s
 	 * @return {@link Enumeration}
 	 */
 	@Override
