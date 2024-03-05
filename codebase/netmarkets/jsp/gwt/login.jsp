@@ -78,6 +78,7 @@
 
 <script type="text/javascript" src="js/simpleAjax.min.js"></script>
 <script>
+    const http = new simpleAJAX;
     document.getElementById("login-form").addEventListener("submit", function (event) {
         event.preventDefault();
         let username = document.getElementById("username").value;
