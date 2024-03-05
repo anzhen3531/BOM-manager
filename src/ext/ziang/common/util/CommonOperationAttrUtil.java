@@ -8,7 +8,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.lwc.client.commands.LWCCommands;
 import com.ptc.core.lwc.client.util.AttributeTemplateFlavorHelper;
 import com.ptc.core.lwc.client.util.PropertyDefinitionHelper;
@@ -391,38 +390,39 @@ public class CommonOperationAttrUtil {
 				String classifyName = "lwc_" + propertyDefReadViewName;
 				// 更新属性值数据
 				System.out.println("classifyName = " + classifyName);
-				// ArrayList newPropertyValueData =
-				// PropertyDefinitionHelper.getNewPropertyValueData(null,
-				// propertyDefReadView, classifyName);
-				// String valueData = (String) newPropertyValueData.get(0);
-				// // 判断这个是否是一个属性值
-				// boolean isMultValue = newPropertyValueData.size() > 1
-				// ? Boolean.valueOf((String) newPropertyValueData.get(1))
-				// : false;
-				// boolean isUpdateSuccess =
-				// PropertyDefinitionHelper.updatePropertyValue(propertyDefReadView,
-				// (ReadViewIdentifier) null,
-				// (PropertyValueWriteView) null, valueData,
-				// (Map) null,
-				// isMultValue);
-				// if (isUpdateSuccess) {
-				// PropertyValueWriteView propertyValueWriteView = new
-				// PropertyValueWriteView((ObjectIdentifier) null,
-				// propertyDefReadView, valueData,
-				// (Map) null, identifier, false, (ReadViewIdentifier) null, false);
-				// attrDefWriteView.setProperty(propertyValueWriteView);
-				// }
+				if (propertyDefReadViewName.equals("displayName") || propertyDefReadViewName.equals("description")) {
+					ArrayList newPropertyValueData = PropertyDefinitionHelper.getNewPropertyValueData(null,
+							propertyDefReadView, classifyName);
+					String valueData;
+					if (propertyDefReadViewName.equals("displayName")) {
+						valueData = lwcDisplayName;
+					} else {
+						valueData = lwcDescription;
+					}
+					//
+					boolean isUpdateSuccess = PropertyDefinitionHelper.updatePropertyValue(propertyDefReadView,
+							(ReadViewIdentifier) null,
+							(PropertyValueWriteView) null, valueData,
+							(Map) null,
+							false);
+					if (isUpdateSuccess) {
+						PropertyValueWriteView propertyValueWriteView = new PropertyValueWriteView(
+								(ObjectIdentifier) null,
+								propertyDefReadView, valueData,
+								(Map) null, identifier, false, (ReadViewIdentifier) null, false);
+						attrDefWriteView.setProperty(propertyValueWriteView);
+					}
+				}
 			}
 		}
-		// // 类型设置属性
-		// typeDefWriteView.setAttribute(attrDefWriteView);
-		// // 更新类型
-		// typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
-		// AttributeDefinitionReadView readViewAttributeByName = typeDefReadView
-		// .getAttributeByName(attrDefWriteView.getName());
-		// System.out.println("readViewAttributeByName = " + readViewAttributeByName);
-		// return typeDefReadView.getAttributeByName(innerName);
-		return null;
+		// 类型设置属性
+		typeDefWriteView.setAttribute(attrDefWriteView);
+		// 更新类型
+		typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
+		AttributeDefinitionReadView readViewAttributeByName = typeDefReadView
+				.getAttributeByName(attrDefWriteView.getName());
+		System.out.println("readViewAttributeByName = " + readViewAttributeByName);
+		return typeDefReadView.getAttributeByName(innerName);
 	}
 
 	/**
