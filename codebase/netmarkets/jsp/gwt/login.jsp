@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
-    <script type="text/javascript" src="js/simpleAjax.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -79,61 +78,6 @@
 
 
 <script>
-    const http = new simpleAJAX;
-    document.getElementById("login-form").addEventListener("submit", function (event) {
-        event.preventDefault();
-        let username = document.getElementById("username").value;
-        let password = document.getElementById("password").value;
-        let url = 'http://win-fv1tfp5mpk5.ziang.com/Windchill/app/';
-        let body = {
-            username: username,
-            password: password
-        };
-        ajax({
-            url: url,
-            type: "POST",
-            async: true,
-            data: body,
-            success: function (data) {   //返回接受信息
-                const res = JSON.parse(data)
-                console.log(res);
-            }
-        })
-        // let data = {
-        //     username: username,
-        //     password: password
-        // };
-        // http.post('http://win-fv1tfp5mpk5.ziang.com/Windchill/app/',
-        //     data, (err, user) => {
-        //         if (err) {
-        //             console.error('There has been a problem with your fetch operation:', error.message);
-        //         } else {
-        //             if (!response.ok) {
-        //                 throw new Error('Network response was not ok');
-        //             }
-        //             // 回调主页
-        //             window.location.href = url;
-        //         }
-        //     });
-
-        // fetch(url, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(data)
-        // }).then(function (response) {
-        //     if (!response.ok) {
-        //         throw new Error('Network response was not ok');
-        //     }
-        //     // 回调主页
-        //     window.location.href = url;
-        // }).catch(function (error) {
-        //     console.error('There has been a problem with your fetch operation:', error.message);
-        // });
-    });
-
-
 
 
     // 封装 ajax
@@ -163,4 +107,46 @@
             return arr.join("&");
         }
     }
+    document.getElementById("login-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        let username = document.getElementById("username").value;
+        let password = document.getElementById("password").value;
+        let url = 'http://win-fv1tfp5mpk5.ziang.com/Windchill/app/';
+        let body = {
+            username: username,
+            password: password
+        };
+        ajax({
+            url: url,
+            type: "POST",
+            async: true,
+            data: body,
+            success: function (data) {   //返回接受信息
+                const res = JSON.parse(data)
+                console.log(res);
+            }
+        })
+        // let data = {
+        //     username: username,
+        //     password: password
+        // };
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // }).then(function (response) {
+        //     if (!response.ok) {
+        //         throw new Error('Network response was not ok');
+        //     }
+        //     // 回调主页
+        //     window.location.href = url;
+        // }).catch(function (error) {
+        //     console.error('There has been a problem with your fetch operation:', error.message);
+        // });
+    });
+
+
+
 </script>
