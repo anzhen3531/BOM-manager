@@ -1,3 +1,5 @@
+<%@ include file="/netmarkets/jsp/util/begin.jspf" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,6 +75,11 @@
         </svg>
     </a>
 </form>
+</body>
+</html>
+
+<%@ include file="/netmarkets/jsp/util/end.jspf" %>
+
 
 <script>
     document.getElementById("login-form").addEventListener("submit", function (event) {
@@ -123,5 +130,3 @@
         // });
     });
 </script>
-</body>
-</html>
