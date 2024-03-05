@@ -64,7 +64,7 @@
     <h2>Login Windchill</h2>
     <input type="text" id="username" name="username" placeholder="Username" required>
     <input type="password" id="password" name="password" placeholder="Password" required>
-    <input type="submit" value="Login" onclick="submitLogin()">
+    <input type="submit" value="Login">
     <%--    使用github登录--%>
     <a href="https://github.com/login/oauth/authorize?client_id=6b4ecccee521e3c0ada6&response_type=code&redirect_uri=http://win-fv1tfp5mpk5.ziang.com/Windchill/app">
         <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true"
@@ -78,35 +78,6 @@
 
 
 <script>
-
-
-    // 封装 ajax
-    function ajax(options) {
-        let params = formsParams(options.data);
-        const xhr = new XMLHttpRequest()
-        if (options.type == "POST") {
-            xhr.open(options.type, options.url, options.async);
-            if (!options.headers) {
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            } else {
-                xhr.setRequestHeader("Authorization", options.headers.Authorization)
-            }
-            xhr.send(params);
-        }
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                options.success(xhr.responseText);
-            }
-        }
-
-        function formsParams(data) {
-            let arr = [];
-            for (let prop in data) {
-                arr.push(prop + "=" + data[prop]);
-            }
-            return arr.join("&");
-        }
-    }
     document.getElementById("login-form").addEventListener("submit", function (event) {
         event.preventDefault();
         let username = document.getElementById("username").value;
@@ -116,37 +87,20 @@
             username: username,
             password: password
         };
-        ajax({
-            url: url,
-            type: "POST",
-            async: true,
-            data: body,
-            success: function (data) {   //返回接受信息
-                const res = JSON.parse(data)
-                console.log(res);
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        }).then(function (response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        })
-        // let data = {
-        //     username: username,
-        //     password: password
-        // };
-        // fetch(url, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(data)
-        // }).then(function (response) {
-        //     if (!response.ok) {
-        //         throw new Error('Network response was not ok');
-        //     }
-        //     // 回调主页
-        //     window.location.href = url;
-        // }).catch(function (error) {
-        //     console.error('There has been a problem with your fetch operation:', error.message);
-        // });
+            // 回调主页
+            window.location.href = url;
+        }).catch(function (error) {
+            console.error('There has been a problem with your fetch operation:', error.message);
+        });
     });
-
-
-
 </script>
