@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
+    <script type="text/javascript" src="js/simpleAjax.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -76,7 +77,7 @@
 </body>
 </html>
 
-<script type="text/javascript" src="js/simpleAjax.min.js"></script>
+
 <script>
     const http = new simpleAJAX;
     document.getElementById("login-form").addEventListener("submit", function (event) {
@@ -84,22 +85,36 @@
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
         let url = 'http://win-fv1tfp5mpk5.ziang.com/Windchill/app/';
-        let data = {
+        let body = {
             username: username,
             password: password
         };
-        http.post('http://win-fv1tfp5mpk5.ziang.com/Windchill/app/',
-            data, (err, user) => {
-                if (err) {
-                    console.error('There has been a problem with your fetch operation:', error.message);
-                } else {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    // 回调主页
-                    window.location.href = url;
-                }
-            });
+        ajax({
+            url: url,
+            type: "POST",
+            async: true,
+            data: body,
+            success: function (data) {   //返回接受信息
+                const res = JSON.parse(data)
+                console.log(res);
+            }
+        })
+        // let data = {
+        //     username: username,
+        //     password: password
+        // };
+        // http.post('http://win-fv1tfp5mpk5.ziang.com/Windchill/app/',
+        //     data, (err, user) => {
+        //         if (err) {
+        //             console.error('There has been a problem with your fetch operation:', error.message);
+        //         } else {
+        //             if (!response.ok) {
+        //                 throw new Error('Network response was not ok');
+        //             }
+        //             // 回调主页
+        //             window.location.href = url;
+        //         }
+        //     });
 
         // fetch(url, {
         //     method: 'POST',
@@ -117,4 +132,35 @@
         //     console.error('There has been a problem with your fetch operation:', error.message);
         // });
     });
+
+
+
+
+    // 封装 ajax
+    function ajax(options) {
+        let params = formsParams(options.data);
+        const xhr = new XMLHttpRequest()
+        if (options.type == "POST") {
+            xhr.open(options.type, options.url, options.async);
+            if (!options.headers) {
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            } else {
+                xhr.setRequestHeader("Authorization", options.headers.Authorization)
+            }
+            xhr.send(params);
+        }
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                options.success(xhr.responseText);
+            }
+        }
+
+        function formsParams(data) {
+            let arr = [];
+            for (let prop in data) {
+                arr.push(prop + "=" + data[prop]);
+            }
+            return arr.join("&");
+        }
+    }
 </script>
