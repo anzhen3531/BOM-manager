@@ -1,11 +1,14 @@
 package ext.ziang.common.util;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.lwc.client.commands.LWCCommands;
 import com.ptc.core.lwc.client.util.AttributeTemplateFlavorHelper;
 import com.ptc.core.lwc.client.util.PropertyDefinitionHelper;
@@ -32,6 +35,7 @@ import com.ptc.core.lwc.server.LWCBasicConstraint;
 import com.ptc.core.lwc.server.LWCIBAAttDefinition;
 import com.ptc.core.lwc.server.TypeDefinitionServiceHelper;
 import com.ptc.core.meta.common.CorrectableException;
+import com.ptc.core.meta.common.DataTypesUtility;
 import com.ptc.core.meta.container.common.impl.SingleValuedConstraint;
 import com.ptc.netmarkets.model.NmOid;
 
@@ -49,6 +53,7 @@ import wt.inf.container.WTContainerHelper;
 import wt.inf.container.WTContainerRef;
 import wt.org.WTOrganization;
 import wt.services.ServiceFactory;
+import wt.session.SessionHelper;
 import wt.units.service.QuantityOfMeasureDefaultView;
 import wt.units.service.UnitsService;
 import wt.util.WTException;
@@ -383,27 +388,29 @@ public class CommonOperationAttrUtil {
 			for (Object allPropertyDefView : allPropertyDefViews) {
 				PropertyDefinitionReadView propertyDefReadView = (PropertyDefinitionReadView) allPropertyDefView;
 				String propertyDefReadViewName = propertyDefReadView.getName();
-				System.out.println("propertyDefReadViewName = " + propertyDefReadViewName);
 				String classifyName = "lwc_" + propertyDefReadViewName;
 				// 更新属性值数据
 				System.out.println("classifyName = " + classifyName);
-				// ArrayList newPropertyValueData = PropertyDefinitionHelper.getNewPropertyValueData(null,
-				// 		propertyDefReadView, classifyName);
+				// ArrayList newPropertyValueData =
+				// PropertyDefinitionHelper.getNewPropertyValueData(null,
+				// propertyDefReadView, classifyName);
 				// String valueData = (String) newPropertyValueData.get(0);
 				// // 判断这个是否是一个属性值
 				// boolean isMultValue = newPropertyValueData.size() > 1
-				// 		? Boolean.valueOf((String) newPropertyValueData.get(1))
-				// 		: false;
-				// boolean isUpdateSuccess = PropertyDefinitionHelper.updatePropertyValue(propertyDefReadView,
-				// 		(ReadViewIdentifier) null,
-				// 		(PropertyValueWriteView) null, valueData,
-				// 		(Map) null,
-				// 		isMultValue);
+				// ? Boolean.valueOf((String) newPropertyValueData.get(1))
+				// : false;
+				// boolean isUpdateSuccess =
+				// PropertyDefinitionHelper.updatePropertyValue(propertyDefReadView,
+				// (ReadViewIdentifier) null,
+				// (PropertyValueWriteView) null, valueData,
+				// (Map) null,
+				// isMultValue);
 				// if (isUpdateSuccess) {
-				// 	PropertyValueWriteView propertyValueWriteView = new PropertyValueWriteView((ObjectIdentifier) null,
-				// 			propertyDefReadView, valueData,
-				// 			(Map) null, identifier, false, (ReadViewIdentifier) null, false);
-				// 	attrDefWriteView.setProperty(propertyValueWriteView);
+				// PropertyValueWriteView propertyValueWriteView = new
+				// PropertyValueWriteView((ObjectIdentifier) null,
+				// propertyDefReadView, valueData,
+				// (Map) null, identifier, false, (ReadViewIdentifier) null, false);
+				// attrDefWriteView.setProperty(propertyValueWriteView);
 				// }
 			}
 		}
@@ -412,7 +419,7 @@ public class CommonOperationAttrUtil {
 		// // 更新类型
 		// typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
 		// AttributeDefinitionReadView readViewAttributeByName = typeDefReadView
-		// 		.getAttributeByName(attrDefWriteView.getName());
+		// .getAttributeByName(attrDefWriteView.getName());
 		// System.out.println("readViewAttributeByName = " + readViewAttributeByName);
 		// return typeDefReadView.getAttributeByName(innerName);
 		return null;
@@ -437,4 +444,54 @@ public class CommonOperationAttrUtil {
 		attributeDefView.setConstraintDefinition(writeView);
 	}
 
+	/**
+	 * 获取原始文件名
+	 *
+	 * @param name
+	 *            变量0
+	 * @return {@link String}
+	 */
+	public static String getOriginalFilename(String name) {
+		if (name == null) {
+			return null;
+		} else {
+			int var1 = name.lastIndexOf("/");
+			if (var1 == -1) {
+				var1 = name.lastIndexOf("\\");
+			}
+
+			return var1 != -1 ? name.substring(var1 + 1) : name;
+		}
+	}
+
+	/**
+	 * 解析属性值
+	 *
+	 * @param value
+	 *            值
+	 * @param propertyDefinitionReadView
+	 *            属性定义读取视图
+	 * @return {@link String}
+	 * @throws WTException
+	 *             WT异常
+	 */
+	public static String parsePropertyValue(PropertyDefinitionReadView propertyDefinitionReadView, String value)
+			throws WTException {
+		Locale var2 = SessionHelper.getLocale();
+		String dataType = propertyDefinitionReadView.getDatatype();
+		if (value != null && !"".equals(value)) {
+			if (Integer.class.getName().equals(dataType)) {
+				try {
+					return DataTypesUtility.toLong(value, var2).toString();
+				} catch (ParseException e) {
+					e.printStackTrace();
+					throw new WTException(e.getMessage());
+				}
+			} else {
+				return value.trim();
+			}
+		} else {
+			return null;
+		}
+	}
 }
