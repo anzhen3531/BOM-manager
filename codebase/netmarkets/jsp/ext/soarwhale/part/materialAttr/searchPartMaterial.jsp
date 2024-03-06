@@ -1,3 +1,4 @@
+<%@ page language="java" pageEncoding="UTF-8" %>
 <%
     String columnId = request.getParameter("columnId");
 %>
@@ -75,8 +76,8 @@
     <input type="text" id="searchTerm" class="search-input" placeholder="请输入搜索词" list="searchList">
     <datalist id="searchList">
         <% for (int i = 0; i < 100; i++) {%>
-            <option value="选项 <%=i%>">
-        <%}%>
+        <option value="选项 <%=i%>">
+                <%}%>
     </datalist>
     <button type="submit" class="search-submit" onclick="submitForm()">提交</button>
 </div>
@@ -101,6 +102,7 @@
         // 获取填写的值
         console.log("Form submitted! Search term: " + searchTerm);
         // 设置外围数据即可
-        opener.document.getElementById("<%=columnId%>").value = number;
+        opener.document.getElementById("<%=columnId%>").value = searchTerm;
+        window.close();
     }
 </script>
