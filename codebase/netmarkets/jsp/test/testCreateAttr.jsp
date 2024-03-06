@@ -1,5 +1,6 @@
 <%@ page import="ext.ziang.common.util.CommonOperationAttrUtil" %>
 <%@ page import="wt.util.WTException" %>
+<%@ page import="wt.session.SessionServerHelper" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <%
@@ -11,7 +12,8 @@
 //                "测试创建属性",
 //                "OR:wt.iba.definition.AttributeOrganizer:156004", null);
 
-
+        boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
+        System.out.println("accessEnforced = " + accessEnforced);
         CommonOperationAttrUtil.createAttributeDefinition("materialMark",
                 "材料备注",
                 "materialMark",

@@ -1,20 +1,20 @@
 package ext.ziang.common.util;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Locale;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import com.ptc.core.lwc.client.commands.LWCCommands;
 import com.ptc.core.lwc.client.util.AttributeTemplateFlavorHelper;
+import com.ptc.core.lwc.client.util.NewConstraintInflator;
 import com.ptc.core.lwc.client.util.PropertyDefinitionHelper;
 import com.ptc.core.lwc.common.AttributeTemplateFlavor;
 import com.ptc.core.lwc.common.BaseDefinitionService;
 import com.ptc.core.lwc.common.OidHelper;
 import com.ptc.core.lwc.common.TypeDefinitionService;
+import com.ptc.core.lwc.common.dynamicEnum.EnumerationConstraintsHelper;
 import com.ptc.core.lwc.common.view.AttributeDefinitionReadView;
 import com.ptc.core.lwc.common.view.AttributeDefinitionWriteView;
 import com.ptc.core.lwc.common.view.ConstraintDefinitionReadView;
@@ -25,21 +25,28 @@ import com.ptc.core.lwc.common.view.DisplayStyleReadView;
 import com.ptc.core.lwc.common.view.PropertyDefinitionReadView;
 import com.ptc.core.lwc.common.view.PropertyValueReadView;
 import com.ptc.core.lwc.common.view.PropertyValueWriteView;
+import com.ptc.core.lwc.common.view.ReadView;
 import com.ptc.core.lwc.common.view.ReadViewIdentifier;
 import com.ptc.core.lwc.common.view.ReusableAttributeReadView;
 import com.ptc.core.lwc.common.view.ReusableAttributeWriteView;
+import com.ptc.core.lwc.common.view.SeparatorReadView;
 import com.ptc.core.lwc.common.view.TypeDefinitionReadView;
 import com.ptc.core.lwc.common.view.TypeDefinitionWriteView;
 import com.ptc.core.lwc.server.LWCBasicConstraint;
 import com.ptc.core.lwc.server.LWCIBAAttDefinition;
 import com.ptc.core.lwc.server.TypeDefinitionServiceHelper;
 import com.ptc.core.meta.common.CorrectableException;
-import com.ptc.core.meta.common.DataTypesUtility;
+import com.ptc.core.meta.common.DiscreteSet;
 import com.ptc.core.meta.container.common.impl.SingleValuedConstraint;
 import com.ptc.netmarkets.model.NmOid;
 
 import cn.hutool.core.util.StrUtil;
+import wt.doc.WTDocument;
+import wt.doc.WTDocumentMaster;
+import wt.doc.WTDocumentMasterIdentity;
+import wt.fc.IdentityHelper;
 import wt.fc.ObjectIdentifier;
+import wt.fc.PersistenceHelper;
 import wt.iba.definition.AbstractAttributeDefinition;
 import wt.iba.definition.AttributeDefinition;
 import wt.iba.definition.IBADefinitionException;
@@ -49,14 +56,17 @@ import wt.iba.definition.litedefinition.AttributeDefDefaultView;
 import wt.iba.definition.service.IBADefinitionCache;
 import wt.iba.definition.service.IBADefinitionService;
 import wt.inf.container.WTContainerHelper;
+import wt.inf.container.WTContainerIdentity;
 import wt.inf.container.WTContainerRef;
 import wt.org.WTOrganization;
+import wt.pdmlink.PDMLinkProduct;
 import wt.services.ServiceFactory;
-import wt.session.SessionHelper;
+import wt.session.SessionServerHelper;
 import wt.units.service.QuantityOfMeasureDefaultView;
 import wt.units.service.UnitsService;
 import wt.util.WTException;
 import wt.util.WTProperties;
+import wt.util.WTPropertyVetoException;
 
 /**
  * 常用操作 attr util
@@ -130,9 +140,9 @@ public class CommonOperationAttrUtil {
 				"OR:wt.iba.definition.AttributeOrganizer:156004",
 				null);
 		// TODO
-		// CreateAttributeFormProcessor 创建属性关联
-		// NewConstraintFormProcessor 创建枚举关联
-		// CreateEntryFormProcessor 创建枚举关联根枚举
+		// CreateAttributeFormProcessor 创建属性关联 完成
+		// NewConstraintFormProcessor 创建枚举关联 完成
+		// CreateEntryFormProcessor 创建枚举关联根枚举 完成
 	}
 
 	/**
@@ -267,8 +277,7 @@ public class CommonOperationAttrUtil {
 	}
 
 	/**
-	 * 创建属性定义
-	 * 创建属性映射
+	 * 创建分类属性和IBA属性映射
 	 *
 	 * @param innerName
 	 *            内部名称
@@ -277,16 +286,15 @@ public class CommonOperationAttrUtil {
 	 * @param lwcDescription
 	 *            LWC 描述
 	 * @param ibaSelectAttrOid
-	 *            iba 选择 attr oid
+	 *            选择的可重用属性
 	 * @param classifyAttrOid
-	 *            分类 Attr OID
+	 *            需要映射的分类属性
 	 * @return {@link AttributeDefinitionReadView}
 	 * @throws WTException
 	 *             WT异常
 	 */
 	public static AttributeDefinitionReadView createAttributeDefinition(String innerName,
-			String lwcDisplayName,
-			String lwcDescription,
+			String lwcDisplayName, String lwcDescription,
 			String ibaSelectAttrOid, String classifyAttrOid)
 			throws WTException {
 		System.out.println("CommonOperationAttrUtil.createAttributeDefinition");
@@ -297,6 +305,7 @@ public class CommonOperationAttrUtil {
 		// 通过oid获取内部属性
 		// OR:wt.iba.definition.UnitDefinition:112124
 		String ibaInternalName = LWCCommands.getIbaInternalName(ibaSelectAttrOid);
+		// 可以直接查询
 		// value="OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:112108"
 		// 分类属性oid
 		NmOid nmOid = NmOid.newNmOid(classifyAttrOid);
@@ -359,8 +368,8 @@ public class CommonOperationAttrUtil {
 		if (selectIbaClassTypeName.contains("LWCIBAAttDefinition") && unitDefinitionClassName != null) {
 			try {
 				quantityOfMeasureDefaultView = UNITS_SERVICE.getQuantityOfMeasureDefaultView(unitDefinitionClassName);
-			} catch (Exception var34) {
-				throw new WTException(var34, "Error retrieving QoM for \"" + unitDefinitionClassName + "\"");
+			} catch (Exception e) {
+				throw new WTException(e, "Error retrieving QoM for \"" + unitDefinitionClassName + "\"");
 			}
 			if (quantityOfMeasureDefaultView == null) {
 				throw new WTException("Error retrieving QoM for \"" + unitDefinitionClassName + "\"");
@@ -391,15 +400,12 @@ public class CommonOperationAttrUtil {
 				// 更新属性值数据
 				System.out.println("classifyName = " + classifyName);
 				if (propertyDefReadViewName.equals("displayName") || propertyDefReadViewName.equals("description")) {
-//					ArrayList newPropertyValueData = PropertyDefinitionHelper.getNewPropertyValueData(null,
-//							propertyDefReadView, classifyName);
 					String valueData;
 					if (propertyDefReadViewName.equals("displayName")) {
 						valueData = lwcDisplayName;
 					} else {
 						valueData = lwcDescription;
 					}
-					//
 					boolean isUpdateSuccess = PropertyDefinitionHelper.updatePropertyValue(propertyDefReadView,
 							(ReadViewIdentifier) null,
 							(PropertyValueWriteView) null, valueData,
@@ -445,53 +451,99 @@ public class CommonOperationAttrUtil {
 	}
 
 	/**
-	 * 获取原始文件名
+	 * 创建约束
+	 * 创建枚举值
+	 * //
+	 * http://win-fv1tfp5mpk5.ziang.com/Windchill/ptc1/comp/csm.lwc.type.attribute.info?
+	 * // lwcMode=edit&u8=1&
+	 * //
 	 *
-	 * @param name
-	 *            变量0
-	 * @return {@link String}
+	 * lwcrv=-com.ptc.core.lwc.server.LWCStructEnumAttTemplate%253A112108-com.ptc.core.lwc.server.LWCIBAAttDefinition%253A116903
+	 * // &containerRef=OR%3Awt.inf.container.ExchangeContainer%3A5
+	 * // &setActiveLayout=contentPanel_twoPanes_typeadmin&portlet=component
+	 * // &wt.reqGrp=nzupiwl%3Bltfgos8r%3B4308%3Buv2bdi%3B2399
+	 * // &oid=OR%3Acom.ptc.core.lwc.server.LWCIBAAttDefinition%3A116903
+	 *
+	 * @param lwcrv  LWCRV型
+	 * @param typeId 类型 ID 
+	 * @throws WTException WT异常
 	 */
-	public static String getOriginalFilename(String name) {
-		if (name == null) {
-			return null;
+	public static void createConstraint(String lwcrv, Long typeId) throws WTException {
+		if (StrUtil.isBlank(lwcrv)) {
+			throw new WTException("cannot get attributeRv parameter from command bean");
 		} else {
-			int var1 = name.lastIndexOf("/");
-			if (var1 == -1) {
-				var1 = name.lastIndexOf("\\");
+			System.out.println("lwcrv = " + lwcrv);
+			ReadView readView = LWCCommands.getReadViewObject(lwcrv);
+			if (readView != null && readView instanceof AttributeDefinitionReadView) {
+				AttributeDefinitionReadView attributeDefinitionReadView = (AttributeDefinitionReadView) readView;
+				ReadViewIdentifier readViewIdentifier = ReadViewIdentifier.fromEncodedString(lwcrv);
+				if (readViewIdentifier.getRootContextIdentifier() == null) {
+					throw new WTException("cannot get root context identifier from read view " + lwcrv);
+				} else {
+					ObjectIdentifier objectIdentifier = readViewIdentifier.getRootContextIdentifier().getOid();
+					HashMap map = new HashMap(1);
+					map.put("inflatorMode", "newConstraint");
+					ConstraintRuleDefinitionReadView var32 = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
+					if (var32 == null) {
+						throw new WTException("unable to get constraint rule for id " + typeId);
+					}
+					ReadViewIdentifier newConstraintReadViewId = NewConstraintInflator
+							.createUniqueFakeRvId(SeparatorReadView.class,
+									readViewIdentifier.getRootContextIdentifier());
+					map.put("constraintRvId", newConstraintReadViewId.toEncodedString());
+					ConstraintRuleDefinitionReadView var34 = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
+					ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(var34,
+							(ConstraintDefinitionReadView.RuleDataObject) null,
+							attributeDefinitionReadView.getName(),
+							(Collection) null, (Set) null,
+							(ConstraintDefinitionReadView) null,
+							false, objectIdentifier,
+							newConstraintReadViewId, (String) null, false);
+					if (EnumerationConstraintsHelper.isClassificationRule(var34)) {
+						DiscreteSet var24 = new DiscreteSet(new Object[] {
+								"com.ptc.core.lwc.common.dynamicEnum.provider.ClassificationEnumerationInfoProvider" });
+						writeView.setRuleDataObj(new ConstraintDefinitionReadView.RuleDataObject(var24));
+					}
+				}
+			} else {
+				throw new WTException("cannot get attribute read view from " + lwcrv);
 			}
-
-			return var1 != -1 ? name.substring(var1 + 1) : name;
 		}
 	}
 
 	/**
-	 * 解析属性值
+	 * 更改编号
+	 * 可持续化doc的编码修改
 	 *
-	 * @param value
-	 *            值
-	 * @param propertyDefinitionReadView
-	 *            属性定义读取视图
-	 * @return {@link String}
+	 * @param doc
+	 *            文档对象
+	 * @param number
+	 *            数
+	 * @return {@link WTDocument}
 	 * @throws WTException
 	 *             WT异常
 	 */
-	public static String parsePropertyValue(PropertyDefinitionReadView propertyDefinitionReadView, String value)
-			throws WTException {
-		Locale var2 = SessionHelper.getLocale();
-		String dataType = propertyDefinitionReadView.getDatatype();
-		if (value != null && !"".equals(value)) {
-			if (Integer.class.getName().equals(dataType)) {
-				try {
-					return DataTypesUtility.toLong(value, var2).toString();
-				} catch (ParseException e) {
-					e.printStackTrace();
-					throw new WTException(e.getMessage());
-				}
-			} else {
-				return value.trim();
-			}
-		} else {
-			return null;
+	private synchronized WTDocument changeNumber(WTDocument doc, String number) throws WTException {
+		boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
+		System.out.println("accessEnforced = " + accessEnforced);
+		// 设置权限可访问
+		boolean access = SessionServerHelper.manager.setAccessEnforced(false);
+		try {
+			WTDocumentMaster master = (WTDocumentMaster) doc.getMaster();
+			WTDocumentMasterIdentity idobj = (WTDocumentMasterIdentity) master.getIdentificationObject();
+			idobj.setNumber(number);
+			PDMLinkProduct pdmLinkProduct = PDMLinkProduct.newPDMLinkProduct();
+			WTContainerIdentity identificationObject = (WTContainerIdentity) pdmLinkProduct.getIdentificationObject();
+			identificationObject.setName("111");
+			IdentityHelper.service.changeIdentity(pdmLinkProduct, identificationObject);
+			doc = (WTDocument) PersistenceHelper.manager.refresh(doc);
+		} catch (WTPropertyVetoException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			// 恢复权限
+			SessionServerHelper.manager.setAccessEnforced(access);
 		}
+		return doc;
 	}
 }

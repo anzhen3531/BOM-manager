@@ -6,5 +6,8 @@
              targetFile="codebase/service.properties">
         <Option serviceClass="ext.ziang.part.ExperimentNumberDataUtility"
                 requestor="null" selector="ExperimentNumberDataUtility" cardinality="singleton"/>
+
+        <Option serviceClass="ext.ziang.part.datautility.ExtSearchPartAttrDataUtility"
+                requestor="null" selector="ExtSearchPartAttrDataUtility" cardinality="singleton"/>
     </Service>
 </Configuration>
