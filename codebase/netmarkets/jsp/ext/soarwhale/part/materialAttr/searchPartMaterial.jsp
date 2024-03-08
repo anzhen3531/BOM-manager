@@ -1,15 +1,20 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
+<%@ page import="ext.ziang.part.datautility.ExtSearchPartAttrDataUtility" %>
+<%@ page import="java.util.List" %>
+
 <%
     String columnId = request.getParameter("columnId");
+    // TODO 获取文件进行处理
+    List<String> materialFormContent = ExtSearchPartAttrDataUtility.getMaterialFormContent("C:\\ptc\\Windchill_11.0\\Windchill\\codebase\\netmarkets\\jsp\\ext\\soarwhale\\part\\materialAttr\\是为科技物料的材质清单.xlsx");
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>选择填写的物料属性</title>
+    <title>选择填写的材质属性</title>
     <style>
-        /* 样式可以根据您的需要进行调整 */
         .search-container {
             width: 300px;
             position: relative;
@@ -71,12 +76,12 @@
     </style>
 </head>
 <body>
-<h1>可搜索的物料属性</h1>
+<h1>可搜索的材质属性</h1>
 <div class="search-container">
     <input type="text" id="searchTerm" class="search-input" placeholder="请输入搜索词" list="searchList">
     <datalist id="searchList">
-        <% for (int i = 0; i < 100; i++) {%>
-        <option value="选项 <%=i%>">
+        <% for (String value : materialFormContent) {%>
+        <option value="<%=value%>">
                 <%}%>
     </datalist>
     <button type="submit" class="search-submit" onclick="submitForm()">提交</button>
@@ -85,11 +90,11 @@
 </body>
 </html>
 <script>
-    var searchTermInput = document.getElementById("searchTerm");
-    var submitButton = document.querySelector(".search-submit");
+    let searchTermInput = document.getElementById("searchTerm");
+    let submitButton = document.querySelector(".search-submit");
 
     searchTermInput.addEventListener("input", function () {
-        var searchTerm = searchTermInput.value.trim();
+        let searchTerm = searchTermInput.value.trim();
         if (searchTerm === "") {
             submitButton.style.display = "none";
         } else {

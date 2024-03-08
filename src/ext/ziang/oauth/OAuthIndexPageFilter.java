@@ -54,6 +54,9 @@ public class OAuthIndexPageFilter implements Filter {
         WHITE_LIST_URLS.add("/Windchill/wt.properties");
         WHITE_LIST_URLS.add("/netmarkets/login/login.jsp");
         WHITE_LIST_URLS.add("/Windchill/netmarkets/jsp/gwt/login.jsp");
+        WHITE_LIST_URLS.add("/Windchill/lib/");
+        WHITE_LIST_URLS.add("/Windchill/wt/security/");
+        WHITE_LIST_URLS.add(".jar");
         System.out.println("初始化首页拦截器");
     }
 

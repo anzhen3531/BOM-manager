@@ -275,9 +275,11 @@ public class IBAUtils implements RemoteAccess {
 	/**
 	 * 更新 IBAholder
 	 *
-	 * @param ibaholder 伊巴霍尔德
+	 * @param ibaholder
+	 *            伊巴霍尔德
 	 * @return {@link IBAHolder}
-	 * @throws Exception 例外
+	 * @throws Exception
+	 *             例外
 	 */
 	public IBAHolder updateIBAHolder(IBAHolder ibaholder) throws Exception {
 		ibaholder = IBAValueHelper.service.refreshAttributeContainer(ibaholder, null, SessionHelper.manager.getLocale(),
@@ -307,9 +309,12 @@ public class IBAUtils implements RemoteAccess {
 	 * 设置 IBASTRING 值
 	 * 设置 IBA STRING 值
 	 *
-	 * @param value      value
-	 * @param ibaAttrKey IBA ATTR 密钥
-	 * @throws WTPropertyVetoException WTPROPERTY 否决例外
+	 * @param value
+	 *            value
+	 * @param ibaAttrKey
+	 *            IBA ATTR 密钥
+	 * @throws WTPropertyVetoException
+	 *             WTPROPERTY 否决例外
 	 */
 	public void setIBAStringValue(String ibaAttrKey, String value) throws WTPropertyVetoException {
 		AbstractValueView abstractvalueview = null;
@@ -341,7 +346,8 @@ public class IBAUtils implements RemoteAccess {
 	/**
 	 * 获取属性定义
 	 *
-	 * @param s s
+	 * @param s
+	 *            s
 	 * @return {@link AttributeDefDefaultView}
 	 */
 	public static AttributeDefDefaultView getAttributeDefinition(String s) {
@@ -365,8 +371,10 @@ public class IBAUtils implements RemoteAccess {
 	/**
 	 * 内部创造价值
 	 *
-	 * @param abstractattributedefinizerview AbstractAttributeDefinizerView
-	 * @param s                              s
+	 * @param abstractattributedefinizerview
+	 *            AbstractAttributeDefinizerView
+	 * @param s
+	 *            s
 	 * @return {@link AbstractValueView}
 	 */
 	private AbstractValueView internalCreateValue(AbstractAttributeDefinizerView abstractattributedefinizerview,
