@@ -577,11 +577,8 @@ public class CommonOperationAttrUtil {
 						typeDefWriteView.getReadViewIdentifier());
 		System.out.println("newConstraintReadViewId = " + newConstraintReadViewId);
 		constraintRuleReadView = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
-		System.out
-				.println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
-		System.out.println(
-				"constraintRuleReadView.getRuleClassname() = " + constraintRuleReadView.getRuleClassname());
-
+		System.out.println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
+		System.out.println("constraintRuleReadView.getRuleClassname() = " + constraintRuleReadView.getRuleClassname());
 		ConstraintDefinitionWriteView constWriteView = new ConstraintDefinitionWriteView(
 				constraintRuleReadView,
 				(ConstraintDefinitionReadView.RuleDataObject) null,
