@@ -302,12 +302,7 @@ public class CommonOperationAttrUtil {
 				+ lwcDescription + ", ibaSelectAttrOid = " + ibaSelectAttrOid + ", classifyAttrOid = "
 				+ classifyAttrOid);
 		String selectIbaClassTypeName = null;
-		// 通过oid获取内部属性
-		// OR:wt.iba.definition.UnitDefinition:112124
 		String ibaInternalName = LWCCommands.getIbaInternalName(ibaSelectAttrOid);
-		// 可以直接查询
-		// value="OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:112108"
-		// 分类属性oid
 		NmOid nmOid = NmOid.newNmOid(classifyAttrOid);
 		ObjectIdentifier identifier = nmOid.getOidObject();
 		AttributeTemplateFlavor attributeType = AttributeTemplateFlavorHelper.getFlavor(nmOid);
@@ -315,7 +310,6 @@ public class CommonOperationAttrUtil {
 			if (innerName == null || innerName.isEmpty()) {
 				innerName = "csmAttr_" + System.currentTimeMillis();
 			}
-			// 类名
 			selectIbaClassTypeName = LWCIBAAttDefinition.class.getName();
 		}
 		System.out.println("attributeType = " + attributeType);
@@ -333,7 +327,6 @@ public class CommonOperationAttrUtil {
 		} else {
 			// 没有进入
 			ibaDataTypeName = "";
-			// readView = BASE_DEF_SERVICE.getDatatypeView(ibaDataTypeName);
 		}
 
 		if (selectIbaClassTypeName.contains("calculated")) {
@@ -380,7 +373,9 @@ public class CommonOperationAttrUtil {
 				AttributeTemplateFlavorHelper.getFlavor(nmOid),
 				identifier.getId());
 		TypeDefinitionWriteView typeDefWriteView = typeDefReadView.getWritableView();
-		AttributeDefinitionWriteView attrDefWriteView = new AttributeDefinitionWriteView(selectIbaClassTypeName,
+		// 判断是否存在当前视图
+		AttributeDefinitionWriteView attrDefWriteView = new AttributeDefinitionWriteView(
+				selectIbaClassTypeName,
 				innerName,
 				readView, defDefaultView, quantityOfMeasureDefaultView,
 				(DisplayStyleReadView) null, (DisplayStyleReadView) null,
@@ -390,6 +385,7 @@ public class CommonOperationAttrUtil {
 		if (AUTO_ADD_SINGLE_VALUE_CONSTRAINT_TO_NEW_GLOBAL_ATT && defDefaultView != null) {
 			addSingleValuedConstraint(attrDefWriteView);
 		}
+
 		Set allPropertyDefViews = TYPE_DEF_SERVICE.getAllPropertyDefViews(selectIbaClassTypeName,
 				typeDefReadView.getReadViewIdentifier(), readView);
 		if (allPropertyDefViews != null && !allPropertyDefViews.isEmpty()) {
@@ -399,7 +395,8 @@ public class CommonOperationAttrUtil {
 				String classifyName = "lwc_" + propertyDefReadViewName;
 				// 更新属性值数据
 				System.out.println("classifyName = " + classifyName);
-				if (propertyDefReadViewName.equals("displayName") || propertyDefReadViewName.equals("description")) {
+				if (propertyDefReadViewName.equals("displayName") ||
+						propertyDefReadViewName.equals("description")) {
 					String valueData;
 					if (propertyDefReadViewName.equals("displayName")) {
 						valueData = lwcDisplayName;
@@ -428,6 +425,14 @@ public class CommonOperationAttrUtil {
 		AttributeDefinitionReadView readViewAttributeByName = typeDefReadView
 				.getAttributeByName(attrDefWriteView.getName());
 		System.out.println("readViewAttributeByName = " + readViewAttributeByName);
+
+		// 26537L 固定为枚举值
+		AttributeDefinitionWriteView writableView = readViewAttributeByName.getWritableView();
+		typeDefWriteView = typeDefReadView.getWritableView();
+		createConstraintsWriteView(writableView, typeDefWriteView, 26537L);
+		typeDefWriteView.setAttribute(writableView);
+		typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
+		System.out.println("更新完成");
 		return typeDefReadView.getAttributeByName(innerName);
 	}
 
@@ -445,8 +450,10 @@ public class CommonOperationAttrUtil {
 				attributeDefView.getDatatype().getId(),
 				(String) null);
 		ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(readView,
-				(ConstraintDefinitionReadView.RuleDataObject) null, attributeDefView.getName(), (Collection) null,
-				attributeDefView.getTypeDefId(), (String) null);
+				(ConstraintDefinitionReadView.RuleDataObject) null, attributeDefView.getName(),
+				(Collection) null,
+				attributeDefView.getTypeDefId(),
+				(String) null);
 		attributeDefView.setConstraintDefinition(writeView);
 	}
 
@@ -464,51 +471,127 @@ public class CommonOperationAttrUtil {
 	 * // &wt.reqGrp=nzupiwl%3Bltfgos8r%3B4308%3Buv2bdi%3B2399
 	 * // &oid=OR%3Acom.ptc.core.lwc.server.LWCIBAAttDefinition%3A116903
 	 *
-	 * @param lwcrv  LWCRV型
-	 * @param typeId 类型 ID 
-	 * @throws WTException WT异常
+	 * @param lwcrv
+	 *            LWCRV型
+	 * @param typeId
+	 *            类型 ID
+	 * @throws WTException
+	 *             WT异常
 	 */
-	public static void createConstraint(String lwcrv, Long typeId) throws WTException {
+	public static ConstraintDefinitionWriteView createConstraint(String lwcrv, Long typeId) throws WTException {
 		if (StrUtil.isBlank(lwcrv)) {
 			throw new WTException("cannot get attributeRv parameter from command bean");
 		} else {
 			System.out.println("lwcrv = " + lwcrv);
+			// 获取读取视图
+			// LWCStructEnumAttTemplate View
+			//
 			ReadView readView = LWCCommands.getReadViewObject(lwcrv);
+			// com.ptc.core.lwc.server.LWCIBAAttDefinition:126007
+			System.out.println("readView.getOid() = " + readView.getOid());
+
 			if (readView != null && readView instanceof AttributeDefinitionReadView) {
+				// 获取抽象读取视图
 				AttributeDefinitionReadView attributeDefinitionReadView = (AttributeDefinitionReadView) readView;
 				ReadViewIdentifier readViewIdentifier = ReadViewIdentifier.fromEncodedString(lwcrv);
+				System.out.println("readViewIdentifier.getOid() = " + readViewIdentifier.getOid());
 				if (readViewIdentifier.getRootContextIdentifier() == null) {
 					throw new WTException("cannot get root context identifier from read view " + lwcrv);
 				} else {
 					ObjectIdentifier objectIdentifier = readViewIdentifier.getRootContextIdentifier().getOid();
+					System.out.println("objectIdentifier.getStringValue() = " + objectIdentifier.getStringValue());
 					HashMap map = new HashMap(1);
 					map.put("inflatorMode", "newConstraint");
-					ConstraintRuleDefinitionReadView var32 = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
-					if (var32 == null) {
+					// 创建默认读取规则
+					ConstraintRuleDefinitionReadView constraintRuleReadView = BASE_DEF_SERVICE
+							.getConstraintRuleDefView(typeId);
+					if (constraintRuleReadView == null) {
 						throw new WTException("unable to get constraint rule for id " + typeId);
 					}
+
+					// 获取分隔符
 					ReadViewIdentifier newConstraintReadViewId = NewConstraintInflator
 							.createUniqueFakeRvId(SeparatorReadView.class,
 									readViewIdentifier.getRootContextIdentifier());
+					System.out.println("newConstraintReadViewId = " + newConstraintReadViewId);
 					map.put("constraintRvId", newConstraintReadViewId.toEncodedString());
-					ConstraintRuleDefinitionReadView var34 = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
-					ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(var34,
+					constraintRuleReadView = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
+					System.out
+							.println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
+					System.out.println(
+							"constraintRuleReadView.getRuleClassname() = " + constraintRuleReadView.getRuleClassname());
+
+					ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(
+							constraintRuleReadView,
 							(ConstraintDefinitionReadView.RuleDataObject) null,
 							attributeDefinitionReadView.getName(),
 							(Collection) null, (Set) null,
 							(ConstraintDefinitionReadView) null,
-							false, objectIdentifier,
+							false,
+							objectIdentifier,
 							newConstraintReadViewId, (String) null, false);
-					if (EnumerationConstraintsHelper.isClassificationRule(var34)) {
-						DiscreteSet var24 = new DiscreteSet(new Object[] {
+					// 判断是否是枚举类型
+					System.out.println("EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView) = "
+							+ EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView));
+					if (EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView)) {
+						DiscreteSet discreteSet = new DiscreteSet(new Object[] {
 								"com.ptc.core.lwc.common.dynamicEnum.provider.ClassificationEnumerationInfoProvider" });
-						writeView.setRuleDataObj(new ConstraintDefinitionReadView.RuleDataObject(var24));
+						writeView.setRuleDataObj(new ConstraintDefinitionReadView.RuleDataObject(discreteSet));
 					}
+					return writeView;
 				}
 			} else {
 				throw new WTException("cannot get attribute read view from " + lwcrv);
 			}
 		}
+	}
+
+	/**
+	 * 创建约束写入视图
+	 *
+	 * @param writeView
+	 *            写入视图
+	 * @param typeDefWriteView
+	 * @param typeId
+	 *            类型 ID
+	 * @throws WTException
+	 *             WT异常
+	 */
+	public static void createConstraintsWriteView(AttributeDefinitionWriteView writeView,
+			TypeDefinitionWriteView typeDefWriteView, Long typeId)
+			throws WTException {
+		ObjectIdentifier objectIdentifier = typeDefWriteView.getReadViewIdentifier().getOid();
+		System.out.println("objectIdentifier.getStringValue() = " + objectIdentifier.getStringValue());
+		// 创建默认读取规则
+		ConstraintRuleDefinitionReadView constraintRuleReadView = BASE_DEF_SERVICE
+				.getConstraintRuleDefView(typeId);
+		System.out.println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
+		System.out.println("constraintRuleReadView.getOid() = " + constraintRuleReadView.getOid());
+		if (constraintRuleReadView == null) {
+			throw new WTException("unable to get constraint rule for id " + typeId);
+		}
+
+		// 获取分隔符
+		ReadViewIdentifier newConstraintReadViewId = NewConstraintInflator
+				.createUniqueFakeRvId(SeparatorReadView.class,
+						typeDefWriteView.getReadViewIdentifier());
+		System.out.println("newConstraintReadViewId = " + newConstraintReadViewId);
+		constraintRuleReadView = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
+		System.out
+				.println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
+		System.out.println(
+				"constraintRuleReadView.getRuleClassname() = " + constraintRuleReadView.getRuleClassname());
+
+		ConstraintDefinitionWriteView constWriteView = new ConstraintDefinitionWriteView(
+				constraintRuleReadView,
+				(ConstraintDefinitionReadView.RuleDataObject) null,
+				writeView.getName(),
+				(Collection) null, (Set) null,
+				(ConstraintDefinitionReadView) null,
+				false,
+				objectIdentifier,
+				newConstraintReadViewId, (String) null, false);
+		writeView.setConstraintDefinition(constWriteView);
 	}
 
 	/**
@@ -538,7 +621,6 @@ public class CommonOperationAttrUtil {
 			IdentityHelper.service.changeIdentity(pdmLinkProduct, identificationObject);
 			doc = (WTDocument) PersistenceHelper.manager.refresh(doc);
 		} catch (WTPropertyVetoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			// 恢复权限
