@@ -8,17 +8,17 @@
 
 <%
     try {
-        ReusableAttributeReadView attributeReadView = CommonOperationAttrUtil.createReusableAttribute("4A00100100101",
-                null,
-                "wt.iba.definition.StringDefinition",
-                "4A00100100101",
-                "机型",
-                "OR:wt.iba.definition.AttributeOrganizer:112123",
-                null);
-
-        ObjectIdentifier objectIdentifier = attributeReadView.getOid();
-        String string = objectIdentifier.toString();
-        System.out.println("string = " + string);
+//        ReusableAttributeReadView attributeReadView = CommonOperationAttrUtil.createReusableAttribute("4A00100100101",
+//                null,
+//                "wt.iba.definition.StringDefinition",
+//                "4A00100100101",
+//                "机型",
+//                "OR:wt.iba.definition.AttributeOrganizer:112123",
+//                null);
+//
+//        ObjectIdentifier objectIdentifier = attributeReadView.getOid();
+//        String string = objectIdentifier.toString();
+//        System.out.println("string = " + string);
 
 
 //        boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
