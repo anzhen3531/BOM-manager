@@ -18,10 +18,10 @@ import wt.util.WTException;
                         javaDoc="SerialNumber"),
 
                 @GeneratedProperty(
-                        name="ContractNumber",
+                        name="AnotherName",
                         type=String.class,
                         constraints = @PropertyConstraints(upperLimit = 32),
-                        javaDoc="ContractNumber"),
+                        javaDoc="AnotherName"),
         },
 
         iconProperties=@IconProperties(standardIcon="netmarkets/images/stop.gif",
