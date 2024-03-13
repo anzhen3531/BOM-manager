@@ -625,4 +625,6 @@ public class CommonOperationAttrUtil {
 		}
 		return doc;
 	}
+
+	// TODO 创建枚举相关代码
 }
