@@ -32,3 +32,6 @@ bin/
 out/
 codebase/WEB-INF/lib/
 *iml
+
+codebase/netmarkets/jsp/document/**
+codebase/netmarkets/jsp/part/**

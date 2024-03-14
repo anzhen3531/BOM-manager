@@ -8,7 +8,10 @@ package ext.ziang.common.util;
  */
 public class CommonLogPrintUtil {
 
-    // 打印日志
+    // 打印日志 采用远程开关开启
+
+
+
 
 
 }
