@@ -27,7 +27,7 @@ public class OpenPython {
 	static {
 		if ("LOCAL".equals(EVN)) {
 			PYTHON_EXE_PATH = "C:\\python\\python.exe";
-			PYTHON_WORD_SIGN_SCRIPT_PATH = "D:\\project\\BOM-manager\\src\\ext\\ziang\\doc\\sign\\main.py";
+			PYTHON_WORD_SIGN_SCRIPT_PATH = "C:\\ptc\\Windchill_11.0\\Windchill\\src\\ext\\ziang\\doc\\sign\\main.py";
 		} else if ("PRD".equals(EVN)) {
 			PYTHON_EXE_PATH = "C:\\python\\python.exe";
 			PYTHON_WORD_SIGN_SCRIPT_PATH = "D:\\pythonProject\\handlerWordToDocx\\main.py";
