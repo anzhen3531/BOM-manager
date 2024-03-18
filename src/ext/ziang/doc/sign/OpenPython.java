@@ -114,7 +114,7 @@ public class OpenPython {
 	 * @param args
 	 *            参数
 	 */
-	OpenPython(String path, List<String> args) {
+	public OpenPython(String path, List<String> args) {
 		this.path = path;
 		this.args = args;
 	}
