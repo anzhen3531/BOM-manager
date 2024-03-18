@@ -35,3 +35,4 @@ codebase/WEB-INF/lib/
 
 codebase/netmarkets/jsp/document/**
 codebase/netmarkets/jsp/part/**
+./venv/
