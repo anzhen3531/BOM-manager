@@ -73,12 +73,10 @@ public class OpenPython {
 	 */
 	public static String handlerWordSignToPython(String selfFilePath, Hashtable table, String targetFilePath) {
 		List<String> argg = new ArrayList<>();
-		Hashtable hashTable = new Hashtable<>();
-		String signKey = hashTable.toString();
-		System.out.println("signKey = " + signKey);
 		argg.add(selfFilePath);
 		argg.add(targetFilePath);
 		argg.add(table.toString());
+		System.out.println("table = " + table);
 		OpenPython open = new OpenPython(PYTHON_WORD_SIGN_SCRIPT_PATH, argg);
 		Integer run = open.run();
 		System.out.println("run = " + run);
