@@ -31,6 +31,7 @@ import wt.util.WTException;
  *
  * @author anzhen
  * @date 2024/03/20
+ * windchill ext.ziang.histrory.history.ImportHistoryWTPartService
  */
 public class ImportHistoryWTPartService {
 
@@ -52,12 +53,11 @@ public class ImportHistoryWTPartService {
 		classifyTypePath.put("包装件库", "/Default/01 包装件");
 		classifyTypePath.put("电子件库", "/Default/01 电子件");
 		classifyTypePath.put("电气件库", "/Default/01 电气件");
-
 	}
 
 	public static void main(String[] args) throws Exception {
 		// 读取excel
-		createPartByExcelAllSheet("./历史物料属性导入1.xlsx", true);
+		createPartByExcelAllSheet(".\\历史物料属性导入1.xlsx", true);
 	}
 
 	/**
