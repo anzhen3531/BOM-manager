@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -99,13 +102,25 @@ public class ImportHistoryWTPartService {
 		// 获取标题
 		Row row = sheet.getRow(0);
 		HashMap<Integer, String> titleMap = new HashMap<>();
+		if (row == null) {
+			return list;
+		}
 		int physicalNumberOfCells = row.getPhysicalNumberOfCells();
 		for (int j = 7; j < physicalNumberOfCells; j++) {
-			titleMap.put(j, row.getCell(j).getStringCellValue());
+			Cell cell = row.getCell(j);
+			if (cell == null) {
+				continue;
+			}
+			titleMap.put(j, cell.getStringCellValue());
 		}
 
 		for (int rowIndex = 1; rowIndex < sheet.getPhysicalNumberOfRows(); rowIndex++) {
 			Row dataRow = sheet.getRow(rowIndex);
+			if (dataRow == null) {
+				continue;
+			} else if (dataRow.getCell(0) == null) {
+				continue;
+			}
 			// 获取数据
 			ImportHistoryWTPartBean bean = new ImportHistoryWTPartBean();
 			bean.setClassify(handlerCellValue(dataRow, 0).replace("-", ""));
@@ -132,6 +147,7 @@ public class ImportHistoryWTPartService {
 			// TODO 定义容器
 			handlerPartContainer(bean, ibaMapping);
 			bean.setIbaMapping(ibaMapping);
+			list.add(bean);
 		}
 		return list;
 	}
@@ -211,8 +227,11 @@ public class ImportHistoryWTPartService {
 	}
 
 	private static String handlerCellValue(Row dataRow, int i) {
+		if (dataRow == null) {
+			return "";
+		}
 		if (dataRow.getCell(i) != null) {
-			return dataRow.getCell(i).getStringCellValue();
+			return getCellValue(dataRow.getCell(i));
 		} else {
 			return "";
 		}
@@ -233,7 +252,6 @@ public class ImportHistoryWTPartService {
 			SearchCondition namecontainerinfo = new SearchCondition(new KeywordExpression("A0.NAMECONTAINERINFO"),
 					SearchCondition.LIKE, new KeywordExpression("'" + cProductFamily + "'"));
 			qs.appendWhere(namecontainerinfo, new int[] { 0 });
-			System.out.println("查询产品库 = " + qs);
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
 				product = (PDMLinkProduct) qr.nextElement();
@@ -261,7 +279,6 @@ public class ImportHistoryWTPartService {
 			SearchCondition namecontainerinfo = new SearchCondition(new KeywordExpression("A0.NAMECONTAINERINFO"),
 					SearchCondition.LIKE, new KeywordExpression("'" + cProductFamily + "'"));
 			qs.appendWhere(namecontainerinfo, new int[] { 0 });
-			System.out.println("查询产品库 = " + qs);
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
 				library = (WTLibrary) qr.nextElement();
@@ -278,5 +295,24 @@ public class ImportHistoryWTPartService {
 		ReferenceFactory refFactory = new ReferenceFactory();
 		return refFactory.getReferenceString(
 				ObjectReference.newObjectReference((persistable.getPersistInfo().getObjectIdentifier())));
+	}
+
+	public static String getCellValue(Cell cell) {
+		if (cell == null) {
+			return "";
+		}
+		if (cell.getCellType().equals(CellType.STRING)) {// 字符串
+			return cell.getStringCellValue();
+		} else if (cell.getCellType().equals(CellType.NUMERIC)) {// 数值
+			if (DateUtil.isCellDateFormatted(cell)) {// 日期类型
+				return cell.getDateCellValue().toString();
+			} else {// 数值类型
+				return String.valueOf(cell.getNumericCellValue());
+			}
+		} else if (cell.getCellType().equals(CellType.BOOLEAN)) {// 布尔类型
+			return cell.getBooleanCellValue() ? "TRUE" : "FALSE";
+		} else {
+			return "";
+		}
 	}
 }

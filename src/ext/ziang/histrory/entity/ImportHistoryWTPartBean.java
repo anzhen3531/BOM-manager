@@ -123,8 +123,23 @@ public class ImportHistoryWTPartBean {
         this.ibaMapping = ibaMapping;
     }
 
+    @Override
     public String toString() {
-        return "ImportHistoryWTPartBean [number=" + number + ", name=" + name + ", classify=" + classify + ", version=" + version + ", unit=" + unit + ", description=" + description + ", oidERPNumber=" + oidERPNumber + ", ibaMapping=" + ibaMapping + "]";
+        return "ImportHistoryWTPartBean{" +
+                "number='" + number + '\'' +
+                ", name='" + name + '\'' +
+                ", classify='" + classify + '\'' +
+                ", version='" + version + '\'' +
+                ", unit='" + unit + '\'' +
+                ", description='" + description + '\'' +
+                ", oidERPNumber='" + oidERPNumber + '\'' +
+                ", container='" + container + '\'' +
+                ", locationPath='" + locationPath + '\'' +
+                ", type='" + type + '\'' +
+                ", partType='" + partType + '\'' +
+                ", lifeCycleState='" + lifeCycleState + '\'' +
+                ", ibaMapping=" + ibaMapping +
+                '}';
     }
 
     public void setLifeCycleState(String lifeCycleState) {
