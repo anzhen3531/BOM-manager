@@ -57,7 +57,7 @@ public class ImportHistoryWTPartService {
 
 	public static void main(String[] args) throws Exception {
 		// 读取excel
-		createPartByExcelAllSheet(".\\历史物料属性导入1.xlsx", true);
+		createPartByExcelAllSheet("C:\\ptc\\Windchill_11.0\\Windchill\\src\\ext\\ziang\\histrory\\history\\历史物料属性导入1.xlsx", true);
 	}
 
 	/**
