@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ext.ziang.common.util.IBAUtils;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import cn.hutool.core.util.StrUtil;
+import ext.ziang.common.util.IBAUtils;
 import ext.ziang.histrory.entity.ImportHistoryWTPartBean;
 import wt.fc.ObjectReference;
 import wt.fc.Persistable;
@@ -31,7 +31,7 @@ import wt.util.WTException;
  *
  * @author anzhen
  * @date 2024/03/20
- * windchill ext.ziang.histrory.history.ImportHistoryWTPartService
+ *       windchill ext.ziang.histrory.history.ImportHistoryWTPartService
  */
 public class ImportHistoryWTPartService {
 
@@ -57,7 +57,8 @@ public class ImportHistoryWTPartService {
 
 	public static void main(String[] args) throws Exception {
 		// 读取excel
-		createPartByExcelAllSheet("C:\\ptc\\Windchill_11.0\\Windchill\\src\\ext\\ziang\\histrory\\history\\历史物料属性导入1.xlsx", true);
+		createPartByExcelAllSheet(
+				"C:\\ptc\\Windchill_11.0\\Windchill\\src\\ext\\ziang\\histrory\\history\\历史物料属性导入1.xlsx", true);
 	}
 
 	/**
@@ -76,15 +77,12 @@ public class ImportHistoryWTPartService {
 		int numberOfSheets = workbook.getNumberOfSheets();
 		for (int i = 0; i < numberOfSheets; i++) {
 			XSSFSheet sheetAt = workbook.getSheetAt(i);
-			if (flag) {
-				// 读取到 Excel
-				List<ImportHistoryWTPartBean> list = readTOExcelToSheet(sheetAt);
-				System.out.println(list);
-				// 批量创建部件-】
-				for (ImportHistoryWTPartBean importHistoryWTPartBean : list) {
-					createPart(importHistoryWTPartBean);
-				}
-				flag = false;
+			// 读取到 Excel
+			List<ImportHistoryWTPartBean> list = readTOExcelToSheet(sheetAt);
+			System.out.println(list);
+			// 批量创建部件-】
+			for (ImportHistoryWTPartBean importHistoryWTPartBean : list) {
+				createPart(importHistoryWTPartBean);
 			}
 		}
 	}
@@ -155,12 +153,15 @@ public class ImportHistoryWTPartService {
 			// 需要转换Oid
 			String projectCode = ibaMapping.get("XMBH");
 			PDMLinkProduct pdmlinkProduct = findProductByName(projectCode);
+			if (pdmlinkProduct != null) {
+				String ibaValue = IBAUtils.getIBAValue(pdmlinkProduct, "");
+				String lifeCycleState = lifeCycle.get(ibaValue);
+				bean.setLifeCycleState(lifeCycleState);
+				bean.setContainer(getOid(pdmlinkProduct));
+				return;
+			}
 			String locationPath = "/Default/07 Product BOM";
-			String ibaValue = IBAUtils.getIBAValue(pdmlinkProduct, "");
-			String lifeCycleState = lifeCycle.get(ibaValue);
-			bean.setLifeCycleState(lifeCycleState);
 			bean.setLocationPath(locationPath);
-			bean.setContainer(getOid(pdmlinkProduct));
 		} else {
 			// 通过分类查找对应的产品库
 			String classify = classifyType.get(bean.getClassify().substring(0, 1));
