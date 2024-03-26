@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -13,21 +14,39 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import ext.ziang.common.util.IBAUtils;
 import ext.ziang.histrory.entity.ImportHistoryWTPartBean;
+import wt.fc.ObjectIdentifier;
 import wt.fc.ObjectReference;
 import wt.fc.Persistable;
 import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
 import wt.fc.ReferenceFactory;
+import wt.fc.collections.WTValuedHashMap;
+import wt.folder.Folder;
+import wt.folder.FolderHelper;
+import wt.inf.container.WTContainerRef;
 import wt.inf.library.WTLibrary;
+import wt.lifecycle.LifeCycleHelper;
+import wt.lifecycle.LifeCycleTemplate;
+import wt.part.PartType;
+import wt.part.QuantityUnit;
+import wt.part.Source;
+import wt.part.WTPart;
 import wt.pdmlink.PDMLinkProduct;
-import wt.query.KeywordExpression;
+import wt.pom.Transaction;
 import wt.query.QuerySpec;
 import wt.query.SearchCondition;
+import wt.rule.init.InitRuleHelper;
 import wt.session.SessionServerHelper;
+import wt.type.TypeDefinitionReference;
+import wt.type.TypedUtility;
 import wt.util.WTException;
+import wt.vc.VersionControlHelper;
+import wt.vc.Versioned;
+import wt.vc.views.ViewHelper;
 
 /**
  * 导入历史记录 WTPart 服务
@@ -61,7 +80,7 @@ public class ImportHistoryWTPartService {
 	public static void main(String[] args) throws Exception {
 		// 读取excel
 		createPartByExcelAllSheet(
-				"C:\\ptc\\Windchill_11.0\\Windchill\\src\\ext\\ziang\\histrory\\history\\历史物料属性导入1.xlsx", true);
+				"C:\\ptc\\Windchill_11.0\\Windchill\\src\\ext\\ziang\\histrory\\history\\历史物料属性导入1.xlsx");
 	}
 
 	/**
@@ -69,14 +88,13 @@ public class ImportHistoryWTPartService {
 	 *
 	 * @param path
 	 *            路径
-	 * @param flag
-	 *            旗
 	 * @throws IOException
 	 *             io异常
 	 */
-	public static void createPartByExcelAllSheet(String path, boolean flag) throws Exception {
+	public static void createPartByExcelAllSheet(String path) throws Exception {
 		// 读取excel'
 		XSSFWorkbook workbook = new XSSFWorkbook(path);
+		List<String> errorList = new ArrayList<>();
 		int numberOfSheets = workbook.getNumberOfSheets();
 		for (int i = 0; i < numberOfSheets; i++) {
 			XSSFSheet sheetAt = workbook.getSheetAt(i);
@@ -85,7 +103,12 @@ public class ImportHistoryWTPartService {
 			System.out.println(list);
 			// 批量创建部件-】
 			for (ImportHistoryWTPartBean importHistoryWTPartBean : list) {
-				createPart(importHistoryWTPartBean);
+				boolean createFlag = createPart(importHistoryWTPartBean);
+				if (createFlag) {
+					System.out.println("创建当前对象成功! -> " + importHistoryWTPartBean);
+				} else {
+					errorList.add("创建当前对象失败! -> " + importHistoryWTPartBean);
+				}
 			}
 		}
 	}
@@ -128,12 +151,10 @@ public class ImportHistoryWTPartService {
 			bean.setName(handlerCellValue(dataRow, 2));
 			bean.setVersion(handlerCellValue(dataRow, 3));
 			bean.setUnit(handlerCellValue(dataRow, 4));
-			// 判断是否是自制还是外购
 			bean.setPartType(handlerCellValue(dataRow, 5));
 			bean.setDescription(handlerCellValue(dataRow, 6));
 			bean.setOidERPNumber(handlerCellValue(dataRow, 7));
-			// TODO 定义类型
-			bean.setType(handlerPartType(handlerCellValue(dataRow, 1)));
+			bean.setType(handlerPartType(handlerCellValue(dataRow, 0)));
 			HashMap<String, String> ibaMapping = new HashMap<>();
 			for (int cellIndex = 8; cellIndex < physicalNumberOfCells; cellIndex++) {
 				String value = handlerCellValue(dataRow, cellIndex);
@@ -144,7 +165,6 @@ public class ImportHistoryWTPartService {
 					ibaMapping.put(ibaName, value);
 				}
 			}
-			// TODO 定义容器
 			handlerPartContainer(bean, ibaMapping);
 			bean.setIbaMapping(ibaMapping);
 			list.add(bean);
@@ -165,12 +185,12 @@ public class ImportHistoryWTPartService {
 		// 存在项目编码则创建在产品库（通过项目编码查询产品库），
 		// 放置07ProductBOM中，生命周期阶段根据产品库中阶段属性来进行判断 状态根据产品库获取 lifeCycle直接从map中获取
 		// 不存在 根据 放入存储库 并且找到对应的位置 状态为量产
-		if (ibaMapping.containsKey("XMBH")) {
+		if (ibaMapping.containsKey("SWXMH")) {
 			// 需要转换Oid
-			String projectCode = ibaMapping.get("XMBH");
+			String projectCode = ibaMapping.get("SWXMH");
 			PDMLinkProduct pdmlinkProduct = findProductByName(projectCode);
 			if (pdmlinkProduct != null) {
-				String ibaValue = IBAUtils.getIBAValue(pdmlinkProduct, "");
+				String ibaValue = IBAUtils.getIBAValue(pdmlinkProduct, "ProductPhase");
 				String lifeCycleState = lifeCycle.get(ibaValue);
 				bean.setLifeCycleState(lifeCycleState);
 				bean.setContainer(getOid(pdmlinkProduct));
@@ -197,33 +217,23 @@ public class ImportHistoryWTPartService {
 	 * @return {@link String}
 	 */
 	private static String handlerPartType(String classify) {
-		// 需要设置为部件类型
+		// 需要设置为部件类型 真实物料类型
 		if (classify.contains("A")) {
-			return "辅料";
+			return "com.soarwhale.AuxiliaryMaterials";
 		} else if (classify.contains("C")) {
-			return "电子件";
+			return "com.ptc.ElectricalPart";
 		} else if (classify.contains("E")) {
-			return "电气件";
+			return "com.soarwhale.ElectricalComponents";
 		} else if (classify.contains("M")) {
-			return "结构件";
+			return "com.soarwhale.Structure";
 		} else if (classify.contains("P")) {
-			return "包装类";
+			return "com.soarwhale.Packaging";
 		} else if (classify.contains("S")) {
-			return "软件";
+			return "com.soarwhale.SoftWare";
 		} else if (classify.contains("F")) {
-			return "成品";
+			return "com.soarwhale.FinishProuct";
 		}
 		return null;
-	}
-
-	/**
-	 * 创建零件
-	 *
-	 * @param bean
-	 *            豆
-	 */
-	public static void createPart(ImportHistoryWTPartBean bean) {
-
 	}
 
 	private static String handlerCellValue(Row dataRow, int i) {
@@ -237,8 +247,6 @@ public class ImportHistoryWTPartService {
 		}
 	}
 
-	// 查询产品库接口
-
 	/**
 	 * 根据容器得到容器的文件夹
 	 *
@@ -249,9 +257,11 @@ public class ImportHistoryWTPartService {
 		boolean access = SessionServerHelper.manager.setAccessEnforced(false);
 		try {
 			QuerySpec qs = new QuerySpec(PDMLinkProduct.class);
-			SearchCondition namecontainerinfo = new SearchCondition(new KeywordExpression("A0.NAMECONTAINERINFO"),
-					SearchCondition.LIKE, new KeywordExpression("'" + cProductFamily + "'"));
+			SearchCondition namecontainerinfo = new SearchCondition(
+					PDMLinkProduct.class, PDMLinkProduct.DESCRIPTION,
+					SearchCondition.LIKE, cProductFamily);
 			qs.appendWhere(namecontainerinfo, new int[] { 0 });
+			System.out.println("查询产品库 = " + qs);
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
 				product = (PDMLinkProduct) qr.nextElement();
@@ -276,8 +286,9 @@ public class ImportHistoryWTPartService {
 		boolean access = SessionServerHelper.manager.setAccessEnforced(false);
 		try {
 			QuerySpec qs = new QuerySpec(WTLibrary.class);
-			SearchCondition namecontainerinfo = new SearchCondition(new KeywordExpression("A0.NAMECONTAINERINFO"),
-					SearchCondition.LIKE, new KeywordExpression("'" + cProductFamily + "'"));
+			SearchCondition namecontainerinfo = new SearchCondition(
+					WTLibrary.class, WTLibrary.NAME,
+					SearchCondition.LIKE, cProductFamily);
 			qs.appendWhere(namecontainerinfo, new int[] { 0 });
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
@@ -314,5 +325,89 @@ public class ImportHistoryWTPartService {
 		} else {
 			return "";
 		}
+	}
+
+	/**
+	 * 创建部分
+	 *
+	 * @param bean
+	 *            创建bean
+	 */
+	public static synchronized boolean createPart(ImportHistoryWTPartBean bean) {
+		Transaction tx = new Transaction();// 事务
+		try {
+			tx.start();
+			WTPart part = WTPart.newWTPart(bean.getNumber(), bean.getName(), getQuantityUnit(bean.getUnit()));
+			// 结构标准件等等
+			if (bean.getType() != null) {
+				TypeDefinitionReference tdRef = TypedUtility.getTypeDefinitionReference(bean.getType());
+				part.setTypeDefinitionReference(tdRef);
+			}
+			// 设置容器 为部件库
+			ObjectIdentifier oid = ObjectIdentifier.newObjectIdentifier(bean.getContainer());
+			WTContainerRef containerRef = WTContainerRef.newWTContainerRef(oid);
+			Folder folder = FolderHelper.service.getFolder(bean.getLocationPath(), containerRef);
+			part.setContainerReference(containerRef);
+			WTValuedHashMap map = new WTValuedHashMap();
+			map.put(part, folder);
+			FolderHelper.assignLocations(map);
+			part.setPartType(PartType.SEPARABLE);
+			part.setSource(Source.MAKE);
+			// 设置为D视图
+			ViewHelper.assignToView(part, ViewHelper.service.getView("Design"));
+			part.setEndItem(false);
+			LifeCycleTemplate lifecycleTemplate = (LifeCycleTemplate) InitRuleHelper.evaluator.getValue("lifeCycle.id",
+					part, containerRef);
+			if (lifecycleTemplate != null) {
+				LifeCycleHelper.setLifeCycle(part, lifecycleTemplate);
+			}
+			PersistenceHelper.manager.save(part);
+			// 设置基本属性
+			IBAUtils.setIBAStringValue(part, "CLASSIFY", bean.getClassify());
+			// 品牌
+			IBAUtils.setIBAStringValue(part, "SpecificationModels", bean.getDescription());
+			// 型号
+			IBAUtils.setIBAStringValue(part, "ERP_OLD_NUMBER", bean.getOidERPNumber());
+			// 材料
+			IBAUtils.setIBAStringValue(part, "productType", bean.getPartType());
+			HashMap<String, String> ibaMapping = bean.getIbaMapping();
+			if (CollUtil.isNotEmpty(ibaMapping)) {
+				ibaMapping.forEach((key, value) -> IBAUtils.setIBAStringValue(part, key, value));
+			}
+			tx.commit();
+			// 逐步修订
+			if (!bean.getVersion().equals("00")) {
+				// 修订大版本
+				Versioned versioned = VersionControlHelper.service.newVersion(part);
+				PersistenceHelper.manager.save(versioned);
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+			return false;
+		}
+	}
+
+	/**
+	 * 获取单位
+	 *
+	 * @param unit
+	 *            单位字符
+	 * @return
+	 */
+	public static QuantityUnit getQuantityUnit(String unit) {
+		QuantityUnit qu = null;
+		if (!StringUtils.isEmpty(unit)) {
+			QuantityUnit[] quantityUnitArray = QuantityUnit.getQuantityUnitSet();
+			for (QuantityUnit quantityUnit : quantityUnitArray) {
+				qu = quantityUnit;
+				System.out.println("qu = " + qu);
+				if (unit.equalsIgnoreCase(qu.toString())) {
+					break;
+				}
+			}
+		}
+		return qu;
 	}
 }
