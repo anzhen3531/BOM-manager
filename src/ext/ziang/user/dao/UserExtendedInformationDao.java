@@ -62,7 +62,7 @@ public class UserExtendedInformationDao {
 	public void createUserExtendedInformation(UserExtendedInformation userExtendedInformation) {
 		System.out.println("UserExtendedInformationDao.createUserExtendedInformation ====================> ");
 		System.out.println("createUserExtendedInformation param userExtendedInformation = " + userExtendedInformation);
-		String sql = "INSERT INTO USEREXTENDEDINFORMATION (ID,USERNAME, PASSWORD, STATE, CREATED_BY, MODIFY_BY) VALUE(?,?,?,?,?,?)";
+		String sql = "INSERT INTO USEREXTENDEDINFORMATION (ID,USERNAME, PASSWORD, STATE, CREATED_BY, MODIFY_BY) VALUES(?,?,?,?,?,?)";
 		Connection connection = JdbcTemplateOracleHelper.getConnection(false);
 		PreparedStatement statement = null;
 		ResultSet rs = null;
