@@ -1,13 +1,10 @@
 package ext.ziang.common.util;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 
 /**
  * JDBC 模板 Oracle 帮助程序
@@ -37,23 +34,23 @@ public class JdbcTemplateOracleHelper {
 	private static String driver;
 
 	static {
-		InputStream is = JdbcTemplateOracleHelper.class.getClassLoader().getResourceAsStream("oracleConfig.properties");
-		Properties pro = new Properties();
-		/*
-		 * url = "jdbc:oracle:thin:@172.0.0.1:1521:rdt1";
-		 * username = "errtrans";
-		 * password = "root@123";
-		 * driver = "oracle.jdbc.driver.OracleDriver";
-		 */
-		try {
-			pro.load(is);
-			url = pro.getProperty("oracle.url");
-			username = pro.getProperty("oracle.username");
-			password = pro.getProperty("oracle.password");
-			driver = pro.getProperty("oracle.driver");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		url = "jdbc:oracle:thin:@win-fv1tfp5mpk5:1521:wind";
+		username = "pdmlink11";
+		password = "pdmlink11";
+		driver = "oracle.jdbc.OracleDriver";
+
+		// InputStream is =
+		// JdbcTemplateOracleHelper.class.getClassLoader().getResourceAsStream("oracleConfig.properties");
+		// Properties pro = new Properties();
+		// try {
+		// pro.load(is);
+		// url = pro.getProperty("oracle.url");
+		// username = pro.getProperty("oracle.username");
+		// password = pro.getProperty("oracle.password");
+		// driver = pro.getProperty("oracle.driver");
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 		// 注册驱动
 		try {
 			Class.forName(driver);

@@ -200,6 +200,9 @@ public class CommonOperationAttrUtil {
 			ReusableAttributeWriteView reusableAttribute = createReusableAttribute(internalName, dataType, qtyOfMeasure,
 					orgName, description, displayName, internalName, logicalIdentifier, parentIdentifier);
 			try {
+				reusableAttribute.getId();
+				// 通过id获取属性视图
+				// BASE_DEF_SERVICE.getReusableAttributeReadView()
 				reusableAttributeReadView = BASE_DEF_SERVICE.createReusableAttribute(reusableAttribute);
 				return reusableAttributeReadView;
 			} catch (IBADefinitionException var19) {

@@ -12,4 +12,7 @@
             <includeFilter name="showNewActionPreValidation"/>
         </action>
     </objecttype>
+
+
+<!--    修改密码 ，增加密码 -->
 </listofactions>

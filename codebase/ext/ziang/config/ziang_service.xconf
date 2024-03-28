@@ -10,4 +10,10 @@
         <Option serviceClass="ext.ziang.part.datautility.ExtSearchPartAttrDataUtility"
                 requestor="null" selector="ExtSearchPartAttrDataUtility" cardinality="singleton"/>
     </Service>
+
+
+    <!-- 文档相关配置 -->
+    <Property name="ext.ziang.user.rest.AccountController"
+              targetFile="codebase/com/ptc/windchill/rest/rest.properties"
+              default="ext.ziang.user.rest.AccountController"/>
 </Configuration>
