@@ -14,5 +14,23 @@
     </objecttype>
 
 
+    <objecttype resourceBundle="com.ptc.windchill.principal.user.userActionsRB" name="user" class="wt.org.WTUser" >
+        <action name="create" ajax="row" >
+            <command method="execute"
+                     class="ext.ziang.user.process.ExtCreateUserFormProcessor"
+                     windowType="popup"/>
+        </action>
+    </objecttype>
+
+    <objecttype resourceBundle="com.ptc.windchill.principal.user.userActionsRB" name="user" class="wt.org.WTUser" >
+        <action name="updateUser" ajax="row" >
+            <command method="execute"
+                     class="ext.ziang.user.process.ExtEditUserFormProcessor"
+                     windowType="popup"/>
+            <includeFilter name="updateActionValidator"/>
+            <includeFilter name="disconnectedPrincipalActionsFilter"/>
+            <includeFilter name="disabledPrincipalActionsFilter"/>
+        </action>
+    </objecttype>
 <!--    修改密码 ，增加密码 -->
 </listofactions>

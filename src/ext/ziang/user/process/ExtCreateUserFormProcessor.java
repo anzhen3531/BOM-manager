@@ -7,10 +7,7 @@ import com.ptc.core.components.forms.FormResult;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
 import com.ptc.windchill.principal.user.processor.CreateUserFormProcessor;
 
-import ext.ziang.user.entity.UserExtendedInformation;
 import ext.ziang.user.helper.UserExtendedInformationHelper;
-import ext.ziang.user.service.UserExtendedInformationService;
-import ext.ziang.user.service.UserExtendedInformationServiceImpl;
 import wt.org.WTUser;
 import wt.util.WTException;
 
