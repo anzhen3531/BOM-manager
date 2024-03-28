@@ -10,6 +10,8 @@
     String[] split = credentials.split(":", 2);
     String userName = split[0];
     String password = split[1];
+    System.out.println("password = " + password);
+    System.out.println("userName = " + userName);
 %>
 
 <script>
