@@ -82,6 +82,7 @@ public class OAuthIndexPageFilter implements Filter {
         System.out.println("url = " + httpServletRequest.getRequestURL());
         String authorization = httpServletRequest.getHeader("Authorization");
         System.out.println("authorization = " + authorization);
+        filterChain.doFilter(request, httpResponse);
         if (validateContains(WHITE_LIST_URLS, url) || StrUtil.isNotBlank(remoteUser)) {
             filterChain.doFilter(request, httpResponse);
         } else {
