@@ -15,7 +15,7 @@
 %>
 
 <script>
-    let chromeVersion = '';
+    var chromeVersion = '';
     let arr = navigator.userAgent.split(' ');
     for (var i = 0; i < arr.length; i++) {
         if (/chrome/i.test(arr[i])) {
@@ -42,7 +42,7 @@
             alert("用户名或密码为空!");
             return false;
         }
-        let client;
+        var client;
         try {
             client = new XMLHttpRequest();
         } catch (trymicrosoft) {
@@ -57,9 +57,9 @@
             }
         }
         client.onreadystatechange = function () {
-            if (client.readyState == 4 && client.status == 200) {
+            if (client.readyState === 4 && client.status === 200) {
                 window.open(url, '_self');
-            } else if (client.readyState == 4 && client.status != 200) {
+            } else if (client.readyState === 4 && client.status !== 200) {
                 alert("用户名或密码错误!");
                 window.close();
             }
@@ -73,7 +73,7 @@
     let password = "<%=password%>";
 
     window.onload = function () {
-        this.login("/Windchill/netmarkets/jsp/ext/trinasolar/oauth2/toMainPage.jsp", fullName, password);
+        this.login("/Windchill/netmarkets/jsp/ext/ziang/oauth2/toMainPage.jsp", fullName, password);
     }
 </script>
 
