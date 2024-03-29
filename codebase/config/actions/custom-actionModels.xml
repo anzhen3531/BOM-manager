@@ -2,4 +2,5 @@
 <!DOCTYPE actionmodels SYSTEM "actionmodels.dtd">
 <actionmodels>
     <include href="config/actions/ext/extChangeManagement-actionModels.xml"/>
+    <include href="config/actions/ext/extFolderManagement-actionModels.xml"/>
 </actionmodels>
