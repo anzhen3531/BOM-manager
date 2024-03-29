@@ -10,6 +10,12 @@ import wt.util.WTException;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 
+/**
+ * 工具实用程序
+ *
+ * @author anzhen
+ * @date 2024/03/30
+ */
 public class ToolUtils implements RemoteAccess {
 
     /**

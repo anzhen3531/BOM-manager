@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE actionmodels SYSTEM "actionmodels.dtd">
 <actionmodels>
-
-
-
+    <include href="config/actions/ext/extChangeManagement-actionModels.xml"/>
 </actionmodels>

@@ -11,8 +11,10 @@ import com.ptc.mvc.components.TableConfig;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
 import com.ptc.netmarkets.util.beans.NmHelperBean;
 
+import ext.ziang.common.util.CommonLogPrintUtil;
 import wt.change2.ChangeActivityIfc;
 import wt.change2.ChangeHelper2;
+import wt.fc.QueryResult;
 import wt.util.WTException;
 
 /**
@@ -72,10 +74,13 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	@Override
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams)
 			throws Exception {
+		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
 		NmHelperBean helperBean = ((JcaComponentParams) componentParams).getHelperBean();
 		NmCommandBean nmCommandBean = helperBean.getNmCommandBean();
-		return ChangeHelper2.service
+		QueryResult qr = ChangeHelper2.service
 				.getChangeablesAfter((ChangeActivityIfc) nmCommandBean.getPrimaryOid().getRefObject());
+		CommonLogPrintUtil.printLog("qr.size" + qr.size());
+		return qr;
 	}
 
 	/**

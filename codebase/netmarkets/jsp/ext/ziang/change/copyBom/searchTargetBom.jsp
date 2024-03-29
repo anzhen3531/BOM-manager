@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/mvc" prefix="mvc" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="com.ptc.core.components.rendering.guicomponents.*" %>
 <%@ page import="ext.trinasolar.common.constant.CommonConstants" %>
 <%@ page import="wt.fc.Persistable" %>
 <%@ page import="ext.trinasolar.common.utils.ToolUtils" %>
 <%@ page import="wt.part.WTPart" %>
 <%@ page import="wt.type.TypedUtility" %>
+<%@ page import="ext.ziang.common.util.ToolUtils" %>
 <%@ taglib prefix="wctags" tagdir="/WEB-INF/tags" %>
 <%@ include file="/netmarkets/jsp/components/beginWizard.jspf" %>
 
@@ -43,6 +43,6 @@
                    inline="true"
 />
 
-<%-- 回调接口 --%>
+<%-- 回调接口得到OID设置到对应中即可 --%>
 
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>

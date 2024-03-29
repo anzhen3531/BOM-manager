@@ -33,4 +33,6 @@
         </action>
     </objecttype>
 <!--    修改密码 ，增加密码 -->
+
+    <include href="config/actions/ext/extChangeManagement-actions.xml" />
 </listofactions>

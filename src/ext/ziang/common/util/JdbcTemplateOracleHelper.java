@@ -38,20 +38,6 @@ public class JdbcTemplateOracleHelper {
 		username = "pdmlink11";
 		password = "pdmlink11";
 		driver = "oracle.jdbc.OracleDriver";
-
-		// InputStream is =
-		// JdbcTemplateOracleHelper.class.getClassLoader().getResourceAsStream("oracleConfig.properties");
-		// Properties pro = new Properties();
-		// try {
-		// pro.load(is);
-		// url = pro.getProperty("oracle.url");
-		// username = pro.getProperty("oracle.username");
-		// password = pro.getProperty("oracle.password");
-		// driver = pro.getProperty("oracle.driver");
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// }
-		// 注册驱动
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
