@@ -24,7 +24,7 @@ import wt.util.WTException;
  * @date 2024/02/20
  */
 
-@ComponentBuilder({ "ext.trinasolar.eccb.builder.SelectOriginBomBuilder" })
+@ComponentBuilder({ "ext.ziang.change.SelectOriginBomBuilder" })
 public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	/**
 	 * 构建组件配置

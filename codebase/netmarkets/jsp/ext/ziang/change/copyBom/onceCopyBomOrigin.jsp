@@ -8,6 +8,7 @@
 
 <jca:wizard title="一键复制BOM" buttonList="DefaultWizardButtonsNoApply">
     <jca:wizardStep action="selectAffectionBomStep" type="extECA" label="选择源BOM"/>
+
     <jca:wizardStep action="copyBomStructStep" type="extECA" label="选择需要复制的BOM"/>
 </jca:wizard>
 

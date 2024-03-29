@@ -7,7 +7,7 @@
 
 
 <div>
-    <jsp:include page="${mvc:getComponentURL('ext.trinasolar.eccb.builder.SelectOriginBomBuilder')}"
+    <jsp:include page="${mvc:getComponentURL('ext.ziang.change.SelectOriginBomBuilder')}"
                  flush="true"/>
 </div>
 
