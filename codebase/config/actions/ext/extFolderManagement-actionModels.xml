@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE actionmodels SYSTEM '../../actionmodels.dtd'>
+<actionmodels>
+   <model name="folderbrowser_toolbar_actions">
+      <description>Folder browser toolbar actions menu for all Folders.</description>
+      <submodel name="folderbrowser_toolbar_open_submenu" />
+      <action   name="separator"                                  type="separator" />
+      <submodel name="folderbrowser_toolbar_new_submenu" />
+      <action   name="separator"                                  type="separator" />
+      <action   name="list_cut"                                   type="object" />                                                 <!-- Cut -->
+      <action   name="list_copy"                                  type="object" shortcut="true" />                                 <!-- Copy -->
+<!--      一键复制BOM-->
+      <action name="onceCopyBomOrigin" type="extCommonAction" shortcut="true"/>
+      <action   name="pasteAsCopy"                                type="saveas" />                                                 <!-- Paste (for Product/Library/Org/Site) -->
+      <action   name="fbpaste"                                    type="object" />                                                 <!-- Paste -->
+      <action   name="CONTAINERMOVE"                              type="pdmObject" />                                              <!-- Move -->
+      <action   name="separator"                                  type="separator" />
+      <action   name="multiObjectCheckIn"                         type="wip" />                                                    <!-- multiObjectCheckIn -->
+      <action   name="multiObjectCheckOut"                        type="wip" />                                                    <!-- multiObjectCheckOut -->
+      <action   name="PAGERELOADINGMULTICHECKOUT"                 type="folder" />                                                 <!-- Check out to Workspace -->
+      <action   name="multiObjectUndoCheckout"                    type="wip" />                                                    <!-- multiObjectUndoCheckout -->
+      <action   name="editMultiObjects"                           type="object" />                                                 <!-- Edit Multiple Objects -->
+      <action   name="MULTIREVISEITEMS_FROMFOLDERS"               type="pdmObject" />                                              <!-- Revise -->
+      <action   name="route"                                      type="workflow" />                                               <!-- Route -->
+      <action   name="separator"                                  type="separator" />
+      <action   name="WFMULTISAVEAS"                              type="folder" />                                                 <!-- Save As -->
+      <action   name="MULTIRENAME"                                type="folder" />                                                 <!-- Rename -->
+      <action   name="SETSTATE_FROMFOLDERS"                       type="pdmObject" />                                              <!-- Set State -->
+      <action   name="export"                                     type="object" />                                                 <!-- Export -->
+      <action   name="cadmultiexport"                             type="object" />                                                 <!-- Export -->
+      <action   name="list_delete"                                type="object" />                                                 <!-- Delete -->
+      <action   name="batchPrint"                                 type="wvs" />                                                    <!-- Batch Print -->
+      <action   name="separator"                                  type="separator" />
+      <action   name="WFADDTOWORKSPACE"                           type="folder"  shortcut="true" />                                                 <!-- Add to Workspace -->
+      <submodel name="folderbrowser_toolbar_addto_submenu" />
+      <action   name="separator"                                  type="separator" />
+      <action   name="sendToPDM"                                  type="sandbox" />                                                <!-- Send to PDM -->
+      <action   name="convertToShareTB"                           type="sandbox" />                                                <!-- Convert to Share -->
+      <action   name="sandboxCheckoutShareMultiSelect"            type="object" />                                                 <!-- Convert to PDM Check-out -->
+      <action   name="sandboxUndoCheckout"                        type="object" />                                                 <!-- Undo PDM Check-out -->
+      <action   name="manageIdentityConflicts"                    type="sandbox" />                                                <!-- Manage Identity Conflict -->
+      <action   name="SBUpdatePrj"                                type="sandbox" />                                                <!-- Update Project -->
+      <action   name="updateShareMultiSelect"                     type="sandbox" />                                                <!-- Update Selected Shares -->
+      <action   name="removeShareTB"                              type="object" />                                                 <!-- Remove Share -->
+      <action   name="separator"                                  type="separator" />
+      <submodel name="folderbrowser_toolbar_compare_submenu" />
+      <submodel name="folderbrowser_toolbar_process_submenu" />
+      <action   name="downloadDocumentsToCompressedFile"          type="document" />                                               <!-- Download Documents to Compressed File -->
+      <action   name="createImportJob" 				  type="ixb"/>                                                     <!-- Import from Spreadsheet -->
+      <submodel name="folderbrowser_toolbar_exportlisttofile_submenu" />
+      <submodel name="folderbrowser_toolbar_requirements_submenu" />
+      <action   name="importFromIntegrity"                        type="integrityRM" />                                            <!-- Import items from Integrity -->
+      <action   name="separator"                                  type="separator" />
+      <action name="multiObjManageSecurity"                       type="accessPermission"/>
+      <action name="MULTIEDITSECURITYLABELS"                      type="object"/>                                                                   <!-- Manage Security -->
+      <action   name="createSubscription"                         type="subscription" />                                           <!-- Subscribe -->
+      <action name="separator" type="separator"/>
+      <action name="track_new_work_table" type="resourceAssignment" /><!-- Track new Work against subject of deliverable-->
+      <action name="new_plan_activity_table" type="planActivity" /><!-- New Plan Activity against subject -->
+      <includeFilter name="ActionFilterOnProject2State" />
+   </model>
+
+</actionmodels>

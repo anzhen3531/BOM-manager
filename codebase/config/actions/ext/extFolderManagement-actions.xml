@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE listofactions SYSTEM '../../actions.dtd'>
+
+<listofactions>
+    <objecttype name="extCommonAction"
+                resourceBundle="ext.ziang.resource.CommonActionResource">
+        <!--一键复里面制BOM-->
+        <action name="onceCopyBom">
+            <command method="execute"
+                     class="ext.trinasolar.eccb.process.SelectOriginBomProcessor"
+                     url="/netmarkets/jsp/ext/ziang/change/copyBom/onceCopyBomOrigin.jsp"
+                     windowType="popup"/>
+        </action>
+
+        <!--选择源对象-->
+        <action name="selectAffectionBomStep" id="selectAffectionBomStep">
+            <command url="/netmarkets/jsp/ext/ziang/change/copyBom/selectAffectionBomStep.jsp"
+                     windowType="wizard_step"/>
+        </action>
+
+        <!--选择需要被复制的对象-->
+        <action name="copyBomStructStep" id="copyBomStructStep">
+            <command windowType="wizard_step"
+                     url="/netmarkets/jsp/ext/ziang/change/copyBom/copyBomStructStep.jsp"/>
+        </action>
+    </objecttype>
+
+</listofactions>

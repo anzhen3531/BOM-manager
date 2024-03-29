@@ -57,7 +57,8 @@ public class GithubOAuthProvider {
 
 	/**
 	 * 获取用户信息
-	 *·
+	 * ·
+	 * 
 	 * @param token
 	 *            令 牌
 	 * @return {@link JSONObject}

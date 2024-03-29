@@ -14,7 +14,7 @@
         <action name="undoReservation" type="reservation"/>
         <action name="edit" type="changeTask"/>
         <!--        一键复制BOM-->
-        <action name="onceCopyBomOrigin" type="extECA"/>
+        <action name="onceCopyBomOrigin" type="extCommonAction"/>
         <action name="editTemplate" type="changeTask"/>
         <action name="separator" type="separator"/>
         <action name="relatedWorkitems" type="change"/>
