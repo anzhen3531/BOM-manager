@@ -23,6 +23,7 @@ import com.ptc.core.lwc.common.view.ConstraintRuleDefinitionReadView;
 import com.ptc.core.lwc.common.view.DatatypeReadView;
 import com.ptc.core.lwc.common.view.DisplayStyleReadView;
 import com.ptc.core.lwc.common.view.PropertyDefinitionReadView;
+import com.ptc.core.lwc.common.view.PropertyDefinitionWriteView;
 import com.ptc.core.lwc.common.view.PropertyValueReadView;
 import com.ptc.core.lwc.common.view.PropertyValueWriteView;
 import com.ptc.core.lwc.common.view.ReadView;

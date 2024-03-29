@@ -20,10 +20,18 @@ import java.util.List;
  */
 public class ExtCreateDocFormProcessor extends CreateDocFormProcessor {
 
+    /**
+     * 后处理
+     *
+     * @param nmCommandBean nm 命令 bean
+     * @param list          列表
+     * @return {@link FormResult}
+     * @throws WTException WT异常
+     */
     @Override
     public FormResult postProcess(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
         FormResult rs = super.postProcess(nmCommandBean, list);
-        ObjectBean objectbean = (ObjectBean) list.get(0);
+        ObjectBean objectbean = list.get(0);
         HashMap text = nmCommandBean.getText();
         System.out.println("text = " + text);
         HashMap textArea = nmCommandBean.getTextArea();

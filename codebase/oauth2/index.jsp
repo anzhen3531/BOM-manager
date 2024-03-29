@@ -30,7 +30,7 @@
     }
 
     function login(url, fullName, password) {
-        if (password == null || password == 'null' || password == "") {
+        if (password == null || password === 'null' || password === "") {
             alert("您的账号在PDM系统未注册或已锁定，请联系系统管理员!");
             return false;
         }
