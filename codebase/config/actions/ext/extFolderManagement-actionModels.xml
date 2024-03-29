@@ -59,5 +59,88 @@
       <action name="new_plan_activity_table" type="planActivity" /><!-- New Plan Activity against subject -->
       <includeFilter name="ActionFilterOnProject2State" />
    </model>
-
+   <model name="folderbrowser_toolbar_new_submenu" resourceBundle="com.ptc.windchill.enterprise.folder.FolderActionResource">
+      <description>'New' submenu for folder browser toolbar actions menu.</description>
+      <action name="create" type="document" shortcut="true"/>
+      <!--  New Document  -->
+      <action name="createMulti" type="document"/>
+      <!--  New Multiple Documents  -->
+      <action name="uploadDocumentsFromCompressedFile" type="document"/>
+      <!--  Upload Documents from Compressed File  -->
+      <action name="separator" type="separator"/>
+      <action name="createPartWizard" type="part" shortcut="true"/>
+      <!--      一键复制BOM-->
+      <action name="onceCopyBomOrigin" type="extCommonAction" shortcut="true"/>
+      <!--  New Part  -->
+      <action name="createMultiPart" type="part"/>
+      <!--  New Multiple Parts  -->
+      <action name="createWorkSetWizard" type="workSet"/>
+      <action name="separator" type="separator"/>
+      <action name="createProductFamily" type="productfamily"/>
+      <action name="separator" type="separator"/>
+      <action name="createMpmprocessplan" type="mpml"/>
+      <!--  New Process Plan  -->
+      <action name="createMPMResource" type="mpml"/>
+      <!--  New Resource  -->
+      <action name="createMPMStandardCC" type="mpml"/>
+      <action name="separator" type="separator"/>
+      <action name="create" type="changeNotice"/>
+      <!--  New Change Notice  -->
+      <action name="createChangeDirective" type="changeDirective" shortcut="true"/>
+      <!--  New Change Directive  -->
+      <action name="create" type="changeRequest" shortcut="true"/>
+      <!--  New Change Request  -->
+      <action name="create" type="problemReport"/>
+      <!--  New Problem Report  -->
+      <action name="create" type="softwareIssue"/>
+      <!--  New Software Issue  -->
+      <action name="create" type="variance"/>
+      <!--  New Variance  -->
+      <action name="create" type="promotionRequest"/>
+      <!--  New Promotion Request  -->
+      <action name="separator" type="separator"/>
+      <action name="create" type="changeReview" shortcut="true"/>
+      <!--  New Change Review  -->
+      <action name="separator" type="separator"/>
+      <action name="create_request" type="npi"/>
+      <!--  New Part Request  -->
+      <action name="separator" type="separator"/>
+      <action name="createTextualInformationElement" type="techPubs"/>
+      <!--  New Textual Information Element  -->
+      <action name="createGraphicInformationElement" type="techPubs"/>
+      <!--  New Graphic Information Element  -->
+      <action name="createPartListInformationElement" type="techPubs"/>
+      <!--  New Parts List Information Element  -->
+      <action name="createPubStructWizard" type="arbortext"/>
+      <!--  New Publication Structure  -->
+      <action name="createASPSWizard" type="asps"/>
+      <!--  New Information Structure  -->
+      <action name="separator" type="separator"/>
+      <action name="create" type="folder" shortcut="true"/>
+      <!--  New Folder  -->
+      <action name="add_link" type="bookmark"/>
+      <!--  New Link  -->
+      <action name="separator" type="separator"/>
+      <action name="createECADDesign" type="document" resourceBundle="com.ptc.windchill.uwgm.cadx.createecaddesign.documentECADResource"/>
+      <!--  New Ecad Design  -->
+      <action name="separator" type="separator"/>
+      <action name="createNoteMenuAction" type="note"/>
+      <!--  New Note  -->
+      <action name="createNoteFromTemplateMenuAction" type="note"/>
+      <!--  New Note from Template  -->
+      <action name="separator" type="separator"/>
+      <action name="createBaseline" type="baseline"/>
+      <!--  New Baseline  -->
+      <action name="create" type="managedcollection"/>
+      <!--  New Managed Collection  -->
+      <action name="separator" type="separator"/>
+      <action name="createSpecification" type="specification" resourceBundle="com.ptc.windchill.enterprise.requirement.specificationActionsRB"/>
+      <!--  New Specification  -->
+      <action name="doc_insert_from_folder" type="document"/>
+      <!--  Insert Document  -->
+      <action name="part_insert_from_folder" type="part"/>
+      <!--  Insert Part  -->
+      <action name="createUDI" type="udi"/>
+      <!--  New UDI Submission  -->
+   </model>
 </actionmodels>
