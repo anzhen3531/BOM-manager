@@ -4,12 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/netmarkets/jsp/components/beginWizard.jspf" %>
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
-
-
 <div>
     <jsp:include page="${mvc:getComponentURL('ext.ziang.change.SelectOriginBomBuilder')}"
                  flush="true"/>
 </div>
-
-
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>

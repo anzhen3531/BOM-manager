@@ -11,10 +11,6 @@
 <%@ taglib prefix="wctags" tagdir="/WEB-INF/tags" %>
 <%@ include file="/netmarkets/jsp/components/beginWizard.jspf" %>
 
-
-<%--
-动态获取类型并放置在当前页面中
---%>
 <%
     // 获取oid 获取类型
     // 动态查询
