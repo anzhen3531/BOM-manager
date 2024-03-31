@@ -34,7 +34,7 @@ public class JdbcTemplateOracleHelper {
 	private static String driver;
 
 	static {
-		url = "jdbc:oracle:thin:@win-fv1tfp5mpk5:1521:wind";
+		url = "jdbc:oracle:thin:@plm:1521:wind";
 		username = "pdmlink11";
 		password = "pdmlink11";
 		driver = "oracle.jdbc.OracleDriver";

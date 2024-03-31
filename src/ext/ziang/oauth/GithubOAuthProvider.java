@@ -52,7 +52,7 @@ public class GithubOAuthProvider {
 		if (StrUtil.isBlank(response)) {
 			throw new WTException("登录失败");
 		}
-		JSONObject result = JSON.parseObject(response);
+		JSONObject result = JSONObject.parseObject(response);
 		if (result == null || result.getString("access_token") == null) {
 			throw new WTException("登录失败");
 		}
@@ -70,7 +70,7 @@ public class GithubOAuthProvider {
 	public static JSONObject getUserInfo(String token) {
 		token = "Bearer " + token;
 		String response = buildCommonRequestTOGet(OAuthConfigConstant.GET_USER_INFO_URL, token);
-		return JSON.parseObject(response);
+		return JSONObject.parseObject(response);
 	}
 
 	/**
