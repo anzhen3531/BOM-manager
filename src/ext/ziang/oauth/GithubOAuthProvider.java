@@ -53,6 +53,9 @@ public class GithubOAuthProvider {
 			throw new WTException("登录失败");
 		}
 		JSONObject result = JSON.parseObject(response);
+		if (result == null || result.getString("access_token") == null) {
+			throw new WTException("登录失败");
+		}
 		return result.getString("access_token");
 	}
 
