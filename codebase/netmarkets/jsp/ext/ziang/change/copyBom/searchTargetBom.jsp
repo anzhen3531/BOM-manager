@@ -2,9 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/mvc" prefix="mvc" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="ext.trinasolar.common.constant.CommonConstants" %>
 <%@ page import="wt.fc.Persistable" %>
-<%@ page import="ext.trinasolar.common.utils.ToolUtils" %>
 <%@ page import="wt.part.WTPart" %>
 <%@ page import="wt.type.TypedUtility" %>
 <%@ page import="ext.ziang.common.util.ToolUtils" %>
