@@ -15,6 +15,7 @@
     } else if (tableID.contains("SelectTargetBomBuilder")) {
         tableBuilderId = "ext.ziang.change.SelectTargetBomBuilder";
     }
+    System.out.println("tableBuilderId = " + tableBuilderId);
 %>
 
 <wctags:itemPicker id="searchAffectBom"
@@ -49,6 +50,8 @@
             let params = {
                 "oidList": data
             }
+            console.log(params);
+            console.log(data);
             alert(params);
             // 刷新表格接口
             PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
