@@ -5,63 +5,89 @@
     <include href="config/actions/ext/extFolderManagement-actionModels.xml"/>
 
 
-
-    <model name="folderbrowser_toolbar_actions">
-        <description>Folder browser toolbar actions menu for all Folders.</description>
-        <submodel name="folderbrowser_toolbar_open_submenu" />
-        <action   name="separator"                                  type="separator" />
-        <submodel name="folderbrowser_toolbar_new_submenu" />
-        <action   name="separator"                                  type="separator" />
-        <action   name="list_cut"                                   type="object" />                                                 <!-- Cut -->
-        <action   name="list_copy"                                  type="object" shortcut="true" />                                 <!-- Copy -->
-        <action name="onceCopyBomOrigin" type="extCommonAction" shortcut="true"/>
-        <action   name="pasteAsCopy"                                type="saveas" />                                                 <!-- Paste (for Product/Library/Org/Site) -->
-        <action   name="fbpaste"                                    type="object" />                                                 <!-- Paste -->
-        <action   name="CONTAINERMOVE"                              type="pdmObject" />                                              <!-- Move -->
-        <action   name="separator"                                  type="separator" />
-        <action   name="multiObjectCheckIn"                         type="wip" />                                                    <!-- multiObjectCheckIn -->
-        <action   name="multiObjectCheckOut"                        type="wip" />                                                    <!-- multiObjectCheckOut -->
-        <action   name="PAGERELOADINGMULTICHECKOUT"                 type="folder" />                                                 <!-- Check out to Workspace -->
-        <action   name="multiObjectUndoCheckout"                    type="wip" />                                                    <!-- multiObjectUndoCheckout -->
-        <action   name="editMultiObjects"                           type="object" />                                                 <!-- Edit Multiple Objects -->
-        <action   name="MULTIREVISEITEMS_FROMFOLDERS"               type="pdmObject" />                                              <!-- Revise -->
-        <action   name="route"                                      type="workflow" />                                               <!-- Route -->
-        <action   name="separator"                                  type="separator" />
-        <action   name="WFMULTISAVEAS"                              type="folder" />                                                 <!-- Save As -->
-        <action   name="MULTIRENAME"                                type="folder" />                                                 <!-- Rename -->
-        <action   name="SETSTATE_FROMFOLDERS"                       type="pdmObject" />                                              <!-- Set State -->
-        <action   name="export"                                     type="object" />                                                 <!-- Export -->
-        <action   name="cadmultiexport"                             type="object" />                                                 <!-- Export -->
-        <action   name="list_delete"                                type="object" />                                                 <!-- Delete -->
-        <action   name="batchPrint"                                 type="wvs" />                                                    <!-- Batch Print -->
-        <action   name="separator"                                  type="separator" />
-        <action   name="WFADDTOWORKSPACE"                           type="folder"  shortcut="true" />                                                 <!-- Add to Workspace -->
-        <submodel name="folderbrowser_toolbar_addto_submenu" />
-        <action   name="separator"                                  type="separator" />
-        <action   name="sendToPDM"                                  type="sandbox" />                                                <!-- Send to PDM -->
-        <action   name="convertToShareTB"                           type="sandbox" />                                                <!-- Convert to Share -->
-        <action   name="sandboxCheckoutShareMultiSelect"            type="object" />                                                 <!-- Convert to PDM Check-out -->
-        <action   name="sandboxUndoCheckout"                        type="object" />                                                 <!-- Undo PDM Check-out -->
-        <action   name="manageIdentityConflicts"                    type="sandbox" />                                                <!-- Manage Identity Conflict -->
-        <action   name="SBUpdatePrj"                                type="sandbox" />                                                <!-- Update Project -->
-        <action   name="updateShareMultiSelect"                     type="sandbox" />                                                <!-- Update Selected Shares -->
-        <action   name="removeShareTB"                              type="object" />                                                 <!-- Remove Share -->
-        <action   name="separator"                                  type="separator" />
-        <submodel name="folderbrowser_toolbar_compare_submenu" />
-        <submodel name="folderbrowser_toolbar_process_submenu" />
-        <action   name="downloadDocumentsToCompressedFile"          type="document" />                                               <!-- Download Documents to Compressed File -->
-        <action   name="createImportJob" 				  type="ixb"/>                                                     <!-- Import from Spreadsheet -->
-        <submodel name="folderbrowser_toolbar_exportlisttofile_submenu" />
-        <submodel name="folderbrowser_toolbar_requirements_submenu" />
-        <action   name="importFromIntegrity"                        type="integrityRM" />                                            <!-- Import items from Integrity -->
-        <action   name="separator"                                  type="separator" />
-        <action name="multiObjManageSecurity"                       type="accessPermission"/>
-        <action name="MULTIEDITSECURITYLABELS"                      type="object"/>                                                                   <!-- Manage Security -->
-        <action   name="createSubscription"                         type="subscription" />                                           <!-- Subscribe -->
+    <model name="folderbrowser_toolbar_new_submenu" resourceBundle="com.ptc.windchill.enterprise.folder.FolderActionResource">
+        <description>'New' submenu for folder browser toolbar actions menu.</description>
+        <action name="create" type="document" shortcut="true"/>
+        <!--  New Document  -->
+        <action name="createMulti" type="document"/>
+        <!--  New Multiple Documents  -->
+        <action name="uploadDocumentsFromCompressedFile" type="document"/>
+        <!--  Upload Documents from Compressed File  -->
         <action name="separator" type="separator"/>
-        <action name="track_new_work_table" type="resourceAssignment" /><!-- Track new Work against subject of deliverable-->
-        <action name="new_plan_activity_table" type="planActivity" /><!-- New Plan Activity against subject -->
-        <includeFilter name="ActionFilterOnProject2State" />
+        <action name="createPartWizard" type="part" shortcut="true"/>
+        <!--      一键复制BOM-->
+        <action name="onceCopyBomOrigin" type="extCommonAction" shortcut="true"/>
+        <!--  New Part  -->
+        <action name="createMultiPart" type="part"/>
+        <!--  New Multiple Parts  -->
+        <action name="createWorkSetWizard" type="workSet"/>
+        <action name="separator" type="separator"/>
+        <action name="createProductFamily" type="productfamily"/>
+        <action name="separator" type="separator"/>
+        <action name="createMpmprocessplan" type="mpml"/>
+        <!--  New Process Plan  -->
+        <action name="createMPMResource" type="mpml"/>
+        <!--  New Resource  -->
+        <action name="createMPMStandardCC" type="mpml"/>
+        <action name="separator" type="separator"/>
+        <action name="create" type="changeNotice"/>
+        <!--  New Change Notice  -->
+        <action name="createChangeDirective" type="changeDirective" shortcut="true"/>
+        <!--  New Change Directive  -->
+        <action name="create" type="changeRequest" shortcut="true"/>
+        <!--  New Change Request  -->
+        <action name="create" type="problemReport"/>
+        <!--  New Problem Report  -->
+        <action name="create" type="softwareIssue"/>
+        <!--  New Software Issue  -->
+        <action name="create" type="variance"/>
+        <!--  New Variance  -->
+        <action name="create" type="promotionRequest"/>
+        <!--  New Promotion Request  -->
+        <action name="separator" type="separator"/>
+        <action name="create" type="changeReview" shortcut="true"/>
+        <!--  New Change Review  -->
+        <action name="separator" type="separator"/>
+        <action name="create_request" type="npi"/>
+        <!--  New Part Request  -->
+        <action name="separator" type="separator"/>
+        <action name="createTextualInformationElement" type="techPubs"/>
+        <!--  New Textual Information Element  -->
+        <action name="createGraphicInformationElement" type="techPubs"/>
+        <!--  New Graphic Information Element  -->
+        <action name="createPartListInformationElement" type="techPubs"/>
+        <!--  New Parts List Information Element  -->
+        <action name="createPubStructWizard" type="arbortext"/>
+        <!--  New Publication Structure  -->
+        <action name="createASPSWizard" type="asps"/>
+        <!--  New Information Structure  -->
+        <action name="separator" type="separator"/>
+        <action name="create" type="folder" shortcut="true"/>
+        <!--  New Folder  -->
+        <action name="add_link" type="bookmark"/>
+        <!--  New Link  -->
+        <action name="separator" type="separator"/>
+        <action name="createECADDesign" type="document" resourceBundle="com.ptc.windchill.uwgm.cadx.createecaddesign.documentECADResource"/>
+        <!--  New Ecad Design  -->
+        <action name="separator" type="separator"/>
+        <action name="createNoteMenuAction" type="note"/>
+        <!--  New Note  -->
+        <action name="createNoteFromTemplateMenuAction" type="note"/>
+        <!--  New Note from Template  -->
+        <action name="separator" type="separator"/>
+        <action name="createBaseline" type="baseline"/>
+        <!--  New Baseline  -->
+        <action name="create" type="managedcollection"/>
+        <!--  New Managed Collection  -->
+        <action name="separator" type="separator"/>
+        <action name="createSpecification" type="specification" resourceBundle="com.ptc.windchill.enterprise.requirement.specificationActionsRB"/>
+        <!--  New Specification  -->
+        <action name="doc_insert_from_folder" type="document"/>
+        <!--  Insert Document  -->
+        <action name="part_insert_from_folder" type="part"/>
+        <!--  Insert Part  -->
+        <action name="createUDI" type="udi"/>
+        <!--  New UDI Submission  -->
     </model>
 
 </actionmodels>
