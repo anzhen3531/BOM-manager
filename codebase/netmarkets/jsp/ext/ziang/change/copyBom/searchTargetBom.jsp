@@ -49,6 +49,7 @@
             let params = {
                 "oidList": data
             }
+            // 刷新表格接口
             PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
         } catch (e) {
             alert(e);
