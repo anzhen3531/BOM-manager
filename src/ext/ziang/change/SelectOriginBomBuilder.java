@@ -73,7 +73,7 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	@Override
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams) {
 		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
-		Object oidList = componentParams.getParameter("oidList");
+		Object oidList = componentParams.getParameter("data");
 		System.out.println("oidList = " + oidList);
 		if (oidList == null) {
 			return null;

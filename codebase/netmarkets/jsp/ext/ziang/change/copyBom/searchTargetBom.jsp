@@ -48,8 +48,8 @@
                 }
             }
             let params = {
-                "oidList": data
-            }
+                data: data,
+            };
             console.log(params);
             console.log(data);
             alert(params);
