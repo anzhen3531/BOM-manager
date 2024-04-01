@@ -12,7 +12,6 @@
         <action name="separator" type="separator"/>
         <action name="undoReservation" type="reservation"/>
         <action name="edit" type="changeTask"/>
-        <!--        一键复制BOM-->
         <action name="onceCopyBomOrigin" type="extCommonAction"/>
         <action name="editTemplate" type="changeTask"/>
         <action name="separator" type="separator"/>
@@ -32,5 +31,10 @@
         <action name="securityLabelsSingleObjJCA" type="securityLabels"/>
         <action name="EDITSECURITYLABELSNONCOLLECTED" type="object"/>
         <action name="createSubscription" type="subscription"/>
+    </model>
+
+
+    <model name="commonOperationModels">
+        <action name="searchAffected" type="extCommonAction" shortcut="true"/>
     </model>
 </actionmodels>

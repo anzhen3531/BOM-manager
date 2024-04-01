@@ -39,14 +39,15 @@ public class SelectTargetBomBuilder extends AbstractComponentBuilder {
 		// 设置展示数量
 		result.setShowCount(true);
 		result.setConfigurable(true);
+		result.setActionModel("commonOperationModels");
 
 		createNewColumnConfig("number", result, factory, false);
 		createNewColumnConfig("name", result, factory, false);
 		createNewColumnConfig("description", result, factory, true);
 		createNewColumnConfig("version", result, factory, false);
-		createNewColumnConfig("unit", result, factory, false);
-		createNewColumnConfig("creator", result, factory, false);
-		createNewColumnConfig("modifier", result, factory, false);
+		createNewColumnConfig("defaultUnit", result, factory, false);
+		createNewColumnConfig("iterationInfo.creator", result, factory, false);
+		createNewColumnConfig("iterationInfo.modifier", result, factory, false);
 		createNewColumnConfig("thePersistInfo.createStamp", result, factory, false);
 		createNewColumnConfig("thePersistInfo.modifyStamp", result, factory, false);
 
