@@ -15,7 +15,10 @@ import ext.ziang.common.util.CommonLogPrintUtil;
 import wt.change2.ChangeActivityIfc;
 import wt.change2.ChangeHelper2;
 import wt.fc.QueryResult;
+import wt.part.WTPart;
 import wt.util.WTException;
+
+import java.util.ArrayList;
 
 /**
  * 执行批改builder
@@ -74,11 +77,16 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams) {
 		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
 		Object oidList = componentParams.getParameter("data");
+		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
+		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
+		System.out.println("helperBean.getRequest().getParameterMap() = " + helperBean.getRequest().getParameterMap());
 		System.out.println("oidList = " + oidList);
+		ArrayList<WTPart> returnList = new ArrayList<>();
 		if (oidList == null) {
-			return null;
+			return returnList;
 		} else {
-			return null;
+
+			return returnList;
 		}
 	}
 
