@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE actionmodels SYSTEM '../actionmodels.dtd'>
+
 <actionmodels>
    <model name="folderbrowser_toolbar_actions">
       <description>Folder browser toolbar actions menu for all Folders.</description>
@@ -9,7 +10,6 @@
       <action   name="separator"                                  type="separator" />
       <action   name="list_cut"                                   type="object" />                                                 <!-- Cut -->
       <action   name="list_copy"                                  type="object" shortcut="true" />                                 <!-- Copy -->
-<!--      一键复制BOM-->
       <action name="onceCopyBomOrigin" type="extCommonAction" shortcut="true"/>
       <action   name="pasteAsCopy"                                type="saveas" />                                                 <!-- Paste (for Product/Library/Org/Site) -->
       <action   name="fbpaste"                                    type="object" />                                                 <!-- Paste -->
@@ -59,6 +59,7 @@
       <action name="new_plan_activity_table" type="planActivity" /><!-- New Plan Activity against subject -->
       <includeFilter name="ActionFilterOnProject2State" />
    </model>
+
    <model name="folderbrowser_toolbar_new_submenu" resourceBundle="com.ptc.windchill.enterprise.folder.FolderActionResource">
       <description>'New' submenu for folder browser toolbar actions menu.</description>
       <action name="create" type="document" shortcut="true"/>

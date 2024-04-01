@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <!DOCTYPE actionmodels SYSTEM '../actionmodels.dtd'>
-<!-- define the actions on the UI components -->
 <actionmodels resourceBundle="com.ptc.windchill.enterprise.change2.changeManagementActionsRB">
 
     <model name="changeTask row actions" menufor="wt.change2.WTChangeActivity2">
