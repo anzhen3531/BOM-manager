@@ -69,19 +69,17 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	 * @param componentParams
 	 *            组件参数
 	 * @return {@link Object}
-	 * @throws Exception
-	 *             例外
 	 */
 	@Override
-	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams)
-			throws Exception {
+	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams) {
 		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
-		NmHelperBean helperBean = ((JcaComponentParams) componentParams).getHelperBean();
-		NmCommandBean nmCommandBean = helperBean.getNmCommandBean();
-		QueryResult qr = ChangeHelper2.service
-				.getChangeablesAfter((ChangeActivityIfc) nmCommandBean.getPrimaryOid().getRefObject());
-		CommonLogPrintUtil.printLog("qr.size" + qr.size());
-		return qr;
+		Object oidList = componentParams.getParameter("oidList");
+		System.out.println("oidList = " + oidList);
+		if (oidList == null) {
+			return null;
+		} else {
+			return null;
+		}
 	}
 
 	/**
