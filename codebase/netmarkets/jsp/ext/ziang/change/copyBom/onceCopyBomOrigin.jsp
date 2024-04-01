@@ -7,8 +7,8 @@
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/components" prefix="jca" %>
 
 <jca:wizard title="一键复制BOM" buttonList="DefaultWizardButtonsNoApply">
-    <jca:wizardStep action="selectAffectionBomStep" type="extECA" label="选择源BOM"/>
-    <jca:wizardStep action="copyBomStructStep" type="extECA" label="选择需要复制的BOM"/>
+    <jca:wizardStep action="selectAffectionBomStep" type="extCommonAction" label="选择源BOM"/>
+    <jca:wizardStep action="copyBomStructStep" type="extCommonAction" label="选择需要复制的BOM"/>
 </jca:wizard>
 
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
