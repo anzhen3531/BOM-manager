@@ -52,9 +52,8 @@
             };
             console.log(params);
             console.log(data);
-            alert(params);
             // 刷新表格接口
-            PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
+            PTC.jca.table.Utils.reload('ext.ziang.change.SelectOriginBomBuilder', params, true);
         } catch (e) {
             alert(e);
         }
