@@ -23,6 +23,13 @@
             <command windowType="wizard_step"
                      url="/netmarkets/jsp/ext/ziang/change/copyBom/copyBomStructStep.jsp"/>
         </action>
+
+        <!--搜索物料即可-->
+        <action name="searchAffected" id="searchAffected">
+            <command windowType="popup"
+                     url="/netmarkets/jsp/ext/ziang/change/copyBom/searchTargetBom.jsp"/>
+        </action>
+
     </objecttype>
 
 </listofactions>

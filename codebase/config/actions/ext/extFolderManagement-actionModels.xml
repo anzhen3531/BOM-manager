@@ -87,4 +87,8 @@
       <action name="createUDI" type="udi"/>
       <!--  New UDI Submission  -->
    </model>
+
+   <model name="commonOperationModels">
+      <action name="searchAffected" type="extCommonAction" shortcut="true"/>
+   </model>
 </actionmodels>
