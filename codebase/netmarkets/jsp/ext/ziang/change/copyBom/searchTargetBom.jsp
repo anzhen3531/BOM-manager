@@ -36,7 +36,7 @@
                    showTypePicker="true"
                    multiSelect="true"
                    pickerCallback="doNothing"
-                   inline="false"
+                   inline="true"
 />
 
 <%-- 回调接口得到OID设置到对应中即可 --%>
