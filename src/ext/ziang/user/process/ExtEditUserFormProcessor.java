@@ -11,6 +11,12 @@ import ext.ziang.user.helper.UserExtendedInformationHelper;
 import wt.org.WTUser;
 import wt.util.WTException;
 
+/**
+ * ext edit 用户表单处理器
+ *
+ * @author anzhen
+ * @date 2024/04/01
+ */
 public class ExtEditUserFormProcessor extends EditUserFormProcessor {
 
 	@Override
