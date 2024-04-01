@@ -31,7 +31,7 @@
                    label="输入编号查询BOM"
                    showVersion="true"
                    pickerTitle="选择需要复制的BOM"
-                   objectType="<%=type%>"
+                   objectType="WCTYPE|wt.part.WTPart"
                    defaultVersionValue="LATEST"
                    showTypePicker="true"
                    multiSelect="true"

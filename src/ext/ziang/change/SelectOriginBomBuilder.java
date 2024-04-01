@@ -46,7 +46,7 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 		// 设置展示数量
 		result.setShowCount(true);
 		result.setConfigurable(true);
-		// result.setActionModel("commonOperationModels");
+		result.setActionModel("commonOperationModels");
 
 		createNewColumnConfig("number", result, factory, false);
 		createNewColumnConfig("name", result, factory, false);
