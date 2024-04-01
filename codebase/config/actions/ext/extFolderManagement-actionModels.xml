@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE actionmodels SYSTEM '../../actionmodels.dtd'>
+<!DOCTYPE actionmodels SYSTEM '../actionmodels.dtd'>
 <actionmodels>
    <model name="folderbrowser_toolbar_actions">
       <description>Folder browser toolbar actions menu for all Folders.</description>

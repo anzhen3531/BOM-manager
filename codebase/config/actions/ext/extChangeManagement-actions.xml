@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE listofactions SYSTEM '../../actions.dtd'>
+<!DOCTYPE listofactions SYSTEM '../actions.dtd'>
 <listofactions>
     <objecttype name="extECA" class="wt.change2.WTChangeActivity2"
                 resourceBundle="ext.ziang.resource.ExtChangeManagementActionsResource">
