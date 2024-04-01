@@ -5,7 +5,7 @@
     <objecttype name="extCommonAction"
                 resourceBundle="ext.ziang.resource.CommonActionResource">
         <!--一键复里面制BOM-->
-        <action name="onceCopyBom">
+        <action name="onceCopyBomOrigin">
             <command method="execute"
                      class="ext.trinasolar.eccb.process.SelectOriginBomProcessor"
                      url="/netmarkets/jsp/ext/ziang/change/copyBom/onceCopyBomOrigin.jsp"
