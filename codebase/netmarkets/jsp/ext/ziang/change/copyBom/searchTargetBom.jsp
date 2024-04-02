@@ -53,7 +53,6 @@
                 data: data
             };
             console.log(params);
-            console.log(oid);
             // 刷新父页面接口
             window.opener.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
             alert("添加完成");
