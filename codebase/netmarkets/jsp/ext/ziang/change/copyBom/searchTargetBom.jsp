@@ -48,12 +48,13 @@
                 }
             }
             let params = {
-                data: data,
+                data: data
             };
-            console.log(params);
             console.log(data);
+            console.log(params);
             // 刷新表格接口
             PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
+            console.log("刷新完成");
         } catch (e) {
             alert(e);
         }
