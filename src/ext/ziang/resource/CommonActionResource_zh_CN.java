@@ -25,4 +25,9 @@ public class CommonActionResource_zh_CN extends WTListResourceBundle {
 	@RBPseudo(false)
 	@RBComment("DO NOT TRANSLATE")
 	public static final String EXTCOMMONACTION_ONCECOPYBOM_ICON = "extCommonAction.onceCopyBom.icon";
+
+	@RBEntry("netmarkets/images/add16x16.gif")
+	@RBPseudo(false)
+	@RBComment("add part")
+	public static final String EXTCOMMONACTION_SEARCHAFFECTED_ICON = "extCommonAction.searchAffected.icon";
 }
