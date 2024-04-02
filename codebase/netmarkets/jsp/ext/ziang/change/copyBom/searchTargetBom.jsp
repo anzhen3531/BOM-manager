@@ -35,6 +35,7 @@
 <script>
     function searchAffectBom(object) {
         let data = [];
+        let oid;
         try {
             // 获取选择的对象
             var theJSONObject = object.pickedObject;
@@ -45,16 +46,17 @@
                     console.log(theJSONObject[i].number);
                     console.log(theJSONObject[i].view);
                     data.push(theJSONObject[i].oid);
+                    oid = theJSONObject[i].oid;
                 }
             }
             let params = {
-                data: data
+                data: oid
             };
-            console.log(data);
             console.log(params);
+            console.log(oid);
             // 刷新表格接口
             PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
-            alert("刷新完成");
+            alert(oid);
         } catch (e) {
             alert(e);
         }

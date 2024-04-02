@@ -13,6 +13,7 @@ import com.ptc.mvc.components.TableConfig;
 import com.ptc.netmarkets.util.beans.NmHelperBean;
 
 import ext.ziang.common.util.CommonLogPrintUtil;
+import ext.ziang.common.util.ToolUtils;
 import wt.part.WTPart;
 import wt.util.WTException;
 
@@ -70,7 +71,7 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	 * @return {@link Object}
 	 */
 	@Override
-	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams) {
+	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams) throws WTException {
 		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
 		Object oidList = componentParams.getParameter("data");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
@@ -82,8 +83,7 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 		if (oidList == null) {
 			return returnList;
 		} else {
-
-			return returnList;
+			return ToolUtils.getObjectByOid((String) oidList);
 		}
 	}
 
