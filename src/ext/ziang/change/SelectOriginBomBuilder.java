@@ -1,5 +1,7 @@
 package ext.ziang.change;
 
+import java.util.ArrayList;
+
 import com.ptc.jca.mvc.components.JcaComponentParams;
 import com.ptc.mvc.components.AbstractComponentBuilder;
 import com.ptc.mvc.components.ColumnConfig;
@@ -8,17 +10,11 @@ import com.ptc.mvc.components.ComponentConfig;
 import com.ptc.mvc.components.ComponentConfigFactory;
 import com.ptc.mvc.components.ComponentParams;
 import com.ptc.mvc.components.TableConfig;
-import com.ptc.netmarkets.util.beans.NmCommandBean;
 import com.ptc.netmarkets.util.beans.NmHelperBean;
 
 import ext.ziang.common.util.CommonLogPrintUtil;
-import wt.change2.ChangeActivityIfc;
-import wt.change2.ChangeHelper2;
-import wt.fc.QueryResult;
 import wt.part.WTPart;
 import wt.util.WTException;
-
-import java.util.ArrayList;
 
 /**
  * 执行批改builder
@@ -45,7 +41,7 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 		result.setLabel("选择产生对象BOM");
 		result.setSelectable(true);
 		result.setSingleSelect(true);
-		result.setId("SelectOriginBomBuilder");
+		result.setId("ext.ziang.change.SelectOriginBomBuilder");
 		// 设置展示数量
 		result.setShowCount(true);
 		result.setConfigurable(true);
@@ -79,7 +75,8 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 		Object oidList = componentParams.getParameter("data");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
-		System.out.println("helperBean.getRequest().getParameterMap() = " + helperBean.getRequest().getParameterMap());
+		System.out.println("helperBean.getRequest().getParameterMap() = "
+				+ helperBean.getRequest().getParameterMap());
 		System.out.println("oidList = " + oidList);
 		ArrayList<WTPart> returnList = new ArrayList<>();
 		if (oidList == null) {
