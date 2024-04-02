@@ -55,7 +55,7 @@
             console.log(params);
             console.log(oid);
             // 刷新表格接口
-            parent.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
+           PTC.jca.table.Utils.opener.reload('<%=tableBuilderId%>', params, true);
             alert(oid);
         } catch (e) {
             alert(e);
