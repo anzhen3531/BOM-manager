@@ -50,13 +50,13 @@
                 }
             }
             let params = {
-                data: oid
+                data: data
             };
             console.log(params);
             console.log(oid);
             // 刷新父页面接口
             window.opener.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
-            alert(oid);
+            alert("添加完成");
         } catch (e) {
             alert(e);
         }

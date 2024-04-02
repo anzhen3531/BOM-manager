@@ -1,5 +1,6 @@
 package ext.ziang.change;
 
+import com.ptc.jca.mvc.components.JcaComponentParams;
 import com.ptc.mvc.components.AbstractComponentBuilder;
 import com.ptc.mvc.components.ColumnConfig;
 import com.ptc.mvc.components.ComponentBuilder;
@@ -8,7 +9,13 @@ import com.ptc.mvc.components.ComponentConfigFactory;
 import com.ptc.mvc.components.ComponentParams;
 import com.ptc.mvc.components.TableConfig;
 
+import com.ptc.netmarkets.util.beans.NmHelperBean;
+import ext.ziang.common.util.CommonLogPrintUtil;
+import ext.ziang.common.util.ToolUtils;
+import wt.part.WTPart;
 import wt.util.WTException;
+
+import java.util.ArrayList;
 
 /**
  * 执行批改builder
@@ -34,7 +41,7 @@ public class SelectTargetBomBuilder extends AbstractComponentBuilder {
 		TableConfig result = factory.newTableConfig();
 		result.setLabel("选择需要复制的BOM");
 		result.setSelectable(true);
-		result.setSingleSelect(true);
+		result.setSingleSelect(false);
 		result.setId("SelectTargetBomBuilder");
 		// 设置展示数量
 		result.setShowCount(true);
@@ -57,9 +64,19 @@ public class SelectTargetBomBuilder extends AbstractComponentBuilder {
 	@Override
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams)
 			throws Exception {
-		System.out.println("componentParams = " + componentParams);
-		//
-		return null;
+		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
+		Object oidList = componentParams.getParameter("data");
+		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
+		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
+		System.out.println("helperBean.getRequest().getParameterMap() = "
+				+ helperBean.getRequest().getParameterMap());
+		System.out.println("oidList = " + oidList);
+		ArrayList<WTPart> returnList = new ArrayList<>();
+		if (oidList == null) {
+			return returnList;
+		} else {
+			return ToolUtils.getObjectByOid((String) oidList);
+		}
 	}
 
 	/**
