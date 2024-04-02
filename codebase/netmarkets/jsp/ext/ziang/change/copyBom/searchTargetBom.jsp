@@ -11,9 +11,9 @@
     String tableID = request.getParameter("tableID");
     String tableBuilderId = "";
     if (tableID.contains("SelectOriginBomBuilder")) {
-        tableBuilderId = "ext.ziang.change.SelectOriginBomBuilder";
+        tableBuilderId = "change.SelectOriginBomBuilder";
     } else if (tableID.contains("SelectTargetBomBuilder")) {
-        tableBuilderId = "ext.ziang.change.SelectTargetBomBuilder";
+        tableBuilderId = "SelectTargetBomBuilder";
     }
     System.out.println("tableBuilderId = " + tableBuilderId);
 %>
@@ -53,7 +53,7 @@
             console.log(params);
             console.log(data);
             // 刷新表格接口
-            PTC.jca.table.Utils.reload('ext.ziang.change.SelectOriginBomBuilder', params, true);
+            PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
         } catch (e) {
             alert(e);
         }
