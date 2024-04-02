@@ -7,7 +7,7 @@
         <!--一键复里面制BOM-->
         <action name="onceCopyBom">
             <command method="execute"
-                     class="ext.trinasolar.eccb.process.SelectOriginBomProcessor"
+                     class="ext.ziang.part.process.OnceCopyBomProcessor"
                      url="/netmarkets/jsp/ext/ziang/change/copyBom/onceCopyBomOrigin.jsp"
                      windowType="popup"/>
         </action>
