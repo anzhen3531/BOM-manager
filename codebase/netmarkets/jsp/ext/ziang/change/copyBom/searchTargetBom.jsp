@@ -11,7 +11,7 @@
     String tableID = request.getParameter("tableID");
     String tableBuilderId = "";
     if (tableID.contains("SelectOriginBomBuilder")) {
-        tableBuilderId = "change.SelectOriginBomBuilder";
+        tableBuilderId = "SelectOriginBomBuilder";
     } else if (tableID.contains("SelectTargetBomBuilder")) {
         tableBuilderId = "SelectTargetBomBuilder";
     }
