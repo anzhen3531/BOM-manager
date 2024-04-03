@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.components.forms.DefaultObjectFormProcessor;
@@ -44,7 +45,6 @@ public class OnceCopyBomProcessor extends DefaultObjectFormProcessor {
 		ArrayList selected = nmCommandBean.getSelected();
 		System.out.println("selected = " + selected);
 		validateCopyBomObject(selected);
-		// 验证第一个表格中是否为空
 		return super.preProcess(nmCommandBean, list);
 	}
 
@@ -64,9 +64,10 @@ public class OnceCopyBomProcessor extends DefaultObjectFormProcessor {
 		System.out.println("OnceCopyBomProcessor.doOperation");
 		ArrayList selected = nmCommandBean.getSelected();
 		System.out.println("selected = " + selected);
-		HashMap<String, List<WTPart>> stringListHashMap = validateCopyBomObject(selected);
-		List<WTPart> targetPartList = stringListHashMap.get("targetPartList");
-		List<WTPart> originPartList = stringListHashMap.get("originPartList");
+		Map<String, List<WTPart>> stringListHashMap = validateCopyBomObject(selected);
+		System.out.println("stringListHashMap = " + stringListHashMap);
+		List<WTPart> targetPartList = stringListHashMap.get("targetParts");
+		List<WTPart> originPartList = stringListHashMap.get("originPart");
 		// 复制BOM
 		for (WTPart part : targetPartList) {
 			CommonHandlerBomStructHelper.copyBomStruct(originPartList.get(0), part);
@@ -81,7 +82,7 @@ public class OnceCopyBomProcessor extends DefaultObjectFormProcessor {
 	 *            选择
 	 * @return {@link HashMap}<{@link String}, {@link List}<{@link WTPart}>>
 	 */
-	public HashMap<String, List<WTPart>> validateCopyBomObject(ArrayList selected) throws WTException {
+	public Map<String, List<WTPart>> validateCopyBomObject(ArrayList selected) throws WTException {
 		// 验证第二个表格中是否存在相同的builder
 		ArrayList<WTPart> targetPartList = new ArrayList<>();
 		WTPart originPart = null;
