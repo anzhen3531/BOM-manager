@@ -47,7 +47,7 @@
                     if (oid === undefined || oid === "") {
                         oid = theJSONObject[i].oid;
                     } else {
-                        oid = oid + "," + theJSONObject[i].oid;
+                        oid += "," + theJSONObject[i].oid;
                     }
                 }
             }
