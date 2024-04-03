@@ -65,7 +65,7 @@ public class SelectTargetBomBuilder extends AbstractComponentBuilder {
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams)
 			throws Exception {
 		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
-		Object oidList = componentParams.getParameter("data");
+		Object oidList = componentParams.getParameter("oidList");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
 		System.out.println("helperBean.getRequest().getParameterMap() = "

@@ -34,7 +34,7 @@
 <%-- 回调接口得到OID设置到对应中即可 --%>
 <script>
     function searchAffectBom(object) {
-        let data = [];
+        let oidList = [];
         let oid;
         try {
             // 获取选择的对象
@@ -43,17 +43,15 @@
             if (theJSONObject.length > 0) {
                 for (let i = 0; i < theJSONObject.length; i++) {
                     console.log(theJSONObject[i].oid);
-                    console.log(theJSONObject[i].number);
-                    console.log(theJSONObject[i].view);
-                    data.push(theJSONObject[i].oid);
+                    oidList.push(theJSONObject[i].oid);
                     oid = theJSONObject[i].oid;
                 }
             }
             let params = {
-                data: data
+                oidList: oidList
             };
             console.log(params);
-            alert(data.length);
+            alert(oidList.length);
             // 刷新父页面接口
             window.opener.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
             alert("添加完成");
