@@ -1,4 +1,4 @@
-package ext.ziang.change;
+package ext.ziang.part.builder;
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ import wt.util.WTException;
  * @date 2024/02/20
  */
 
-@ComponentBuilder({ "ext.ziang.change.SelectOriginBomBuilder" })
+@ComponentBuilder({ "ext.ziang.part.builder.SelectOriginBomBuilder" })
 public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	/**
 	 * 构建组件配置
@@ -43,7 +43,7 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 		result.setLabel("选择产生对象BOM");
 		result.setSelectable(true);
 		result.setSingleSelect(true);
-		result.setId("ext.ziang.change.SelectOriginBomBuilder");
+		result.setId("ext.ziang.part.builder.SelectOriginBomBuilder");
 		// 设置展示数量
 		result.setShowCount(true);
 		result.setConfigurable(true);

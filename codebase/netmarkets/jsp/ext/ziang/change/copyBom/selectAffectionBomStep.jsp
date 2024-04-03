@@ -5,7 +5,7 @@
 <%@ include file="/netmarkets/jsp/components/beginWizard.jspf" %>
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
 <div>
-    <jsp:include page="${mvc:getComponentURL('ext.ziang.change.SelectOriginBomBuilder')}"
+    <jsp:include page="${mvc:getComponentURL('ext.ziang.part.builder.SelectOriginBomBuilder')}"
                  flush="true"/>
 </div>
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>

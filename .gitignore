@@ -34,5 +34,6 @@ codebase/WEB-INF/lib/
 *iml
 
 codebase/netmarkets/jsp/document/**
+codebase/netmarkets/jsp/massChange/**
 codebase/netmarkets/jsp/part/**
 ./venv/

@@ -1,4 +1,4 @@
-package ext.ziang.change;
+package ext.ziang.part.builder;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ import wt.fc.Persistable;
  * @date 2024/02/20
  */
 
-@ComponentBuilder({ "ext.ziang.change.SelectTargetBomBuilder" })
+@ComponentBuilder({ "ext.ziang.part.builder.SelectTargetBomBuilder" })
 public class SelectTargetBomBuilder extends AbstractComponentBuilder {
 	/**
 	 * 构建组件配置

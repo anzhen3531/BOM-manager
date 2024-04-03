@@ -11,7 +11,7 @@
     String tableID = request.getParameter("tableID");
     String tableBuilderId = "";
     if (tableID.contains("SelectOriginBomBuilder")) {
-        tableBuilderId = "ext.ziang.change.SelectOriginBomBuilder";
+        tableBuilderId = "ext.ziang.part.builder.SelectOriginBomBuilder";
     } else if (tableID.contains("SelectTargetBomBuilder")) {
         tableBuilderId = "SelectTargetBomBuilder";
     }

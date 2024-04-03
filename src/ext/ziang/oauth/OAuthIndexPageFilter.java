@@ -21,6 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sun.jndi.toolkit.chars.BASE64Encoder;
 
 import cn.hutool.core.util.StrUtil;
+import ext.ziang.common.helper.ldap.OpenDjPasswordService;
 import ext.ziang.common.util.CommonLog;
 import wt.util.WTRuntimeException;
 
@@ -42,7 +43,7 @@ public class OAuthIndexPageFilter implements Filter {
 	public static String COMMON_PATH = "Windchill/servlet/WindchillAuthGW/wt.httpgw.HTTPAuthentication/login";
 
 	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
+	public void init(FilterConfig filterConfig) {
 		// 配置文件中的拦截器
 		WHITE_LIST_URLS.add("/Windchill/wtcore/getWtProperties.jsp");
 		WHITE_LIST_URLS.add("/Windchill/servlet/WindchillGW/wt.httpgw.HTTPServer/ping");
