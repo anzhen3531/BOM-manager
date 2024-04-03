@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=GBK" %>
 <%@ page import="java.util.Base64" %>
+<%@ page import="ext.ziang.common.util.EncryptionUtils" %>
 <%
     String auth = request.getParameter("token");
     System.out.println("auth = " + auth);
@@ -9,7 +10,7 @@
     String credentials = new String(Base64.getDecoder().decode(auth));
     String[] split = credentials.split(":", 2);
     String userName = split[0];
-    String password = split[1];
+    String password = EncryptionUtils.decrypt(split[1]);
     System.out.println("password = " + password);
     System.out.println("userName = " + userName);
 %>

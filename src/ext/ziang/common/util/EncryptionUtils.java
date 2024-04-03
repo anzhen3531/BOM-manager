@@ -22,6 +22,13 @@ public class EncryptionUtils {
 	 */
 	private static final String SECRET_KEY = "aa;dsj@123sc%daq";
 
+	/**
+	 * 加密
+	 *
+	 * @param strToEncrypt
+	 *            str 加密
+	 * @return {@link String}
+	 */
 	public static String encrypt(String strToEncrypt) {
 		try {
 			SecretKeySpec secretKey = new SecretKeySpec(SECRET_KEY.getBytes(), ALGORITHM);
@@ -35,6 +42,13 @@ public class EncryptionUtils {
 		return null;
 	}
 
+	/**
+	 * 解密
+	 *
+	 * @param strToDecrypt
+	 *            str 解密
+	 * @return {@link String}
+	 */
 	public static String decrypt(String strToDecrypt) {
 		try {
 			SecretKeySpec secretKey = new SecretKeySpec(SECRET_KEY.getBytes(), ALGORITHM);
