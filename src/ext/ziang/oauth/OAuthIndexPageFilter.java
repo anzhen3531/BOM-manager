@@ -21,6 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sun.jndi.toolkit.chars.BASE64Encoder;
 
 import cn.hutool.core.util.StrUtil;
+import ext.ziang.common.constants.CommonConfigConstants;
 import ext.ziang.common.helper.ldap.OpenDjPasswordService;
 import ext.ziang.common.util.CommonLog;
 import wt.util.WTRuntimeException;
@@ -155,8 +156,7 @@ public class OAuthIndexPageFilter implements Filter {
 						}
 					} else {
 						// 默认登录地址
-						httpResponse.sendRedirect(
-								"http://win-fv1tfp5mpk5.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp");
+						httpResponse.sendRedirect(OAuthConfigConstant.OAUTH2_LOGIN_PAGE);
 						return;
 					}
 				} catch (Exception e) {
