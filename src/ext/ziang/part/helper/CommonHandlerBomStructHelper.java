@@ -1,5 +1,6 @@
 package ext.ziang.part.helper;
 
+import ext.ziang.common.util.CommonLog;
 import ext.ziang.common.util.ToolUtils;
 import wt.fc.ObjectReference;
 import wt.fc.Persistable;
@@ -57,8 +58,8 @@ public class CommonHandlerBomStructHelper {
 			WTPart originPartBak = (WTPart) workable;
 			// 2、进行BOM复制 复制数量和结构
 			QueryResult qr = WTPartHelper.service.getUsesWTPartMasters(selectObject);
-			WTPartUsageLink link = null;
-			System.out.println("部件使用数量 = " + qr.size());
+			WTPartUsageLink link;
+			CommonLog.printLog("部件使用数量 = " + qr.size());
 			while (qr.hasMoreElements()) {
 				link = (WTPartUsageLink) qr.nextElement();
 				// 创建link
@@ -72,12 +73,12 @@ public class CommonHandlerBomStructHelper {
 
 				// 3、复制当前替代件
 				WTCollection substituteLinks = WTPartHelper.service.getSubstituteLinks(link);
-				System.out.println("替代件数量 links.size() = " + substituteLinks.size());
+				CommonLog.printLog("替代件数量 links.size() = " + substituteLinks.size());
 				if (!substituteLinks.isEmpty()) {
 					// 遍历所有的替代件
 					for (Object object : substituteLinks) {
 						ObjectReference reference = (ObjectReference) object;
-						System.out.println("object = " + object);
+						CommonLog.printLog("object = ", object);
 						WTPartSubstituteLink substituteLink = (WTPartSubstituteLink) reference.getObject();
 						WTPartMaster substituteMaster = (WTPartMaster) substituteLink.getRoleBObject();
 						if (originLink == null) {
@@ -123,7 +124,7 @@ public class CommonHandlerBomStructHelper {
 		querySpec.setDescendantQuery(false);
 		querySpec.setDistinct(true);
 		String aliasAt = querySpec.getFromClause().getAliasAt(0);
-		System.out.println("aliasAt = " + aliasAt);
+		CommonLog.printLog("aliasAt = " + aliasAt);
 		querySpec.appendWhere(new SearchCondition(new TableColumn(aliasAt, "ida3a5"),
 				SearchCondition.EQUAL, new ConstantExpression(
 						roleAObj.getPersistInfo().getObjectIdentifier().getId())),
@@ -133,7 +134,7 @@ public class CommonHandlerBomStructHelper {
 				SearchCondition.EQUAL, new ConstantExpression(
 						roleBObj.getPersistInfo().getObjectIdentifier().getId())),
 				new int[] { 0 });
-		System.out.println("验证是否存在关联关系SQL = " + querySpec);
+		CommonLog.printLog("验证是否存在关联关系SQL = " + querySpec);
 		QueryResult qr = PersistenceHelper.manager.find(querySpec);
 		return qr.hasMoreElements();
 	}
