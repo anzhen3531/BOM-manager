@@ -21,7 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sun.jndi.toolkit.chars.BASE64Encoder;
 
 import cn.hutool.core.util.StrUtil;
-import ext.ziang.common.util.CommonLogPrintUtil;
+import ext.ziang.common.util.CommonLog;
 import wt.util.WTRuntimeException;
 
 /**
@@ -60,7 +60,7 @@ public class OAuthIndexPageFilter implements Filter {
 		WHITE_LIST_URLS.add("/Windchill/lib/");
 		WHITE_LIST_URLS.add("/Windchill/wt/security/");
 		WHITE_LIST_URLS.add(".jar");
-		CommonLogPrintUtil.printLog("初始化首页拦截器");
+		CommonLog.printLog("初始化首页拦截器");
 	}
 
 	/**
@@ -84,13 +84,13 @@ public class OAuthIndexPageFilter implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpSession session = httpServletRequest.getSession();
 		String auth = (String) session.getAttribute("auth");
-		CommonLogPrintUtil.printLog("auth =" + auth);
+		CommonLog.printLog("auth =" + auth);
 		String remoteUser = httpServletRequest.getRemoteUser();
-		CommonLogPrintUtil.printLog("username = " + remoteUser);
+		CommonLog.printLog("username = " + remoteUser);
 		String url = String.valueOf(httpServletRequest.getRequestURL());
-		CommonLogPrintUtil.printLog("url = " + httpServletRequest.getRequestURL());
+		CommonLog.printLog("url = " + httpServletRequest.getRequestURL());
 		String authorization = httpServletRequest.getHeader("Authorization");
-		CommonLogPrintUtil.printLog("authorization = " + authorization);
+		CommonLog.printLog("authorization = " + authorization);
 		if (validateContains(WHITE_LIST_URLS, url) || StrUtil.isNotBlank(remoteUser)) {
 			filterChain.doFilter(request, httpResponse);
 		} else {
@@ -103,7 +103,7 @@ public class OAuthIndexPageFilter implements Filter {
 			} else {
 				try {
 					String code = request.getParameter("code");
-					CommonLogPrintUtil.printLog("code = " + code);
+					CommonLog.printLog("code = " + code);
 					// 获取请求主体数据
 					BufferedReader reader = request.getReader();
 					StringBuilder requestBody = new StringBuilder();
@@ -115,18 +115,18 @@ public class OAuthIndexPageFilter implements Filter {
 					if (StrUtil.isNotBlank(requestBody.toString())) {
 						body = JSON.parseObject(requestBody.toString());
 					}
-					CommonLogPrintUtil.printLog("body = " + body);
+					CommonLog.printLog("body = " + body);
 					// 验证code
 					if (StrUtil.isNotBlank(code)) {
 						String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, url);
-						CommonLogPrintUtil.printLog("token = " + token);
+						CommonLog.printLog("token = " + token);
 						session.setAttribute("token", token);
 						if (StrUtil.isBlank(token)) {
 							throw new WTRuntimeException("获取登录Token失败!");
 						}
 						// JDBC 验证用户是否存在
 						JSONObject userInfo = GithubOAuthProvider.getUserInfo(token);
-						CommonLogPrintUtil.printLog("userInfo = " + userInfo);
+						CommonLog.printLog("userInfo = " + userInfo);
 						String loginUserName = userInfo.getString("login");
 						String input = StrUtil.format("{}:{}", loginUserName, loginUserName);
 						String encoding = new BASE64Encoder().encode(input.getBytes());
@@ -136,15 +136,15 @@ public class OAuthIndexPageFilter implements Filter {
 					} else if (body != null) {
 						// 可以获取body进行验证
 						String username = body.getString("username");
-						CommonLogPrintUtil.printLog("username = " + username);
+						CommonLog.printLog("username = " + username);
 						String password = body.getString("password");
-						CommonLogPrintUtil.printLog("password = " + password);
+						CommonLog.printLog("password = " + password);
 						if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
 							OpenDjPasswordService service = new OpenDjPasswordService();
 							if (service.authentication(username, password)) {
 								String input = StrUtil.format("{}:{}", username, password);
 								String encoding = new BASE64Encoder().encode(input.getBytes());
-								CommonLogPrintUtil.printLog("encoding = " + encoding);
+								CommonLog.printLog("encoding = " + encoding);
 								RequestWrap requestWrap = newWrapRequest(httpServletRequest, encoding, session);
 								httpResponse.sendRedirect(requestWrap.getRequestURL().toString());
 								return;
@@ -192,7 +192,7 @@ public class OAuthIndexPageFilter implements Filter {
 	 * @return {@link String[]}
 	 */
 	private String[] convertAuthHeader(String auth) {
-		CommonLogPrintUtil.printLog("auth = " + auth);
+		CommonLog.printLog("auth = " + auth);
 		if (auth.contains("Basic ")) {
 			auth = auth.replace("Basic ", "");
 		}
@@ -225,7 +225,7 @@ public class OAuthIndexPageFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		CommonLogPrintUtil.printLog("销毁首页拦截器");
+		CommonLog.printLog("销毁首页拦截器");
 	}
 
 }

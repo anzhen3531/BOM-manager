@@ -10,16 +10,18 @@ import wt.method.RemoteAccess;
  * @author anzhen
  * @date 2024/03/13
  */
-public class CommonLogPrintUtil implements RemoteAccess {
+public class CommonLog implements RemoteAccess {
 
+	/**
+	 * 打印日志 采用远程开关开启
+	 */
 	public static boolean DEBUG = true;
-	// 打印日志 采用远程开关开启
 
 	/**
 	 * 打开调试
 	 */
 	public static void openDebug() throws NoSuchFieldException, IllegalAccessException {
-		Field field = CommonLogPrintUtil.class.getDeclaredField("DEBUG");
+		Field field = CommonLog.class.getDeclaredField("DEBUG");
 		field.setBoolean("DEBUG", true);
 	}
 
@@ -27,7 +29,7 @@ public class CommonLogPrintUtil implements RemoteAccess {
 	 * 关闭调试
 	 */
 	public static void closeDebug() throws NoSuchFieldException, IllegalAccessException {
-		Field field = CommonLogPrintUtil.class.getDeclaredField("DEBUG");
+		Field field = CommonLog.class.getDeclaredField("DEBUG");
 		field.setBoolean("DEBUG", false);
 	}
 

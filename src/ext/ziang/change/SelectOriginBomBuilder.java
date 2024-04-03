@@ -13,10 +13,9 @@ import com.ptc.mvc.components.ComponentParams;
 import com.ptc.mvc.components.TableConfig;
 import com.ptc.netmarkets.util.beans.NmHelperBean;
 
-import ext.ziang.common.util.CommonLogPrintUtil;
+import ext.ziang.common.util.CommonLog;
 import ext.ziang.common.util.ToolUtils;
 import wt.fc.Persistable;
-import wt.part.WTPart;
 import wt.util.WTException;
 
 /**
@@ -74,7 +73,7 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	 */
 	@Override
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams) throws WTException {
-		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
+		CommonLog.printLog("SelectOriginBomBuilder buildComponentData");
 		String oidList = (String) componentParams.getParameter("oidList");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();

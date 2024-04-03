@@ -13,10 +13,9 @@ import com.ptc.mvc.components.TableConfig;
 import com.ptc.netmarkets.util.beans.NmHelperBean;
 
 import cn.hutool.core.util.StrUtil;
-import ext.ziang.common.util.CommonLogPrintUtil;
+import ext.ziang.common.util.CommonLog;
 import ext.ziang.common.util.ToolUtils;
 import wt.fc.Persistable;
-import wt.util.WTException;
 
 /**
  * 执行批改builder
@@ -63,7 +62,7 @@ public class SelectTargetBomBuilder extends AbstractComponentBuilder {
 	@Override
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams)
 			throws Exception {
-		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
+		CommonLog.printLog("SelectOriginBomBuilder buildComponentData");
 		String oidList = (String) componentParams.getParameter("oidList");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();

@@ -630,5 +630,6 @@ public class CommonOperationAttrUtil {
 		return doc;
 	}
 
-	// TODO 创建枚举相关代码
+	// TODO 创建枚举相关代码 待研究
+
 }
