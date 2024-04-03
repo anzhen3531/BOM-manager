@@ -41,6 +41,10 @@ public class CommonLog implements RemoteAccess {
 	 */
 	public static void printLog(String prefix, Object obj) {
 		if (DEBUG) {
+			if (obj == null) {
+				System.out.println(prefix + "null");
+				return;
+			}
 			System.out.println(prefix + obj.toString());
 		}
 	}
