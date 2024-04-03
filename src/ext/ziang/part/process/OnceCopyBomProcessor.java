@@ -7,6 +7,7 @@ import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.components.forms.DefaultObjectFormProcessor;
 import com.ptc.core.components.forms.FormResult;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
+import com.ptc.netmarkets.util.misc.NmContext;
 
 import wt.util.WTException;
 
@@ -20,42 +21,60 @@ public class OnceCopyBomProcessor extends DefaultObjectFormProcessor {
 	/**
 	 * 预处理
 	 *
-	 * @param nmCommandBean nm 命令 bean
-	 * @param list          列表
+	 * @param nmCommandBean
+	 *            nm 命令 bean
+	 * @param list
+	 *            列表
 	 * @return {@link FormResult}
-	 * @throws WTException WT异常
+	 * @throws WTException
+	 *             WT异常
 	 */
 	@Override
 	public FormResult preProcess(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
 		System.out.println("OnceCopyBomProcessor.preProcess");
 		ArrayList selected = nmCommandBean.getSelected();
 		System.out.println("selected = " + selected);
+		// 验证第二个表格中是否存在相同的builder
+		for (Object object : selected) {
+			if (object instanceof NmContext) {
+				NmContext context = (NmContext) object;
+				System.out.println("context = " + context);
+			}
+		}
+		// 验证第一个表格中是否为空
 		return super.preProcess(nmCommandBean, list);
 	}
 
 	/**
 	 * 执行操作
 	 *
-	 * @param nmCommandBean nm 命令 bean
-	 * @param list          列表
+	 * @param nmCommandBean
+	 *            nm 命令 bean
+	 * @param list
+	 *            列表
 	 * @return {@link FormResult}
-	 * @throws WTException WT异常
+	 * @throws WTException
+	 *             WT异常
 	 */
 	@Override
 	public FormResult doOperation(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
 		System.out.println("OnceCopyBomProcessor.doOperation");
 		ArrayList selected = nmCommandBean.getSelected();
 		System.out.println("selected = " + selected);
+		// 进行处理相关的复制BOM操作
 		return super.doOperation(nmCommandBean, list);
 	}
 
 	/**
 	 * 后处理
 	 *
-	 * @param nmCommandBean nm 命令 bean
-	 * @param list          列表
+	 * @param nmCommandBean
+	 *            nm 命令 bean
+	 * @param list
+	 *            列表
 	 * @return {@link FormResult}
-	 * @throws WTException WT异常
+	 * @throws WTException
+	 *             WT异常
 	 */
 	@Override
 	public FormResult postProcess(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {

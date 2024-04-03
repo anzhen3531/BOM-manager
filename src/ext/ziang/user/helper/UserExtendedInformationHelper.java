@@ -11,6 +11,14 @@ import ext.ziang.user.service.UserExtendedInformationServiceImpl;
  * @date 2024/03/27
  */
 public class UserExtendedInformationHelper {
+	/**
+	 * 创建和更新用户扩展信息
+	 *
+	 * @param username
+	 *            用户名
+	 * @param password
+	 *            密码
+	 */
 	public static void createAndUpdateUserExtendedInformation(String username, String password) {
 		UserExtendedInformationService service = new UserExtendedInformationServiceImpl();
 		UserExtendedInformation userInfo = service.findUserExtendedInformationByUserName(username);

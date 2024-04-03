@@ -33,10 +33,8 @@ public class SelectTargetBomBuilder extends AbstractComponentBuilder {
 	 * @param componentparams
 	 *            组件参数
 	 * @return {@link ComponentConfig}
-	 * @throws WTException
-	 *             WT异常
 	 */
-	public ComponentConfig buildComponentConfig(ComponentParams componentparams) throws WTException {
+	public ComponentConfig buildComponentConfig(ComponentParams componentparams) {
 		// 获取组件配置工厂
 		ComponentConfigFactory factory = getComponentConfigFactory();
 		TableConfig result = factory.newTableConfig();

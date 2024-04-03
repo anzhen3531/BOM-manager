@@ -18,6 +18,17 @@ import wt.util.WTException;
  * @date 2024/03/26
  */
 public class ExtCreateUserFormProcessor extends CreateUserFormProcessor {
+	/**
+	 * 执行操作
+	 *
+	 * @param nmCommandBean
+	 *            nm 命令 bean
+	 * @param list
+	 *            列表
+	 * @return {@link FormResult}
+	 * @throws WTException
+	 *             WT异常
+	 */
 	@Override
 	public FormResult doOperation(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
 		FormResult formResult = super.doOperation(nmCommandBean, list);

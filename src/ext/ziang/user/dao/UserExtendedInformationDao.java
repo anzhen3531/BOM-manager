@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import ext.ziang.common.util.EncryptionUtils;
 import ext.ziang.common.util.IDUtil;
 import ext.ziang.common.util.JdbcTemplateOracleHelper;
 import ext.ziang.user.entity.UserExtendedInformation;
@@ -70,7 +71,8 @@ public class UserExtendedInformationDao {
 			statement = connection.prepareStatement(sql);
 			statement.setLong(1, IDUtil.getNextId());
 			statement.setString(2, userExtendedInformation.getUsername());
-			statement.setString(3, userExtendedInformation.getPassword());
+			// 加密密码
+			statement.setString(3, EncryptionUtils.decrypt(userExtendedInformation.getPassword()));
 			statement.setInt(4, 1);
 			statement.setString(5, SessionHelper.manager.getPrincipal().getName());
 			statement.setString(6, SessionHelper.manager.getPrincipal().getName());
@@ -97,7 +99,7 @@ public class UserExtendedInformationDao {
 		try {
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, userExtendedInformation.getUsername());
-			statement.setString(2, userExtendedInformation.getPassword());
+			statement.setString(2, EncryptionUtils.decrypt(userExtendedInformation.getPassword()));
 			statement.setLong(3, userExtendedInformation.getId());
 			int flag = statement.executeUpdate();
 			if (flag > 0) {

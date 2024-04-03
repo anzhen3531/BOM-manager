@@ -16,6 +16,9 @@ public class UserExtendedInformationServiceImpl implements UserExtendedInformati
 	 */
 	private UserExtendedInformationDao dbService;
 
+	/**
+	 * 用户扩展信息服务 impl
+	 */
 	public UserExtendedInformationServiceImpl() {
 		dbService = new UserExtendedInformationDao();
 	}
