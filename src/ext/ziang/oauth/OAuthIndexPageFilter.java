@@ -21,7 +21,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.sun.jndi.toolkit.chars.BASE64Encoder;
 
 import cn.hutool.core.util.StrUtil;
-import ext.ziang.common.constants.CommonConfigConstants;
 import ext.ziang.common.helper.ldap.OpenDjPasswordService;
 import ext.ziang.common.util.CommonLog;
 import wt.util.WTRuntimeException;
@@ -90,7 +89,7 @@ public class OAuthIndexPageFilter implements Filter {
 		String remoteUser = httpServletRequest.getRemoteUser();
 		CommonLog.printLog("username = " + remoteUser);
 		String url = String.valueOf(httpServletRequest.getRequestURL());
-		CommonLog.printLog("url = " + httpServletRequest.getRequestURL());
+		CommonLog.printLog("url = ", httpServletRequest.getRequestURL());
 		String authorization = httpServletRequest.getHeader("Authorization");
 		CommonLog.printLog("authorization = " + authorization);
 		if (validateContains(WHITE_LIST_URLS, url) || StrUtil.isNotBlank(remoteUser)) {
@@ -128,7 +127,7 @@ public class OAuthIndexPageFilter implements Filter {
 						}
 						// JDBC 验证用户是否存在
 						JSONObject userInfo = GithubOAuthProvider.getUserInfo(token);
-						CommonLog.printLog("userInfo = " + userInfo);
+						CommonLog.printLog("userInfo = ", userInfo);
 						String loginUserName = userInfo.getString("login");
 						String input = StrUtil.format("{}:{}", loginUserName, loginUserName);
 						String encoding = new BASE64Encoder().encode(input.getBytes());
@@ -146,7 +145,7 @@ public class OAuthIndexPageFilter implements Filter {
 							if (service.authentication(username, password)) {
 								String input = StrUtil.format("{}:{}", username, password);
 								String encoding = new BASE64Encoder().encode(input.getBytes());
-								CommonLog.printLog("encoding = " + encoding);
+								CommonLog.printLog("encoding = ", encoding);
 								RequestWrap requestWrap = newWrapRequest(httpServletRequest, encoding, session);
 								httpResponse.sendRedirect(requestWrap.getRequestURL().toString());
 								return;

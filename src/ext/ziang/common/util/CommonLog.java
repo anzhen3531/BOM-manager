@@ -36,6 +36,18 @@ public class CommonLog implements RemoteAccess {
 	/**
 	 * 打印日志
 	 *
+	 * @param obj
+	 *            OBJ系列
+	 */
+	public static void printLog(String prefix, Object obj) {
+		if (DEBUG) {
+			System.out.println(prefix + obj.toString());
+		}
+	}
+
+	/**
+	 * 打印日志
+	 *
 	 * @param msg
 	 *            消息
 	 */

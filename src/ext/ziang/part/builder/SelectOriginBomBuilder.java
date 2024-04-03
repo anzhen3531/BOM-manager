@@ -2,7 +2,6 @@ package ext.ziang.part.builder;
 
 import java.util.ArrayList;
 
-import cn.hutool.core.util.StrUtil;
 import com.ptc.jca.mvc.components.JcaComponentParams;
 import com.ptc.mvc.components.AbstractComponentBuilder;
 import com.ptc.mvc.components.ColumnConfig;
@@ -13,6 +12,7 @@ import com.ptc.mvc.components.ComponentParams;
 import com.ptc.mvc.components.TableConfig;
 import com.ptc.netmarkets.util.beans.NmHelperBean;
 
+import cn.hutool.core.util.StrUtil;
 import ext.ziang.common.util.CommonLog;
 import ext.ziang.common.util.ToolUtils;
 import wt.fc.Persistable;
@@ -72,14 +72,14 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	 * @return {@link Object}
 	 */
 	@Override
-	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams) throws WTException {
+	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams)
+			throws WTException {
 		CommonLog.printLog("SelectOriginBomBuilder buildComponentData");
 		String oidList = (String) componentParams.getParameter("oidList");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
-		System.out.println("helperBean.getRequest().getParameterMap() = "
-				+ helperBean.getRequest().getParameterMap());
-		System.out.println("oidList = " + oidList);
+		CommonLog.printLog("helperBean.getRequest().getParameterMap() = ", helperBean.getRequest().getParameterMap());
+		CommonLog.printLog("oidList = ", oidList);
 		ArrayList<Persistable> returnList = new ArrayList<>();
 		if (StrUtil.isBlank(oidList)) {
 			return returnList;

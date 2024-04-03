@@ -66,9 +66,8 @@ public class SelectTargetBomBuilder extends AbstractComponentBuilder {
 		String oidList = (String) componentParams.getParameter("oidList");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
-		System.out.println("helperBean.getRequest().getParameterMap() = "
-				+ helperBean.getRequest().getParameterMap());
-		System.out.println("oidList = " + oidList);
+		CommonLog.printLog("helperBean.getRequest().getParameterMap() = ", helperBean.getRequest().getParameterMap());
+		CommonLog.printLog("oidList = ", oidList);
 		ArrayList<Persistable> returnList = new ArrayList<>();
 		if (StrUtil.isBlank(oidList)) {
 			return returnList;
