@@ -44,14 +44,18 @@
                 for (let i = 0; i < theJSONObject.length; i++) {
                     console.log(theJSONObject[i].oid);
                     oidList.push(theJSONObject[i].oid);
-                    oid = theJSONObject[i].oid;
+                    if (oid === undefined || oid === "") {
+                        oid = theJSONObject[i].oid;
+                    } else {
+                        oid = oid + "," + theJSONObject[i].oid;
+                    }
                 }
             }
             let params = {
-                oidList: oidList
+                oidList: oid
             };
             console.log(params);
-            alert(oidList.length);
+            alert(oid);
             // 刷新父页面接口
             window.opener.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
             alert("添加完成");
