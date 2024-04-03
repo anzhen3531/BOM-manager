@@ -2,6 +2,7 @@ package ext.ziang.change;
 
 import java.util.ArrayList;
 
+import cn.hutool.core.util.StrUtil;
 import com.ptc.jca.mvc.components.JcaComponentParams;
 import com.ptc.mvc.components.AbstractComponentBuilder;
 import com.ptc.mvc.components.ColumnConfig;
@@ -14,6 +15,7 @@ import com.ptc.netmarkets.util.beans.NmHelperBean;
 
 import ext.ziang.common.util.CommonLogPrintUtil;
 import ext.ziang.common.util.ToolUtils;
+import wt.fc.Persistable;
 import wt.part.WTPart;
 import wt.util.WTException;
 
@@ -73,17 +75,23 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	@Override
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams) throws WTException {
 		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
-		Object oidList = componentParams.getParameter("oidList");
+		String oidList = (String) componentParams.getParameter("oidList");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
 		System.out.println("helperBean.getRequest().getParameterMap() = "
 				+ helperBean.getRequest().getParameterMap());
 		System.out.println("oidList = " + oidList);
-		ArrayList<WTPart> returnList = new ArrayList<>();
-		if (oidList == null) {
+		ArrayList<Persistable> returnList = new ArrayList<>();
+		if (StrUtil.isBlank(oidList)) {
 			return returnList;
 		} else {
-			return ToolUtils.getObjectByOid((String) oidList);
+			if (StrUtil.isNotBlank(oidList)) {
+				String[] split = oidList.split(",");
+				for (String oid : split) {
+					returnList.add(ToolUtils.getObjectByOid(oid));
+				}
+			}
+			return returnList;
 		}
 	}
 
