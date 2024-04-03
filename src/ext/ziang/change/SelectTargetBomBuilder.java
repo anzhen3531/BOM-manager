@@ -1,5 +1,7 @@
 package ext.ziang.change;
 
+import java.util.ArrayList;
+
 import com.ptc.jca.mvc.components.JcaComponentParams;
 import com.ptc.mvc.components.AbstractComponentBuilder;
 import com.ptc.mvc.components.ColumnConfig;
@@ -8,14 +10,13 @@ import com.ptc.mvc.components.ComponentConfig;
 import com.ptc.mvc.components.ComponentConfigFactory;
 import com.ptc.mvc.components.ComponentParams;
 import com.ptc.mvc.components.TableConfig;
-
 import com.ptc.netmarkets.util.beans.NmHelperBean;
+
+import cn.hutool.core.util.StrUtil;
 import ext.ziang.common.util.CommonLogPrintUtil;
 import ext.ziang.common.util.ToolUtils;
-import wt.part.WTPart;
+import wt.fc.Persistable;
 import wt.util.WTException;
-
-import java.util.ArrayList;
 
 /**
  * 执行批改builder
@@ -65,17 +66,23 @@ public class SelectTargetBomBuilder extends AbstractComponentBuilder {
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams)
 			throws Exception {
 		CommonLogPrintUtil.printLog("SelectOriginBomBuilder buildComponentData");
-		Object oidList = componentParams.getParameter("oidList");
+		String oidList = (String) componentParams.getParameter("oidList");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
 		System.out.println("helperBean.getRequest().getParameterMap() = "
 				+ helperBean.getRequest().getParameterMap());
 		System.out.println("oidList = " + oidList);
-		ArrayList<WTPart> returnList = new ArrayList<>();
-		if (oidList == null) {
+		ArrayList<Persistable> returnList = new ArrayList<>();
+		if (StrUtil.isBlank(oidList)) {
 			return returnList;
 		} else {
-			return ToolUtils.getObjectByOid((String) oidList);
+			if (StrUtil.isNotBlank(oidList)) {
+				String[] split = oidList.split(",");
+				for (String oid : split) {
+					returnList.add(ToolUtils.getObjectByOid(oid));
+				}
+			}
+			return returnList;
 		}
 	}
 
