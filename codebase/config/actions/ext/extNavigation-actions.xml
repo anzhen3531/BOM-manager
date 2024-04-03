@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE listofactions SYSTEM 'actions.dtd'>
+<listofactions>
+    <objecttype name="navigation" class="" resourceBundle="ext.ziang.resource.CommonActionResource">
+        <action name="customCommonNag"></action>
+    </objecttype>
+
+    <objecttype name="common" resourceBundle="ext.ziang.resource.CommonActionResource">
+
+    </objecttype>
+
+
+    <objecttype name="extLog" resourceBundle="ext.ziang.resource.CommonActionResource">
+        <!--一键复里面制BOM-->
+        <action name="startSysLog">
+            <command url="/netmarkets/jsp/ext/ziang/log/startSysLog.jsp"
+                     windowType="popup"/>
+        </action>
+
+        <!--一键复里面制BOM-->
+        <action name="stopSysLog">
+            <command url="/netmarkets/jsp/ext/ziang/log/stopSysLog.jsp"
+                     windowType="popup"/>
+        </action>
+    </objecttype>
+</listofactions>

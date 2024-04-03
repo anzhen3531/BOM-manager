@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE listofactions SYSTEM 'actions.dtd'>
+
+<actionmodels>
+    <!-- 系统自带菜单 -->
+    <model name="main navigation" id="browseActions" resourceBundle="com.ptc.core.ui.navigationRB">
+        <description>Main navigation (tabs)</description>
+        <action name="recentContexts" type="navigation"/>
+        <action name="product" type="navigation"/>
+        <action name="library" type="navigation"/>
+        <action name="project" type="navigation"/>
+        <action name="program" type="navigation"/>
+        <action name="change" type="navigation"/>
+        <action name="supplier" type="navigation"/>
+        <action name="qms" type="navigation"/>
+        <action name="org" type="navigation"/>
+        <action name="site" type="navigation"/>
+        <action name="clfAdmin" type="navigation"/>
+        <action name="customCommonNag" type="navigation"/>
+        <action name="search" type="navigation"/>
+        <!--  entry for customization tab  -->
+        <action name="customization" type="navigation"/>
+    </model>
+    <!-- 自定义模块的菜单 -->
+    <model name="customCommonNag navigation">
+        <description>DP Order Relate Action</description>
+        <action name="commonFilterConfig" type="common"/>
+        <action name="docSignConfig" type="common"/>
+    </model>
+    <!-- 快速链接 -->
+    <model name="header actions">
+        <description>
+            actions that appear in the top right of the header
+        </description>
+        <submodel name="help"/>
+        <action name="openLearningConnector" type="help"/>
+        <action name="clipboard" type="netmarkets"/>
+        <action name="separator" type="separator"/>
+        <action name="importJobMonitorMain" type="ixb"/>
+        <action name="queueMonitorMain" type="wvs"/>
+        <action name="checkConsole" type="object"/>
+        <action name="separator" type="separator"/>
+        <submodel name="mysettings"/>
+        <action name="batchPrintGlobal" type="wvs"/>
+        <action name="hotList" type="user"/>
+        <action name="myARExperiences" type="arpublish"/>
+        <action name="separator" type="separator"/>
+        <action name="softwareDownloads" type="netmarkets"/>
+        <action name="startSysLog" type="extLog"/>
+        <action name="stopSysLog" type="extLog"/>
+        <action name="separator" type="separator"/>
+        <action name="emailPage" type="team"/>
+        <action name="copyPage" type="object"/>
+        <submodel name="open"/>
+        <action name="separator" type="separator"/>
+        <action name="signOut" type="fba"/>
+        <action name="wexman" type="com.wincomplm.wex.manager" wexid="com.wincomplm.wex.manager"/>
+    </model>
+</actionmodels>
