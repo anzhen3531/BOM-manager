@@ -92,9 +92,13 @@ public class OAuthIndexPageFilter implements Filter {
 		CommonLog.printLog("url = ", httpServletRequest.getRequestURL());
 		String authorization = httpServletRequest.getHeader("Authorization");
 		CommonLog.printLog("authorization = " + authorization);
-		if (validateContains(WHITE_LIST_URLS, url) || StrUtil.isNotBlank(remoteUser)) {
+		if (validateContains(WHITE_LIST_URLS, url)) {
 			CommonLog.printLog("url = " + url + " 放行");
-			filterChain.doFilter(request, httpResponse);
+			String input = StrUtil.format("{}:{}", "wcadmin", "wcadmin");
+			String encoding = new BASE64Encoder().encode(input.getBytes());
+			CommonLog.printLog("encoding = ", encoding);
+			RequestWrap requestWrap = newWrapRequest(httpServletRequest, encoding, session);
+			filterChain.doFilter(requestWrap, httpResponse);
 		} else {
 			if (StrUtil.isNotBlank(auth)) {
 				RequestWrap requestWrap = newWrapRequest(httpServletRequest, auth, session);
