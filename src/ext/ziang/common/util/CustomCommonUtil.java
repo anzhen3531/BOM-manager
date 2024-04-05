@@ -28,11 +28,21 @@ import wt.fc.Identified;
 import wt.fc.IdentityHelper;
 import wt.fc.ObjectReference;
 import wt.fc.Persistable;
+import wt.fc.PersistenceHelper;
+import wt.fc.QueryResult;
 import wt.org.WTOrganization;
 import wt.part.WTPartHelper;
 import wt.part.WTPartMaster;
+import wt.part._WTPartMaster;
 import wt.part.alternaterep.WTPartAlternateRepMaster;
 import wt.part.alternaterep.service.WTPartAlternateRepService;
+import wt.query.ClassAttribute;
+import wt.query.ClassTableExpression;
+import wt.query.ConstantExpression;
+import wt.query.KeywordExpression;
+import wt.query.OrderBy;
+import wt.query.QuerySpec;
+import wt.query.SearchCondition;
 import wt.services.ServiceFactory;
 import wt.services.applicationcontext.implementation.DefaultServiceProvider;
 import wt.util.InstalledProperties;
@@ -194,5 +204,42 @@ public class CustomCommonUtil {
 		}
 		return organization;
 	}
+
+	/**
+	 * 根据零件编号获取编号相似的WTPartMaster集合
+	 *
+	 * @param partNumberPrefix
+	 *            ## 零件编号前缀
+	 * @return WTPartMaster
+	 */
+	public static String findWTPartLastSerialNumberByPrefix(String partNumberPrefix) {
+		CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start");
+		String number = null;
+		try {
+			QuerySpec qs = new QuerySpec();
+			qs.appendSelect(new ClassAttribute(WTPartMaster.class, _WTPartMaster.NUMBER), false);
+			int tableIndex = qs.appendFrom(new ClassTableExpression(WTPartMaster.class));
+			qs.setAdvancedQueryEnabled(true);
+			qs.appendWhere(new SearchCondition(WTPartMaster.class, _WTPartMaster.NUMBER, SearchCondition.LIKE,
+					partNumberPrefix + "%"), new int[] { tableIndex });
+			qs.appendAnd();
+			// 第一个参数为函数
+			// SQLFunction.newSQLFunction()
+			qs.appendWhere(new SearchCondition(KeywordExpression.Keyword.ROWNUM.newKeywordExpression(),
+					SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(1)), new int[] { tableIndex });
+			OrderBy orderBy = new OrderBy(new ClassAttribute(WTPartMaster.class, _WTPartMaster.NUMBER), true);
+			qs.appendOrderBy(orderBy, new int[] { 0 });
+			CommonLog.printLog("findLastSerialNumberByPrefix qs = ", qs);
+			QueryResult qr = PersistenceHelper.manager.find(qs);
+			if (qr.hasMoreElements()) {
+				return (String) ((Object[]) qr.nextElement())[0];
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix End");
+		return number;
+	}
+
 
 }
