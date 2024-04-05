@@ -82,7 +82,7 @@
         event.preventDefault();
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
-        let url = 'http://PLM.com/Windchill/app/';
+        let url = 'http://PLM.ziang.com/Windchill/app/';
         let body = {
             username: username,
             password: password
