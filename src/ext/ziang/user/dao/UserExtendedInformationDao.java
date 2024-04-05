@@ -72,7 +72,7 @@ public class UserExtendedInformationDao {
 			statement.setLong(1, IDUtil.getNextId());
 			statement.setString(2, userExtendedInformation.getUsername());
 			// 加密密码
-			statement.setString(3, EncryptionUtils.decrypt(userExtendedInformation.getPassword()));
+			statement.setString(3, EncryptionUtils.encrypt(userExtendedInformation.getPassword()));
 			statement.setInt(4, 1);
 			statement.setString(5, SessionHelper.manager.getPrincipal().getName());
 			statement.setString(6, SessionHelper.manager.getPrincipal().getName());
@@ -99,7 +99,7 @@ public class UserExtendedInformationDao {
 		try {
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, userExtendedInformation.getUsername());
-			statement.setString(2, EncryptionUtils.decrypt(userExtendedInformation.getPassword()));
+			statement.setString(2, EncryptionUtils.encrypt(userExtendedInformation.getPassword()));
 			statement.setLong(3, userExtendedInformation.getId());
 			int flag = statement.executeUpdate();
 			if (flag > 0) {
