@@ -40,7 +40,7 @@ public class OAuthIndexPageFilter implements Filter {
 	/**
 	 * Windchill 命令行免密登录
 	 */
-	public static String COMMON_PATH = "Windchill/servlet/WindchillAuthGW/wt.httpgw.HTTPAuthentication/login";
+	public static String COMMON_PATH = "/Windchill/servlet/WindchillAuthGW/wt.httpgw.HTTPAuthentication/login";
 
 	@Override
 	public void init(FilterConfig filterConfig) {
@@ -94,11 +94,7 @@ public class OAuthIndexPageFilter implements Filter {
 		CommonLog.printLog("authorization = " + authorization);
 		if (validateContains(WHITE_LIST_URLS, url)) {
 			CommonLog.printLog("url = " + url + " 放行");
-			String input = StrUtil.format("{}:{}", "wcadmin", "wcadmin");
-			String encoding = new BASE64Encoder().encode(input.getBytes());
-			CommonLog.printLog("encoding = ", encoding);
-			RequestWrap requestWrap = newWrapRequest(httpServletRequest, encoding, session);
-			filterChain.doFilter(requestWrap, httpResponse);
+			filterChain.doFilter(request, httpResponse);
 		} else {
 			if (StrUtil.isNotBlank(auth)) {
 				RequestWrap requestWrap = newWrapRequest(httpServletRequest, auth, session);

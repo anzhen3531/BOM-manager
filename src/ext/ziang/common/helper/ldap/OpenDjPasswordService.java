@@ -31,7 +31,7 @@ public class OpenDjPasswordService {
 	/**
 	 * LDAP 网址
 	 */
-	private static String LDAP_URL = "ldap://PLM.ziang.com:389/ou=people,cn=AdministrativeLdap,cn=Windchill_11.0,o=ptc";
+	private static String LDAP_URL = "ldap://plm.ziang.com:389/ou=people,cn=AdministrativeLdap,cn=Windchill_11.0,o=ptc";
 	/**
 	 * LDAP 用户名
 	 */

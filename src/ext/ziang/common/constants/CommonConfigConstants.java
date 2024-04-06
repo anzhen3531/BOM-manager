@@ -7,7 +7,7 @@ package ext.ziang.common.constants;
  * @date 2024/04/03
  */
 public abstract class CommonConfigConstants {
-	public static String HOST_URL = "http://PLM.ziang.com";
+	public static String HOST_URL = "http://plm.ziang.com";
 
 	static {
 		// 自定义HOST 路径
