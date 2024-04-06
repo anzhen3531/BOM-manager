@@ -61,6 +61,7 @@ public class OAuthIndexPageFilter implements Filter {
 		WHITE_LIST_URLS.add("/Windchill/lib/");
 		WHITE_LIST_URLS.add("/Windchill/wt/security/");
 		WHITE_LIST_URLS.add(".jar");
+		WHITE_LIST_URLS.add(".jnlp");
 		CommonLog.printLog("初始化首页拦截器");
 	}
 
