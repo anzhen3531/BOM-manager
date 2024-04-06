@@ -22,8 +22,8 @@ import com.ptc.core.lwc.common.view.ConstraintDefinitionWriteView;
 import com.ptc.core.lwc.common.view.ConstraintRuleDefinitionReadView;
 import com.ptc.core.lwc.common.view.DatatypeReadView;
 import com.ptc.core.lwc.common.view.DisplayStyleReadView;
+import com.ptc.core.lwc.common.view.EnumerationDefinitionReadView;
 import com.ptc.core.lwc.common.view.PropertyDefinitionReadView;
-import com.ptc.core.lwc.common.view.PropertyDefinitionWriteView;
 import com.ptc.core.lwc.common.view.PropertyValueReadView;
 import com.ptc.core.lwc.common.view.PropertyValueWriteView;
 import com.ptc.core.lwc.common.view.ReadView;
@@ -34,10 +34,12 @@ import com.ptc.core.lwc.common.view.SeparatorReadView;
 import com.ptc.core.lwc.common.view.TypeDefinitionReadView;
 import com.ptc.core.lwc.common.view.TypeDefinitionWriteView;
 import com.ptc.core.lwc.server.LWCBasicConstraint;
+import com.ptc.core.lwc.server.LWCEnumerationBasedConstraint;
 import com.ptc.core.lwc.server.LWCIBAAttDefinition;
 import com.ptc.core.lwc.server.TypeDefinitionServiceHelper;
 import com.ptc.core.meta.common.CorrectableException;
 import com.ptc.core.meta.common.DiscreteSet;
+import com.ptc.core.meta.container.common.impl.DiscreteSetConstraint;
 import com.ptc.core.meta.container.common.impl.SingleValuedConstraint;
 import com.ptc.netmarkets.model.NmOid;
 
@@ -285,7 +287,7 @@ public class CommonOperationAttrUtil {
 	 *
 	 * @param innerName
 	 *            内部名称
-	 * @param lwcDisplayName
+	 * @param lwcDisplayName`
 	 *            LWC 显示名称
 	 * @param lwcDescription
 	 *            LWC 描述
@@ -431,12 +433,13 @@ public class CommonOperationAttrUtil {
 		System.out.println("readViewAttributeByName = " + readViewAttributeByName);
 
 		// 26537L 固定为枚举值
-		AttributeDefinitionWriteView writableView = readViewAttributeByName.getWritableView();
-		typeDefWriteView = typeDefReadView.getWritableView();
-		createConstraintsWriteView(writableView, typeDefWriteView, 26537L);
-		typeDefWriteView.setAttribute(writableView);
-		typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
-		System.out.println("更新完成");
+//		AttributeDefinitionWriteView writableView = readViewAttributeByName.getWritableView();
+//		typeDefWriteView = typeDefReadView.getWritableView();
+//		createConstraintsWriteView(writableView, typeDefWriteView, 26537L);
+//		typeDefWriteView.setAttribute(writableView);
+//		typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
+//		System.out.println("更新完成");
+
 		return typeDefReadView.getAttributeByName(innerName);
 	}
 
@@ -449,12 +452,25 @@ public class CommonOperationAttrUtil {
 	 *             WT异常
 	 */
 	private static void addSingleValuedConstraint(AttributeDefinitionWriteView attributeDefView) throws WTException {
+		// 设置单值 基本规则 约束
 		ConstraintRuleDefinitionReadView readView = BASE_DEF_SERVICE.getConstraintRuleDefView(
 				SingleValuedConstraint.class.getName(), LWCBasicConstraint.class.getName(),
 				attributeDefView.getDatatype().getId(),
 				(String) null);
 		ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(readView,
 				(ConstraintDefinitionReadView.RuleDataObject) null, attributeDefView.getName(),
+				(Collection) null,
+				attributeDefView.getTypeDefId(),
+				(String) null);
+		attributeDefView.setConstraintDefinition(writeView);
+
+		// 设置枚举
+		readView = BASE_DEF_SERVICE.getConstraintRuleDefView(
+				DiscreteSetConstraint.class.getName(), LWCEnumerationBasedConstraint.class.getName(),
+				attributeDefView.getDatatype().getId(),
+				(String) null);
+		writeView = new ConstraintDefinitionWriteView(readView,
+				null, attributeDefView.getName(),
 				(Collection) null,
 				attributeDefView.getTypeDefId(),
 				(String) null);

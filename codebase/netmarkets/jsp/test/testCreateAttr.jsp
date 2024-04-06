@@ -21,7 +21,6 @@
         String string = objectIdentifier.toString();
         System.out.println("string = " + string);
 
-
         boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
         System.out.println("accessEnforced = " + accessEnforced);
         //  OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588

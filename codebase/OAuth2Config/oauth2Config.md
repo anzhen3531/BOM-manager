@@ -40,6 +40,7 @@
   </filter-mapping>
 ```
 重启`Windchill`
+执行命令 `Windchill stop & Windchill start`
 
 
 
