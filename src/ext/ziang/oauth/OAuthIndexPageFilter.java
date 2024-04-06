@@ -51,9 +51,9 @@ public class OAuthIndexPageFilter implements Filter {
 		WHITE_LIST_URLS.add("/Windchill/infoengine/verifyCredentials.html");
 		WHITE_LIST_URLS.add("/Windchill/protocolAuth/");
 		WHITE_LIST_URLS.add("/Windchill/servlet/WindchillGW/");
-		WHITE_LIST_URLS.add("/Windchill/servlet/ProwtGW");
-		WHITE_LIST_URLS.add("/Windchill/servlet/InterSiteJmxProxy");
-		WHITE_LIST_URLS.add("/Windchill/servlet/JNLPGeneratorServlet");
+		WHITE_LIST_URLS.add("/Windchill/servlet/ProwtGW/");
+		WHITE_LIST_URLS.add("/Windchill/servlet/InterSiteJmxProxy/");
+		WHITE_LIST_URLS.add("/Windchill/servlet/JNLPGeneratorServlet/");
 		WHITE_LIST_URLS.add("/Windchill/servlet/XML4Cognos");
 		WHITE_LIST_URLS.add("/Windchill/wt.properties");
 		WHITE_LIST_URLS.add("/netmarkets/login/login.jsp");
