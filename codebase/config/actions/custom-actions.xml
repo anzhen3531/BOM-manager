@@ -24,7 +24,7 @@
         </action>
 
         <action name="updateUser" ajax="row" >
-            <command method="execute" class="ext.rct.user.process.ExtEditUserFormProcessor" windowType="popup"/>
+            <command method="execute" class="ext.ziang.user.process.ExtEditUserFormProcessor" windowType="popup"/>
             <includeFilter name="updateActionValidator"/>
             <includeFilter name="disconnectedPrincipalActionsFilter"/>
             <includeFilter name="disabledPrincipalActionsFilter"/>
