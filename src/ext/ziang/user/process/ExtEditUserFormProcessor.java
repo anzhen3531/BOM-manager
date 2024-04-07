@@ -27,7 +27,8 @@ public class ExtEditUserFormProcessor extends EditUserFormProcessor {
 		String authenticationName = user.getAuthenticationName();
 		System.out.println("authenticationName = " + authenticationName);
 		String password = (String) nmCommandBean.getText().get("password");
-		UserExtendedInformationHelper.createAndUpdateUserExtendedInformation(authenticationName, password);
+		String alternateUserName = (String) nmCommandBean.getText().get("alternateUserName1");
+		UserExtendedInformationHelper.createAndUpdateUserExtendedInformation(alternateUserName, password);
 		return formResult;
 	}
 }
