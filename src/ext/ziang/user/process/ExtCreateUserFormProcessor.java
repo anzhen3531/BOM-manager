@@ -35,7 +35,7 @@ public class ExtCreateUserFormProcessor extends CreateUserFormProcessor {
 		ObjectBean objectBean = (ObjectBean) list.get(0);
 		WTUser user = (WTUser) objectBean.getObject();
 		String password = (String) nmCommandBean.getText().get("password");
-		String name = user.getName();
+		String name = user.getAuthenticationName();
 		UserExtendedInformationHelper.createAndUpdateUserExtendedInformation(name, password);
 		return formResult;
 	}
