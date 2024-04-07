@@ -24,9 +24,12 @@ public class ExtEditUserFormProcessor extends EditUserFormProcessor {
 		FormResult formResult = super.doOperation(nmCommandBean, list);
 		ObjectBean objectBean = (ObjectBean) list.get(0);
 		WTUser user = (WTUser) objectBean.getObject();
+		String authenticationName = user.getAuthenticationName();
+		System.out.println("authenticationName = " + authenticationName);
 		String password = (String) nmCommandBean.getText().get("password");
-		String name = user.getName();
-		UserExtendedInformationHelper.createAndUpdateUserExtendedInformation(name, password);
+		// 取第一个更改的名称
+		String alternateUserName = (String) nmCommandBean.getText().get("alternateUserName1");
+		UserExtendedInformationHelper.createAndUpdateUserExtendedInformation(alternateUserName, password);
 		return formResult;
 	}
 }
