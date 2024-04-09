@@ -28,6 +28,8 @@
                    showTypePicker="true"
                    multiSelect="true"
                    pickerCallback="searchAffectBom"
+                   showSuggestion="true"
+                   suggestionServiceKey="StandardPartPickerSuggestable"
                    inline="true"
 />
 

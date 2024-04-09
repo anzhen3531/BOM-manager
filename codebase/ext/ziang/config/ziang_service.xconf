@@ -4,7 +4,7 @@
     <!--  原料申请相关信息	-->
     <Service context="default" name="com.ptc.core.components.descriptor.DataUtility"
              targetFile="codebase/service.properties">
-        <Option serviceClass="ext.ziang.part.ExperimentNumberDataUtility"
+        <Option serviceClass="ext.ziang.part.datautility.ExperimentNumberDataUtility"
                 requestor="null" selector="ExperimentNumberDataUtility" cardinality="singleton"/>
 
         <Option serviceClass="ext.ziang.part.datautility.ExtSearchPartAttrDataUtility"
@@ -16,4 +16,13 @@
     <Property name="ext.ziang.user.rest.account"
               targetFile="codebase/com/ptc/windchill/rest/rest.properties"
               default="ext.ziang.user.rest.AccountController"/>
+
+
+    <Service context="default" name="com.ptc.core.components.suggest.Suggestable"
+             targetFile="codebase/service.properties">
+        <Option cardinality="singleton"
+                selector="optionalPicker"
+                requestor="null"
+                serviceClass="ext.ziang.part.suggestable.StandardPartPickerSuggestable"/>
+    </Service>
 </Configuration>

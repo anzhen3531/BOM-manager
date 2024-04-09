@@ -30,4 +30,11 @@ public class CommonActionResource extends WTListResourceBundle {
     @RBPseudo(false)
     @RBComment("add part")
     public static final String EXTCOMMONACTION_SEARCHAFFECTED_ICON = "extCommonAction.searchAffected.icon";
+
+    @RBEntry("once copy bom")
+    public static final String EXTLOG_STARTSYSLOG_TITLE = "extLog.startSysLog.title";
+    @RBEntry("once copy bom")
+    public static final String EXTLOG_STARTSYSLOG_DESCRIPTION = "extLog.startSysLog.description";
+    @RBEntry("once copy bom")
+    public static final String EXTLOG_STARTSYSLOG_TOOLTIP = "extLog.startSysLog.tooltip";
 }
