@@ -21,7 +21,7 @@
     <Service context="default" name="com.ptc.core.components.suggest.Suggestable"
              targetFile="codebase/service.properties">
         <Option cardinality="singleton"
-                selector="optionalPicker"
+                selector="StandardPartPickerSuggestable"
                 requestor="null"
                 serviceClass="ext.ziang.part.suggestable.StandardPartPickerSuggestable"/>
     </Service>
