@@ -70,9 +70,10 @@ public class StandardPickerDataUtility extends DefaultDataUtility {
 	 * @return {@link Object}
 	 */
 	private Object createPickerComponent(String componentId, Object obj, ModelContext modelContext) {
-		PickerInputComponent pickerComponent = new PickerInputComponent();
-		StandardPickerConfig pickerConfig = new StandardPickerConfig();
-		pickerComponent.setEditable(false);
+//		PickerInputComponent pickerComponent = new PickerInputComponent();
+//		StandardPickerConfig pickerConfig = new StandardPickerConfig();
+//		pickerComponent.setEditable(false);
+		return null;
 	}
 
 	/**
