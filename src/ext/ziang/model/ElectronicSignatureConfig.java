@@ -7,6 +7,7 @@ import com.ptc.windchill.annotations.metadata.GeneratedProperty;
 import com.ptc.windchill.annotations.metadata.PropertyConstraints;
 import com.ptc.windchill.annotations.metadata.SupportedAPI;
 
+import ext.ziang.modelGen._ElectronicSignatureConfig;
 import wt.fc.ObjectReference;
 import wt.fc.WTObject;
 import wt.util.WTException;

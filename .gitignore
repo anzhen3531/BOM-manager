@@ -37,3 +37,4 @@ codebase/netmarkets/jsp/document/**
 codebase/netmarkets/jsp/massChange/**
 codebase/netmarkets/jsp/part/**
 ./venv/
+/src/ext/ziang/modelGen/

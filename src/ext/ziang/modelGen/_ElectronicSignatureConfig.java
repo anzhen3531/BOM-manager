@@ -1,4 +1,6 @@
-package ext.ziang.model;
+package ext.ziang.modelGen;
+
+import ext.ziang.model.ElectronicSignatureConfig;
 
 @SuppressWarnings({"cast", "deprecation", "rawtypes", "unchecked"})
 public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implements java.io.Externalizable {

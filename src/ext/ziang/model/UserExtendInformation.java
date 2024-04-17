@@ -4,12 +4,12 @@ import java.io.Externalizable;
 
 import com.ptc.windchill.annotations.metadata.GenAsPersistable;
 import com.ptc.windchill.annotations.metadata.GeneratedProperty;
-import com.ptc.windchill.annotations.metadata.IconProperties;
 import com.ptc.windchill.annotations.metadata.OracleTableSize;
 import com.ptc.windchill.annotations.metadata.PropertyConstraints;
 import com.ptc.windchill.annotations.metadata.SupportedAPI;
 import com.ptc.windchill.annotations.metadata.TableProperties;
 
+import ext.ziang.modelGen._UserExtendInformation;
 import wt.fc.WTObject;
 import wt.util.WTException;
 
@@ -52,12 +52,9 @@ import wt.util.WTException;
 				constraints = @PropertyConstraints(upperLimit = 2),
 				supportedAPI = SupportedAPI.PUBLIC, javaDoc = "状态")
 }, tableProperties =
-@TableProperties(compositeIndex2 = "+ actionName + lifecycleState",
-		oracleTableSize = OracleTableSize.HUGE),
-		iconProperties = @IconProperties(standardIcon = "wtcore/images/part.gif",
-				openIcon = "wtcore/images/part.gif"))
+@TableProperties(compositeIndex2 = "+ username + password", oracleTableSize = OracleTableSize.HUGE))
 // @format:on
-public class UserExtendInformation extends _UserExtendInformation{
+public class UserExtendInformation extends _UserExtendInformation {
 	/**
 	 * 序列化id
 	 */
@@ -68,5 +65,4 @@ public class UserExtendInformation extends _UserExtendInformation{
 		userExtendInformation.initialize();
 		return userExtendInformation;
 	}
-
 }
