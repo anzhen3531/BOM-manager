@@ -64,6 +64,9 @@ def handlerDict(str):
 
 
 if __name__ == "__main__":
+    # 判断文件类型 如果是excel 走调用excel的
+    # 如果是word走调用word的
+    # 可视化转换也采用这种方式
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
     signMapping = handlerDict(sys.argv[3])
     result = signDoc(sys.argv[1], signMapping, sys.argv[2])

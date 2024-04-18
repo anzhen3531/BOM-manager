@@ -10,7 +10,6 @@ import com.ptc.windchill.annotations.metadata.PropertyConstraints;
 import com.ptc.windchill.annotations.metadata.SupportedAPI;
 import com.ptc.windchill.annotations.metadata.TableProperties;
 
-import ext.ziang.modelGen._CommonFilterConfig;
 import wt.fc.WTObject;
 import wt.util.WTException;
 

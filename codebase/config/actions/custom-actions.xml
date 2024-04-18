@@ -11,7 +11,7 @@
         <!--   创建WTDocument 自定义拦截器    -->
         <action dtiUpload="true" name="create" uicomponent="CREATE_DOC" ajax="row">
             <command onClick="validateCreateLocation(event)" method="execute"
-                     class="ext.ziang.doc.ExtCreateDocFormProcessor" windowType="popup"/>
+                     class="ext.ziang.doc.process.ExtCreateDocFormProcessor" windowType="popup"/>
             <includeFilter name="projectM4D"/>
             <includeFilter name="showNewActionPreValidation"/>
         </action>

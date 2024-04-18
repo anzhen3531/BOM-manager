@@ -52,7 +52,7 @@
 	<target name="clean_ext">
 		<delete dir="${wtcodebase}/ext" />
 	</target>
-      
+
 	<!--====================================================================-->
 	<!-- Build rbInfo Resource Files                                        -->
 	<!--====================================================================-->
@@ -89,7 +89,7 @@
                 <exclude name="ext/**/*.mData" />
                 <exclude name="ext/**/*.bak" />
             	<exclude name="ext/**/Thumbs.db" />
-		            
+
         		<include name="config/actions/*.xml"/>
 				<include name="config/mvc/*.xml"/>
         		<include name="WEB-INF/**/*"/>
@@ -98,7 +98,7 @@
         	</fileset>
         </copy>
     </target>
-  
+
 	<!--====================================================================-->
 	<!-- Compiling Java Source                                              -->
 	<!--====================================================================-->
@@ -112,11 +112,11 @@
 				<fileset dir="${wthome}/lib" includes="*.jar"/>
 				<fileset dir="${wthome}/srclib/tool" includes="Annotations.jar"/>
 			</classpath>
-	        <!-- <include name="ext/sail/**/*.java" /> -->
 			<include name="ext/ziang/**/*.java" />
+			<exclude name="ext/ziang/**/-*.java" />
 	    </javac>
 	</target>
-        
+
 	<!--====================================================================-->
 	<!-- archive deploy files                                  -->
 	<!--====================================================================-->

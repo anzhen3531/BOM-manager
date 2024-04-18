@@ -1,4 +1,4 @@
-package ext.ziang.doc.sign;
+package ext.ziang.doc.sign.script;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

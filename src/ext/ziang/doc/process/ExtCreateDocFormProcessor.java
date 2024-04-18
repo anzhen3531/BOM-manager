@@ -1,4 +1,4 @@
-package ext.ziang.doc;
+package ext.ziang.doc.process;
 
 import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.components.forms.FormResult;

@@ -7,7 +7,6 @@ import com.ptc.windchill.annotations.metadata.GeneratedProperty;
 import com.ptc.windchill.annotations.metadata.PropertyConstraints;
 import com.ptc.windchill.annotations.metadata.SupportedAPI;
 
-import ext.ziang.modelGen._ElectronicSignatureConfig;
 import wt.fc.ObjectReference;
 import wt.fc.WTObject;
 import wt.util.WTException;
@@ -25,10 +24,14 @@ import wt.util.WTException;
 						name = "objectType",
 						type = ObjectReference.class
 				),
-                @GeneratedProperty(name = "contentType",
+				@GeneratedProperty(name = "contentType",
+						type = String.class,
+						constraints = @PropertyConstraints(upperLimit = 128 , required = true),
+						supportedAPI = SupportedAPI.PUBLIC, javaDoc = "内容类型"),
+                @GeneratedProperty(name = "workItemName",
                         type = String.class,
                         constraints = @PropertyConstraints(upperLimit = 128 , required = true),
-                        supportedAPI = SupportedAPI.PUBLIC, javaDoc = "内容类型"),
+                        supportedAPI = SupportedAPI.PUBLIC, javaDoc = "活动名称"),
                 @GeneratedProperty(name = "signXIndex",
                         type = String.class,
                         constraints = @PropertyConstraints(upperLimit = 128),
@@ -38,17 +41,21 @@ import wt.util.WTException;
                         constraints = @PropertyConstraints(upperLimit = 128),
                         supportedAPI = SupportedAPI.PUBLIC, javaDoc = "签字Y轴索引"),
                 @GeneratedProperty(name = "status",
-                        type = String.class,
-                        constraints = @PropertyConstraints(upperLimit = 128),
+                        type = Integer.class,
+                        constraints = @PropertyConstraints(upperLimit = 2),
                         supportedAPI = SupportedAPI.PUBLIC, javaDoc = "状态"),
                 @GeneratedProperty(name = "extendedField",
                         type = String.class,
                         constraints = @PropertyConstraints(upperLimit = 128),
                         supportedAPI = SupportedAPI.PUBLIC, javaDoc = "扩展字段"),
                 @GeneratedProperty(name = "extendedField1",
-                        type = Integer.class,
-                        constraints = @PropertyConstraints(upperLimit = 2),
-                        supportedAPI = SupportedAPI.PUBLIC, javaDoc = "扩展字段1")
+                        type = String.class,
+                        constraints = @PropertyConstraints(upperLimit = 128),
+                        supportedAPI = SupportedAPI.PUBLIC, javaDoc = "扩展字段1"),
+				@GeneratedProperty(name = "extendedField2",
+						type = String.class,
+						constraints = @PropertyConstraints(upperLimit = 128),
+						supportedAPI = SupportedAPI.PUBLIC, javaDoc = "扩展字段2")
         })
 public class ElectronicSignatureConfig extends _ElectronicSignatureConfig {
 	/**

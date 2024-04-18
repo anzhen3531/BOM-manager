@@ -30,6 +30,11 @@
                      url="/netmarkets/jsp/ext/ziang/change/copyBom/searchTargetBom.jsp"/>
         </action>
 
+        <!--搜索物料即可-->
+        <action name="signConfig">
+            <command windowType="popup"
+                     url="/netmarkets/jsp/ext/ziang/doc.sign/docSignConfig.jsp"/>
+        </action>
     </objecttype>
 
 </listofactions>

@@ -1,5 +1,5 @@
 <%@ page import="java.util.Hashtable" %>
-<%@ page import="ext.ziang.doc.sign.OpenPython" %>
+<%@ page import="ext.ziang.doc.sign.script.OpenPython" %>
 
 
 <%

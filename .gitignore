@@ -37,4 +37,6 @@ codebase/netmarkets/jsp/document/**
 codebase/netmarkets/jsp/massChange/**
 codebase/netmarkets/jsp/part/**
 ./venv/
-/src/ext/ziang/modelGen/
+/src/ext/ziang/model/_CommonFilterConfig.java
+/src/ext/ziang/model/_ElectronicSignatureConfig.java
+/src/ext/ziang/model/_UserExtendInformation.java
