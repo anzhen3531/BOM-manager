@@ -11,6 +11,8 @@ import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
 import wt.query.QuerySpec;
 import wt.query.SearchCondition;
+import wt.type.TypeDefinitionReference;
+import wt.type.TypedUtility;
 import wt.util.WTException;
 import wt.util.WTPropertyVetoException;
 
@@ -44,18 +46,16 @@ public class ElectronicSignatureConfigHelper {
 	/**
 	 * 查找电子签名配置
 	 *
-	 * @param persistable
-	 *            持久性
+	 * @param reference 参考
 	 * @return {@link ElectronicSignatureConfig}
-	 * @throws WTException
-	 *             WT异常
+	 * @throws WTException WT异常
 	 */
-	public static ElectronicSignatureConfig findElectronicSignatureConfig(Persistable persistable)
+	public static ElectronicSignatureConfig findElectronicSignatureConfig(TypeDefinitionReference reference)
 			throws WTException {
 		QuerySpec querySpec = new QuerySpec(ElectronicSignatureConfig.class);
 		SearchCondition searchCondition = new SearchCondition(ElectronicSignatureConfig.class,
 				ElectronicSignatureConfig.OBJECT_TYPE,
-				SearchCondition.EQUAL, persistable.getPersistInfo().getObjectIdentifier());
+				SearchCondition.EQUAL, String.valueOf(reference));
 		querySpec.appendWhere(searchCondition, new int[] { 0 });
 		CommonLog.printLog("querySpec = ", querySpec);
 		QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
@@ -77,15 +77,11 @@ public class ElectronicSignatureConfigHelper {
 	 */
 	public static ElectronicSignatureConfig createOrUpdate(ElectronicSignatureConfig config)
 			throws WTException, WTPropertyVetoException {
-		ObjectReference objectType = config.getObjectType();
+		TypeDefinitionReference objectType = config.getObjectType();
 		if (objectType == null) {
 			throw new WTException("当前签名对象没有配置对应的文档类型");
 		}
-		Persistable object = objectType.getObject();
-		if (object == null) {
-			throw new WTException("当前签名对象没有配置对应的文档类型");
-		}
-		ElectronicSignatureConfig electronicSignatureConfig = findElectronicSignatureConfig(object);
+		ElectronicSignatureConfig electronicSignatureConfig = findElectronicSignatureConfig(objectType);
 		if (electronicSignatureConfig != null) {
 			// copy属性
 			config.setContentType(electronicSignatureConfig.getContentType());

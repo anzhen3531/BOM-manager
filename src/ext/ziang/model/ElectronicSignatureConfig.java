@@ -9,6 +9,8 @@ import com.ptc.windchill.annotations.metadata.SupportedAPI;
 
 import wt.fc.ObjectReference;
 import wt.fc.WTObject;
+import wt.type.TypeDefinitionReference;
+import wt.type.Typed;
 import wt.util.WTException;
 
 /**
@@ -18,11 +20,11 @@ import wt.util.WTException;
  * @date 2024/04/16
  */
 @GenAsPersistable(superClass = WTObject.class,
-        interfaces = { Externalizable.class },
+        interfaces = { Externalizable.class},
         properties = {
 				@GeneratedProperty(
 						name = "objectType",
-						type = ObjectReference.class
+						type = TypeDefinitionReference.class
 				),
 				@GeneratedProperty(name = "contentType",
 						type = String.class,

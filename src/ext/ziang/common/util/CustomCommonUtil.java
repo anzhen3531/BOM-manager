@@ -1,9 +1,5 @@
 package ext.ziang.common.util;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
-
 import com.ptc.core.managedcollection.ManagedCollectionIdentity;
 import com.ptc.core.meta.common.IdentifierFactory;
 import com.ptc.core.meta.common.TypeInstanceIdentifier;
@@ -26,7 +22,7 @@ import wt.change2.ChangeItemIfc;
 import wt.doc.WTDocument;
 import wt.doc.WTDocumentHelper;
 import wt.doc.WTDocumentMaster;
-import wt.epm.ReviseOptions;
+import wt.enterprise.Master;
 import wt.facade.mpmlink.MPMLinkFacade;
 import wt.facade.persistedcollection.ManagedCollection;
 import wt.fc.Identified;
@@ -35,18 +31,11 @@ import wt.fc.ObjectReference;
 import wt.fc.Persistable;
 import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
-import wt.fc.collections.WTHashSet;
-import wt.fc.collections.WTKeyedHashMap;
-import wt.fc.collections.WTKeyedMap;
-import wt.fc.collections.WTValuedMap;
 import wt.org.WTOrganization;
-import wt.org.WTPrincipal;
-import wt.part.WTPart;
 import wt.part.WTPartHelper;
 import wt.part.WTPartMaster;
 import wt.part.alternaterep.WTPartAlternateRepMaster;
 import wt.part.alternaterep.service.WTPartAlternateRepService;
-import wt.pom.Transaction;
 import wt.query.ClassAttribute;
 import wt.query.ClassTableExpression;
 import wt.query.ConstantExpression;
@@ -54,18 +43,12 @@ import wt.query.KeywordExpression;
 import wt.query.OrderBy;
 import wt.query.QuerySpec;
 import wt.query.SearchCondition;
-import wt.series.MultilevelSeries;
 import wt.services.ServiceFactory;
 import wt.services.applicationcontext.implementation.DefaultServiceProvider;
-import wt.session.SessionHelper;
 import wt.util.InstalledProperties;
 import wt.util.WTException;
-import wt.util.WTPropertyVetoException;
 import wt.vc.Iterated;
 import wt.vc.Mastered;
-import wt.vc.VersionControlHelper;
-import wt.vc.VersionIdentifier;
-import wt.vc.Versioned;
 import wt.vc.baseline.ManagedBaseline;
 import wt.vc.baseline.ManagedBaselineIdentity;
 
@@ -282,100 +265,135 @@ public class CustomCommonUtil {
 		return number;
 	}
 
-//	/**
-//	 * 全部修改
-//	 *
-//	 * @param var0
-//	 *            变量0
-//	 * @return {@link WTKeyedMap}
-//	 * @throws WTException
-//	 *             WT异常
-//	 */
-//	public static WTKeyedMap reviseAll(WTKeyedMap var0) throws WTException {
-//		Transaction var1 = null;
-//
-//		try {
-//			var1 = new Transaction();
-//			var1.start();
-//			WTPrincipal var2 = SessionHelper.manager.getPrincipal();
-//			setEPMMultiReviseInProgress(true);
-//			WTHashSet var3 = new WTHashSet();
-//			WTKeyedHashMap var4 = new WTKeyedHashMap();
-//			ReviseOptions.ObjectOptions var5 = null;
-//			Iterator var6 = var0.entrySet().iterator();
-//			while (var6.hasNext()) {
-//				WTKeyedMap.WTEntry var7 = (WTKeyedMap.WTEntry) var6.next();
-//				Versioned var8 = (Versioned) var7.getKeyAsPersistable();
-//				validateObjectToRevise(var8, var2);
-//				ReviseOptions var9 = (ReviseOptions) var7.getValue();
-//				var5 = var8 instanceof WTPart ? var9.part : var9.document;
-//				if (var5.versionId == null) {
-//					var3.add(var8);
-//				} else {
-//					Object[] var10 = new Object[] { var5.versionId, VersionControlHelper.firstIterationId(var8) };
-//					var4.put(var8, var10);
-//				}
-//			}
-//
-//			Iterator var22;
-//			WTKeyedMap.WTEntry var24;
-//			Versioned var27;
-//			if (!var3.isEmpty()) {
-//				WTKeyedMap var20 = VersionControlHelper.service.getNextReviseLabels(var3, 1);
-//				var22 = var20.entrySet().iterator();
-//
-//				while (var22.hasNext()) {
-//					var24 = (WTKeyedMap.WTEntry) var22.next();
-//					var27 = (Versioned) var24.getKeyAsPersistable();
-//					List var29 = (List) var24.getValue();
-//					if (!var29.isEmpty()) {
-//						String var11 = (String) var29.get(var29.size() - 1);
-//						MultilevelSeries var12 = VersionControlHelper.getVersionIdentifierSeries(var27);
-//						var12.setValueWithValidation(var11, (new StringTokenizer(var11, ".")).countTokens());
-//						VersionIdentifier var13 = VersionIdentifier.newVersionIdentifier(var12);
-//						Object[] var14 = new Object[] { var13, VersionControlHelper.firstIterationId(var27) };
-//						var4.put(var27, var14);
-//					}
-//				}
-//			}
-//
-//			WTValuedMap var21 = VersionControlHelper.service.newVersions(var4, true);
-//			var22 = var0.entrySet().iterator();
-//
-//			Versioned var30;
-//			while (var22.hasNext()) {
-//				var24 = (WTKeyedMap.WTEntry) var22.next();
-//				var27 = (Versioned) var24.getKeyAsPersistable();
-//				var30 = (Versioned) var21.getPersistable(var27);
-//				ReviseOptions var31 = (ReviseOptions) var24.getValue();
-//				var5 = var27 instanceof WTPart ? var31.part : var31.document;
-//				updateRevised(var27, var30, var31.teamTemplate, var5);
-//			}
-//
-//			PersistenceHelper.manager.store(var21.wtValues());
-//			var1.commit();
-//			var1 = null;
-//			WTKeyedHashMap var23 = new WTKeyedHashMap();
-//			Iterator var25 = var21.entrySet().iterator();
-//
-//			while (var25.hasNext()) {
-//				WTValuedMap.WTValuedEntry var28 = (WTValuedMap.WTValuedEntry) var25.next();
-//				var30 = (Versioned) var28.getKeyAsPersistable();
-//				Versioned var32 = (Versioned) var28.getValueAsPersistable();
-//				var23.put(var30, var32);
-//			}
-//
-//			WTKeyedHashMap var26 = var23;
-//			return var26;
-//		} catch (WTPropertyVetoException var18) {
-//			throw new WTException(var18);
-//		} finally {
-//			setEPMMultiReviseInProgress(false);
-//			if (var1 != null) {
-//				var1.rollback();
-//			}
-//
-//		}
-//	}
+	/**
+	 * 按号码查找大师
+	 *
+	 * @param originNumber 编号
+	 * @param clazz        master 类
+	 * @param column       column name
+	 * @return {@link Mastered}
+	 */
+	public static Mastered findMasterByNumber(String originNumber, Class clazz, String column) {
+		CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start");
+		try {
+			QuerySpec qs = new QuerySpec();
+			qs.appendClassList(clazz, true);
+			int tableIndex = qs.appendFrom(new ClassTableExpression(clazz));
+			qs.setAdvancedQueryEnabled(true);
+			qs.appendWhere(new SearchCondition(clazz, column, SearchCondition.LIKE,
+					originNumber), new int[] { tableIndex });
+			qs.appendAnd();
+			qs.appendWhere(new SearchCondition(KeywordExpression.Keyword.ROWNUM.newKeywordExpression(),
+					SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(1)), new int[] { tableIndex });
+			QueryResult qr = PersistenceHelper.manager.find(qs);
+			if (qr.hasMoreElements()) {
+				return (Mastered) qr.nextElement();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix End");
+		return null;
+	}
+
+	// /**
+	// * 全部修改
+	// *
+	// * @param var0
+	// * 变量0
+	// * @return {@link WTKeyedMap}
+	// * @throws WTException
+	// * WT异常
+	// */
+	// public static WTKeyedMap reviseAll(WTKeyedMap var0) throws WTException {
+	// Transaction var1 = null;
+	//
+	// try {
+	// var1 = new Transaction();
+	// var1.start();
+	// WTPrincipal var2 = SessionHelper.manager.getPrincipal();
+	// setEPMMultiReviseInProgress(true);
+	// WTHashSet var3 = new WTHashSet();
+	// WTKeyedHashMap var4 = new WTKeyedHashMap();
+	// ReviseOptions.ObjectOptions var5 = null;
+	// Iterator var6 = var0.entrySet().iterator();
+	// while (var6.hasNext()) {
+	// WTKeyedMap.WTEntry var7 = (WTKeyedMap.WTEntry) var6.next();
+	// Versioned var8 = (Versioned) var7.getKeyAsPersistable();
+	// validateObjectToRevise(var8, var2);
+	// ReviseOptions var9 = (ReviseOptions) var7.getValue();
+	// var5 = var8 instanceof WTPart ? var9.part : var9.document;
+	// if (var5.versionId == null) {
+	// var3.add(var8);
+	// } else {
+	// Object[] var10 = new Object[] { var5.versionId,
+	// VersionControlHelper.firstIterationId(var8) };
+	// var4.put(var8, var10);
+	// }
+	// }
+	//
+	// Iterator var22;
+	// WTKeyedMap.WTEntry var24;
+	// Versioned var27;
+	// if (!var3.isEmpty()) {
+	// WTKeyedMap var20 = VersionControlHelper.service.getNextReviseLabels(var3, 1);
+	// var22 = var20.entrySet().iterator();
+	//
+	// while (var22.hasNext()) {
+	// var24 = (WTKeyedMap.WTEntry) var22.next();
+	// var27 = (Versioned) var24.getKeyAsPersistable();
+	// List var29 = (List) var24.getValue();
+	// if (!var29.isEmpty()) {
+	// String var11 = (String) var29.get(var29.size() - 1);
+	// MultilevelSeries var12 =
+	// VersionControlHelper.getVersionIdentifierSeries(var27);
+	// var12.setValueWithValidation(var11, (new StringTokenizer(var11,
+	// ".")).countTokens());
+	// VersionIdentifier var13 = VersionIdentifier.newVersionIdentifier(var12);
+	// Object[] var14 = new Object[] { var13,
+	// VersionControlHelper.firstIterationId(var27) };
+	// var4.put(var27, var14);
+	// }
+	// }
+	// }
+	//
+	// WTValuedMap var21 = VersionControlHelper.service.newVersions(var4, true);
+	// var22 = var0.entrySet().iterator();
+	//
+	// Versioned var30;
+	// while (var22.hasNext()) {
+	// var24 = (WTKeyedMap.WTEntry) var22.next();
+	// var27 = (Versioned) var24.getKeyAsPersistable();
+	// var30 = (Versioned) var21.getPersistable(var27);
+	// ReviseOptions var31 = (ReviseOptions) var24.getValue();
+	// var5 = var27 instanceof WTPart ? var31.part : var31.document;
+	// updateRevised(var27, var30, var31.teamTemplate, var5);
+	// }
+	//
+	// PersistenceHelper.manager.store(var21.wtValues());
+	// var1.commit();
+	// var1 = null;
+	// WTKeyedHashMap var23 = new WTKeyedHashMap();
+	// Iterator var25 = var21.entrySet().iterator();
+	//
+	// while (var25.hasNext()) {
+	// WTValuedMap.WTValuedEntry var28 = (WTValuedMap.WTValuedEntry) var25.next();
+	// var30 = (Versioned) var28.getKeyAsPersistable();
+	// Versioned var32 = (Versioned) var28.getValueAsPersistable();
+	// var23.put(var30, var32);
+	// }
+	//
+	// WTKeyedHashMap var26 = var23;
+	// return var26;
+	// } catch (WTPropertyVetoException var18) {
+	// throw new WTException(var18);
+	// } finally {
+	// setEPMMultiReviseInProgress(false);
+	// if (var1 != null) {
+	// var1.rollback();
+	// }
+	//
+	// }
+	// }
 
 }

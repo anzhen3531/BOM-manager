@@ -1,4 +1,4 @@
-<%@ page import="ext.ziang.common.util.CommonOperationAttrUtil" %>
+<%@ page import="ext.ziang.common.helper.attr.CommonOperationAttrHelper" %>
 <%@ page import="wt.util.WTException" %>
 <%@ page import="wt.session.SessionServerHelper" %>
 <%@ page import="wt.iba.definition.StringDefinition" %>
@@ -8,7 +8,7 @@
 
 <%
     try {
-        ReusableAttributeReadView attributeReadView = CommonOperationAttrUtil.createReusableAttribute(
+        ReusableAttributeReadView attributeReadView = CommonOperationAttrHelper.createReusableAttribute(
                 "4A00100100101",
                 null,
                 "wt.iba.definition.StringDefinition",
@@ -25,7 +25,7 @@
         System.out.println("accessEnforced = " + accessEnforced);
         //  OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588
         // 通过名称查询对应的节点
-        CommonOperationAttrUtil.createAttributeDefinition("4A00100100101",
+        CommonOperationAttrHelper.createAttributeDefinition("4A00100100101",
                 "机型",
                 "4A00100100101",
                 "OR:wt.iba.definition.StringDefinition:126002",

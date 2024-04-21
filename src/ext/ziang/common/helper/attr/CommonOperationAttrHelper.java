@@ -1,4 +1,4 @@
-package ext.ziang.common.util;
+package ext.ziang.common.helper.attr;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -22,7 +22,6 @@ import com.ptc.core.lwc.common.view.ConstraintDefinitionWriteView;
 import com.ptc.core.lwc.common.view.ConstraintRuleDefinitionReadView;
 import com.ptc.core.lwc.common.view.DatatypeReadView;
 import com.ptc.core.lwc.common.view.DisplayStyleReadView;
-import com.ptc.core.lwc.common.view.EnumerationDefinitionReadView;
 import com.ptc.core.lwc.common.view.PropertyDefinitionReadView;
 import com.ptc.core.lwc.common.view.PropertyValueReadView;
 import com.ptc.core.lwc.common.view.PropertyValueWriteView;
@@ -77,7 +76,7 @@ import wt.util.WTPropertyVetoException;
  * @author anzhen
  * @date 2024/02/29
  */
-public class CommonOperationAttrUtil {
+public class CommonOperationAttrHelper {
 	/**
 	 * 基本 def 服务
 	 */

@@ -1,4 +1,4 @@
-package ext.ziang.common.util;
+package ext.ziang.common.helper.query;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import wt.query.QuerySpec;
 import wt.query.SearchCondition;
 import wt.query.TableColumn;
 
-public class CommonQueryUtil {
+public class CommonQueryHelper {
 
 	/**
 	 * 获取查询规范
