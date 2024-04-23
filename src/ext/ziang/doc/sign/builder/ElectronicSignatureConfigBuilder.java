@@ -79,9 +79,9 @@ public class ElectronicSignatureConfigBuilder extends AbstractComponentBuilder {
 	 */
 	public static void createNewColumnConfig(String columnConfigName, String displayName, TableConfig result,
 			ComponentConfigFactory factory) {
-		ColumnConfig modifyStamp = factory.newColumnConfig(columnConfigName, displayName, true);
-		modifyStamp.setVariableHeight(true);
-		// modifyStamp.setDataUtilityId("ElectronicSignatureConfigUtility");
-		result.addComponent(modifyStamp);
+		ColumnConfig columnConfig = factory.newColumnConfig(columnConfigName, displayName, true);
+		columnConfig.setVariableHeight(true);
+		columnConfig.setDataUtilityId("ElectronicSignatureConfigUtility");
+		result.addComponent(columnConfig);
 	}
 }

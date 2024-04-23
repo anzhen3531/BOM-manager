@@ -9,6 +9,9 @@
 
         <Option serviceClass="ext.ziang.part.datautility.ExtSearchPartAttrDataUtility"
                 requestor="null" selector="ExtSearchPartAttrDataUtility" cardinality="singleton"/>
+
+        <Option serviceClass="ext.ziang.doc.sign.datautility.ElectronicSignatureConfigUtility"
+                requestor="null" selector="ElectronicSignatureConfigUtility" cardinality="singleton"/>
     </Service>
 
 
