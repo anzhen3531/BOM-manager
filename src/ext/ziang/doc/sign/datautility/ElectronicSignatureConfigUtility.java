@@ -21,7 +21,7 @@ public class ElectronicSignatureConfigUtility extends AbstractDataUtility {
 		GUIComponentArray guiComponentArray = new GUIComponentArray();
 		if (currentObject instanceof ElectronicSignatureConfig) {
 			ElectronicSignatureConfig config = (ElectronicSignatureConfig) currentObject;
-			if (ElectronicSignatureConfig.OBJECT_TYPE.equals(column)) {
+			if (ElectronicSignatureConfig.DOC_TYPE_NAME.equals(column)) {
 
 			} else if (ElectronicSignatureConfig.CONTENT_TYPE.equals(column)) {
 

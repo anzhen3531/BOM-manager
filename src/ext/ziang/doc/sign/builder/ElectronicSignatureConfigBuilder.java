@@ -40,7 +40,7 @@ public class ElectronicSignatureConfigBuilder extends AbstractComponentBuilder {
 		result.setId("ElectronicSignatureConfigBuilder");
 		result.setShowCount(true);
 		result.setConfigurable(true);
-		createNewColumnConfig(ElectronicSignatureConfig.OBJECT_TYPE, "相关文档类型名称", result, factory);
+		createNewColumnConfig(ElectronicSignatureConfig.DOC_TYPE_NAME, "相关文档类型名称", result, factory);
 		createNewColumnConfig(ElectronicSignatureConfig.CONTENT_TYPE, "内容类型", result, factory);
 		createNewColumnConfig(ElectronicSignatureConfig.WORK_ITEM_NAME, "流程名称", result, factory);
 		createNewColumnConfig(ElectronicSignatureConfig.SIGN_XINDEX, "X轴", result, factory);
