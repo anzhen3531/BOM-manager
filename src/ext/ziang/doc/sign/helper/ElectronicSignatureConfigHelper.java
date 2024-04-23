@@ -5,8 +5,6 @@ import java.util.List;
 
 import ext.ziang.common.util.CommonLog;
 import ext.ziang.model.ElectronicSignatureConfig;
-import wt.fc.ObjectReference;
-import wt.fc.Persistable;
 import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
 import wt.query.QuerySpec;
@@ -46,16 +44,16 @@ public class ElectronicSignatureConfigHelper {
 	/**
 	 * 查找电子签名配置
 	 *
-	 * @param reference 参考
+	 * @param docType 文档类型
 	 * @return {@link ElectronicSignatureConfig}
 	 * @throws WTException WT异常
 	 */
-	public static ElectronicSignatureConfig findElectronicSignatureConfig(TypeDefinitionReference reference)
+	public static ElectronicSignatureConfig findElectronicSignatureConfig(String docType)
 			throws WTException {
 		QuerySpec querySpec = new QuerySpec(ElectronicSignatureConfig.class);
 		SearchCondition searchCondition = new SearchCondition(ElectronicSignatureConfig.class,
-				ElectronicSignatureConfig.OBJECT_TYPE,
-				SearchCondition.EQUAL, String.valueOf(reference));
+				ElectronicSignatureConfig.DOC_TYPE,
+				SearchCondition.EQUAL, docType);
 		querySpec.appendWhere(searchCondition, new int[] { 0 });
 		CommonLog.printLog("querySpec = ", querySpec);
 		QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
@@ -77,16 +75,15 @@ public class ElectronicSignatureConfigHelper {
 	 */
 	public static ElectronicSignatureConfig createOrUpdate(ElectronicSignatureConfig config)
 			throws WTException, WTPropertyVetoException {
-		TypeDefinitionReference objectType = config.getObjectType();
+		TypeDefinitionReference objectType = TypedUtility.getTypeDefinitionReference(config.getDocType());
 		if (objectType == null) {
 			throw new WTException("当前签名对象没有配置对应的文档类型");
 		}
-		ElectronicSignatureConfig electronicSignatureConfig = findElectronicSignatureConfig(objectType);
+		ElectronicSignatureConfig electronicSignatureConfig = findElectronicSignatureConfig(config.getDocType());
 		if (electronicSignatureConfig != null) {
 			// copy属性
 			config.setContentType(electronicSignatureConfig.getContentType());
 			config.setWorkItemName(electronicSignatureConfig.getWorkItemName());
-			config.setObjectType(electronicSignatureConfig.getObjectType());
 			config.setSignXIndex(electronicSignatureConfig.getSignXIndex());
 			config.setSignYIndex(electronicSignatureConfig.getSignYIndex());
 			config.setStatus(electronicSignatureConfig.getStatus());

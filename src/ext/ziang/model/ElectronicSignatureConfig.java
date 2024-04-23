@@ -9,6 +9,7 @@ import com.ptc.windchill.annotations.metadata.SupportedAPI;
 
 import wt.fc.ObjectReference;
 import wt.fc.WTObject;
+import wt.type.TypeDefinitionInfo;
 import wt.type.TypeDefinitionReference;
 import wt.type.Typed;
 import wt.util.WTException;
@@ -22,10 +23,14 @@ import wt.util.WTException;
 @GenAsPersistable(superClass = WTObject.class,
         interfaces = { Externalizable.class},
         properties = {
-				@GeneratedProperty(
-						name = "objectType",
-						type = TypeDefinitionReference.class
-				),
+				@GeneratedProperty(name = "docType",
+						type = String.class,
+						constraints = @PropertyConstraints(upperLimit = 128 , required = true),
+						supportedAPI = SupportedAPI.PUBLIC, javaDoc = "文档类型外部名称"),
+				@GeneratedProperty(name = "docTypeName",
+						type = String.class,
+						constraints = @PropertyConstraints(upperLimit = 128 , required = true),
+						supportedAPI = SupportedAPI.PUBLIC, javaDoc = "文档类型显示名称"),
 				@GeneratedProperty(name = "contentType",
 						type = String.class,
 						constraints = @PropertyConstraints(upperLimit = 128 , required = true),
@@ -66,7 +71,7 @@ public class ElectronicSignatureConfig extends _ElectronicSignatureConfig {
 	static final long serialVersionUID = 1L;
 
 	public static ElectronicSignatureConfig newElectronicSignatureConfig() throws WTException {
-		final ElectronicSignatureConfig newElectronicSignatureConfig =  new ElectronicSignatureConfig();
+		final ElectronicSignatureConfig newElectronicSignatureConfig = new ElectronicSignatureConfig();
 		newElectronicSignatureConfig.initialize();
 		return newElectronicSignatureConfig;
 	}
