@@ -5,7 +5,7 @@
 <%@ page import="com.ptc.core.lwc.server.LWCTypeDefinition" %>
 <%@ page import="ext.ziang.doc.sign.helper.ElectronicSignatureConfigHelper" %>
 <%
-    // codebase/netmarkets/jsp/ext/ziang/doc.sign/testCreateSignConfig.jsp
+    // /netmarkets/jsp/ext/ziang/doc.sign/testCreateSignConfig.jsp
     ElectronicSignatureConfig signatureConfig = ElectronicSignatureConfig.newElectronicSignatureConfig();
     TypeDefinitionReference typeDefinitionReference = TypedUtility.getTypeDefinitionReference("wt.doc.WTDocument");
     if (typeDefinitionReference != null) {
