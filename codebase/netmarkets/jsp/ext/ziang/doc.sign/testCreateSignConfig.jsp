@@ -4,6 +4,7 @@
 <%@ page import="wt.type.TypedUtility" %>
 <%@ page import="com.ptc.core.lwc.server.LWCTypeDefinition" %>
 <%@ page import="ext.ziang.doc.sign.helper.ElectronicSignatureConfigHelper" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     // /netmarkets/jsp/ext/ziang/doc.sign/testCreateSignConfig.jsp
     ElectronicSignatureConfig signatureConfig = ElectronicSignatureConfig.newElectronicSignatureConfig();
