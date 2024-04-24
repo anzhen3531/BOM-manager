@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import ext.ziang.common.config.PropertiesHelper;
+
 /**
  * JDBC 模板 Oracle 帮助程序
  * <p>
@@ -15,35 +17,30 @@ import java.sql.Statement;
  * @date 2024/03/26
  */
 public class JdbcTemplateOracleHelper {
-
+	private static PropertiesHelper helper = PropertiesHelper.getInstance("commonConfig.properties");
 	/**
 	 * 网址
 	 */
-	private static String url;
+	private static String url = helper.getValueByKey("db.url");
 	/**
 	 * 用户名
 	 */
-	private static String username;
+	private static String username = helper.getValueByKey("db.username");
 	/**
 	 * 密码
 	 */
-	private static String password;
+	private static String password = helper.getValueByKey("db.password");
 	/**
 	 * class name
 	 */
-	private static String driver;
+	private static String driver = helper.getValueByKey("db.driver");
 
 	static {
-		url = "jdbc:oracle:thin:@plm:1521:wind";
-		username = "pdmlink11";
-		password = "pdmlink11";
-		driver = "oracle.jdbc.OracleDriver";
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**
