@@ -12,6 +12,8 @@ import javax.naming.ldap.Control;
 import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
+import ext.ziang.common.config.PropertiesHelper;
+
 /**
  * 打开DJ密码服务
  *
@@ -20,6 +22,7 @@ import javax.naming.ldap.LdapContext;
  *       ext.trinasolar.oauth.OpenDjPasswordService
  */
 public class OpenDjPasswordService {
+	private static PropertiesHelper helper = PropertiesHelper.getInstance("commonConfig.properties");
 	/**
 	 * LDAP 上下文
 	 */
@@ -31,23 +34,23 @@ public class OpenDjPasswordService {
 	/**
 	 * LDAP 网址
 	 */
-	private static String LDAP_URL = "ldap://plm.ziang.com:389/ou=people,cn=AdministrativeLdap,cn=Windchill_11.0,o=ptc";
+	private static String LDAP_URL = helper.getValueByKey("ldap.url");
 	/**
 	 * LDAP 用户名
 	 */
-	public static String LDAP_USERNAME = "cn=Manager";
+	public static String LDAP_USERNAME = helper.getValueByKey("ldap.username");
 	/**
 	 * LDAP 密码
 	 */
-	public static String LDAP_PASSWORD = "ldapadmin";
+	public static String LDAP_PASSWORD = helper.getValueByKey("ldap.password");
 	/**
 	 * 初始上下文工厂
 	 */
-	public static String INITIAL_CONTEXT_FACTORY = "com.sun.jndi.ldap.LdapCtxFactory";
+	public static String INITIAL_CONTEXT_FACTORY = helper.getValueByKey("ldap.context.factory");
 	/**
 	 * 基本 DN
 	 */
-	public static String BASE_DN = ",ou=people,cn=AdministrativeLdap,cn=Windchill_11.0,o=ptc";
+	public static String BASE_DN = helper.getValueByKey("ldap.dn");
 
 	public static void main(String[] args) {
 		OpenDjPasswordService service = new OpenDjPasswordService();
