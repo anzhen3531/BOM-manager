@@ -19,7 +19,7 @@ import ext.ziang.common.config.PropertiesHelper;
  *
  * @author anzhen
  * @date 2024/02/01
- *       ext.trinasolar.oauth.OpenDjPasswordService
+ *       ext.ziang.oauth.OpenDjPasswordService
  */
 public class OpenDjPasswordService {
 	private static PropertiesHelper helper = PropertiesHelper.getInstance("commonConfig.properties");
