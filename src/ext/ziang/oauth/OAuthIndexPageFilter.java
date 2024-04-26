@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.jndi.toolkit.chars.BASE64Encoder;
@@ -41,6 +43,24 @@ public class OAuthIndexPageFilter implements Filter {
 	 * Windchill 命令行免密登录
 	 */
 	public static String COMMON_PATH = "/Windchill/servlet/WindchillAuthGW/wt.httpgw.HTTPAuthentication/login";
+
+	/**
+	 * 可以通过命令关闭
+	 */
+	private static String SECURITYURL = "/Windchill/servlet/rest/security/csrf";
+	/**
+	 * 可视化登录
+	 */
+	private static String VISLOGON = "/Windchill/wtcore/jsp/wvs/vislogon.jsp";
+
+	/**
+	 * SimpleTaskDispatcher
+	 */
+	private static String SIMPLETASKDISPATCHER = "/Windchill/servlet/SimpleTaskDispatcher";
+	/**
+	 * Creo—login页面
+	 */
+	private static String CREOLOGINPAGE = "/Windchill/netmarkets/jsp/com/ptc/windchill/uwgm/creoLoginPage.jsp";
 
 	@Override
 	public void init(FilterConfig filterConfig) {
@@ -93,6 +113,15 @@ public class OAuthIndexPageFilter implements Filter {
 		CommonLog.printLog("url = ", httpServletRequest.getRequestURL());
 		String authorization = httpServletRequest.getHeader("Authorization");
 		CommonLog.printLog("authorization = " + authorization);
+
+		// 可视化登录判断
+		if ((url.contains(SECURITYURL) || url.contains(VISLOGON) || url.contains(SIMPLETASKDISPATCHER)
+				|| url.contains(CREOLOGINPAGE)) && StringUtils.isBlank(authorization)) {
+			// 无权限访问
+			redirectBasicLogin(httpResponse);
+			return;
+		}
+
 		if (validateContains(WHITE_LIST_URLS, url)) {
 			CommonLog.printLog("url = " + url + " 放行");
 			filterChain.doFilter(request, httpResponse);
@@ -199,6 +228,7 @@ public class OAuthIndexPageFilter implements Filter {
 			auth = auth.replace("Basic ", "");
 		}
 		String credentials = new String(Base64.getDecoder().decode(auth));
+
 		return credentials.split(":", 2);
 	}
 
@@ -222,7 +252,22 @@ public class OAuthIndexPageFilter implements Filter {
 		String[] usernamepsw = convertAuthHeader(encoding);
 		newRequest.setRemoteUser(usernamepsw[0]);
 		session.setAttribute("auth", encoding);
+		session.setMaxInactiveInterval(-1);
 		return newRequest;
+	}
+
+	/**
+	 * 无权限访问，重定向登录
+	 *
+	 * @param response
+	 * @throws IOException
+	 */
+	private void redirectBasicLogin(HttpServletResponse response) throws IOException {
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		response.setHeader("Cache-Control", "no-store");
+		response.setHeader("WWW-Authenticate", "Basic realm=Windchill");
+		response.setDateHeader("Expires", 0L);
+		response.getWriter().write("401 Unauthorized: You must authenticate first.");
 	}
 
 	@Override
