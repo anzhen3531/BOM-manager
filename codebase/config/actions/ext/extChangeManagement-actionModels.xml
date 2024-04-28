@@ -8,7 +8,7 @@
         <action name="separator" type="separator"/>
         <action name="view" type="object"/>
         <action name="separator" type="separator"/>
-
+        <action name="correctBom" type="extECA"/>
         <action name="separator" type="separator"/>
         <submodel name="thingworxActionsMenu"/>
         <action name="separator" type="separator"/>
