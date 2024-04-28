@@ -194,7 +194,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 			entity.setOid(part.getPersistInfo().getObjectIdentifier().toString());
 			entity.setNumber(part.getNumber());
 			entity.setName(part.getName());
-			entity.setDescription(IBAUtils.getIBAValue(part, AttributeConstants.DESCRIPTION));
+			// entity.setDescription(IBAUtils.getIBAValue(part, AttributeConstants.DESCRIPTION));
 			entity.setModifier(part.getModifierFullName());
 			entity.setCreator(part.getCreatorFullName());
 			entity.setVersion(VersionControlHelper.getIterationDisplayIdentifier(part).toString());
