@@ -35,4 +35,9 @@
         <action name="createSubscription" type="subscription"/>
     </model>
 
+
+    <model name="CorrectBomModel">
+        <action name="explode" type="folder" shortcut="true"/>
+        <action name="implode" type="folder" shortcut="true"/>
+    </model>
 </actionmodels>
