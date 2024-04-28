@@ -6,8 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import com.ptc.core.components.descriptor.DescriptorConstants;
-import com.ptc.core.components.util.OidHelper;
-import com.ptc.jca.mvc.components.JcaComponentParams;
 import com.ptc.mvc.components.ColumnConfig;
 import com.ptc.mvc.components.ComponentBuilder;
 import com.ptc.mvc.components.ComponentConfig;
@@ -19,7 +17,6 @@ import com.ptc.mvc.components.ComponentResultProcessor;
 import com.ptc.mvc.components.TreeConfig;
 import com.ptc.mvc.components.TreeDataBuilderAsync;
 import com.ptc.mvc.components.TreeNode;
-import com.ptc.netmarkets.model.NmOid;
 
 import ext.ziang.change.handler.CorrectBomBuilderHandler;
 import wt.util.WTException;
@@ -91,17 +88,9 @@ public class SingleCorrectBomBuilder
 		System.out.println("SingleCorrectBomBuilder.buildNodeData");
 		System.out.println("node = " + node + ", resultProcessor = " + resultProcessor);
 		if (node == TreeNode.RootNode) {
-			resultProcessor.setPresorted(false);
-			String noidStr = (String) ((JcaComponentParams) (resultProcessor.getParams()))
-					.getAttribute("carambola$ActionOid");
-			if (noidStr != null) {
-				NmOid nmoid = NmOid.newNmOid(noidStr);
-				resultProcessor.addElement(OidHelper.getPersistable(nmoid));
-			} else {
-				List<Object> objects = handler.getRootNodes();
-				System.out.println("objects = " + objects);
-				resultProcessor.addElements(objects);
-			}
+			List<Object> objects = handler.getRootNodes();
+			System.out.println("objects = " + objects);
+			resultProcessor.addElements(objects);
 		} else {
 			List nodeList = new ArrayList();
 			nodeList.add(node);
