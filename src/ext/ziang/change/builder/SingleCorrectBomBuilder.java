@@ -60,7 +60,7 @@ public class SingleCorrectBomBuilder
 		result.setLabel("批量修改BOM");
 		result.setSelectable(true);
 		result.setSingleSelect(false);
-		result.setId("CorrectBomBuilder");
+		result.setId("SingleCorrectBomBuilder");
 		// 设置展示数量
 		result.setShowCount(true);
 		// 设置展示树行数
