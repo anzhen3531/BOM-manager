@@ -149,12 +149,13 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 			WTPart originLatestPart;
 			WTPart replaceLatestPart = null;
 			if (originNumberPrefix.equals("5A") && replaceNumberPrefix.equals("5A")) {
-				originLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(originMaster, componentPart.getViewName());
+				originLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(originMaster,
+						componentPart.getViewName());
 				replaceLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(replaceMaster,
 						componentPart.getViewName());
 			} else {
-				originLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(originMaster, "Default");
-				replaceLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(replaceMaster, "Default");
+				originLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(originMaster, "Design");
+				replaceLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(replaceMaster, "Design");
 			}
 			// 查询Link
 			WTPartUsageLink link = CommonPartHelper.findWTPartUsageLink(componentPart, originLatestPart);
@@ -171,7 +172,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 					WTPartUsageLink checkoutVersionLink = CommonPartHelper.findWTPartUsageLink(componentWorkCopy,
 							originLatestPart);
 					QueryResult result = PersistenceServerHelper.manager.query(WTPartUsageLink.class, componentWorkCopy,
-							"usedBy",
+							WTPartUsageLink.USED_BY_ROLE,
 							replaceMaster);
 					System.out.println("result = " + result.size());
 					if (result.size() > 0) {
@@ -187,13 +188,14 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 						return workable;
 					}
 				case "substitution":
-					WTPartUsageLink originLink = CommonPartHelper.findWTPartUsageLink(componentWorkCopy, originLatestPart);
+					WTPartUsageLink originLink = CommonPartHelper.findWTPartUsageLink(componentWorkCopy,
+							originLatestPart);
 					System.out.println("originLink = " + originLink);
 					if (originLink == null) {
 						return workable;
 					}
 					QueryResult queryResult = PersistenceServerHelper.manager.query(WTPartSubstituteLink.class, link,
-							"substituteFor", replaceMaster);
+							WTPartSubstituteLink.SUBSTITUTE_FOR_ROLE, replaceMaster);
 					if (queryResult.size() > 0) {
 						throw new WTException(
 								String.format("存在重复绑定替代 父部建{%s}  -> 子件{%s}", componentWorkCopy.getNumber(),
@@ -235,7 +237,8 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 					}
 					break;
 				case "mainChangeSubstitute":
-					WTPartUsageLink originPartLink = CommonPartHelper.findWTPartUsageLink(componentWorkCopy, originLatestPart);
+					WTPartUsageLink originPartLink = CommonPartHelper.findWTPartUsageLink(componentWorkCopy,
+							originLatestPart);
 					System.out.println("originLink = " + originPartLink);
 					if (originPartLink == null) {
 						return workable;

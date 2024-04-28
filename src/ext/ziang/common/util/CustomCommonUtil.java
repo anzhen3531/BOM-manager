@@ -22,7 +22,6 @@ import wt.change2.ChangeItemIfc;
 import wt.doc.WTDocument;
 import wt.doc.WTDocumentHelper;
 import wt.doc.WTDocumentMaster;
-import wt.enterprise.Master;
 import wt.facade.mpmlink.MPMLinkFacade;
 import wt.facade.persistedcollection.ManagedCollection;
 import wt.fc.Identified;
@@ -245,7 +244,7 @@ public class CustomCommonUtil {
 			int tableIndex = qs.appendFrom(new ClassTableExpression(clazz));
 			qs.setAdvancedQueryEnabled(true);
 			qs.appendWhere(new SearchCondition(clazz, column, SearchCondition.LIKE,
-					partNumberPrefix + "%"), new int[] { tableIndex });
+					partNumberPrefix + SearchCondition.PATTERN_MATCH_MULITPLE), new int[] { tableIndex });
 			qs.appendAnd();
 			// 第一个参数为函数
 			// SQLFunction.newSQLFunction()
@@ -266,11 +265,14 @@ public class CustomCommonUtil {
 	}
 
 	/**
-	 * 按号码查找大师
+	 * 按号码查找Master
 	 *
-	 * @param originNumber 编号
-	 * @param clazz        master 类
-	 * @param column       column name
+	 * @param originNumber
+	 *            编号
+	 * @param clazz
+	 *            master 类
+	 * @param column
+	 *            column name
 	 * @return {@link Mastered}
 	 */
 	public static Mastered findMasterByNumber(String originNumber, Class clazz, String column) {
@@ -285,6 +287,7 @@ public class CustomCommonUtil {
 			qs.appendAnd();
 			qs.appendWhere(new SearchCondition(KeywordExpression.Keyword.ROWNUM.newKeywordExpression(),
 					SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(1)), new int[] { tableIndex });
+			// 降序排序查询
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
 				return (Mastered) qr.nextElement();
@@ -350,7 +353,7 @@ public class CustomCommonUtil {
 	// var12.setValueWithValidation(var11, (new StringTokenizer(var11,
 	// ".")).countTokens());
 	// VersionIdentifier var13 = VersionIdentifier.newVersionIdentifier(var12);
-	// Object[] var14 = new Object[] { var13,
+	// Object[] var14 = new Object[ ] { var13,
 	// VersionControlHelper.firstIterationId(var27) };
 	// var4.put(var27, var14);
 	// }

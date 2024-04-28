@@ -31,7 +31,7 @@ import wt.util.WTException;
  * @date 2024/02/20
  */
 
-@ComponentBuilder({ "ext.ziang.eccb.builder.SingleCorrectBomBuilder" })
+@ComponentBuilder({ "ext.ziang.change.builder.SingleCorrectBomBuilder" })
 public class SingleCorrectBomBuilder
 		implements TreeDataBuilderAsync, ComponentConfigBuilder, ComponentConfigFactoryAware {
 

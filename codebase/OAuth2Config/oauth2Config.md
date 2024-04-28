@@ -21,8 +21,7 @@
 ```
 重启Apache
 
-## 2.Tomcat 
-
+## 2.Tomcat
 
 路径为:`C:\ptc\Windchill_11.0\Windchill\codebase\WEB-INF\`
 找到`web.xml`

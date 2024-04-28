@@ -12,6 +12,9 @@
 
         <Option serviceClass="ext.ziang.doc.sign.datautility.ElectronicSignatureConfigUtility"
                 requestor="null" selector="ElectronicSignatureConfigUtility" cardinality="singleton"/>
+
+        <Option serviceClass="ext.ziang.doc.datautility.ValidateDocPrimaryContentDataUtility"
+                requestor="null" selector="ValidateDocPrimaryContentDataUtility" cardinality="singleton"/>
     </Service>
 
 

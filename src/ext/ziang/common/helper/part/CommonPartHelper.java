@@ -3,11 +3,14 @@ package ext.ziang.common.helper.part;
 import ext.ziang.common.util.CustomCommonUtil;
 import wt.fc.ObjectIdentifier;
 import wt.fc.ObjectReference;
+import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
 import wt.lifecycle._State;
 import wt.part.WTPart;
 import wt.part.WTPartMaster;
 import wt.part.WTPartStandardConfigSpec;
+import wt.part.WTPartUsageLink;
+import wt.session.SessionServerHelper;
 import wt.util.WTException;
 import wt.vc.VersionControlHelper;
 import wt.vc.views.View;
@@ -83,13 +86,39 @@ public class CommonPartHelper {
 	/**
 	 * 按对象 ID 获取 WTPartt
 	 *
-	 * @param partObjId 零件 obj ID
+	 * @param partObjId
+	 *            零件 obj ID
 	 * @return {@link WTPart}
-	 * @throws WTException WT异常
+	 * @throws WTException
+	 *             WT异常
 	 */
 	public static WTPart getWTPartByObjectId(String partObjId) throws WTException {
 		ObjectIdentifier objectIdentifier = ObjectIdentifier.newObjectIdentifier(partObjId);
 		ObjectReference objectReference = ObjectReference.newObjectReference(objectIdentifier);
 		return (WTPart) objectReference.getObject();
+	}
+
+	/**
+	 * 查找 WTPart 使用链接
+	 *
+	 * @param componentWorkCopy 组件工作副本
+	 * @param originLatestPart  Origin 最新部分
+	 * @return {@link WTPartUsageLink}
+	 */
+	public static WTPartUsageLink findWTPartUsageLink(WTPart componentWorkCopy, WTPart originLatestPart) {
+		boolean flag = SessionServerHelper.manager.setAccessEnforced(false);
+		try {
+			QueryResult result = PersistenceHelper.manager.find(WTPartUsageLink.class, componentWorkCopy,
+					WTPartUsageLink.USES_ROLE,
+					originLatestPart.getMaster());
+			if (result.hasMoreElements()) {
+				return (WTPartUsageLink) result.nextElement();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			SessionServerHelper.manager.setAccessEnforced(flag);
+		}
+		return null;
 	}
 }

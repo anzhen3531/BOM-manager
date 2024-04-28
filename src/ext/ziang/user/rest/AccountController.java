@@ -36,11 +36,9 @@ public class AccountController {
 	UserExtendedInformationService service = new UserExtendedInformationServiceImpl();
 
 	/**
-	 * 创建材料
-	 * 创建实验原材料
+	 * 访问令牌
 	 *
-	 * @param form
-	 *            形式
+	 * @param form 形式
 	 * @return 创建成功
 	 */
 	@POST

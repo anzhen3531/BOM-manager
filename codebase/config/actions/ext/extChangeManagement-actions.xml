@@ -2,4 +2,18 @@
 <!DOCTYPE listofactions SYSTEM '../actions.dtd'>
 <listofactions>
 
+
+    <objecttype name="extECA" resourceBundle="ext.ziang.resource.CommonActionResource">
+        <!--发送Doc到BPM-->
+        <action name="correctBom" ajax="row">
+            <command url="/netmarkets/jsp/ext/ziang/change/correctBom/CorrectBomReplaceLink.jsp"
+                     class="ext.ziang.change.process.ReplaceBomLinkProcess"
+                     windowType="popup"/>
+        </action>
+
+        <action name="correctBomStep" ajax="row">
+            <command url="/netmarkets/jsp/ext/ziang/change/correctBom/CorrectBomReplaceLinkStep.jsp"
+                     windowType="wizard_step"/>
+        </action>
+    </objecttype>
 </listofactions>

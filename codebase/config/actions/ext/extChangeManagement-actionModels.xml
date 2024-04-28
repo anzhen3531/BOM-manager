@@ -2,6 +2,37 @@
 <!DOCTYPE actionmodels SYSTEM '../actionmodels.dtd'>
 <actionmodels resourceBundle="com.ptc.windchill.enterprise.change2.changeManagementActionsRB">
 
+    <model name="changeTask row actions" menufor="wt.change2.WTChangeActivity2">
+        <description>Change task row actions</description>
+        <submodel name="Change object row actions open"/>
+        <action name="separator" type="separator"/>
+        <action name="view" type="object"/>
+        <action name="separator" type="separator"/>
 
+        <action name="separator" type="separator"/>
+        <submodel name="thingworxActionsMenu"/>
+        <action name="separator" type="separator"/>
+        <action name="undoReservation" type="reservation"/>
+        <action name="edit" type="changeTask"/>
+        <action name="editTemplate" type="changeTask"/>
+        <action name="separator" type="separator"/>
+        <action name="relatedWorkitems" type="change"/>
+        <action name="separator" type="separator"/>
+        <action name="renameObjectWizard" type="object"/>
+        <action name="CONTAINERMOVE" type="pdmObject"/>
+        <action name="setState" type="lifecycle"/>
+        <action name="reassignLC" type="lifecycle"/>
+        <!--  Reassign Life Cycle  -->
+        <action name="resetTeam" type="team"/>
+        <action name="separator" type="separator"/>
+        <submodel name="change tasks add row actions"/>
+        <action name="separator" type="separator"/>
+        <action name="removeShare" type="object"/>
+        <action name="separator" type="separator"/>
+        <action name="ManageSecurity" type="accessPermission"/>
+        <action name="securityLabelsSingleObjJCA" type="securityLabels"/>
+        <action name="EDITSECURITYLABELSNONCOLLECTED" type="object"/>
+        <action name="createSubscription" type="subscription"/>
+    </model>
 
 </actionmodels>
