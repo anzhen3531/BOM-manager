@@ -15,6 +15,9 @@
 
         <Option serviceClass="ext.ziang.doc.datautility.ValidateDocPrimaryContentDataUtility"
                 requestor="null" selector="ValidateDocPrimaryContentDataUtility" cardinality="singleton"/>
+
+        <Option serviceClass="ext.ziang.change.datautility.CorrectBomDataUtility"
+                requestor="null" selector="CorrectBomDataUtility" cardinality="singleton"/>
     </Service>
 
 
