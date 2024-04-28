@@ -88,6 +88,8 @@ public class SingleCorrectBomBuilder
 
 	@Override
 	public void buildNodeData(Object node, ComponentResultProcessor resultProcessor) throws Exception {
+		System.out.println("SingleCorrectBomBuilder.buildNodeData");
+		System.out.println("node = " + node + ", resultProcessor = " + resultProcessor);
 		if (node == TreeNode.RootNode) {
 			resultProcessor.setPresorted(false);
 			String noidStr = (String) ((JcaComponentParams) (resultProcessor.getParams()))
@@ -97,6 +99,7 @@ public class SingleCorrectBomBuilder
 				resultProcessor.addElement(OidHelper.getPersistable(nmoid));
 			} else {
 				List<Object> objects = handler.getRootNodes();
+				System.out.println("objects = " + objects);
 				resultProcessor.addElements(objects);
 			}
 		} else {
