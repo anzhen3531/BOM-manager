@@ -107,12 +107,10 @@ public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder im
 	 * @param componentparams
 	 *            组件参数
 	 * @return {@link CorrectBomBuilderHandler}
-	 * @throws WTException
-	 *             WT异常
 	 */
 	public CorrectBomBuilderHandler buildComponentData(ComponentConfig componentconfig,
 			ComponentParams componentparams) throws WTException {
-		return new CorrectBomBuilderHandler();
+		return new CorrectBomBuilderHandler(componentparams);
 	}
 
 	/**
