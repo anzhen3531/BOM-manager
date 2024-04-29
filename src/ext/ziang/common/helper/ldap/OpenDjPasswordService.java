@@ -22,7 +22,7 @@ import ext.ziang.common.config.PropertiesHelper;
  *       ext.ziang.oauth.OpenDjPasswordService
  */
 public class OpenDjPasswordService {
-	private static PropertiesHelper helper = PropertiesHelper.getInstance("commonConfig.properties");
+	private static PropertiesHelper helper = PropertiesHelper.getInstance();
 	/**
 	 * LDAP 上下文
 	 */

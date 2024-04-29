@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import cn.hutool.core.util.StrUtil;
 import wt.method.RemoteAccess;
 
 /**
@@ -40,6 +41,7 @@ public class PropertiesHelper implements RemoteAccess {
 	 * 配置文件名
 	 */
 	private String configFileName;
+	private static String DEFAULT_PROPERTIES_FILE = "commonConfig.properties";
 
 	private PropertiesHelper(Class<?> callingClass, String configFileName) {
 		this.callingClass = callingClass;
@@ -55,9 +57,23 @@ public class PropertiesHelper implements RemoteAccess {
 	 * @return {@link PropertiesHelper}
 	 */
 	public static PropertiesHelper getInstance(String configFileName) {
+		if (StrUtil.isBlank(configFileName)) {
+			return getInstance();
+		} else {
+			Class<?> callingClass = getCallingClass();
+			instance = new PropertiesHelper(callingClass, configFileName);
+			return instance;
+		}
+	}
+
+	/**
+	 * 获取实例
+	 *
+	 * @return {@link PropertiesHelper}
+	 */
+	public static PropertiesHelper getInstance() {
 		Class<?> callingClass = getCallingClass();
-		// 并不是单例设计模式 单例讲究多人同一个对象，这个应该是
-		instance = new PropertiesHelper(callingClass, configFileName);
+		instance = new PropertiesHelper(callingClass, DEFAULT_PROPERTIES_FILE);
 		return instance;
 	}
 
