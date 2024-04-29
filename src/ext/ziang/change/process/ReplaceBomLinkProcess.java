@@ -71,11 +71,9 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 					NmContext context = (NmContext) object;
 					NmOid targetOid = context.getTargetOid();
 					System.out.println("targetOid = " + targetOid);
-					// 得到相关的物料
-					String partNumber = targetOid.toString().split("\\|")[0];
-					String partView = targetOid.toString().split("\\|")[1];
-					WTPartMaster partMaster = CommonPartHelper.getWTPartMasterByNumber(partNumber);
-					WTPart componentPart = CommonPartHelper.findLatestWTPartByMasterAndView(partMaster, partView);
+					Object refObject = targetOid.getRefObject();
+					System.out.println("refObject = " + refObject);
+					WTPart componentPart = (WTPart) ToolUtils.getObjectByOid(targetOid.toString());
 					System.out.println("componentPart = " + componentPart);
 					try {
 						Workable workable = handlerReplaceAndSubstitution(componentPart, originPartNumber,
