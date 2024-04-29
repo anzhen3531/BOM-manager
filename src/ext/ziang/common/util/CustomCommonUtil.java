@@ -1,5 +1,8 @@
 package ext.ziang.common.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
+
 import com.ptc.core.managedcollection.ManagedCollectionIdentity;
 import com.ptc.core.meta.common.IdentifierFactory;
 import com.ptc.core.meta.common.TypeInstanceIdentifier;
@@ -52,9 +55,6 @@ import wt.vc.Iterated;
 import wt.vc.Mastered;
 import wt.vc.baseline.ManagedBaseline;
 import wt.vc.baseline.ManagedBaselineIdentity;
-
-import java.lang.reflect.InvocationTargetException;
-import java.rmi.RemoteException;
 
 /**
  * 自定义公共实用程序
@@ -280,24 +280,23 @@ public class CustomCommonUtil implements RemoteAccess {
 	 *            column name
 	 * @return {@link Mastered}
 	 */
-	public static Object findMasterByNumber(String originNumber, Class clazz, String column) throws RemoteException, InvocationTargetException {
+	public static Object findMasterByNumber(String originNumber, Class clazz, String column)
+			throws RemoteException, InvocationTargetException {
 		if (!RemoteMethodServer.ServerFlag) {
-			return (String) RemoteMethodServer.getDefault().invoke(
+			return  RemoteMethodServer.getDefault().invoke(
 					"findMasterByNumber",
 					CustomCommonUtil.class.getName(), null,
-					new Class[] { String.class, Class.class, String.class},
+					new Class[] { String.class, Class.class, String.class },
 					new Object[] { originNumber, clazz, column });
 		} else {
 			CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start");
 			try {
-				QuerySpec qs = new QuerySpec();
-				qs.appendClassList(clazz, true);
-				int tableIndex = qs.appendFrom(new ClassTableExpression(clazz));
+				QuerySpec qs = new QuerySpec(clazz);
 				qs.appendWhere(new SearchCondition(clazz, column, SearchCondition.EQUAL,
-						originNumber), new int[]{tableIndex});
+						originNumber), new int[] { 0 });
 				qs.appendAnd();
 				qs.appendWhere(new SearchCondition(KeywordExpression.Keyword.ROWNUM.newKeywordExpression(),
-						SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(1)), new int[]{tableIndex});
+						SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(1)), new int[] { 0 });
 				// 降序排序查询
 				System.out.println("qs = " + qs);
 				QueryResult qr = PersistenceHelper.manager.find(qs);
