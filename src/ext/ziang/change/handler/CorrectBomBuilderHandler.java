@@ -176,6 +176,13 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 							partList.add(part);
 							beanList.add(convertBomEntity(part, false));
 						}
+					}else if (object instanceof WTPart) {
+						WTPart part = (WTPart) object;
+						LocalizableMessage iterationDisplayIdentifier = VersionControlHelper
+								.getIterationDisplayIdentifier(part);
+						CommonLog.printLog("iterationDisplayIdentifier = " + iterationDisplayIdentifier);
+						partList.add(part);
+						beanList.add(convertBomEntity(part, false));
 					}
 				}
 				CommonLog.printLog("partList = " + beanList.size());
