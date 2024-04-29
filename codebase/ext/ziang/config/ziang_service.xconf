@@ -36,7 +36,8 @@
     </Service>
 
 
-    <Service context="default" name="com.ptc.core.components.beans.TreeHandler">
+    <Service context="default" name="com.ptc.core.components.beans.TreeHandler"
+             targetFile="codebase/service.properties">
         <Option requestor="null" selector="CorrectBomBuilderHandler"
                 serviceClass="ext.ziang.change.handler.CorrectBomBuilderHandler"
                 cardinality="singleton"/>
