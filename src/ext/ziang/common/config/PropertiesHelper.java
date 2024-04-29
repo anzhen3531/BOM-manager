@@ -2,6 +2,7 @@ package ext.ziang.common.config;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -104,9 +105,8 @@ public class PropertiesHelper implements RemoteAccess {
 	 * 加载属性
 	 */
 	private void loadProperties() {
-		String propertiesFile = PropertiesHelper.class.getResource(configFileName).getFile();
-		try (InputStreamReader reader = new InputStreamReader(Files.newInputStream(Paths.get(propertiesFile)),
-				StandardCharsets.UTF_8)) {
+		InputStream inputStream = PropertiesHelper.class.getResourceAsStream(configFileName);
+		try (InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
 			properties = new Properties();
 			CommonLog.printLog("加载配置文件成功:" + LocalDateTime.now());
 			properties.load(reader);
