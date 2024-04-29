@@ -22,6 +22,7 @@ import wt.change2.ChangeItemIfc;
 import wt.doc.WTDocument;
 import wt.doc.WTDocumentHelper;
 import wt.doc.WTDocumentMaster;
+import wt.enterprise.Master;
 import wt.facade.mpmlink.MPMLinkFacade;
 import wt.facade.persistedcollection.ManagedCollection;
 import wt.fc.Identified;
@@ -275,7 +276,7 @@ public class CustomCommonUtil {
 	 *            column name
 	 * @return {@link Mastered}
 	 */
-	public static Mastered findMasterByNumber(String originNumber, Class clazz, String column) {
+	public static Master findMasterByNumber(String originNumber, Class clazz, String column) {
 		CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start");
 		try {
 			QuerySpec qs = new QuerySpec();
@@ -290,7 +291,7 @@ public class CustomCommonUtil {
 			// 降序排序查询
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
-				return (Mastered) qr.nextElement();
+				return (Master) qr.nextElement();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
