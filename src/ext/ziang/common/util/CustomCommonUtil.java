@@ -22,7 +22,6 @@ import wt.change2.ChangeItemIfc;
 import wt.doc.WTDocument;
 import wt.doc.WTDocumentHelper;
 import wt.doc.WTDocumentMaster;
-import wt.enterprise.Master;
 import wt.facade.mpmlink.MPMLinkFacade;
 import wt.facade.persistedcollection.ManagedCollection;
 import wt.fc.Identified;
