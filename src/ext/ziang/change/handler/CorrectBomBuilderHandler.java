@@ -117,6 +117,10 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 		try {
 			// 先查询替代件
 			WTPartUsageLink link = CommonPartHelper.findWTPartUsageLink(parentPart, part);
+			System.out.println("parentPart = " + parentPart.getNumber() + "=>  part" + part.getNumber());
+			if (link == null) {
+				return;
+			}
 			WTCollection links = WTPartHelper.service.getSubstituteLinks(link);
 			CommonLog.printLog(String.format("当前物料{%s}替代件数量{%d}", part.getNumber(), links.size()));
 			if (!links.isEmpty()) {
