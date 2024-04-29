@@ -6,12 +6,12 @@ import java.util.Map;
 import java.util.Set;
 
 import com.ptc.core.components.descriptor.DescriptorConstants;
+import com.ptc.core.htmlcomp.components.AbstractConfigurableTableBuilder;
+import com.ptc.core.htmlcomp.tableview.ConfigurableTable;
 import com.ptc.mvc.components.ColumnConfig;
 import com.ptc.mvc.components.ComponentBuilder;
 import com.ptc.mvc.components.ComponentConfig;
-import com.ptc.mvc.components.ComponentConfigBuilder;
 import com.ptc.mvc.components.ComponentConfigFactory;
-import com.ptc.mvc.components.ComponentConfigFactoryAware;
 import com.ptc.mvc.components.ComponentParams;
 import com.ptc.mvc.components.ComponentResultProcessor;
 import com.ptc.mvc.components.TreeConfig;
@@ -29,17 +29,12 @@ import wt.util.WTException;
  */
 
 @ComponentBuilder({ "ext.ziang.change.builder.SingleCorrectBomBuilder" })
-public class SingleCorrectBomBuilder
-		implements TreeDataBuilderAsync, ComponentConfigBuilder, ComponentConfigFactoryAware {
+public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder implements TreeDataBuilderAsync {
 
 	/**
 	 * 处理器
 	 */
-	private CorrectBomBuilderHandler handler = new CorrectBomBuilderHandler();
-	/**
-	 * 配置工厂
-	 */
-	ComponentConfigFactory configFactory;
+	private CorrectBomBuilderHandler handler = null;
 
 	/**
 	 * 构建组件配置
@@ -52,7 +47,7 @@ public class SingleCorrectBomBuilder
 	 */
 	public ComponentConfig buildComponentConfig(ComponentParams componentparams) throws WTException {
 		// 获取组件配置工厂
-		ComponentConfigFactory factory = getConfigFactory();
+		ComponentConfigFactory factory = super.getComponentConfigFactory();
 		TreeConfig result = factory.newTreeConfig();
 		result.setLabel("批量修改BOM");
 		result.setSelectable(true);
@@ -88,6 +83,8 @@ public class SingleCorrectBomBuilder
 		System.out.println("SingleCorrectBomBuilder.buildNodeData");
 		System.out.println("node = " + node + ", resultProcessor = " + resultProcessor);
 		if (node == TreeNode.RootNode) {
+			// 实例化
+			handler = new CorrectBomBuilderHandler(resultProcessor.getParams());
 			List<Object> objects = handler.getRootNodes();
 			System.out.println("objects = " + objects);
 			resultProcessor.addElements(objects);
@@ -102,22 +99,21 @@ public class SingleCorrectBomBuilder
 		}
 	}
 
-	// /**
-	// * 构建组件数据
-	// *
-	// * @param componentconfig
-	// * 组件配置
-	// * @param componentparams
-	// * 组件参数
-	// * @return {@link CorrectSingleBomBuilderHandler}
-	// * @throws WTException
-	// * WT异常
-	// */
-	// public CorrectSingleBomBuilderHandler buildComponentData(ComponentConfig
-	// componentconfig,
-	// ComponentParams componentparams) throws WTException {
-	// return new CorrectSingleBomBuilderHandler();
-	// }
+	/**
+	 * 构建组件数据
+	 *
+	 * @param componentconfig
+	 *            组件配置
+	 * @param componentparams
+	 *            组件参数
+	 * @return {@link CorrectBomBuilderHandler}
+	 * @throws WTException
+	 *             WT异常
+	 */
+	public CorrectBomBuilderHandler buildComponentData(ComponentConfig componentconfig,
+			ComponentParams componentparams) throws WTException {
+		return new CorrectBomBuilderHandler();
+	}
 
 	/**
 	 * 创建新列配置
@@ -159,16 +155,9 @@ public class SingleCorrectBomBuilder
 		result.addComponent(modifyStamp);
 	}
 
-	/**
-	 * @return the configFactory
-	 */
-	public ComponentConfigFactory getConfigFactory() {
-		return configFactory;
-	}
-
 	@Override
-	public void setComponentConfigFactory(ComponentConfigFactory configFactory) {
-		this.configFactory = configFactory;
-
+	public ConfigurableTable buildConfigurableTable(String s) throws WTException {
+		return null;
 	}
+
 }

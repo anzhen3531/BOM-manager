@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.ptc.core.components.beans.TreeHandlerAdapter;
+import com.ptc.jca.mvc.components.JcaComponentParams;
+import com.ptc.mvc.components.ComponentParams;
 import com.ptc.netmarkets.model.NmSimpleOid;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
 
@@ -48,6 +50,12 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 	 * 正确 BOM 生成器处理程序
 	 */
 	public CorrectBomBuilderHandler() {
+	}
+
+	private NmCommandBean nmcommandbean;
+
+	public CorrectBomBuilderHandler(ComponentParams params) throws WTException {
+		this.nmcommandbean = ((JcaComponentParams) params).getHelperBean().getNmCommandBean();
 	}
 
 	/**
@@ -148,7 +156,6 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 		boolean bool = SessionServerHelper.manager.isAccessEnforced();
 		try {
 			SessionServerHelper.manager.setAccessEnforced(false);
-			NmCommandBean nmcommandbean = getModelContext().getNmCommandBean();
 			Object primaryObj = nmcommandbean.getPrimaryOid().getRefObject();
 			if (primaryObj instanceof WTChangeActivity2) {
 				WTChangeActivity2 wtChangeActivity2 = (WTChangeActivity2) primaryObj;
@@ -194,7 +201,8 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 			entity.setOid(part.getPersistInfo().getObjectIdentifier().toString());
 			entity.setNumber(part.getNumber());
 			entity.setName(part.getName());
-			// entity.setDescription(IBAUtils.getIBAValue(part, AttributeConstants.DESCRIPTION));
+			// entity.setDescription(IBAUtils.getIBAValue(part,
+			// AttributeConstants.DESCRIPTION));
 			entity.setModifier(part.getModifierFullName());
 			entity.setCreator(part.getCreatorFullName());
 			entity.setVersion(VersionControlHelper.getIterationDisplayIdentifier(part).toString());
