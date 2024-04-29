@@ -289,8 +289,10 @@ public class CustomCommonUtil {
 			qs.appendWhere(new SearchCondition(KeywordExpression.Keyword.ROWNUM.newKeywordExpression(),
 					SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(1)), new int[] { tableIndex });
 			// 降序排序查询
+			System.out.println("qs = " + qs);
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
+				System.out.println("qr.nextElement() = " + qr.nextElement());
 				return qr.nextElement();
 			}
 		} catch (Exception e) {
