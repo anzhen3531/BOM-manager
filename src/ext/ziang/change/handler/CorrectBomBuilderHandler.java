@@ -352,7 +352,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 				CommonLog.printLog("child part.getNumber() = " + latestPart.getNumber());
 				CommonLog.printLog("child part.viewName() = " + latestPart.getViewName());
 				CommonLog.printLog("findChildNodeByRoot current End  =============> ");
-				correctBomEntities.add(convertBomEntity(latestPart, link, null));
+				correctBomEntities.add(convertBomEntity(latestPart, link, part));
 			}
 		}
 		if (CollUtil.isNotEmpty(correctBomEntities)) {
