@@ -9,11 +9,13 @@ import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import cn.hutool.core.util.StrUtil;
+import ext.ziang.common.util.CommonLog;
 import wt.method.RemoteAccess;
 
 /**
@@ -102,13 +104,11 @@ public class PropertiesHelper implements RemoteAccess {
 	 * 加载属性
 	 */
 	private void loadProperties() {
-		System.out.println("callingClass = " + callingClass);
-		System.out.println("configFileName = " + configFileName);
-		String propertiesFile = callingClass.getResource(configFileName).getFile();
-		System.out.println("propertiesFile = " + propertiesFile);
+		String propertiesFile = PropertiesHelper.class.getResource(configFileName).getFile();
 		try (InputStreamReader reader = new InputStreamReader(Files.newInputStream(Paths.get(propertiesFile)),
 				StandardCharsets.UTF_8)) {
 			properties = new Properties();
+			CommonLog.printLog("加载配置文件成功:" + LocalDateTime.now());
 			properties.load(reader);
 		} catch (Exception e) {
 			e.printStackTrace();
