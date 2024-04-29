@@ -176,7 +176,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 							partList.add(part);
 							beanList.add(convertBomEntity(part, false));
 						}
-					}else if (object instanceof WTPart) {
+					} else if (object instanceof WTPart) {
 						WTPart part = (WTPart) object;
 						LocalizableMessage iterationDisplayIdentifier = VersionControlHelper
 								.getIterationDisplayIdentifier(part);
@@ -261,7 +261,12 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 	 * @return {@link CorrectBomEntity}
 	 */
 	public static CorrectBomEntity convertBomEntity(WTPart part, ObjectToObjectLink objectLink, WTPart parentPart) {
-		CorrectBomEntity entity = convertBomEntity(part, true, parentPart);
+		CorrectBomEntity entity;
+		if (parentPart == null) {
+			entity = convertBomEntity(part, true);
+		} else {
+			entity = convertBomEntity(part, true, parentPart);
+		}
 		if (entity == null) {
 			return null;
 		}
