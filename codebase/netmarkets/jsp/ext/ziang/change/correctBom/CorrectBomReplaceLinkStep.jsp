@@ -121,6 +121,8 @@
                         <td class="attributePanel-asterisk"></td>
                         <td class="attributePanel-label" id="amount">
                             替换的物料用量:
+                        </td>
+                        <td class="attributePanel-value" id="amountNum">
                             <w:textBox propertyLabel="替换的物料用量"
                                        id="substitutionAmount"
                                        name="substitutionAmountName"
@@ -128,9 +130,6 @@
                                        maxlength="60"
                                        required="false"/>
                         </td>
-<%--                        <td class="attributePanel-value" id="amountNum">--%>
-
-<%--                        </td>--%>
                         <td class="attributePanel-asterisk"></td>
                     </tr>
                     </tbody>
