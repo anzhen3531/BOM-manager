@@ -103,13 +103,13 @@ public class OpenDjPasswordService {
 			if (en == null || !en.hasMoreElements()) {
 				System.out.println("未找到该用户");
 			}
-
 			while (en != null && en.hasMoreElements()) {
 				Object obj = en.nextElement();
 				if (obj instanceof SearchResult) {
 					SearchResult si = (SearchResult) obj;
 					userDN += si.getName();
 					System.out.println("si = " + si);
+					System.out.println("si = " + si.getName());
 					userDN += BASE_DN;
 				} else {
 					System.out.println(obj);
