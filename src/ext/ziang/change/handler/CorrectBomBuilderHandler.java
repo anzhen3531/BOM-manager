@@ -114,6 +114,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 	 */
 	private static void handlerSubstitutePart(WTPart part, WTPart parentPart, List<CorrectBomEntity> correctBomEntities)
 			throws WTException {
+		System.out.println("CorrectBomBuilderHandler.handlerSubstitutePart");
 		if (parentPart == null || part == null) {
 			return;
 		}
@@ -121,6 +122,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 		WTPart substitutePart;
 		QueryResult queryResult = PersistenceHelper.manager.find(WTPartUsageLink.class, parentPart,
 				WTPartUsageLink.USES_ROLE, part.getMaster());
+		System.out.println("queryResult = " + queryResult);
 		if (queryResult.hasMoreElements()) {
 			WTPartUsageLink link = (WTPartUsageLink) queryResult.nextElement();
 			WTCollection links = WTPartHelper.service.getSubstituteLinks(link);
@@ -322,6 +324,8 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 		WTPart parentPart = null;
 		if (StrUtil.isNotBlank(parentObjId)) {
 			parentPart = CommonPartHelper.getWTPartByObjectId(parentObjId);
+			CommonLog.printLog("parentPart.getName() = " + parentPart.getName());
+			CommonLog.printLog("parentPart.getNumber() = " + parentPart.getNumber());
 		}
 		QueryResult qr = WTPartHelper.service.getUsesWTPartMasters(part);
 		// 查询到剩余部件
