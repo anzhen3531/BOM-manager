@@ -294,9 +294,6 @@ public class CustomCommonUtil implements RemoteAccess {
 				QuerySpec qs = new QuerySpec(clazz);
 				qs.appendWhere(new SearchCondition(clazz, column, SearchCondition.EQUAL,
 						originNumber), new int[] { 0 });
-				qs.appendAnd();
-				qs.appendWhere(new SearchCondition(KeywordExpression.Keyword.ROWNUM.newKeywordExpression(),
-						SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(1)), new int[] { 0 });
 				// 降序排序查询
 				System.out.println("qs = " + qs);
 				QueryResult qr = PersistenceHelper.manager.find(qs);

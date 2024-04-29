@@ -5,10 +5,12 @@ import java.util.List;
 import wt.fc.Persistable;
 import wt.query.ArrayExpression;
 import wt.query.ConstantExpression;
+import wt.query.KeywordExpression;
 import wt.query.QueryException;
 import wt.query.QuerySpec;
 import wt.query.SearchCondition;
 import wt.query.TableColumn;
+import wt.util.WTException;
 
 public class CommonQueryHelper {
 
@@ -49,5 +51,23 @@ public class CommonQueryHelper {
 			String alias, String constraint) throws QueryException {
 		return new SearchCondition(new TableColumn(alias, columnName), constraint,
 				new ArrayExpression(value.toArray()));
+	}
+
+	/**
+	 * 添加行号条件
+	 *
+	 * @param qs
+	 *            查询对象
+	 * @param rowNumber
+	 *            行号
+	 * @return {@link QuerySpec} SQL
+	 * @throws WTException
+	 *             WT异常
+	 */
+	public static QuerySpec addRowNumberCondition(QuerySpec qs, int rowNumber, int index) throws WTException {
+		qs.appendAnd();
+		qs.appendWhere(new SearchCondition(KeywordExpression.Keyword.ROWNUM.newKeywordExpression(),
+				SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(rowNumber)), new int[] { index });
+		return qs;
 	}
 }
