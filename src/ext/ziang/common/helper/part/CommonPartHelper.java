@@ -17,6 +17,9 @@ import wt.vc.VersionControlHelper;
 import wt.vc.views.View;
 import wt.vc.views.ViewHelper;
 
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
+
 /**
  * 公共部件助手
  *
@@ -31,7 +34,7 @@ public class CommonPartHelper {
 	 *            产地编号
 	 * @return {@link WTPartMaster}
 	 */
-	public static WTPartMaster getWTPartMasterByNumber(String originNumber) {
+	public static WTPartMaster getWTPartMasterByNumber(String originNumber) throws RemoteException, InvocationTargetException {
 		return (WTPartMaster) CustomCommonUtil.findMasterByNumber(originNumber, WTPartMaster.class,
 				WTPartMaster.NUMBER);
 	}

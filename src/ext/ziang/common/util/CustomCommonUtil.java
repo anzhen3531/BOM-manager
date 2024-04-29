@@ -30,6 +30,8 @@ import wt.fc.ObjectReference;
 import wt.fc.Persistable;
 import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
+import wt.method.RemoteAccess;
+import wt.method.RemoteMethodServer;
 import wt.org.WTOrganization;
 import wt.part.WTPartHelper;
 import wt.part.WTPartMaster;
@@ -51,13 +53,16 @@ import wt.vc.Mastered;
 import wt.vc.baseline.ManagedBaseline;
 import wt.vc.baseline.ManagedBaselineIdentity;
 
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
+
 /**
  * 自定义公共实用程序
  *
  * @author anzhen
  * @date 2024/04/03
  */
-public class CustomCommonUtil {
+public class CustomCommonUtil implements RemoteAccess {
 	private static final IdentifierFactory DEFAULT_IDENTIFIER_FACTORY = (IdentifierFactory) DefaultServiceProvider
 			.getService(IdentifierFactory.class, "default");
 
@@ -275,28 +280,36 @@ public class CustomCommonUtil {
 	 *            column name
 	 * @return {@link Mastered}
 	 */
-	public static Object findMasterByNumber(String originNumber, Class clazz, String column) {
-		CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start");
-		try {
-			QuerySpec qs = new QuerySpec();
-			qs.appendClassList(clazz, true);
-			int tableIndex = qs.appendFrom(new ClassTableExpression(clazz));
-			qs.appendWhere(new SearchCondition(clazz, column, SearchCondition.EQUAL,
-					originNumber), new int[] { tableIndex });
-			qs.appendAnd();
-			qs.appendWhere(new SearchCondition(KeywordExpression.Keyword.ROWNUM.newKeywordExpression(),
-					SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(1)), new int[] { tableIndex });
-			// 降序排序查询
-			System.out.println("qs = " + qs);
-			QueryResult qr = PersistenceHelper.manager.find(qs);
-			if (qr.hasMoreElements()) {
-				return qr.nextElement();
+	public static Object findMasterByNumber(String originNumber, Class clazz, String column) throws RemoteException, InvocationTargetException {
+		if (!RemoteMethodServer.ServerFlag) {
+			return (String) RemoteMethodServer.getDefault().invoke(
+					"findMasterByNumber",
+					CustomCommonUtil.class.getName(), null,
+					new Class[] { String.class, Class.class, String.class},
+					new Object[] { originNumber, clazz, column });
+		} else {
+			CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start");
+			try {
+				QuerySpec qs = new QuerySpec();
+				qs.appendClassList(clazz, true);
+				int tableIndex = qs.appendFrom(new ClassTableExpression(clazz));
+				qs.appendWhere(new SearchCondition(clazz, column, SearchCondition.EQUAL,
+						originNumber), new int[]{tableIndex});
+				qs.appendAnd();
+				qs.appendWhere(new SearchCondition(KeywordExpression.Keyword.ROWNUM.newKeywordExpression(),
+						SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(1)), new int[]{tableIndex});
+				// 降序排序查询
+				System.out.println("qs = " + qs);
+				QueryResult qr = PersistenceHelper.manager.find(qs);
+				if (qr.hasMoreElements()) {
+					return qr.nextElement();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix End");
+			return null;
 		}
-		CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix End");
-		return null;
 	}
 
 	// /**
