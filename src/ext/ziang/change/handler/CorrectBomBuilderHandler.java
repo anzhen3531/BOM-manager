@@ -109,37 +109,41 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 	 *            父部分
 	 * @param correctBomEntities
 	 *            正确物料清单实体
-	 * @throws WTException
-	 *             WT异常
 	 */
-	private static void handlerSubstitutePart(WTPart part, WTPart parentPart, List<CorrectBomEntity> correctBomEntities)
-			throws WTException {
+	private static void handlerSubstitutePart(WTPart part, WTPart parentPart, List<CorrectBomEntity> correctBomEntities) {
 		System.out.println("CorrectBomBuilderHandler.handlerSubstitutePart");
 		if (parentPart == null || part == null) {
 			return;
 		}
-		// 先查询替代件
-		WTPart substitutePart;
-		QueryResult queryResult = PersistenceHelper.manager.find(WTPartUsageLink.class, parentPart,
-				WTPartUsageLink.USES_ROLE, part.getMaster());
-		System.out.println("queryResult = " + queryResult);
-		if (queryResult.hasMoreElements()) {
-			WTPartUsageLink link = (WTPartUsageLink) queryResult.nextElement();
-			WTCollection links = WTPartHelper.service.getSubstituteLinks(link);
-			CommonLog.printLog(String.format("当前物料{%s}替代件数量{%d}", part.getNumber(), links.size()));
-			if (!links.isEmpty()) {
-				// 遍历所有的替代件
-				for (Object substitute : links) {
-					ObjectReference reference = (ObjectReference) substitute;
-					WTPartSubstituteLink substituteLink = (WTPartSubstituteLink) reference
-							.getObject();
-					WTPartMaster substituteMaster = (WTPartMaster) substituteLink.getRoleBObject();
-					substitutePart = CommonPartHelper.findLatestWTPartByMasterAndView(
-							substituteMaster, part.getViewName());
-					CommonLog.printLog("substitutePart = ", substitutePart);
-					correctBomEntities.add(convertBomEntity(substitutePart, substituteLink, part));
+		boolean flag = SessionServerHelper.manager.setAccessEnforced(false);
+		try {
+			// 先查询替代件
+			WTPart substitutePart;
+			QueryResult queryResult = PersistenceHelper.manager.find(WTPartUsageLink.class, parentPart,
+					WTPartUsageLink.USES_ROLE, part.getMaster());
+			System.out.println("queryResult = " + queryResult.size());
+			if (queryResult.hasMoreElements()) {
+				WTPartUsageLink link = (WTPartUsageLink) queryResult.nextElement();
+				WTCollection links = WTPartHelper.service.getSubstituteLinks(link);
+				CommonLog.printLog(String.format("当前物料{%s}替代件数量{%d}", part.getNumber(), links.size()));
+				if (!links.isEmpty()) {
+					// 遍历所有的替代件
+					for (Object substitute : links) {
+						ObjectReference reference = (ObjectReference) substitute;
+						WTPartSubstituteLink substituteLink = (WTPartSubstituteLink) reference
+								.getObject();
+						WTPartMaster substituteMaster = (WTPartMaster) substituteLink.getRoleBObject();
+						substitutePart = CommonPartHelper.findLatestWTPartByMasterAndView(
+								substituteMaster, part.getViewName());
+						CommonLog.printLog("substitutePart = ", substitutePart);
+						correctBomEntities.add(convertBomEntity(substitutePart, substituteLink, part));
+					}
 				}
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			SessionServerHelper.manager.setAccessEnforced(flag);
 		}
 	}
 
@@ -240,7 +244,8 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 					+ parentPart.getPersistInfo().getObjectIdentifier().toString());
 			entity.setNumber(part.getNumber());
 			entity.setName(part.getName());
-			// entity.setDescription(IBAUtils.getIBAValue(part, AttributeConstants.DESCRIPTION));
+			// entity.setDescription(IBAUtils.getIBAValue(part,
+			// AttributeConstants.DESCRIPTION));
 			entity.setModifier(part.getModifierFullName());
 			entity.setCreator(part.getCreatorFullName());
 			entity.setVersion(VersionControlHelper.getIterationDisplayIdentifier(part).toString());
