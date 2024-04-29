@@ -282,7 +282,7 @@ public class CustomCommonUtil {
 			qs.appendClassList(clazz, true);
 			int tableIndex = qs.appendFrom(new ClassTableExpression(clazz));
 			qs.setAdvancedQueryEnabled(true);
-			qs.appendWhere(new SearchCondition(clazz, column, SearchCondition.LIKE,
+			qs.appendWhere(new SearchCondition(clazz, column, SearchCondition.EQUAL,
 					originNumber), new int[] { tableIndex });
 			qs.appendAnd();
 			qs.appendWhere(new SearchCondition(KeywordExpression.Keyword.ROWNUM.newKeywordExpression(),
@@ -293,6 +293,7 @@ public class CustomCommonUtil {
 			if (qr.hasMoreElements()) {
 				Persistable[] object = (Persistable[]) qr.nextElement();
 				System.out.println("object = " + object[0]);
+				System.out.println("object = " + object[1]);
 				return object[0];
 			}
 		} catch (Exception e) {

@@ -137,29 +137,15 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 			if (originMaster == null || replaceMaster == null) {
 				return null;
 			}
-			String originNumberPrefix = originNumber.substring(0, 2);
-			System.out.println("originNumberPrefix = " + originNumberPrefix);
-			String replaceNumberPrefix = replaceNumber.substring(0, 2);
-			System.out.println("replaceNumberPrefix = " + replaceNumberPrefix);
-			if (!originNumberPrefix.equals(replaceNumberPrefix)) {
-				throw new WTException("操作异常：当前选择的相关物料不是相同类型");
-			}
 			WTPart originLatestPart;
 			WTPart replaceLatestPart = null;
-			if (originNumberPrefix.equals("5A") && replaceNumberPrefix.equals("5A")) {
-				originLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(originMaster,
-						componentPart.getViewName());
-				replaceLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(replaceMaster,
-						componentPart.getViewName());
-			} else {
-				originLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(originMaster, "Design");
-				replaceLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(replaceMaster, "Design");
-			}
+			originLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(originMaster, "Design");
+			replaceLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(replaceMaster, "Design");
 			// 查询Link
 			WTPartUsageLink link = CommonPartHelper.findWTPartUsageLink(componentPart, originLatestPart);
 			if (link == null) {
 				throw new WTException(
-						String.format("操作异常：当前受影响源物料{%s}没有和选择的6A{%s}存在关联关系", originNumber, componentPart.getNumber()));
+						String.format("操作异常：当前受影响源物料{%s}没有和选择的BOM{%s}存在关联关系", originNumber, componentPart.getNumber()));
 			}
 			// 判断当前物料状态
 			workable = ToolUtils.checkout(componentPart, "批量更改检出BOM");
@@ -200,8 +186,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 										replaceMaster.getNumber()));
 					} else {
 						WTPartSubstituteLink wtPartSubstituteLink = WTPartSubstituteLink.newWTPartSubstituteLink(
-								originLink,
-								replaceMaster);
+								originLink, replaceMaster);
 						Quantity quantity = originLink.getQuantity();
 						// 更新数量
 						if (personInputAmount != null) {
