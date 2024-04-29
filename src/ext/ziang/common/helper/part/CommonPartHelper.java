@@ -109,8 +109,8 @@ public class CommonPartHelper {
 	public static WTPartUsageLink findWTPartUsageLink(WTPart componentWorkCopy, WTPart originLatestPart) {
 		boolean flag = SessionServerHelper.manager.setAccessEnforced(false);
 		try {
-			QueryResult result = PersistenceServerHelper.manager.query(WTPartUsageLink.class, componentWorkCopy,
-					WTPartUsageLink.USES_ROLE, originLatestPart.getMaster());
+			QueryResult result = PersistenceHelper.manager.find(WTPartUsageLink.class, componentWorkCopy,
+					WTPartUsageLink.USED_BY_ROLE, originLatestPart.getMaster());
 			if (result.hasMoreElements()) {
 				return (WTPartUsageLink) result.nextElement();
 			}
