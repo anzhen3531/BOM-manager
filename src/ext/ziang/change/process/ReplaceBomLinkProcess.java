@@ -125,7 +125,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 	private static Workable handlerReplaceAndSubstitution(WTPart componentPart, String originNumber,
 			String replaceNumber,
 			String replaceType, Double personInputAmount) throws WTException {
-		Workable workable = null;
+		Workable workable;
 		try {
 			System.out.println("ReplaceBomLinkProcess.handlerReplaceAndSubstitution");
 			System.out.println("componentPart = " + componentPart + ", originNumber = " + originNumber
