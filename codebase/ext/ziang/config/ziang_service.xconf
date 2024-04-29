@@ -39,6 +39,6 @@
     <Service context="default" name="com.ptc.core.components.beans.TreeHandler">
         <Option requestor="null" selector="CorrectBomBuilderHandler"
                 serviceClass="ext.ziang.change.handler.CorrectBomBuilderHandler"
-                cardinality="duplicate"/>
+                cardinality="singleton"/>
     </Service>
 </Configuration>
