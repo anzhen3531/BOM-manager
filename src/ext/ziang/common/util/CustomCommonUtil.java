@@ -291,9 +291,9 @@ public class CustomCommonUtil {
 			System.out.println("qs = " + qs);
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
-				Object object = qr.nextElement();
-				System.out.println("object = " + object);
-				return object;
+				Persistable[] object = (Persistable[]) qr.nextElement();
+				System.out.println("object = " + object[0]);
+				return object[0];
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
