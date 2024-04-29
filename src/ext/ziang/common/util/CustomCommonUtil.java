@@ -2,6 +2,7 @@ package ext.ziang.common.util;
 
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
+import java.time.LocalDateTime;
 
 import com.ptc.core.managedcollection.ManagedCollectionIdentity;
 import com.ptc.core.meta.common.IdentifierFactory;
@@ -280,22 +281,21 @@ public class CustomCommonUtil implements RemoteAccess {
 	 *            column name
 	 * @return {@link Mastered}
 	 */
-	public static Object findMasterByNumber(String originNumber, Class clazz, String column)
+	public static Object findMasterByColumn(String originNumber, Class clazz, String column)
 			throws RemoteException, InvocationTargetException {
+		// 远程调用
 		if (!RemoteMethodServer.ServerFlag) {
-			return  RemoteMethodServer.getDefault().invoke(
+			return RemoteMethodServer.getDefault().invoke(
 					"findMasterByNumber",
 					CustomCommonUtil.class.getName(), null,
 					new Class[] { String.class, Class.class, String.class },
 					new Object[] { originNumber, clazz, column });
 		} else {
-			CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start");
+			CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start :" + LocalDateTime.now());
 			try {
 				QuerySpec qs = new QuerySpec(clazz);
 				qs.appendWhere(new SearchCondition(clazz, column, SearchCondition.EQUAL,
 						originNumber), new int[] { 0 });
-				// 降序排序查询
-				System.out.println("qs = " + qs);
 				QueryResult qr = PersistenceHelper.manager.find(qs);
 				if (qr.hasMoreElements()) {
 					return qr.nextElement();
@@ -303,7 +303,7 @@ public class CustomCommonUtil implements RemoteAccess {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix End");
+			CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix End :" + LocalDateTime.now());
 			return null;
 		}
 	}

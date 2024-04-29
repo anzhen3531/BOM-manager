@@ -1,10 +1,12 @@
 package ext.ziang.common.helper.part;
 
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
+
 import ext.ziang.common.util.CustomCommonUtil;
 import wt.fc.ObjectIdentifier;
 import wt.fc.ObjectReference;
 import wt.fc.PersistenceHelper;
-import wt.fc.PersistenceServerHelper;
 import wt.fc.QueryResult;
 import wt.lifecycle._State;
 import wt.part.WTPart;
@@ -16,9 +18,6 @@ import wt.util.WTException;
 import wt.vc.VersionControlHelper;
 import wt.vc.views.View;
 import wt.vc.views.ViewHelper;
-
-import java.lang.reflect.InvocationTargetException;
-import java.rmi.RemoteException;
 
 /**
  * 公共部件助手
@@ -34,8 +33,9 @@ public class CommonPartHelper {
 	 *            产地编号
 	 * @return {@link WTPartMaster}
 	 */
-	public static WTPartMaster getWTPartMasterByNumber(String originNumber) throws RemoteException, InvocationTargetException {
-		return (WTPartMaster) CustomCommonUtil.findMasterByNumber(originNumber, WTPartMaster.class,
+	public static WTPartMaster getWTPartMasterByNumber(String originNumber)
+			throws RemoteException, InvocationTargetException {
+		return (WTPartMaster) CustomCommonUtil.findMasterByColumn(originNumber, WTPartMaster.class,
 				WTPartMaster.NUMBER);
 	}
 
@@ -105,8 +105,10 @@ public class CommonPartHelper {
 	/**
 	 * 查找 WTPart 使用链接
 	 *
-	 * @param componentWorkCopy 组件工作副本
-	 * @param originLatestPart  Origin 最新部分
+	 * @param componentWorkCopy
+	 *            组件工作副本
+	 * @param originLatestPart
+	 *            Origin 最新部分
 	 * @return {@link WTPartUsageLink}
 	 */
 	public static WTPartUsageLink findWTPartUsageLink(WTPart componentWorkCopy, WTPart originLatestPart) {
