@@ -181,7 +181,7 @@ public class OAuthIndexPageFilter implements Filter {
 								httpResponse.sendRedirect(requestWrap.getRequestURL().toString());
 								return;
 							} else {
-								throw new WTRuntimeException("当前用户账号密码错误！");
+								redirectBasicLogin(httpResponse);
 							}
 						}
 					} else {
