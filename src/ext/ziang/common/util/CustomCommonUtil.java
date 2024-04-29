@@ -276,7 +276,7 @@ public class CustomCommonUtil {
 	 *            column name
 	 * @return {@link Mastered}
 	 */
-	public static Master findMasterByNumber(String originNumber, Class clazz, String column) {
+	public static Object findMasterByNumber(String originNumber, Class clazz, String column) {
 		CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start");
 		try {
 			QuerySpec qs = new QuerySpec();
@@ -291,7 +291,7 @@ public class CustomCommonUtil {
 			// 降序排序查询
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
-				return (Master) qr.nextElement();
+				return qr.nextElement();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
