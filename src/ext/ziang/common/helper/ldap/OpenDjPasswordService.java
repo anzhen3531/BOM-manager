@@ -13,6 +13,7 @@ import javax.naming.ldap.InitialLdapContext;
 import javax.naming.ldap.LdapContext;
 
 import ext.ziang.common.config.PropertiesHelper;
+import ext.ziang.common.util.CommonLog;
 
 /**
  * 打开DJ密码服务
@@ -69,6 +70,9 @@ public class OpenDjPasswordService {
 	 */
 	private void initLDAPClient() {
 		Hashtable<String, String> env = new Hashtable<>();
+		CommonLog.printLog("LDAP_PASSWORD" + LDAP_PASSWORD);
+		CommonLog.printLog("LDAP_URL" + LDAP_URL);
+		CommonLog.printLog("LDAP_USERNAME" + LDAP_USERNAME);
 		env.put(Context.INITIAL_CONTEXT_FACTORY, INITIAL_CONTEXT_FACTORY);
 		env.put(Context.PROVIDER_URL, LDAP_URL);
 		env.put(Context.SECURITY_AUTHENTICATION, "simple");
