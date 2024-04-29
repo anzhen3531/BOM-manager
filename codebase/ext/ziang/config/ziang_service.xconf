@@ -34,4 +34,11 @@
                 requestor="null"
                 serviceClass="ext.ziang.part.suggestable.StandardPartPickerSuggestable"/>
     </Service>
+
+
+    <Service context="default" name="com.ptc.core.components.beans.TreeHandler">
+        <Option requestor="null" selector="CorrectBomBuilderHandler"
+                serviceClass="ext.ziang.change.handler.CorrectBomBuilderHandler"
+                cardinality="duplicate"/>
+    </Service>
 </Configuration>
