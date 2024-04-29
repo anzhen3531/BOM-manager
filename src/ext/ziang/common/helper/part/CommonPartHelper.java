@@ -4,6 +4,7 @@ import ext.ziang.common.util.CustomCommonUtil;
 import wt.fc.ObjectIdentifier;
 import wt.fc.ObjectReference;
 import wt.fc.PersistenceHelper;
+import wt.fc.PersistenceServerHelper;
 import wt.fc.QueryResult;
 import wt.lifecycle._State;
 import wt.part.WTPart;
@@ -108,9 +109,8 @@ public class CommonPartHelper {
 	public static WTPartUsageLink findWTPartUsageLink(WTPart componentWorkCopy, WTPart originLatestPart) {
 		boolean flag = SessionServerHelper.manager.setAccessEnforced(false);
 		try {
-			QueryResult result = PersistenceHelper.manager.find(WTPartUsageLink.class, componentWorkCopy,
-					WTPartUsageLink.USES_ROLE,
-					originLatestPart.getMaster());
+			QueryResult result = PersistenceServerHelper.manager.query(WTPartUsageLink.class, componentWorkCopy,
+					WTPartUsageLink.USES_ROLE, originLatestPart.getMaster());
 			if (result.hasMoreElements()) {
 				return (WTPartUsageLink) result.nextElement();
 			}
