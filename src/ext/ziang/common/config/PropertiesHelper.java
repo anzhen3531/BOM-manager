@@ -102,7 +102,10 @@ public class PropertiesHelper implements RemoteAccess {
 	 * 加载属性
 	 */
 	private void loadProperties() {
+		System.out.println("callingClass = " + callingClass);
+		System.out.println("configFileName = " + configFileName);
 		String propertiesFile = callingClass.getResource(configFileName).getFile();
+		System.out.println("propertiesFile = " + propertiesFile);
 		try (InputStreamReader reader = new InputStreamReader(Files.newInputStream(Paths.get(propertiesFile)),
 				StandardCharsets.UTF_8)) {
 			properties = new Properties();
