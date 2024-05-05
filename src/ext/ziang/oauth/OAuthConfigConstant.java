@@ -1,5 +1,6 @@
 package ext.ziang.oauth;
 
+import ext.ziang.common.config.PropertiesHelper;
 import ext.ziang.common.constants.CommonConfigConstants;
 
 /**
@@ -8,45 +9,40 @@ import ext.ziang.common.constants.CommonConfigConstants;
  * @author anzhen
  * @date 2023/12/28
  */
-public class OAuthConfigConstant {
+public interface OAuthConfigConstant {
+	PropertiesHelper instance = PropertiesHelper.getInstance();
 	/**
 	 * 客户端 ID
 	 */
-	public static String CLIENT_ID;
+	String CLIENT_ID = instance.getValueByKey("oauth.client.id");
 	/**
 	 * 访问类型
 	 */
-	public static String GRANT_TYPE = "code";
+	String GRANT_TYPE = "code";
 	/**
 	 * 客户端密码
 	 */
-	public static String CLIENT_SECRET;
-	/**
-	 * 重定向 URI
-	 */
-	public static String REDIRECT_URI;
+	String CLIENT_SECRET = instance.getValueByKey("oauth.client.secret");
+
 	/**
 	 * 重定向页面 URI
 	 */
-	public static String REDIRECT_PAGE_URI = "/Windchill/app/";
+	String REDIRECT_PAGE_URI = instance.getValueByKey("oauth.redirect.uri");
+	/**
+	 * 重定向 URI
+	 */
+	String REDIRECT_URI = CommonConfigConstants.HOST_URL + REDIRECT_PAGE_URI;
 	/**
 	 * 访问令牌 URL github
 	 */
-	public static String ACCESS_TOKEN_URL = "https://github.com/login/oauth/access_token";
+	String ACCESS_TOKEN_URL = instance.getValueByKey("oauth.access.token.url");
 	/**
 	 * 获取用户信息 URL
 	 */
-	public static String GET_USER_INFO_URL = "https://api.github.com/user";
-
-	static {
-		CLIENT_ID = "6b4ecccee521e3c0ada6";
-		CLIENT_SECRET = "3af56830138359d761d3868df61712db1ab36815";
-		// 地址需要更换
-		REDIRECT_URI = CommonConfigConstants.HOST_URL + REDIRECT_PAGE_URI;
-	}
+	String GET_USER_INFO_URL = instance.getValueByKey("oauth.access.user.info.url");
 
 	/**
 	 * OAuth2 登录页面
 	 */
-	public static String OAUTH2_LOGIN_PAGE = CommonConfigConstants.HOST_URL + "/Windchill/netmarkets/jsp/gwt/login.jsp";
+	String OAUTH2_LOGIN_PAGE = CommonConfigConstants.HOST_URL + "/Windchill/netmarkets/jsp/gwt/login.jsp";
 }

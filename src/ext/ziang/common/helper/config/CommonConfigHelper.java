@@ -7,7 +7,5 @@ package ext.ziang.common.helper.config;
  * @date 2024/02/01
  */
 public class CommonConfigHelper {
-
-	//
-
+    //
 }
