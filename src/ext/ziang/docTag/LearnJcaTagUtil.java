@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import ext.ziang.common.helper.cache.CommonSingleCache;
 import ext.ziang.common.util.CommonLog;
+import wt.method.RemoteAccess;
 
 /**
  * 学习 JCA 标签实用程序
@@ -11,8 +12,7 @@ import ext.ziang.common.util.CommonLog;
  * @author anzhen
  * @date 2024/05/06
  */
-public class LearnJcaTagUtil {
-
+public class LearnJcaTagUtil implements RemoteAccess {
 
 	/**
 	 * 初始化 attr
@@ -46,5 +46,9 @@ public class LearnJcaTagUtil {
 	 */
 	public static Object[] getKeys() {
 		return CommonSingleCache.getAllKeys();
+	}
+
+	public static LearnJcaTagUtil newLearnJcaTagUtil() {
+		return new LearnJcaTagUtil();
 	}
 }
