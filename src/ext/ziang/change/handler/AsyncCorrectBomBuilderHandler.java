@@ -325,7 +325,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 		}
 		// 表示存在多个父节点
 		if (partObjId.contains("^")) {
-			split = oid.split("\\^");
+			split = partObjId.split("\\^");
 			partObjId = split[split.length - 1];
 		}
 		WTPart part = CommonPartHelper.getWTPartByObjectId(partObjId);
