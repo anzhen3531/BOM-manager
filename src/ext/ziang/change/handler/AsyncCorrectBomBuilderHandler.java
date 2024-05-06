@@ -86,8 +86,8 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 					NmSimpleOid nmSimpleOid = (NmSimpleOid) object;
 					String internalName = nmSimpleOid.getInternalName();
 					List<CorrectBomEntity> correctBomEntities = new ArrayList<>();
-					System.out.println("nmSimpleOid.getProcess() = " + nmSimpleOid.getProcess());
-					System.out.println("nmSimpleOid.getRef() = " + nmSimpleOid.getRef());
+					CommonLog.printLog("nmSimpleOid.getProcess() = " + nmSimpleOid.getProcess());
+					CommonLog.printLog("nmSimpleOid.getRef() = " + nmSimpleOid.getRef());
 					hashMap = handlerChildNode(internalName, correctBomEntities, nmSimpleOid);
 				}
 			}
@@ -96,7 +96,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(bool);
 		}
-		System.out.println("hashMap = " + hashMap);
+		CommonLog.printLog("hashMap = " + hashMap);
 		return hashMap;
 	}
 
@@ -112,7 +112,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 	 */
 	private static void handlerSubstitutePart(WTPart part, WTPart parentPart,
 			List<CorrectBomEntity> correctBomEntities) {
-		System.out.println("CorrectBomBuilderHandler.handlerSubstitutePart");
+		CommonLog.printLog("CorrectBomBuilderHandler.handlerSubstitutePart");
 		if (parentPart == null || part == null) {
 			return;
 		}
@@ -120,7 +120,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 		try {
 			// 先查询替代件
 			WTPartUsageLink link = CommonPartHelper.findWTPartUsageLink(parentPart, part);
-			System.out.println("parentPart = " + parentPart.getNumber() + "=>  part" + part.getNumber());
+			CommonLog.printLog("parentPart = " + parentPart.getNumber() + "=>  part" + part.getNumber());
 			if (link == null) {
 				return;
 			}
@@ -155,7 +155,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 	 */
 	@Override
 	public List getRootNodes() throws WTException {
-		System.out.println("CorrectBomBuilderHandler.getRootNodes");
+		CommonLog.printLog("CorrectBomBuilderHandler.getRootNodes");
 		ArrayList<CorrectBomEntity> beanList = new ArrayList<>();
 		ArrayList<WTPart> partList = new ArrayList<>();
 		boolean bool = SessionServerHelper.manager.isAccessEnforced();
@@ -169,7 +169,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 				CommonLog.printLog("changeablesBefore.size() = " + changeablesBefore.size());
 				while (changeablesBefore.hasMoreElements()) {
 					Object object = changeablesBefore.nextElement();
-					System.out.println("object = " + object);
+					CommonLog.printLog("object = " + object);
 					if (object instanceof AffectedActivityData) {
 						AffectedActivityData affectedActivityData = (AffectedActivityData) object;
 						Persistable roleBObject = affectedActivityData.getRoleBObject();
@@ -369,11 +369,11 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 			link = (WTPartUsageLink) qr.nextElement();
 			// 构建一个子对象
 			Persistable persistable = link.getRoleBObject();
-			System.out.println("persistable = " + persistable);
+			CommonLog.printLog("persistable = " + persistable);
 			if (persistable instanceof WTPartMaster) {
 				// 查询使用部件
 				WTPartMaster master = (WTPartMaster) persistable;
-				System.out.println("master = " + master);
+				CommonLog.printLog("master = " + master);
 				latestPart = CommonPartHelper.findLatestWTPartByMasterAndView(master, part.getViewName());
 				if (latestPart == null) {
 					continue;
