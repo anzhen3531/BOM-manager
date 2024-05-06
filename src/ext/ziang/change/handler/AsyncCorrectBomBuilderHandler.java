@@ -316,22 +316,16 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 	public static HashMap<Object, Object> handlerChildNode(String oid, List<CorrectBomEntity> correctBomEntities,
 			Object parentObj) throws WTException {
 		HashMap<Object, Object> hashMap = new HashMap<>();
-		String[] split = oid.split("\\|");
 		CommonLog.printLog("oid = " + oid);
-		String partObjId = split[0];
+		String partObjId = null;
 		String parentObjId = null;
-		if (split.length == 2) {
-			partObjId = split[0];
-			parentObjId = split[1];
-		}
-		CommonLog.printLog("parentObjId = " + parentObjId);
-		CommonLog.printLog("partObjId = " + partObjId);
-		// 表示存在多个父节点 nmoid存在这种情况
-		if (partObjId.contains("^")) {
+
+		// 表示是传递上下文的情况
+		if (oid.contains("^")) {
 			String[] context = oid.split("\\$");
 			String partInfo = context[context.length - 1];
 			CommonLog.printLog("partInfo = " + partInfo);
-			split = partInfo.split("\\^");
+			String[] split = partInfo.split("\\^");
 			CommonLog.printLog("split = " + Arrays.toString(split));
 			partObjId = split[split.length - 1];
 			String[] customGeneralInfo = partObjId.split("\\|");
@@ -340,6 +334,14 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 			if (customGeneralInfo.length == 2) {
 				partObjId = customGeneralInfo[0];
 				parentObjId = customGeneralInfo[1];
+			}
+		} else {
+			String[] split = oid.split("\\|");
+			partObjId = split[0];
+			parentObjId = null;
+			if (split.length == 2) {
+				partObjId = split[0];
+				parentObjId = split[1];
 			}
 		}
 		CommonLog.printLog("parentObjId = " + parentObjId);
