@@ -86,6 +86,7 @@ public class AsyncCorrectBomBuilder extends AbstractConfigurableTableBuilder imp
 		System.out.println("SingleCorrectBomBuilder.buildNodeData");
 		System.out.println("node = " + node + ", resultProcessor = " + resultProcessor);
 		if (node == TreeNode.RootNode) {
+			resultProcessor.setPresorted(true);
 			handler = new AsyncCorrectBomBuilderHandler(resultProcessor.getParams());
 			List<Object> objects = handler.getRootNodes();
 			System.out.println("objects = " + objects);
