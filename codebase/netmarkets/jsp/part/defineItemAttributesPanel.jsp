@@ -32,12 +32,6 @@
 
 </jca:describePropertyPanel>
 
-
-<div>
-   <button value="123123123">1223123</button>
-</div>
-
-
 <jca:getModel var="propertyModel" descriptor="${defineItemStepAttributesPanelDescriptor}"
                serviceName="com.ptc.core.components.forms.CreateAndEditModelGetter"
                methodName="getItemAttributes">
@@ -45,8 +39,6 @@
    <jca:addServiceArgument value="${commandBean}" />
    <jca:addServiceArgument value="${nmcontext.context}" />
 </jca:getModel>
-
-
 
 <jca:renderPropertyPanel model="${propertyModel}" />
 
