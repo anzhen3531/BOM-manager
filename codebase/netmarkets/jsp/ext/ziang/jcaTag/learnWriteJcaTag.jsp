@@ -1,33 +1,8 @@
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/components" prefix="jca"%>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/wrappers" prefix="w"%>
+<%@ taglib uri="http://www.ptc.com/windchill/taglib/carambola" prefix="cmb"%>
 <%@ include file="/netmarkets/jsp/util/begin.jspf"%>
 
-<%-- The next three tags create and display a simple attribute panel for a datum object that is a HashMap --%>
-
-<%--标签解析 指定变量  由于只做展示属性--%>
-<jca:describePropertyPanel var="panelDescriptor">
-    <jca:describeProperty id="name"/>
-    <jca:describeProperty id="address1" label="Address"/>
-    <jca:describeProperty id="address2" label=""/>
-    <jca:describeProperty id="country"/>
-    <jca:describeProperty id="phone"    label="Phone"/>
-    <jca:describeProperty id="fax"      label="Fax"/>
-</jca:describePropertyPanel>
-
-<jca:getModel var="panelModel" descriptor="${panelDescriptor}"
-              serviceName="com.ptc.carambola.property.PropertyUtils"
-              methodName="getExamplePropertyPanelData">
-</jca:getModel>
-
-<jca:renderPropertyPanel model="${panelModel}"/>
-
-<br/>
-
-<%--填写属性 Tag --%>
-
-
-<h1> Example of a simple attribute panel that uses GUI component wrapper tags to create and display GUIComponents </h1>
-<br/>
 
 <%-- this cmb tag is getting the "dvals," "ivals," and "date" values that the gui component wrapper tags are using --%>
 <cmb:data/>
@@ -59,7 +34,6 @@
 <cmb:aboutThisExampleLinks whcName="WCCG_UICust_CustHTMLClients_AttrPanel_EX_JSPTag"
                            grokName="Client_JCA_AttributePanelBestPractice"
                            anchorName="SimplePanelUsingJSPTags"/>
-
 
 
 
