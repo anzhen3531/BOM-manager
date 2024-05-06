@@ -140,7 +140,7 @@
 </fieldset>
 
 <div>
-    <jsp:include page="${mvc:getComponentURL('ext.ziang.change.builder.SyncCorrectBomBuilder')}"
+    <jsp:include page="${mvc:getComponentURL('ext.ziang.change.builder.SingleCorrectBomBuilder')}"
                  flush="true"/>
 </div>
 

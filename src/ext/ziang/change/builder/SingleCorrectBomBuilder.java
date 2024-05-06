@@ -8,6 +8,7 @@ import java.util.Set;
 import com.ptc.core.components.descriptor.DescriptorConstants;
 import com.ptc.core.htmlcomp.components.AbstractConfigurableTableBuilder;
 import com.ptc.core.htmlcomp.tableview.ConfigurableTable;
+import com.ptc.jca.mvc.components.JcaTreeConfig;
 import com.ptc.mvc.components.ColumnConfig;
 import com.ptc.mvc.components.ComponentBuilder;
 import com.ptc.mvc.components.ComponentConfig;
@@ -17,7 +18,9 @@ import com.ptc.mvc.components.ComponentResultProcessor;
 import com.ptc.mvc.components.TreeConfig;
 import com.ptc.mvc.components.TreeDataBuilderAsync;
 import com.ptc.mvc.components.TreeNode;
+import com.ptc.mvc.components.ds.DataSourceMode;
 
+import ext.ziang.change.entity.CorrectBomEntity;
 import ext.ziang.change.handler.CorrectBomBuilderHandler;
 import wt.util.WTException;
 
@@ -27,7 +30,6 @@ import wt.util.WTException;
  * @author anzhen
  * @date 2024/02/20
  */
-
 @ComponentBuilder({ "ext.ziang.change.builder.SingleCorrectBomBuilder" })
 public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder implements TreeDataBuilderAsync {
 
@@ -48,7 +50,7 @@ public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder im
 	public ComponentConfig buildComponentConfig(ComponentParams componentparams) throws WTException {
 		// 获取组件配置工厂
 		ComponentConfigFactory factory = super.getComponentConfigFactory();
-		TreeConfig result = factory.newTreeConfig();
+		JcaTreeConfig result = (JcaTreeConfig) factory.newTreeConfig();
 		result.setLabel("批量修改BOM");
 		result.setSelectable(true);
 		result.setSingleSelect(false);
@@ -58,10 +60,12 @@ public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder im
 		// 设置展示树行数
 		result.setShowTreeLines(true);
 		// 设置展示级别
+		result.setDataSourceMode(DataSourceMode.ASYNCHRONOUS);
 		result.setExpansionLevel(DescriptorConstants.TableTreeProperties.FULL_EXPAND);
 		result.setConfigurable(true);
 		result.setNodeColumn("number");
 		result.setActionModel("CorrectBomModel");
+		result.setTargetObject(String.valueOf(CorrectBomEntity.class));
 		createNewColumnConfig("number", result, factory, true);
 		createNewColumnConfig("name", result, factory, true);
 		createNewColumnConfig("substitutePart", "替代的物料", result, factory, false);
@@ -83,7 +87,8 @@ public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder im
 		System.out.println("SingleCorrectBomBuilder.buildNodeData");
 		System.out.println("node = " + node + ", resultProcessor = " + resultProcessor);
 		if (node == TreeNode.RootNode) {
-			// 实例化
+			// 设置预展示
+			resultProcessor.setPresorted(true);
 			handler = new CorrectBomBuilderHandler(resultProcessor.getParams());
 			List<Object> objects = handler.getRootNodes();
 			System.out.println("objects = " + objects);
