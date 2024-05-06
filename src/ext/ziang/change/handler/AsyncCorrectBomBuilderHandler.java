@@ -317,11 +317,11 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 			Object parentObj) throws WTException {
 		HashMap<Object, Object> hashMap = new HashMap<>();
 		CommonLog.printLog("oid = " + oid);
-		String partObjId = null;
+		String partObjId;
 		String parentObjId = null;
-
 		// 表示是传递上下文的情况
 		if (oid.contains("^")) {
+			oid = oid.replace("!*", "");
 			String[] context = oid.split("\\$");
 			String partInfo = context[context.length - 1];
 			CommonLog.printLog("partInfo = " + partInfo);
