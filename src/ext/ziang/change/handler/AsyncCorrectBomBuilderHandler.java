@@ -334,8 +334,12 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 			split = partInfo.split("\\^");
 			CommonLog.printLog("split = " + Arrays.toString(split));
 			partObjId = split[split.length - 1];
-			if (split.length >= 2) {
-				parentObjId = split[split.length - 2];
+			String[] customGeneralInfo = partObjId.split("\\|");
+			CommonLog.printLog("customGeneralInfo = " + Arrays.toString(customGeneralInfo));
+			partObjId = customGeneralInfo[0];
+			if (customGeneralInfo.length == 2) {
+				partObjId = customGeneralInfo[0];
+				parentObjId = customGeneralInfo[1];
 			}
 		}
 		CommonLog.printLog("parentObjId = " + parentObjId);
