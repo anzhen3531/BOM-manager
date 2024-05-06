@@ -86,8 +86,8 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 					NmSimpleOid nmSimpleOid = (NmSimpleOid) object;
 					String internalName = nmSimpleOid.getInternalName();
 					List<CorrectBomEntity> correctBomEntities = new ArrayList<>();
-					ObjectIdentifier identifier = nmSimpleOid.getOidObject();
-					System.out.println("identifier = " + identifier);
+					System.out.println("nmSimpleOid.getProcess() = " + nmSimpleOid.getProcess());
+					System.out.println("nmSimpleOid.getRef() = " + nmSimpleOid.getRef());
 					hashMap = handlerChildNode(internalName, correctBomEntities, nmSimpleOid);
 				}
 			}

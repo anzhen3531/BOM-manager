@@ -20,7 +20,6 @@ import com.ptc.mvc.components.TreeDataBuilderAsync;
 import com.ptc.mvc.components.TreeNode;
 import com.ptc.mvc.components.ds.DataSourceMode;
 
-import ext.ziang.change.entity.CorrectBomEntity;
 import ext.ziang.change.handler.AsyncCorrectBomBuilderHandler;
 import ext.ziang.change.handler.CorrectBomBuilderHandler;
 import wt.util.WTException;
@@ -31,8 +30,8 @@ import wt.util.WTException;
  * @author anzhen
  * @date 2024/02/20
  */
-@ComponentBuilder({ "ext.ziang.change.builder.SingleCorrectBomBuilder" })
-public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder implements TreeDataBuilderAsync {
+@ComponentBuilder({ "ext.ziang.change.builder.AsyncCorrectBomBuilder" })
+public class AsyncCorrectBomBuilder extends AbstractConfigurableTableBuilder implements TreeDataBuilderAsync {
 
 	/**
 	 * 处理器
