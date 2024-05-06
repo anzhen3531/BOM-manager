@@ -323,10 +323,11 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 			partObjId = split[0];
 			parentObjId = split[1];
 		}
-		// 表示存在多个父节点
+		// 表示存在多个父节点 nmoid存在这种情况
 		if (partObjId.contains("^")) {
 			split = partObjId.split("\\^");
 			partObjId = split[split.length - 1];
+			parentObjId = split[split.length - 2];
 		}
 		WTPart part = CommonPartHelper.getWTPartByObjectId(partObjId);
 		WTPart parentPart = null;
