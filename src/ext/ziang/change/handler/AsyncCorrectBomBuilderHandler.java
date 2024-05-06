@@ -323,14 +323,20 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 			partObjId = split[0];
 			parentObjId = split[1];
 		}
+		CommonLog.printLog("parentObjId = " + parentObjId);
+		CommonLog.printLog("partObjId = " + partObjId);
 		// 表示存在多个父节点 nmoid存在这种情况
 		if (partObjId.contains("^")) {
 			split = partObjId.split("\\^");
+			CommonLog.printLog("split = " + split);
 			partObjId = split[split.length - 1];
 			if (split.length >= 2) {
 				parentObjId = split[split.length - 2];
 			}
 		}
+		CommonLog.printLog("parentObjId = " + parentObjId);
+		CommonLog.printLog("partObjId = " + partObjId);
+
 		WTPart part = CommonPartHelper.getWTPartByObjectId(partObjId);
 		WTPart parentPart = null;
 		if (StrUtil.isNotBlank(parentObjId)) {
