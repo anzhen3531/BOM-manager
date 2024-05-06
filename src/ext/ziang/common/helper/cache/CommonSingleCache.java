@@ -1,4 +1,4 @@
-package ext.ziang.cache;
+package ext.ziang.common.helper.cache;
 
 import ext.ziang.common.util.CommonLog;
 import wt.util.Cache;
