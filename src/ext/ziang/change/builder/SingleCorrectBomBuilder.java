@@ -65,7 +65,6 @@ public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder im
 		result.setConfigurable(true);
 		result.setNodeColumn("number");
 		result.setActionModel("CorrectBomModel");
-		result.setTargetObject(String.valueOf(CorrectBomEntity.class));
 		createNewColumnConfig("number", result, factory, true);
 		createNewColumnConfig("name", result, factory, true);
 		createNewColumnConfig("substitutePart", "替代的物料", result, factory, false);
