@@ -2,6 +2,7 @@ package ext.ziang.change.handler;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -328,8 +329,10 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 		// 表示存在多个父节点 nmoid存在这种情况
 		if (partObjId.contains("^")) {
 			String[] context = oid.split("\\$");
-			split = context[context.length - 1].split("\\^");
-			CommonLog.printLog("split = " + split);
+			String partInfo = context[context.length - 1];
+			CommonLog.printLog("partInfo = " + partInfo);
+			split = partInfo.split("\\^");
+			CommonLog.printLog("split = " + Arrays.toString(split));
 			partObjId = split[split.length - 1];
 			if (split.length >= 2) {
 				parentObjId = split[split.length - 2];
