@@ -327,7 +327,8 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 		CommonLog.printLog("partObjId = " + partObjId);
 		// 表示存在多个父节点 nmoid存在这种情况
 		if (partObjId.contains("^")) {
-			split = partObjId.split("\\^");
+			String[] context = oid.split("\\$");
+			split = context[context.length - 1].split("\\^");
 			CommonLog.printLog("split = " + split);
 			partObjId = split[split.length - 1];
 			if (split.length >= 2) {
