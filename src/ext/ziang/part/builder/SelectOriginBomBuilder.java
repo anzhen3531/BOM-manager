@@ -74,12 +74,12 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 	@Override
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams)
 			throws WTException {
-		CommonLog.printLog("SelectOriginBomBuilder buildComponentData");
+		CommonLog.log("SelectOriginBomBuilder buildComponentData");
 		String oidList = (String) componentParams.getParameter("oidList");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
-		CommonLog.printLog("helperBean.getRequest().getParameterMap() = ", helperBean.getRequest().getParameterMap());
-		CommonLog.printLog("oidList = ", oidList);
+		CommonLog.log("helperBean.getRequest().getParameterMap() = ", helperBean.getRequest().getParameterMap());
+		CommonLog.log("oidList = ", oidList);
 		ArrayList<Persistable> returnList = new ArrayList<>();
 		if (StrUtil.isBlank(oidList)) {
 			return returnList;

@@ -70,9 +70,9 @@ public class OpenDjPasswordService {
 	 */
 	private void initLDAPClient() {
 		Hashtable<String, String> env = new Hashtable<>();
-		CommonLog.printLog("LDAP_PASSWORD" + LDAP_PASSWORD);
-		CommonLog.printLog("LDAP_URL" + LDAP_URL);
-		CommonLog.printLog("LDAP_USERNAME" + LDAP_USERNAME);
+		CommonLog.log("LDAP_PASSWORD" + LDAP_PASSWORD);
+		CommonLog.log("LDAP_URL" + LDAP_URL);
+		CommonLog.log("LDAP_USERNAME" + LDAP_USERNAME);
 		env.put(Context.INITIAL_CONTEXT_FACTORY, INITIAL_CONTEXT_FACTORY);
 		env.put(Context.PROVIDER_URL, LDAP_URL);
 		env.put(Context.SECURITY_AUTHENTICATION, "simple");

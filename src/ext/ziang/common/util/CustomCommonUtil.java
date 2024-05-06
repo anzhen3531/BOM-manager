@@ -111,13 +111,13 @@ public class CustomCommonUtil implements RemoteAccess {
 					// 更改文档名称
 					boolean flag = true;
 					WTDocument document = (WTDocument) persistable;
-					CommonLog.printLog("WTDocument object:" + document);
+					CommonLog.log("WTDocument object:" + document);
 					String var17 = number != null && !number.isEmpty() ? number : document.getNumber();
 					if (document.isTemplated() && !document.getName().equals(name)) {
 						flag = WTDocumentHelper.service.validDocTemplateIdentity(name, var17,
 								document.getContainerName());
 					}
-					CommonLog.printLog("perform Rename:" + flag);
+					CommonLog.log("perform Rename:" + flag);
 					if (flag) {
 						WTDocumentHelper.service.changeWTDocumentMasterIdentity((WTDocumentMaster) master, name, var17,
 								organization);
@@ -132,7 +132,7 @@ public class CustomCommonUtil implements RemoteAccess {
 					if (!baselineIdentity.getName().equals(baseline.getName())
 							|| !baselineIdentity.getNumber().equals(baseline.getNumber())) {
 						IdentityHelper.service.changeIdentity(master, baselineIdentity);
-						CommonLog.printLog("Set baseline identity");
+						CommonLog.log("Set baseline identity");
 					}
 				} else if (master instanceof ManagedCollection) {
 					// 更改管理集合
@@ -145,7 +145,7 @@ public class CustomCommonUtil implements RemoteAccess {
 					if (!collectionIdentity.getName().equals(managedCollection.getName())
 							|| !collectionIdentity.getNumber().equals(managedCollection.getNumber())) {
 						IdentityHelper.service.changeIdentity(master, collectionIdentity);
-						CommonLog.printLog("Set managed collection identity");
+						CommonLog.log("Set managed collection identity");
 					}
 				} else if (master instanceof OptionSetMaster) {
 					// 更改选项集名称
@@ -181,7 +181,7 @@ public class CustomCommonUtil implements RemoteAccess {
 				}
 			}
 		} catch (Exception e) {
-			CommonLog.printLog("CustomCommonUtil.updateNameAndNumberByObject  error ====> " + e.getMessage());
+			CommonLog.log("CustomCommonUtil.updateNameAndNumberByObject  error ====> " + e.getMessage());
 		}
 	}
 
@@ -242,7 +242,7 @@ public class CustomCommonUtil implements RemoteAccess {
 	 * @return WTPartMaster
 	 */
 	public static String findLastSerialByColumnNotLength(String partNumberPrefix, String column, Class clazz) {
-		CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start");
+		CommonLog.log("CustomCommonUtil.findLastSerialNumberByPrefix Start");
 		String number = null;
 		try {
 			QuerySpec qs = new QuerySpec();
@@ -258,7 +258,7 @@ public class CustomCommonUtil implements RemoteAccess {
 					SearchCondition.LESS_THAN_OR_EQUAL, new ConstantExpression(1)), new int[] { tableIndex });
 			OrderBy orderBy = new OrderBy(new ClassAttribute(clazz, column), true);
 			qs.appendOrderBy(orderBy, new int[] { 0 });
-			CommonLog.printLog("findLastSerialNumberByPrefix qs = ", qs);
+			CommonLog.log("findLastSerialNumberByPrefix qs = ", qs);
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
 				return (String) ((Object[]) qr.nextElement())[0];
@@ -266,7 +266,7 @@ public class CustomCommonUtil implements RemoteAccess {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix End");
+		CommonLog.log("CustomCommonUtil.findLastSerialNumberByPrefix End");
 		return number;
 	}
 
@@ -291,7 +291,7 @@ public class CustomCommonUtil implements RemoteAccess {
 					new Class[] { String.class, Class.class, String.class },
 					new Object[] { originNumber, clazz, column });
 		} else {
-			CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix Start :" + LocalDateTime.now());
+			CommonLog.log("CustomCommonUtil.findLastSerialNumberByPrefix Start :" + LocalDateTime.now());
 			try {
 				QuerySpec qs = new QuerySpec(clazz);
 				qs.appendWhere(new SearchCondition(clazz, column, SearchCondition.EQUAL,
@@ -303,7 +303,7 @@ public class CustomCommonUtil implements RemoteAccess {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			CommonLog.printLog("CustomCommonUtil.findLastSerialNumberByPrefix End :" + LocalDateTime.now());
+			CommonLog.log("CustomCommonUtil.findLastSerialNumberByPrefix End :" + LocalDateTime.now());
 			return null;
 		}
 	}

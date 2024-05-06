@@ -8,8 +8,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
@@ -108,7 +106,7 @@ public class PropertiesHelper implements RemoteAccess {
 		InputStream inputStream = PropertiesHelper.class.getResourceAsStream(configFileName);
 		try (InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
 			properties = new Properties();
-			CommonLog.printLog("加载配置文件成功:" + LocalDateTime.now());
+			CommonLog.log("加载配置文件成功:" + LocalDateTime.now());
 			properties.load(reader);
 		} catch (Exception e) {
 			e.printStackTrace();

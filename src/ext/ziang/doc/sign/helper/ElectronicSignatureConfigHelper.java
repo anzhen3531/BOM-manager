@@ -33,7 +33,7 @@ public class ElectronicSignatureConfigHelper {
 			throws WTException {
 		List<ElectronicSignatureConfig> electronicSignatureConfigs = new ArrayList<>();
 		QuerySpec querySpec = new QuerySpec(ElectronicSignatureConfig.class);
-		CommonLog.printLog("querySpec = ", querySpec);
+		CommonLog.log("querySpec = ", querySpec);
 		QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
 		while (queryResult.hasMoreElements()) {
 			electronicSignatureConfigs.add((ElectronicSignatureConfig) queryResult.nextElement());
@@ -55,7 +55,7 @@ public class ElectronicSignatureConfigHelper {
 				ElectronicSignatureConfig.DOC_TYPE,
 				SearchCondition.EQUAL, docType);
 		querySpec.appendWhere(searchCondition, new int[] { 0 });
-		CommonLog.printLog("querySpec = ", querySpec);
+		CommonLog.log("querySpec = ", querySpec);
 		QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
 		if (queryResult.hasMoreElements()) {
 			return (ElectronicSignatureConfig) queryResult.nextElement();

@@ -59,7 +59,7 @@ public class CommonHandlerBomStructHelper {
 			// 2、进行BOM复制 复制数量和结构
 			QueryResult qr = WTPartHelper.service.getUsesWTPartMasters(selectObject);
 			WTPartUsageLink link;
-			CommonLog.printLog("部件使用数量 = " + qr.size());
+			CommonLog.log("部件使用数量 = " + qr.size());
 			while (qr.hasMoreElements()) {
 				link = (WTPartUsageLink) qr.nextElement();
 				// 创建link
@@ -73,12 +73,12 @@ public class CommonHandlerBomStructHelper {
 
 				// 3、复制当前替代件
 				WTCollection substituteLinks = WTPartHelper.service.getSubstituteLinks(link);
-				CommonLog.printLog("替代件数量 links.size() = " + substituteLinks.size());
+				CommonLog.log("替代件数量 links.size() = " + substituteLinks.size());
 				if (!substituteLinks.isEmpty()) {
 					// 遍历所有的替代件
 					for (Object object : substituteLinks) {
 						ObjectReference reference = (ObjectReference) object;
-						CommonLog.printLog("object = ", object);
+						CommonLog.log("object = ", object);
 						WTPartSubstituteLink substituteLink = (WTPartSubstituteLink) reference.getObject();
 						WTPartMaster substituteMaster = (WTPartMaster) substituteLink.getRoleBObject();
 						if (originLink == null) {
@@ -124,7 +124,7 @@ public class CommonHandlerBomStructHelper {
 		querySpec.setDescendantQuery(false);
 		querySpec.setDistinct(true);
 		String aliasAt = querySpec.getFromClause().getAliasAt(0);
-		CommonLog.printLog("aliasAt = " + aliasAt);
+		CommonLog.log("aliasAt = " + aliasAt);
 		querySpec.appendWhere(new SearchCondition(new TableColumn(aliasAt, "ida3a5"),
 				SearchCondition.EQUAL, new ConstantExpression(
 						roleAObj.getPersistInfo().getObjectIdentifier().getId())),
@@ -134,7 +134,7 @@ public class CommonHandlerBomStructHelper {
 				SearchCondition.EQUAL, new ConstantExpression(
 						roleBObj.getPersistInfo().getObjectIdentifier().getId())),
 				new int[] { 0 });
-		CommonLog.printLog("验证是否存在关联关系SQL = " + querySpec);
+		CommonLog.log("验证是否存在关联关系SQL = " + querySpec);
 		QueryResult qr = PersistenceHelper.manager.find(querySpec);
 		return qr.hasMoreElements();
 	}

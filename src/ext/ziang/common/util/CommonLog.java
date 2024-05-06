@@ -39,7 +39,7 @@ public class CommonLog implements RemoteAccess {
 	 * @param obj
 	 *            OBJ系列
 	 */
-	public static void printLog(String prefix, Object obj) {
+	public static void log(String prefix, Object obj) {
 		if (DEBUG) {
 			if (obj == null) {
 				System.out.println(prefix + "null");
@@ -55,9 +55,22 @@ public class CommonLog implements RemoteAccess {
 	 * @param msg
 	 *            消息
 	 */
-	public static void printLog(String msg) {
+	public static void log(String msg) {
 		if (DEBUG) {
 			System.out.println(msg);
 		}
+	}
+
+	/**
+	 * 错误
+	 *
+	 * @param unableToGetLocalProperties
+	 *            无法获取本地属性
+	 * @param e
+	 *            e
+	 */
+	public static void error(String unableToGetLocalProperties, Exception e) {
+		System.out.println("unableToGetLocalProperties = " + unableToGetLocalProperties);
+		e.printStackTrace();
 	}
 }

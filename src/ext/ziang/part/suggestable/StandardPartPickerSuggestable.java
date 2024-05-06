@@ -22,10 +22,10 @@ public class StandardPartPickerSuggestable extends BeanPickerSuggestable {
 
 	@Override
 	public Collection<SuggestResult> getSuggestions(SuggestParms suggestParms) {
-		CommonLog.printLog("StandardPartPicker =>  Suggestable");
+		CommonLog.log("StandardPartPicker =>  Suggestable");
 		suggestParms.addParm("configClassName", StandardPickerConfig.class.getName());
 		Collection<SuggestResult> suggestions = super.getSuggestions(suggestParms);
-		CommonLog.printLog("suggestions = ", suggestions);
+		CommonLog.log("suggestions = ", suggestions);
 		return suggestions;
 	}
 }

@@ -133,7 +133,7 @@ public class CommonECNOperationHelper {
 		querySpec.appendAnd();
 		querySpec.appendWhere(new SearchCondition(new ClassAttribute(WTChangeOrder2.class, WTChangeOrder2.TEMPLATED),
 				SearchCondition.EQUAL, new ConstantExpression(1)), new int[] { 0 });
-		CommonLog.printLog("查询ECN querySpec = ", querySpec);
+		CommonLog.log("查询ECN querySpec = ", querySpec);
 		QueryResult qr = PersistenceHelper.manager.find(querySpec);
 		if (qr.hasMoreElements()) {
 			return (WTChangeOrder2) qr.nextElement();
