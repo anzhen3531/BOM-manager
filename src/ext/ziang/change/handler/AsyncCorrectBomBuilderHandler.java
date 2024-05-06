@@ -327,7 +327,9 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 		if (partObjId.contains("^")) {
 			split = partObjId.split("\\^");
 			partObjId = split[split.length - 1];
-			parentObjId = split[split.length - 2];
+			if (split.length >= 2) {
+				parentObjId = split[split.length - 2];
+			}
 		}
 		WTPart part = CommonPartHelper.getWTPartByObjectId(partObjId);
 		WTPart parentPart = null;
