@@ -21,7 +21,6 @@ import ext.ziang.common.util.CommonLog;
 import wt.change2.AffectedActivityData;
 import wt.change2.ChangeHelper2;
 import wt.change2.WTChangeActivity2;
-import wt.fc.ObjectIdentifier;
 import wt.fc.ObjectReference;
 import wt.fc.ObjectToObjectLink;
 import wt.fc.Persistable;
@@ -323,6 +322,11 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 		if (split.length == 2) {
 			partObjId = split[0];
 			parentObjId = split[1];
+		}
+		// 表示存在多个父节点
+		if (partObjId.contains("^")) {
+			split = oid.split("\\^");
+			partObjId = split[split.length - 1];
 		}
 		WTPart part = CommonPartHelper.getWTPartByObjectId(partObjId);
 		WTPart parentPart = null;
