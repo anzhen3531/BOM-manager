@@ -21,6 +21,7 @@ import com.ptc.mvc.components.TreeNode;
 import com.ptc.mvc.components.ds.DataSourceMode;
 
 import ext.ziang.change.entity.CorrectBomEntity;
+import ext.ziang.change.handler.AsyncCorrectBomBuilderHandler;
 import ext.ziang.change.handler.CorrectBomBuilderHandler;
 import wt.util.WTException;
 
@@ -36,7 +37,7 @@ public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder im
 	/**
 	 * 处理器
 	 */
-	private CorrectBomBuilderHandler handler = null;
+	private AsyncCorrectBomBuilderHandler handler = null;
 
 	/**
 	 * 构建组件配置
@@ -86,9 +87,7 @@ public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder im
 		System.out.println("SingleCorrectBomBuilder.buildNodeData");
 		System.out.println("node = " + node + ", resultProcessor = " + resultProcessor);
 		if (node == TreeNode.RootNode) {
-			// 设置预展示
-			resultProcessor.setPresorted(true);
-			handler = new CorrectBomBuilderHandler(resultProcessor.getParams());
+			handler = new AsyncCorrectBomBuilderHandler(resultProcessor.getParams());
 			List<Object> objects = handler.getRootNodes();
 			System.out.println("objects = " + objects);
 			resultProcessor.addElements(objects);
@@ -112,9 +111,9 @@ public class SingleCorrectBomBuilder extends AbstractConfigurableTableBuilder im
 	 *            组件参数
 	 * @return {@link CorrectBomBuilderHandler}
 	 */
-	public CorrectBomBuilderHandler buildComponentData(ComponentConfig componentconfig,
+	public AsyncCorrectBomBuilderHandler buildComponentData(ComponentConfig componentconfig,
 			ComponentParams componentparams) throws WTException {
-		return new CorrectBomBuilderHandler(componentparams);
+		return new AsyncCorrectBomBuilderHandler(componentparams);
 	}
 
 	/**

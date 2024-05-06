@@ -38,21 +38,21 @@ import wt.util.WTException;
 import wt.vc.VersionControlHelper;
 
 /**
- * 修改BOM树结构处理
+ * 修改BOM树结构处理 异步
  *
  * @author anzhen
  * @date 2024/02/21
  */
-public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
+public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 	/**
 	 * 正确 BOM 生成器处理程序
 	 */
-	public CorrectBomBuilderHandler() {
+	public AsyncCorrectBomBuilderHandler() {
 	}
 
 	private NmCommandBean nmcommandbean;
 
-	public CorrectBomBuilderHandler(ComponentParams params) throws WTException {
+	public AsyncCorrectBomBuilderHandler(ComponentParams params) throws WTException {
 		this.nmcommandbean = ((JcaComponentParams) params).getHelperBean().getNmCommandBean();
 	}
 
@@ -67,8 +67,8 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 	 */
 	@Override
 	public Map<Object, List> getNodes(List list) {
-		CommonLog.printLog("GetNodes LocalDateTime.now() = ", LocalDateTime.now());
 		CommonLog.printLog("CorrectBomBuilderHandler.getNodes");
+		CommonLog.printLog("GetNodes LocalDateTime.now() = ", LocalDateTime.now());
 		CommonLog.printLog("list = ", list);
 		HashMap hashMap = null;
 		boolean bool = SessionServerHelper.manager.isAccessEnforced();
