@@ -13,15 +13,10 @@ import ext.ziang.common.util.CommonLog;
  */
 public class LearnJcaTagUtil {
 
-	/**
-	 * 获取文档标签映射
-	 *
-	 * @return {@link HashMap}<{@link String}, {@link String}>
-	 */
-	public static HashMap<String, String> getDocTagMap() {
-		return null;
-	}
 
+	/**
+	 * 初始化 attr
+	 */
 	public static void initAttr() {
 		HashMap<Object, Object> jcaTagMap = new HashMap<>();
 		jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
@@ -35,10 +30,20 @@ public class LearnJcaTagUtil {
 		});
 	}
 
+	/**
+	 * 获取示例属性面板数据
+	 *
+	 * @return {@link HashMap}<{@link Object}, {@link Object}>
+	 */
 	public static HashMap<Object, Object> getExamplePropertyPanelData() {
 		return CommonSingleCache.getAllValue();
 	}
 
+	/**
+	 * 获取密钥
+	 *
+	 * @return {@link Object[]}
+	 */
 	public static Object[] getKeys() {
 		return CommonSingleCache.getAllKeys();
 	}

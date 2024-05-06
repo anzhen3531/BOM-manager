@@ -7,13 +7,12 @@
 <%-- The next three tags create and display a simple attribute panel for a datum object that is a HashMap --%>
 <%
     LearnJcaTagUtil.initAttr();
-    Object[] keys = LearnJcaTagUtil.getKeys();
 %>
 <%--标签解析 指定变量  由于只做展示属性--%>
 <jca:describePropertyPanel var="panelDescriptor">
-    <% for (Object key : keys) { %>
-    <jca:describeProperty id="<%=key%>"/>
-    <% } %>
+    <jca:describeProperty id="className" label="className"/>
+    <jca:describeProperty id="cache" label="Address"/>
+    <jca:describeProperty id="test" label="test"/>
 </jca:describePropertyPanel>
 
 <jca:getModel var="panelModel" descriptor="${panelDescriptor}"
