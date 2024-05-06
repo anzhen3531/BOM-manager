@@ -4,10 +4,6 @@
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/carambola" prefix="cmb" %>
 <%@ include file="/netmarkets/jsp/util/begin.jspf" %>
 
-<%-- The next three tags create and display a simple attribute panel for a datum object that is a HashMap --%>
-<%
-    LearnJcaTagUtil.initAttr();
-%>
 <%--标签解析 指定变量  由于只做展示属性--%>
 <jca:describePropertyPanel var="panelDescriptor">
     <jca:describeProperty id="className" label="className"/>

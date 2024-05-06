@@ -49,6 +49,7 @@ public class LearnJcaTagUtil implements RemoteAccess {
 	}
 
 	public static LearnJcaTagUtil newLearnJcaTagUtil() {
+		initAttr();
 		return new LearnJcaTagUtil();
 	}
 }
