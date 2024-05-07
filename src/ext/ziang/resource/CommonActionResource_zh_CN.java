@@ -20,7 +20,7 @@ public class CommonActionResource_zh_CN extends WTListResourceBundle {
 	public static final String EXTNAVIGATION_CUSTOMCONFIG_DESCRIPTION = "navigation.customConfig.description";
 	@RBEntry("客户配置")
 	public static final String EXTNAVIGATION_CUSTOMCONFIG_TOOLTIP = "navigation.customConfig.tooltip";
-	@RBEntry("./customConfig.jpg")
+	@RBEntry("./view_layout_32x.png")
 	@RBPseudo(false)
 	@RBComment("客户配置")
 	public static final String EXTNAVIGATION_CUSTOMDP_ICON = "navigation.customConfig.icon";

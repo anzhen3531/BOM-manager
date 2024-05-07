@@ -21,7 +21,7 @@ public class CommonActionResource extends WTListResourceBundle {
 	public static final String EXTNAVIGATION_CUSTOMCONFIG_DESCRIPTION = "navigation.customConfig.description";
 	@RBEntry("Custom Config")
 	public static final String EXTNAVIGATION_CUSTOMCONFIG_TOOLTIP = "navigation.customConfig.tooltip";
-	@RBEntry("./customConfig.jpg")
+	@RBEntry("./view_layout_32x.png")
 	@RBPseudo(false)
 	@RBComment("Custom Config")
 	public static final String EXTNAVIGATION_CUSTOMDP_ICON = "navigation.customConfig.icon";
