@@ -16,13 +16,13 @@
         <action name="org" type="navigation"/>
         <action name="site" type="navigation"/>
         <action name="clfAdmin" type="navigation"/>
-        <action name="customCommonNag" type="navigation"/>
+        <action name="customConfig" type="navigation"/>
         <action name="search" type="navigation"/>
         <!--  entry for customization tab  -->
         <action name="customization" type="navigation"/>
     </model>
     <!-- 自定义模块的菜单 -->
-    <model name="customCommonNag navigation">
+    <model name="customConfig navigation">
         <description>DP Order Relate Action</description>
         <action name="commonFilterConfig" type="common"/>
         <action name="docSignConfig" type="common"/>

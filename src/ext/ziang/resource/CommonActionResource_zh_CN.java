@@ -14,6 +14,17 @@ import wt.util.resource.WTListResourceBundle;
  */
 @RBUUID("ext.ziang.resource.CommonActionResource")
 public class CommonActionResource_zh_CN extends WTListResourceBundle {
+	@RBEntry("客户配置")
+	public static final String EXTNAVIGATION_CUSTOMCONFIG_TITLE = "navigation.customConfig.activetooltip";
+	@RBEntry("客户配置")
+	public static final String EXTNAVIGATION_CUSTOMCONFIG_DESCRIPTION = "navigation.customConfig.description";
+	@RBEntry("客户配置")
+	public static final String EXTNAVIGATION_CUSTOMCONFIG_TOOLTIP = "navigation.customConfig.tooltip";
+	@RBEntry("./customConfig.jpg")
+	@RBPseudo(false)
+	@RBComment("客户配置")
+	public static final String EXTNAVIGATION_CUSTOMDP_ICON = "navigation.customConfig.icon";
+	
 	@RBEntry("一键复制BOM")
 	public static final String EXTCOMMONACTION_ONCECOPYBOM_TITLE = "extCommonAction.onceCopyBom.title";
 	@RBEntry("一键复制BOM")

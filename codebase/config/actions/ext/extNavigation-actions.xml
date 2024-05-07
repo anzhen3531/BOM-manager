@@ -2,7 +2,7 @@
 <!DOCTYPE listofactions SYSTEM 'actions.dtd'>
 <listofactions>
     <objecttype name="navigation" class="" resourceBundle="ext.ziang.resource.CommonActionResource">
-        <action name="customCommonNag"></action>
+        <action name="customConfig"></action>
     </objecttype>
 
     <objecttype name="common" resourceBundle="ext.ziang.resource.CommonActionResource">
