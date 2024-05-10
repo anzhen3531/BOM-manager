@@ -23,9 +23,9 @@
     </model>
     <!-- 自定义模块的菜单 -->
     <model name="customConfig navigation">
-        <description>DP Order Relate Action</description>
-        <action name="commonFilterConfig" type="common"/>
-        <action name="docSignConfig" type="common"/>
+        <description>Custom Config</description>
+        <action name="commonFilterConfig" type="custom"/>
+        <action name="docSignConfig" type="custom"/>
     </model>
     <!-- 快速链接 -->
     <model name="header actions">

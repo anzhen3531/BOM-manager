@@ -56,4 +56,12 @@ public class CommonActionResource extends WTListResourceBundle {
 	public static final String EXTLOG_STOPSYSLOG_DESCRIPTION = "extLog.stopSysLog.description";
 	@RBEntry("stop log")
 	public static final String EXTLOG_STOPSYSLOG_TOOLTIP = "extLog.stopSysLog.tooltip";
+
+
+	@RBEntry("Custom Doc Sign Config")
+	public static final String CUSTOM_DOCSIGNCONFIG_TITLE = "custom.docSignConfig.title";
+	@RBEntry("Custom Doc Sign Config")
+	public static final String CUSTOM_DOCSIGNCONFIG_DESCRIPTION = "custom.docSignConfig.description";
+	@RBEntry("Custom Doc Sign Config")
+	public static final String CUSTOM_DOCSIGNCONFIG_TOOLTIP = "custom.docSignConfig.tooltip";
 }

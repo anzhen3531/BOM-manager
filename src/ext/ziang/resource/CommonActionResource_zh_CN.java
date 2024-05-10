@@ -24,7 +24,7 @@ public class CommonActionResource_zh_CN extends WTListResourceBundle {
 	@RBPseudo(false)
 	@RBComment("客户配置")
 	public static final String EXTNAVIGATION_CUSTOMDP_ICON = "navigation.customConfig.icon";
-	
+
 	@RBEntry("一键复制BOM")
 	public static final String EXTCOMMONACTION_ONCECOPYBOM_TITLE = "extCommonAction.onceCopyBom.title";
 	@RBEntry("一键复制BOM")
@@ -55,4 +55,11 @@ public class CommonActionResource_zh_CN extends WTListResourceBundle {
 	public static final String EXTLOG_STOPSYSLOG_DESCRIPTION = "extLog.stopSysLog.description";
 	@RBEntry("关闭日志")
 	public static final String EXTLOG_STOPSYSLOG_TOOLTIP = "extLog.stopSysLog.tooltip";
+
+	@RBEntry("签字位置配置")
+	public static final String CUSTOM_DOCSIGNCONFIG_TITLE = "custom.docSignConfig.title";
+	@RBEntry("签字位置配置")
+	public static final String CUSTOM_DOCSIGNCONFIG_DESCRIPTION = "custom.docSignConfig.description";
+	@RBEntry("签字位置配置")
+	public static final String CUSTOM_DOCSIGNCONFIG_TOOLTIP = "custom.docSignConfig.tooltip";
 }

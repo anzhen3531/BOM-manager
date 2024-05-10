@@ -12,6 +12,12 @@ import wt.query.SearchCondition;
 import wt.query.TableColumn;
 import wt.util.WTException;
 
+/**
+ * 通用查询帮助程序
+ *
+ * @author anzhen
+ * @date 2024/05/09
+ */
 public class CommonQueryHelper {
 
 	/**
@@ -24,6 +30,7 @@ public class CommonQueryHelper {
 	 *             查询异常
 	 */
 	public static Integer getQueryIndex(Persistable persistable, QuerySpec querySpec) throws QueryException {
+		// true 和 false 控制是否返回值
 		return querySpec.appendClassList(persistable.getClass(), true);
 	}
 
@@ -34,27 +41,34 @@ public class CommonQueryHelper {
 	 *            价值
 	 * @return {@link SearchCondition}
 	 */
-	public static SearchCondition getAppointColumnSearchConditionByConstantValue(String columnName, Object value,
+	public static SearchCondition getSearchConditionByConstantValue(String columnName, Object value,
 			String alias, String constraint) throws QueryException {
-		return new SearchCondition(new TableColumn(alias, columnName), constraint,
-				new ConstantExpression(value));
+		return new SearchCondition(new TableColumn(alias, columnName), constraint, new ConstantExpression(value));
 	}
 
 	/**
+	 * 按数组列表获取指定列搜索条件
+	 *
 	 * @param columnName
 	 *            列名称
 	 * @param value
 	 *            价值
+	 * @param alias
+	 *            别名
+	 * @param constraint
+	 *            约束
 	 * @return {@link SearchCondition}
+	 * @throws QueryException
+	 *             查询异常
 	 */
-	public static SearchCondition getAppointColumnSearchConditionByArrayList(String columnName, List<Object> value,
+	public static SearchCondition getSearchConditionByArrayList(String columnName, List<Object> value,
 			String alias, String constraint) throws QueryException {
 		return new SearchCondition(new TableColumn(alias, columnName), constraint,
 				new ArrayExpression(value.toArray()));
 	}
 
 	/**
-	 * 添加行号条件
+	 * 增加数量限制
 	 *
 	 * @param qs
 	 *            查询对象

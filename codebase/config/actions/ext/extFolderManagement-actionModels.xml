@@ -15,7 +15,6 @@
       <action name="createPartWizard" type="part" shortcut="true"/>
       <!--      一键复制BOM-->
       <action name="onceCopyBom" type="extCommonAction" shortcut="true"/>
-      <action name="signConfig" type="extCommonAction" shortcut="true"/>
       <!--  New Part  -->
       <action name="createMultiPart" type="part"/>
       <!--  New Multiple Parts  -->

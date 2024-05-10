@@ -5,22 +5,26 @@
         <action name="customConfig"></action>
     </objecttype>
 
-    <objecttype name="common" resourceBundle="ext.ziang.resource.CommonActionResource">
+    <objecttype name="custom" resourceBundle="ext.ziang.resource.CommonActionResource">
+        <action name="commonFilterConfig">
+            <command url="/netmarkets/jsp/ext/ziang/common/commonFilterConfig.jsp" windowType="page"/>
+        </action>
 
+        <action name="docSignConfig">
+            <command url="/netmarkets/jsp/ext/ziang/common/docSignConfig.jsp" windowType="page"/>
+        </action>
     </objecttype>
 
 
     <objecttype name="extLog" resourceBundle="ext.ziang.resource.CommonActionResource">
-        <!--一键复里面制BOM-->
+        <!--开启日志-->
         <action name="startSysLog">
-            <command url="/netmarkets/jsp/ext/ziang/log/startSysLog.jsp"
-                     windowType="popup"/>
+            <command url="/netmarkets/jsp/ext/ziang/log/startSysLog.jsp" windowType="popup"/>
         </action>
 
-        <!--一键复里面制BOM-->
+        <!--关闭日志-->
         <action name="stopSysLog">
-            <command url="/netmarkets/jsp/ext/ziang/log/stopSysLog.jsp"
-                     windowType="popup"/>
+            <command url="/netmarkets/jsp/ext/ziang/log/stopSysLog.jsp" windowType="popup"/>
         </action>
     </objecttype>
 </listofactions>

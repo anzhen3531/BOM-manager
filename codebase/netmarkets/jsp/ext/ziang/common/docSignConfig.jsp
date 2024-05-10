@@ -4,6 +4,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ include file="/netmarkets/jsp/components/beginWizard.jspf" %>
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
+
+<%--
+添加一个搜索表格
+--%>
+
+
 <div>
     <jsp:include page="${mvc:getComponentURL('ext.ziang.doc.sign.builder.ElectronicSignatureConfigBuilder')}"
                  flush="true"/>
