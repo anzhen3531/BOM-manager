@@ -36,6 +36,7 @@ public class LearnJcaTagUtil implements RemoteAccess {
 	 * @return {@link HashMap}<{@link Object}, {@link Object}>
 	 */
 	public static HashMap<Object, Object> getExamplePropertyPanelData() {
+		initAttr();
 		HashMap<Object, Object> jcaTagMap = new HashMap<>();
 		jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
 		jcaTagMap.put("cache", "ext.ziang.common.helper.cache.CommonSingleCache");

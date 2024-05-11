@@ -9,6 +9,10 @@
     <jca:describeProperty id="test" label="test"/>
 </jca:describePropertyPanel>
 
+<%--
+https://plm.ziang.com/Windchill/app/#netmarkets/jsp/ext/ziang/jcaTag/learnReadJcaTag.jsp
+/netmarkets/jsp/ext/ziang/jcaTag/learnWriteJcaTag.jsp
+--%>
 <%--声明一个模型变量 数据来源调用ServiceName中指定类中MethodName指定方法--%>
 <jca:getModel var="panelModel" descriptor="${panelDescriptor}"
               serviceName="ext.ziang.docTag.LearnJcaTagUtil"
