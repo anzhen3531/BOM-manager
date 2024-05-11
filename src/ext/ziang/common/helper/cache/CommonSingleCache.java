@@ -24,11 +24,6 @@ public class CommonSingleCache {
 	 */
 	static {
 		int size = 20;
-		try {
-			size = WTProperties.getLocalProperties().getProperty("PropertyUtils.cacheSize", 20);
-		} catch (Exception e) {
-			CommonLog.error("Unable to get local properties", e);
-		}
 		cache = new Cache(size);
 	}
 

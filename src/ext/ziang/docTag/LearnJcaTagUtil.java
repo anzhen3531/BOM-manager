@@ -40,6 +40,9 @@ public class LearnJcaTagUtil implements RemoteAccess {
 		jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
 		jcaTagMap.put("cache", "ext.ziang.common.helper.cache.CommonSingleCache");
 		jcaTagMap.put("test", "test");
+		for (Object key : getKeys()) {
+			System.out.println("key = " + key);
+		}
 		return jcaTagMap;
 	}
 
