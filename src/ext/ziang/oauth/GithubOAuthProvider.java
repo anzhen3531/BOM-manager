@@ -12,6 +12,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -89,7 +90,7 @@ public class GithubOAuthProvider {
 		try {
 			// start build 构建用户名密码
 			URIBuilder builder = new URIBuilder(path);
-			httpclient = HttpClients.createDefault();
+			httpclient = HttpClients.custom().setDefaultCookieStore(new BasicCookieStore()).build();
 			// create POST
 			HttpPost httpPost = new HttpPost(builder.build());
 			httpPost.setHeader(HttpHeaders.CONTENT_ENCODING, StandardCharsets.UTF_8.name());
