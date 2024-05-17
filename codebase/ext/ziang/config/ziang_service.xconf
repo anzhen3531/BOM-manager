@@ -4,11 +4,6 @@
     <!--  原料申请相关信息	-->
     <Service context="default" name="com.ptc.core.components.descriptor.DataUtility"
              targetFile="codebase/service.properties">
-<!--        <Option serviceClass="ext.ziang.part.datautility.ExperimentNumberDataUtility"-->
-<!--                requestor="null" selector="ExperimentNumberDataUtility" cardinality="singleton"/>-->
-
-<!--        <Option serviceClass="ext.ziang.part.datautility.ExtSearchPartAttrDataUtility"-->
-<!--                requestor="null" selector="ExtSearchPartAttrDataUtility" cardinality="singleton"/>-->
 
         <Option serviceClass="ext.ziang.doc.sign.datautility.ElectronicSignatureConfigUtility"
                 requestor="null" selector="ElectronicSignatureConfigUtility" cardinality="singleton"/>
