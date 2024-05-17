@@ -1,18 +1,14 @@
 package ext.ziang.part.datautility;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import com.google.common.collect.Maps;
-import com.ptc.core.components.descriptor.ComponentDescriptor;
 import com.ptc.core.components.descriptor.ModelContext;
 import com.ptc.core.components.factory.dataUtilities.DefaultDataUtility;
 import com.ptc.core.components.rendering.guicomponents.*;
 import com.ptc.core.ui.resources.ComponentMode;
-import com.ptc.netmarkets.util.beans.NmCommandBean;
 
 import ext.ziang.common.helper.CommonGuiComponentHelper;
-import ext.ziang.part.pciker.StandardPickerConfig;
 import wt.part.WTPart;
 import wt.util.WTException;
 
@@ -37,7 +33,6 @@ public class StandardPickerDataUtility extends DefaultDataUtility {
 	public Object getDataValue(String componentId, Object obj, ModelContext modelContext) throws WTException {
 		ComponentMode descriptorMode = modelContext.getDescriptorMode();
 		if (descriptorMode == ComponentMode.EDIT || descriptorMode == ComponentMode.CREATE) {
-			setPickerConfig(componentId, modelContext);
 			return createPickerComponent(componentId, obj, modelContext);
 		} else if (descriptorMode == ComponentMode.VIEW) {
 			return createDisplayComponent(componentId, obj, modelContext);
@@ -108,18 +103,4 @@ public class StandardPickerDataUtility extends DefaultDataUtility {
 		return localObject;
 	}
 
-	/**
-	 * 设置选取器配置
-	 *
-	 * @param params
-	 *            组件 ID
-	 * @param modelContext
-	 *            模型上下文
-	 */
-	private void setPickerConfig(String params, ModelContext modelContext) {
-		NmCommandBean nmCommandBean = modelContext.getNmCommandBean();
-		ComponentDescriptor descriptor = modelContext.getDescriptor();
-		Map<Object, Object> properties = descriptor.getProperties();
-		StandardPickerConfig.setPickerProperties(params, nmCommandBean, properties);
-	}
 }
