@@ -2,33 +2,33 @@
 <!DOCTYPE listofactions SYSTEM "actions.dtd">
 <listofactions>
 
-    <include href="config/actions/ext/extChangeManagement-actions.xml"/>
-    <include href="config/actions/ext/extFolderManagement-actions.xml"/>
-    <include href="config/actions/ext/extNavigation-actions.xml"/>
+<!--    <include href="config/actions/ext/extChangeManagement-actions.xml"/>-->
+<!--    <include href="config/actions/ext/extFolderManagement-actions.xml"/>-->
+<!--    <include href="config/actions/ext/extNavigation-actions.xml"/>-->
 
-    <objecttype name="document" class="wt.doc.WTDocument"
-                resourceBundle="com.ptc.windchill.enterprise.doc.documentResource">
-        <!--   创建WTDocument 自定义拦截器    -->
-        <action dtiUpload="true" name="create" uicomponent="CREATE_DOC" ajax="row">
-            <command onClick="validateCreateLocation(event)" method="execute"
-                     class="ext.ziang.doc.process.ExtCreateDocFormProcessor" windowType="popup"/>
-            <includeFilter name="projectM4D"/>
-            <includeFilter name="showNewActionPreValidation"/>
-        </action>
-    </objecttype>
+<!--    <objecttype name="document" class="wt.doc.WTDocument"-->
+<!--                resourceBundle="com.ptc.windchill.enterprise.doc.documentResource">-->
+<!--        &lt;!&ndash;   创建WTDocument 自定义拦截器    &ndash;&gt;-->
+<!--        <action dtiUpload="true" name="create" uicomponent="CREATE_DOC" ajax="row">-->
+<!--            <command onClick="validateCreateLocation(event)" method="execute"-->
+<!--                     class="ext.ziang.doc.process.ExtCreateDocFormProcessor" windowType="popup"/>-->
+<!--            <includeFilter name="projectM4D"/>-->
+<!--            <includeFilter name="showNewActionPreValidation"/>-->
+<!--        </action>-->
+<!--    </objecttype>-->
 
-    <objecttype resourceBundle="com.ptc.windchill.principal.user.userActionsRB" name="user" class="wt.org.WTUser">
-        <action name="create" ajax="row">
-            <command method="execute" class="ext.ziang.user.process.ExtCreateUserFormProcessor"
-                     windowType="popup"/>
-        </action>
+<!--    <objecttype resourceBundle="com.ptc.windchill.principal.user.userActionsRB" name="user" class="wt.org.WTUser">-->
+<!--        <action name="create" ajax="row">-->
+<!--            <command method="execute" class="ext.ziang.user.process.ExtCreateUserFormProcessor"-->
+<!--                     windowType="popup"/>-->
+<!--        </action>-->
 
-        <action name="updateUser" ajax="row" >
-            <command method="execute" class="ext.ziang.user.process.ExtEditUserFormProcessor" windowType="popup"/>
-            <includeFilter name="updateActionValidator"/>
-            <includeFilter name="disconnectedPrincipalActionsFilter"/>
-            <includeFilter name="disabledPrincipalActionsFilter"/>
-        </action>
-    </objecttype>
+<!--        <action name="updateUser" ajax="row" >-->
+<!--            <command method="execute" class="ext.ziang.user.process.ExtEditUserFormProcessor" windowType="popup"/>-->
+<!--            <includeFilter name="updateActionValidator"/>-->
+<!--            <includeFilter name="disconnectedPrincipalActionsFilter"/>-->
+<!--            <includeFilter name="disabledPrincipalActionsFilter"/>-->
+<!--        </action>-->
+<!--    </objecttype>-->
 
 </listofactions>
