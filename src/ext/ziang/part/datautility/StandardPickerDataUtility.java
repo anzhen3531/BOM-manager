@@ -94,8 +94,9 @@ public class StandardPickerDataUtility extends DefaultDataUtility {
 			SuggestTextBox suggestTextBom = CommonGuiComponentHelper.newSuggestTextBox(
 					inputComponent.getId(), inputComponent.getName(),
 					inputComponent.getColumnName(), inputComponent.isRequired(),
-					inputComponent.isReadOnly(), inputComponent.isEditable(), inputComponent.isEnabled(), 1,
-					"StandardPartPickerSuggestable", maps, 40, "");
+					inputComponent.isReadOnly(), inputComponent.isEditable(),
+					inputComponent.isEnabled(), 1,
+					"StandardPartPickerSuggestable", maps, 40, "名称合法值");
 			guiArray.addGUIComponent(suggestTextBom);
 			guiArray.addGUIComponent(clearIconComponent);
 			return guiArray;

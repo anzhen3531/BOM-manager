@@ -29,21 +29,22 @@ public class CommonGuiComponentHelper {
 	 *            是可编辑
 	 * @param isEnabled
 	 *            已启用
-	 * @param maxLength
+	 * @param minSearchCharNum
 	 *            最大长度
 	 * @param suggestServiceKey
 	 *            建议服务密钥
 	 * @param paramsMap
 	 *            Params 地图
-	 * @param width
+	 * @param maxLengthNumber
 	 *            结果限制
 	 * @param label
 	 *            标签
 	 * @return {@link SuggestTextBox }
 	 */
 	public static SuggestTextBox newSuggestTextBox(String id, String name, String columnName, Boolean isRequired,
-			Boolean isReadOnly, Boolean isEditable, Boolean isEnabled, Integer maxLength, String suggestServiceKey,
-			Map<String, Object> paramsMap, Integer width, String label) {
+			Boolean isReadOnly, Boolean isEditable, Boolean isEnabled, Integer minSearchCharNum,
+			String suggestServiceKey,
+			Map<String, Object> paramsMap, Integer maxLengthNumber, String label) {
 		SuggestTextBox suggestTextBox = new SuggestTextBox(id, suggestServiceKey);
 		suggestTextBox.setName(name);
 		suggestTextBox.setColumnName(columnName);
@@ -51,10 +52,10 @@ public class CommonGuiComponentHelper {
 		suggestTextBox.setReadOnly(isReadOnly);
 		suggestTextBox.setEditable(isEditable);
 		suggestTextBox.setEnabled(isEnabled);
-		suggestTextBox.setMaxResults(maxLength);
 		suggestTextBox.setSuggestBoxConfig(paramsMap);
-		suggestTextBox.setWidth(width);
+		suggestTextBox.setMaxResults(maxLengthNumber);
 		suggestTextBox.setLabel(label);
+		suggestTextBox.setMinChars(minSearchCharNum);
 		return suggestTextBox;
 	}
 }

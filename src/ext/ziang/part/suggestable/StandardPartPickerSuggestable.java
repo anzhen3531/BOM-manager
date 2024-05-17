@@ -33,12 +33,12 @@ public class StandardPartPickerSuggestable implements Suggestable {
 	 */
 	@Override
 	public Collection<SuggestResult> getSuggestions(SuggestParms suggestParms) {
-		ArrayList<SuggestResult> results = Lists.newArrayList();
 		CommonLog.log("StandardPartPicker =>  Suggestable");
+		ArrayList<SuggestResult> results = Lists.newArrayList();
 		// 获取搜索参数
 		String keyword = suggestParms.getSearchTerm();
 		// 当前key 为输入值
-		String mapKey = suggestParms.getParm("number");
+		String mapKey = suggestParms.getParm("wtPartTypeName");
 		System.out.println("mapKey = " + mapKey);
 		System.out.println("keyword = " + keyword);
 		results.add(SuggestResult.valueOf(keyword));
