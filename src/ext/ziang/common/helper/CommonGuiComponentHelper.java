@@ -44,7 +44,7 @@ public class CommonGuiComponentHelper {
 	public static SuggestTextBox newSuggestTextBox(String id, String name, String columnName, Boolean isRequired,
 			Boolean isReadOnly, Boolean isEditable, Boolean isEnabled, Integer minSearchCharNum,
 			String suggestServiceKey,
-			Map<String, Object> paramsMap, Integer maxLengthNumber, String label) {
+			Map<String, String> paramsMap, Integer maxLengthNumber, String label) {
 		SuggestTextBox suggestTextBox = new SuggestTextBox(id, suggestServiceKey);
 		suggestTextBox.setName(name);
 		suggestTextBox.setColumnName(columnName);
@@ -52,10 +52,12 @@ public class CommonGuiComponentHelper {
 		suggestTextBox.setReadOnly(isReadOnly);
 		suggestTextBox.setEditable(isEditable);
 		suggestTextBox.setEnabled(isEnabled);
-		suggestTextBox.setSuggestBoxConfig(paramsMap);
 		suggestTextBox.setMaxResults(maxLengthNumber);
 		suggestTextBox.setLabel(label);
 		suggestTextBox.setMinChars(minSearchCharNum);
+		if (paramsMap != null) {
+			paramsMap.forEach(suggestTextBox::addParm);
+		}
 		return suggestTextBox;
 	}
 }
