@@ -18,6 +18,9 @@
 
         <Option serviceClass="ext.ziang.change.datautility.CorrectBomDataUtility"
                 requestor="null" selector="CorrectBomDataUtility" cardinality="singleton"/>
+
+        <Option serviceClass="ext.ziang.part.datautility.StandardPickerDataUtility"
+                requestor="null" selector="StandardPickerDataUtility" cardinality="singleton"/>
     </Service>
 
 

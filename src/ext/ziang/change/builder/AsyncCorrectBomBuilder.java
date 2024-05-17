@@ -29,6 +29,7 @@ import wt.util.WTException;
  *
  * @author anzhen
  * @date 2024/02/20
+ * // 个人扣500多
  */
 @ComponentBuilder({ "ext.ziang.change.builder.AsyncCorrectBomBuilder" })
 public class AsyncCorrectBomBuilder extends AbstractConfigurableTableBuilder implements TreeDataBuilderAsync {
