@@ -37,10 +37,11 @@ public class StandardPartPickerSuggestable implements Suggestable {
 		CommonLog.log("StandardPartPicker =>  Suggestable");
 		// 获取搜索参数
 		String keyword = suggestParms.getSearchTerm();
+		// 当前key 为输入值
 		String mapKey = suggestParms.getParm("number");
 		System.out.println("mapKey = " + mapKey);
 		System.out.println("keyword = " + keyword);
-		results.add(SuggestResult.valueOf(mapKey));
+		results.add(SuggestResult.valueOf(keyword));
 		return results;
 	}
 }
