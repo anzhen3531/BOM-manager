@@ -3,7 +3,7 @@ package ext.ziang.common.helper.part;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 
-import ext.ziang.common.util.CustomCommonUtil;
+import ext.ziang.common.helper.query.CommonQueryHelper;
 import wt.fc.ObjectIdentifier;
 import wt.fc.ObjectReference;
 import wt.fc.PersistenceHelper;
@@ -35,7 +35,7 @@ public class CommonPartHelper {
 	 */
 	public static WTPartMaster getWTPartMasterByNumber(String originNumber)
 			throws RemoteException, InvocationTargetException {
-		return (WTPartMaster) CustomCommonUtil.findMasterByColumn(originNumber, WTPartMaster.class,
+		return (WTPartMaster) CommonQueryHelper.findMasterByColumn(originNumber, WTPartMaster.class,
 				WTPartMaster.NUMBER);
 	}
 

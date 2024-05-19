@@ -1,6 +1,7 @@
 package ext.ziang.common.helper;
 
 import com.ptc.core.components.rendering.guicomponents.SuggestTextBox;
+import com.ptc.core.components.rendering.guicomponents.TextDisplayComponent;
 
 import java.util.Map;
 
@@ -60,4 +61,33 @@ public class CommonGuiComponentHelper {
 		}
 		return suggestTextBox;
 	}
+
+	/**
+	 * 新文本显示组件
+	 *
+	 * @param id
+	 *            id
+	 * @param name
+	 *            名字
+	 * @param value
+	 *            价值
+	 * @param label
+	 *            标签
+	 * @param columnName
+	 *            列名称
+	 * @return {@link TextDisplayComponent }
+	 */
+	public static TextDisplayComponent newTextDisplayComponent(String id, String name, String value, String label,
+			String columnName) {
+		TextDisplayComponent textDisplayComponent = new TextDisplayComponent(label);
+		// 编写表格
+		textDisplayComponent.setValue(value);
+		textDisplayComponent.setId(id);
+		textDisplayComponent.setName(name);
+		textDisplayComponent.setColumnName(columnName);
+		textDisplayComponent.setCheckXSS(false);
+		return textDisplayComponent;
+	}
+
+	// 编写一个chatbox
 }

@@ -19,6 +19,9 @@ import wt.util.WTException;
  * @date 2024/02/20
  */
 public class StandardPickerDataUtility extends DefaultDataUtility {
+
+	public static final String SUGGEST_PART_ID = "StandardPartPickerSuggestable";
+
 	/**
 	 * @param componentId
 	 *            表格列id
@@ -80,23 +83,25 @@ public class StandardPickerDataUtility extends DefaultDataUtility {
 			IconComponent clearIconComponent = new IconComponent();
 			clearIconComponent.setSrc("netmarkets/images/clear_16x16.gif");
 			clearIconComponent.setTooltip("清除");
-			StringBuffer bufferJs = new StringBuffer();
+			StringBuilder bufferJs = new StringBuilder();
 			String[] clearElements = new String[] { "number" };
 			for (String elementId : clearElements) {
-				bufferJs.append("var element = window.parent.document.getElementById('" + elementId + "');");
+				bufferJs.append("var element = window.parent.document.getElementById('").append(elementId)
+						.append("');");
 				bufferJs.append("if(element != null) {element.value = ''};");
 				bufferJs.append("if(element != null) {element.readOnly = false};");
 			}
 			clearIconComponent.addJsAction("onClick", bufferJs.toString());
-			HashMap<String, Object> maps = Maps.newHashMap();
-			maps.put("wtPartTypeName", "112321");
+			HashMap<String, String> maps = Maps.newHashMap();
+			// 类型管理
+			maps.put("typeName", "12312");
 			// 创建选取器
 			SuggestTextBox suggestTextBom = CommonGuiComponentHelper.newSuggestTextBox(
 					inputComponent.getId(), inputComponent.getName(),
 					inputComponent.getColumnName(), inputComponent.isRequired(),
 					inputComponent.isReadOnly(), inputComponent.isEditable(),
 					inputComponent.isEnabled(), 1,
-					"StandardPartPickerSuggestable", maps, 40, "名称合法值");
+					SUGGEST_PART_ID, maps, 40, "名称合法值");
 			guiArray.addGUIComponent(suggestTextBom);
 			guiArray.addGUIComponent(clearIconComponent);
 			return guiArray;
