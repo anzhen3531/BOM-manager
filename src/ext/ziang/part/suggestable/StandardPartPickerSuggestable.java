@@ -52,7 +52,7 @@ public class StandardPartPickerSuggestable implements Suggestable {
 				CommonLog.log("parts = " + parts);
 				//
 				parts.forEach(part -> results
-						.add(SuggestResult.valueOf(part.getNumber(), part.getNumber() + "," + part.getName())));
+						.add(SuggestResult.valueOf(part.getNumber(),  part.getName() + "," + part.getViewName())));
 			} catch (Exception e) {
 				e.printStackTrace();
 				results.add(SuggestResult.valueOf("根据编号查询物料报错"));
