@@ -56,4 +56,9 @@
         <action name="signOut" type="fba"/>
         <action name="wexman" type="com.wincomplm.wex.manager" wexid="com.wincomplm.wex.manager"/>
     </model>
+
+    <model>
+        <action name="createSignConfig" type="custom" shortcut="true"/>
+        <action name="updateSignConfig" type="custom" shortcut="true"/>
+    </model>
 </actionmodels>

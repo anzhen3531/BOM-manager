@@ -33,7 +33,7 @@ public class ElectronicSignatureConfigHelper {
 			throws WTException {
 		List<ElectronicSignatureConfig> electronicSignatureConfigs = new ArrayList<>();
 		QuerySpec querySpec = new QuerySpec(ElectronicSignatureConfig.class);
-		CommonLog.log("querySpec = ", querySpec);
+		CommonLog.log("findAllElectronicSignatureConfig querySpec = ", querySpec);
 		QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
 		while (queryResult.hasMoreElements()) {
 			electronicSignatureConfigs.add((ElectronicSignatureConfig) queryResult.nextElement());

@@ -13,6 +13,14 @@
         <action name="docSignConfig">
             <command url="/netmarkets/jsp/ext/ziang/common/docSignConfig.jsp" windowType="page"/>
         </action>
+
+        <action name="createSignConfig">
+            <command url="/netmarkets/jsp/ext/ziang/common/createSignConfig.jsp" windowType="page"/>
+        </action>
+
+        <action name="updateSignConfig">
+            <command url="/netmarkets/jsp/ext/ziang/common/updateSignConfig.jsp" windowType="page"/>
+        </action>
     </objecttype>
 
 

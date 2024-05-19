@@ -12,7 +12,6 @@ import com.ptc.core.components.suggest.Suggestable;
 
 import ext.ziang.common.helper.query.CommonQueryHelper;
 import ext.ziang.common.util.CommonLog;
-import net.sf.saxon.exslt.Common;
 import wt.part.WTPart;
 
 /**
@@ -50,9 +49,9 @@ public class StandardPartPickerSuggestable implements Suggestable {
 			try {
 				List<WTPart> parts = CommonQueryHelper.findPartByPrefix(keyword);
 				CommonLog.log("parts = " + parts);
-				//
+				// Suggest 第一个函数为内部的Value 第二个值填写的为括号的值
 				parts.forEach(part -> results
-						.add(SuggestResult.valueOf(part.getNumber(),  part.getName() + "," + part.getViewName())));
+						.add(SuggestResult.valueOf(part.getNumber(), part.getName() + "," + part.getViewName())));
 			} catch (Exception e) {
 				e.printStackTrace();
 				results.add(SuggestResult.valueOf("根据编号查询物料报错"));

@@ -49,6 +49,7 @@ public class ElectronicSignatureConfigBuilder extends AbstractComponentBuilder {
 		createNewColumnConfig(ElectronicSignatureConfig.EXTENDED_FIELD, "扩展字段", result, factory);
 		createNewColumnConfig(ElectronicSignatureConfig.EXTENDED_FIELD1, "扩展字段1", result, factory);
 		createNewColumnConfig(ElectronicSignatureConfig.EXTENDED_FIELD2, "扩展字段2", result, factory);
+		result.setActionModel();
 		return result;
 	}
 

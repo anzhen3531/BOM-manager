@@ -62,4 +62,22 @@ public class CommonActionResource_zh_CN extends WTListResourceBundle {
 	public static final String CUSTOM_DOCSIGNCONFIG_DESCRIPTION = "custom.docSignConfig.description";
 	@RBEntry("签字位置配置")
 	public static final String CUSTOM_DOCSIGNCONFIG_TOOLTIP = "custom.docSignConfig.tooltip";
+
+	@RBEntry("创建签字位置配置")
+	public static final String CUSTOM_CREATESIGNCONFIG_TITLE = "custom.createSignConfig.title";
+	@RBEntry("创建签字位置配置")
+	public static final String CUSTOM_CREATESIGNCONFIG_DESCRIPTION = "custom.createSignConfig.description";
+	@RBEntry("创建签字位置配置")
+	public static final String CUSTOM_CREATESIGNCONFIG_TOOLTIP = "custom.createSignConfig.tooltip";
+	@RBEntry("netmarkets/images/add16x16.gif")
+	@RBPseudo(false)
+	@RBComment("add part")
+	public static final String CUSTOM_CREATESIGNCONFIG_ICON = "custom.createSignConfig.icon";
+
+	@RBEntry("修改签字位置配置")
+	public static final String CUSTOM_UPDATESIGNCONFIG_TITLE = "custom.updateSignConfig.title";
+	@RBEntry("修改签字位置配置")
+	public static final String CUSTOM_UPDATESIGNCONFIG_DESCRIPTION = "custom.updateSignConfig.description";
+	@RBEntry("修改签字位置配置")
+	public static final String CUSTOM_UPDATESIGNCONFIG_TOOLTIP = "custom.updateSignConfig.tooltip";
 }

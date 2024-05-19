@@ -64,4 +64,24 @@ public class CommonActionResource extends WTListResourceBundle {
 	public static final String CUSTOM_DOCSIGNCONFIG_DESCRIPTION = "custom.docSignConfig.description";
 	@RBEntry("Custom Doc Sign Config")
 	public static final String CUSTOM_DOCSIGNCONFIG_TOOLTIP = "custom.docSignConfig.tooltip";
+
+	@RBEntry("Create Doc Sign Config")
+	public static final String CUSTOM_CREATESIGNCONFIG_TITLE = "custom.createSignConfig.title";
+	@RBEntry("Create Doc Sign Config")
+	public static final String CUSTOM_CREATESIGNCONFIG_DESCRIPTION = "custom.createSignConfig.description";
+	@RBEntry("Create Doc Sign Config")
+	public static final String CUSTOM_CREATESIGNCONFIG_TOOLTIP = "custom.createSignConfig.tooltip";
+	@RBEntry("netmarkets/images/add16x16.gif")
+	@RBPseudo(false)
+	@RBComment("add part")
+	public static final String CUSTOM_CREATESIGNCONFIG_ICON = "custom.createSignConfig.icon";
+
+
+	@RBEntry("Update Doc Sign Config")
+	public static final String CUSTOM_UPDATESIGNCONFIG_TITLE = "custom.updateSignConfig.title";
+	@RBEntry("Update Doc Sign Config")
+	public static final String CUSTOM_UPDATESIGNCONFIG_DESCRIPTION = "custom.updateSignConfig.description";
+	@RBEntry("Update Doc Sign Config")
+	public static final String CUSTOM_UPDATESIGNCONFIG_TOOLTIP = "custom.updateSignConfig.tooltip";
+
 }
