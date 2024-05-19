@@ -50,8 +50,9 @@ public class StandardPartPickerSuggestable implements Suggestable {
 			try {
 				List<WTPart> parts = CommonQueryHelper.findPartByPrefix(keyword);
 				CommonLog.log("parts = " + parts);
+				//
 				parts.forEach(part -> results
-						.add(SuggestResult.valueOf(part.getNumber() + "," + part.getName(), part.getNumber())));
+						.add(SuggestResult.valueOf(part.getNumber(), part.getNumber() + "," + part.getName())));
 			} catch (Exception e) {
 				e.printStackTrace();
 				results.add(SuggestResult.valueOf("根据编号查询物料报错"));
