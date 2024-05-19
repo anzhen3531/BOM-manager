@@ -2,3 +2,7 @@
 <%
     CommonLog.closeDebug();
 %>
+
+<script>
+    window.close()
+</script>
