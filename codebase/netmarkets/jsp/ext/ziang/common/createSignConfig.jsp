@@ -11,14 +11,14 @@
         <picker:pickerParam name="showRoot" value="true"/>
         <picker:pickerParam name="seedType" value="wt.doc.WTDocument"/>
     </picker:typePicker>
-    <w:textBox propertyLabel="contentType" id="contentType" name="内容类型" onblur="foo" required="true"/>
-    <w:textBox propertyLabel="workItemName" id="workItemName" name="活动名称" onblur="foo" required="true"/>
-    <w:textBox propertyLabel="signXIndex" id="signXIndex" name="签字X轴索引" onblur="foo" required="true"/>
-    <w:textBox propertyLabel="signYIndex" id="signYIndex" name="签字Y轴索引" onblur="foo" required="true"/>
-    <w:textBox propertyLabel="status" id="status" name="状态" onblur="foo" required="true"/>
-    <w:textBox propertyLabel="extendedField" id="extendedField" name="扩展字段" onblur="foo" required="true"/>
-    <w:textBox propertyLabel="extendedField1" id="extendedField1" name="扩展字段1" onblur="foo" required="true"/>
-    <w:textBox propertyLabel="extendedField2" id="extendedField2" name="扩展字段2" onblur="foo" required="true"/>
+    <w:textBox propertyLabel="内容类型" id="contentType" name="contentType" onblur="foo" required="true"/>
+    <w:textBox propertyLabel="活动名称" id="workItemName" name="workItemName" onblur="foo" required="true"/>
+    <w:textBox propertyLabel="签字X轴索引" id="signXIndex" name="signXIndex" onblur="foo" required="true"/>
+    <w:textBox propertyLabel="签字Y轴索引" id="signYIndex" name="signYIndex" onblur="foo" required="true"/>
+    <w:textBox propertyLabel="状态" id="status" name="status" onblur="foo" required="true"/>
+    <w:textBox propertyLabel="扩展字段" id="extendedField" name="extendedField" onblur="foo" required="true"/>
+    <w:textBox propertyLabel="扩展字段1" id="extendedField1" name="extendedField1" onblur="foo" required="true"/>
+    <w:textBox propertyLabel="扩展字段2" id="extendedField2" name="extendedField2" onblur="foo" required="true"/>
 </jca:renderPropertyPanel>
 
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
