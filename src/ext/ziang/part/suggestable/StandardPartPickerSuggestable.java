@@ -12,6 +12,7 @@ import com.ptc.core.components.suggest.Suggestable;
 
 import ext.ziang.common.helper.query.CommonQueryHelper;
 import ext.ziang.common.util.CommonLog;
+import net.sf.saxon.exslt.Common;
 import wt.part.WTPart;
 
 /**
@@ -43,11 +44,12 @@ public class StandardPartPickerSuggestable implements Suggestable {
 		String keyword = suggestParms.getSearchTerm();
 		// 当前key 为输入值
 		String typeName = suggestParms.getParm("typeName");
-		System.out.println("mapKey = " + typeName);
-		System.out.println("keyword = " + keyword);
+		CommonLog.log("mapKey = " + typeName);
+		CommonLog.log("keyword = " + keyword);
 		if (StrUtil.isNotBlank(keyword) && typeName.contains("WTPart")) {
 			try {
 				List<WTPart> parts = CommonQueryHelper.findPartByPrefix(keyword);
+				CommonLog.log("parts = " + parts);
 				parts.forEach(part -> results
 						.add(SuggestResult.valueOf(part.getNumber() + "," + part.getName(), part.getNumber())));
 			} catch (Exception e) {
