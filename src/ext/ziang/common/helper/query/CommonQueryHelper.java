@@ -339,6 +339,7 @@ public class CommonQueryHelper implements RemoteAccess {
 		List<T> partList = new ArrayList<>();
 		CommonQuerySpec.addSearchConditionByClass(querySpec, 0, t.getClass(), cloumn, SearchCondition.LIKE,
 				prefix + SearchCondition.PATTERN_MATCH_MULITPLE);
+		CommonLog.log("findObjectByPrefix querySpec = ", querySpec);
 		QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
 		LatestConfigSpec latestConfigSpec = new LatestConfigSpec();
 		QueryResult result = latestConfigSpec.process(queryResult);
