@@ -94,7 +94,7 @@ public class StandardPickerDataUtility extends DefaultDataUtility {
 			clearIconComponent.addJsAction("onClick", bufferJs.toString());
 			HashMap<String, String> maps = Maps.newHashMap();
 			// 类型管理
-			maps.put("typeName", "12312");
+			maps.put("typeName", "wt.part.WTPart");
 			// 创建选取器
 			SuggestTextBox suggestTextBom = CommonGuiComponentHelper.newSuggestTextBox(
 					inputComponent.getId(), inputComponent.getName(),
