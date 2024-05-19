@@ -15,11 +15,11 @@
         </action>
 
         <action name="createSignConfig">
-            <command url="/netmarkets/jsp/ext/ziang/common/createSignConfig.jsp" windowType="page"/>
+            <command url="/netmarkets/jsp/ext/ziang/common/createSignConfig.jsp" windowType="popup"/>
         </action>
 
         <action name="updateSignConfig">
-            <command url="/netmarkets/jsp/ext/ziang/common/updateSignConfig.jsp" windowType="page"/>
+            <command url="/netmarkets/jsp/ext/ziang/common/updateSignConfig.jsp" windowType="popup"/>
         </action>
     </objecttype>
 
