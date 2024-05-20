@@ -19,7 +19,7 @@ import java.util.List;
  *
  * @author ander
  * @date 2024/05/20
- * ext.ziang.doc.sign.CreateOrUpdateSignConfigProcess
+ *       ext.ziang.doc.sign.CreateOrUpdateSignConfigProcess
  */
 public class CreateOrUpdateSignConfigProcess extends DefaultObjectFormProcessor {
 	/**
@@ -41,33 +41,40 @@ public class CreateOrUpdateSignConfigProcess extends DefaultObjectFormProcessor 
 		HashMap comboBox = nmCommandBean.getComboBox();
 		System.out.println("comboBox = " + comboBox);
 		System.out.println("text = " + text);
-		// if (view.equals("CREATE")) {
-		// ElectronicSignatureConfig signatureConfig =
-		// ElectronicSignatureConfig.newElectronicSignatureConfig();
-		// try {
-		// ElectronicSignatureConfigHelper.createOrUpdate(signatureConfig);
-		// CommonProcessUtil.handlerProcessMessage(formResult, "创建成功", true);
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// CommonProcessUtil.handlerProcessMessage(formResult, "创建失败", false);
-		// }
-		// } else if (view.equals("UPDATE")) {
-		// // 获取当前对象
-		// // 之后通过当前对象查询到相关的
-		// ObjectBean objectBean = list.get(0);
-		// Object object = objectBean.getObject();
-		// if (object instanceof ElectronicSignatureConfig) {
-		// ElectronicSignatureConfig signatureConfig = (ElectronicSignatureConfig)
-		// object;
-		// try {
-		// ElectronicSignatureConfigHelper.createOrUpdate(signatureConfig);
-		// CommonProcessUtil.handlerProcessMessage(formResult, "创建成功", true);
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// CommonProcessUtil.handlerProcessMessage(formResult, "创建失败", false);
-		// }
-		// }
-		// }
+		if (view.equals("CREATE")) {
+			ElectronicSignatureConfig signatureConfig = ElectronicSignatureConfig.newElectronicSignatureConfig();
+			try {
+				signatureConfig.setDocType((String) comboBox.get("docType"));
+				signatureConfig.setContentType((String) text.get("contentType"));
+				signatureConfig.setSignXIndex((String) text.get("signXIndex"));
+				signatureConfig.setSignYIndex((String) text.get("signYIndex"));
+				signatureConfig.setStatus(Integer.valueOf((String) text.get("status")));
+				signatureConfig.setWorkItemName((String) text.get("workItemName"));
+				signatureConfig.setExtendedField((String) text.get("extendedField"));
+				signatureConfig.setExtendedField1((String) text.get("extendedField1"));
+				signatureConfig.setExtendedField2((String) text.get("extendedField2"));
+				ElectronicSignatureConfigHelper.createOrUpdate(signatureConfig);
+				CommonProcessUtil.handlerProcessMessage(formResult, "创建成功", true);
+			} catch (Exception e) {
+				e.printStackTrace();
+				CommonProcessUtil.handlerProcessMessage(formResult, "创建失败", false);
+			}
+		} else if (view.equals("UPDATE")) {
+			// 获取当前对象
+			// 之后通过当前对象查询到相关的
+			ObjectBean objectBean = list.get(0);
+			Object object = objectBean.getObject();
+			if (object instanceof ElectronicSignatureConfig) {
+				ElectronicSignatureConfig signatureConfig = (ElectronicSignatureConfig) object;
+				try {
+					ElectronicSignatureConfigHelper.createOrUpdate(signatureConfig);
+					CommonProcessUtil.handlerProcessMessage(formResult, "创建成功", true);
+				} catch (Exception e) {
+					e.printStackTrace();
+					CommonProcessUtil.handlerProcessMessage(formResult, "创建失败", false);
+				}
+			}
+		}
 		return formResult;
 	}
 }
