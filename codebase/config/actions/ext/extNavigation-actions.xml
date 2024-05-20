@@ -19,7 +19,7 @@
         <action name="createSignConfig">
             <command url="/netmarkets/jsp/ext/ziang/common/createOrUpdateSignConfig.jsp?View=CREATE"
                      method="execute"
-                     class="ext.ziang.part.process.OnceCopyBomProcessor"
+                     class="ext.ziang.doc.sign.CreateOrUpdateSignConfigProcess"
                      windowType="popup"/>
         </action>
 
@@ -30,7 +30,7 @@
         <action name="updateSignConfig">
             <command url="/netmarkets/jsp/ext/ziang/common/createOrUpdateSignConfig.jsp?View=EDIT"
                      method="execute"
-                     class="ext.ziang.part.process.OnceCopyBomProcessor"
+                     class="ext.ziang.doc.sign.CreateOrUpdateSignConfigProcess"
                      windowType="popup"/>
         </action>
         <!--修改配置-->

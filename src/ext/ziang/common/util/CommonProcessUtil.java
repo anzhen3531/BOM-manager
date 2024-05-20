@@ -27,7 +27,7 @@ public class CommonProcessUtil {
 	 * @throws WTException
 	 *             WTException
 	 */
-	private void handlerProcessMessage(FormResult result, String msg, boolean isSuccess) throws WTException {
+	public static void handlerProcessMessage(FormResult result, String msg, boolean isSuccess) throws WTException {
 		if (!isSuccess) {
 			result.addFeedbackMessage(
 					new FeedbackMessage(FeedbackType.FAILURE, SessionHelper.getLocale(), msg, null, null, null));
