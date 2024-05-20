@@ -14,10 +14,26 @@
             <command url="/netmarkets/jsp/ext/ziang/common/docSignConfig.jsp" windowType="page"/>
         </action>
 
+
+        <!--创建配置-->
         <action name="createSignConfig">
-            <command url="/netmarkets/jsp/ext/ziang/common/createSignConfig.jsp" windowType="popup"/>
+            <command url="/netmarkets/jsp/ext/ziang/common/createOrUpdateSignConfig.jsp?View=CREATE"
+                     method="execute"
+                     class="ext.ziang.part.process.OnceCopyBomProcessor"
+                     windowType="popup"/>
         </action>
 
+        <action name="createSignConfigStep">
+            <command url="/netmarkets/jsp/ext/ziang/common/createSignConfigStep.jsp" windowType="wizard_step"/>
+        </action>
+
+        <action name="updateSignConfig">
+            <command url="/netmarkets/jsp/ext/ziang/common/createOrUpdateSignConfig.jsp?View=EDIT"
+                     method="execute"
+                     class="ext.ziang.part.process.OnceCopyBomProcessor"
+                     windowType="popup"/>
+        </action>
+        <!--修改配置-->
         <action name="updateSignConfig">
             <command url="/netmarkets/jsp/ext/ziang/common/updateSignConfig.jsp" windowType="popup"/>
         </action>
