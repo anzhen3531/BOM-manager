@@ -5,19 +5,24 @@ import com.ptc.core.components.forms.DefaultObjectFormProcessor;
 import com.ptc.core.components.forms.FormResult;
 import com.ptc.core.lwc.common.view.TypeDefinitionReadView;
 import com.ptc.core.lwc.server.TypeDefinitionServiceHelper;
+import com.ptc.core.meta.common.TypeIdentifier;
+import com.ptc.core.meta.common.impl.DefaultIdentifierFactory;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
 import ext.ziang.common.util.CommonLog;
 import ext.ziang.common.util.CommonProcessUtil;
 import ext.ziang.doc.sign.helper.ElectronicSignatureConfigHelper;
 import ext.ziang.model.ElectronicSignatureConfig;
 import wt.type.TypedUtility;
+import wt.type.TypedUtilityService;
 import wt.util.WTException;
 import wt.util.WTPropertyVetoException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 创建或更新签名配置过程
@@ -49,9 +54,7 @@ public class CreateOrUpdateSignConfigProcess extends DefaultObjectFormProcessor 
 			try {
 				ArrayList docTypeArr = (ArrayList) comboBox.get("docType");
 				String docType = (String) docTypeArr.get(0);
-				// 获取子类型 子类型显示名称
-				TypeDefinitionReadView readView = TypeDefinitionServiceHelper.service.getTypeDefView(docType);
-				String typeDisplay = readView.getDisplayName();
+				String typeDisplay = getDisplayNameByType(docType);
 				CommonLog.log("typeDisplay = " + typeDisplay);
 				// 输出结果：TR自检与评审
 				signatureConfig.setDocType(docType);
@@ -87,5 +90,28 @@ public class CreateOrUpdateSignConfigProcess extends DefaultObjectFormProcessor 
 			}
 		}
 		return formResult;
+	}
+
+	/**
+	 * 按类型获取显示名称
+	 *
+	 * @param type
+	 *            类型
+	 * @return {@link String }
+	 */
+	public static String getDisplayNameByType(String type) {
+		DefaultIdentifierFactory factory = new DefaultIdentifierFactory();
+		if (!type.contains("WTTYPE")) {
+			type = "WTTYPE|" + type;
+		}
+		TypeIdentifier tid = factory.newWCTypeIdentifier(type);
+		TypedUtilityService service = wt.services.ServiceFactory.getService(TypedUtilityService.class);
+		try {
+			String displayName = service.getLocalizedTypeName(tid, Locale.CHINA);
+			return displayName;
+		} catch (RemoteException | WTException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
