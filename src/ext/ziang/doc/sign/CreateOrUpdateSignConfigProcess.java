@@ -11,6 +11,7 @@ import wt.util.WTException;
 import wt.util.WTPropertyVetoException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,7 +45,8 @@ public class CreateOrUpdateSignConfigProcess extends DefaultObjectFormProcessor 
 		if (view.equals("CREATE")) {
 			ElectronicSignatureConfig signatureConfig = ElectronicSignatureConfig.newElectronicSignatureConfig();
 			try {
-				signatureConfig.setDocType((String) comboBox.get("docType"));
+				ArrayList docType = (ArrayList) comboBox.get("docType");
+				signatureConfig.setDocType((String) docType.get(0));
 				signatureConfig.setContentType((String) text.get("contentType"));
 				signatureConfig.setSignXIndex((String) text.get("signXIndex"));
 				signatureConfig.setSignYIndex((String) text.get("signYIndex"));
