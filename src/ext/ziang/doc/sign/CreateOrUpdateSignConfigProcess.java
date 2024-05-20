@@ -3,10 +3,14 @@ package ext.ziang.doc.sign;
 import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.components.forms.DefaultObjectFormProcessor;
 import com.ptc.core.components.forms.FormResult;
+import com.ptc.core.lwc.common.view.TypeDefinitionReadView;
+import com.ptc.core.lwc.server.TypeDefinitionServiceHelper;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
+import ext.ziang.common.util.CommonLog;
 import ext.ziang.common.util.CommonProcessUtil;
 import ext.ziang.doc.sign.helper.ElectronicSignatureConfigHelper;
 import ext.ziang.model.ElectronicSignatureConfig;
+import wt.type.TypedUtility;
 import wt.util.WTException;
 import wt.util.WTPropertyVetoException;
 
@@ -40,13 +44,18 @@ public class CreateOrUpdateSignConfigProcess extends DefaultObjectFormProcessor 
 		FormResult formResult = super.doOperation(nmCommandBean, list);
 		HashMap text = nmCommandBean.getText();
 		HashMap comboBox = nmCommandBean.getComboBox();
-		System.out.println("comboBox = " + comboBox);
-		System.out.println("text = " + text);
 		if (view.equals("CREATE")) {
 			ElectronicSignatureConfig signatureConfig = ElectronicSignatureConfig.newElectronicSignatureConfig();
 			try {
-				ArrayList docType = (ArrayList) comboBox.get("docType");
-				signatureConfig.setDocType((String) docType.get(0));
+				ArrayList docTypeArr = (ArrayList) comboBox.get("docType");
+				String docType = (String) docTypeArr.get(0);
+				// 获取子类型 子类型显示名称
+				TypeDefinitionReadView readView = TypeDefinitionServiceHelper.service.getTypeDefView(docType);
+				String typeDisplay = readView.getDisplayName();
+				CommonLog.log("typeDisplay = " + typeDisplay);
+				// 输出结果：TR自检与评审
+				signatureConfig.setDocType(docType);
+				signatureConfig.setDocTypeName(typeDisplay);
 				signatureConfig.setContentType((String) text.get("contentType"));
 				signatureConfig.setSignXIndex((String) text.get("signXIndex"));
 				signatureConfig.setSignYIndex((String) text.get("signYIndex"));
