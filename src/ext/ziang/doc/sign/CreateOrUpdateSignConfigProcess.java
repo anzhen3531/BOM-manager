@@ -38,6 +38,8 @@ public class CreateOrUpdateSignConfigProcess extends DefaultObjectFormProcessor 
 		String view = request.getParameter("View");
 		FormResult formResult = super.doOperation(nmCommandBean, list);
 		HashMap text = nmCommandBean.getText();
+		HashMap comboBox = nmCommandBean.getComboBox();
+		System.out.println("comboBox = " + comboBox);
 		System.out.println("text = " + text);
 		// if (view.equals("CREATE")) {
 		// ElectronicSignatureConfig signatureConfig =

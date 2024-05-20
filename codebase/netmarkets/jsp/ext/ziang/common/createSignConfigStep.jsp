@@ -7,7 +7,7 @@
 <jca:renderPropertyPanel>
     <picker:typePicker id="docType" label="文档类型" mode="CREATE">
         <picker:pickerParam name="format" value="dropdown"/>
-        <picker:pickerParam name="displayHierarchy" value="true"/>
+        <picker:pickerParam name="displayHierarchy" value="false"/>
         <picker:pickerParam name="showRoot" value="true"/>
         <picker:pickerParam name="seedType" value="wt.doc.WTDocument"/>
     </picker:typePicker>
