@@ -13,7 +13,7 @@ import com.ptc.mvc.components.TableConfig;
 import com.ptc.netmarkets.util.beans.NmHelperBean;
 
 import cn.hutool.core.util.StrUtil;
-import ext.ziang.common.util.CommonLog;
+import ext.ziang.common.util.LoggerHelper;
 import ext.ziang.common.util.ToolUtils;
 import wt.fc.Persistable;
 
@@ -62,12 +62,12 @@ public class SelectTargetBomBuilder extends AbstractComponentBuilder {
 	@Override
 	public Object buildComponentData(ComponentConfig componentConfig, ComponentParams componentParams)
 			throws Exception {
-		CommonLog.log("SelectOriginBomBuilder buildComponentData");
+		LoggerHelper.log("SelectOriginBomBuilder buildComponentData");
 		String oidList = (String) componentParams.getParameter("oidList");
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
-		CommonLog.log("helperBean.getRequest().getParameterMap() = ", helperBean.getRequest().getParameterMap());
-		CommonLog.log("oidList = ", oidList);
+		LoggerHelper.log("helperBean.getRequest().getParameterMap() = ", helperBean.getRequest().getParameterMap());
+		LoggerHelper.log("oidList = ", oidList);
 		ArrayList<Persistable> returnList = new ArrayList<>();
 		if (StrUtil.isBlank(oidList)) {
 			return returnList;

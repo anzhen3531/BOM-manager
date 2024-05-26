@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import cn.hutool.core.util.StrUtil;
-import ext.ziang.common.util.CommonLog;
+import ext.ziang.common.util.LoggerHelper;
 import wt.method.RemoteAccess;
 
 /**
@@ -106,7 +106,7 @@ public class PropertiesHelper implements RemoteAccess {
 		InputStream inputStream = PropertiesHelper.class.getResourceAsStream(configFileName);
 		try (InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
 			properties = new Properties();
-			CommonLog.log("加载配置文件成功:" + LocalDateTime.now());
+			LoggerHelper.log("加载配置文件成功:" + LocalDateTime.now());
 			properties.load(reader);
 		} catch (Exception e) {
 			e.printStackTrace();

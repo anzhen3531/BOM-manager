@@ -24,7 +24,7 @@ import com.sun.jndi.toolkit.chars.BASE64Encoder;
 
 import cn.hutool.core.util.StrUtil;
 import ext.ziang.common.helper.ldap.OpenDjPasswordService;
-import ext.ziang.common.util.CommonLog;
+import ext.ziang.common.util.LoggerHelper;
 import wt.util.WTRuntimeException;
 
 /**
@@ -82,7 +82,7 @@ public class OAuthIndexPageFilter implements Filter {
 		WHITE_LIST_URLS.add("/Windchill/wt/security/");
 		WHITE_LIST_URLS.add(".jar");
 		WHITE_LIST_URLS.add(".jnlp");
-		CommonLog.log("初始化首页拦截器");
+		LoggerHelper.log("初始化首页拦截器");
 	}
 
 	/**
@@ -106,13 +106,13 @@ public class OAuthIndexPageFilter implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
 		HttpSession session = httpServletRequest.getSession();
 		String auth = (String) session.getAttribute("auth");
-		CommonLog.log("auth =" + auth);
+		LoggerHelper.log("auth =" + auth);
 		String remoteUser = httpServletRequest.getRemoteUser();
-		CommonLog.log("username = " + remoteUser);
+		LoggerHelper.log("username = " + remoteUser);
 		String url = String.valueOf(httpServletRequest.getRequestURL());
-		CommonLog.log("url = ", httpServletRequest.getRequestURL());
+		LoggerHelper.log("url = ", httpServletRequest.getRequestURL());
 		String authorization = httpServletRequest.getHeader("Authorization");
-		CommonLog.log("authorization = " + authorization);
+		LoggerHelper.log("authorization = " + authorization);
 
 		// 可视化登录判断
 		if ((url.contains(SECURITYURL) || url.contains(VISLOGON) || url.contains(SIMPLETASKDISPATCHER)
@@ -123,7 +123,7 @@ public class OAuthIndexPageFilter implements Filter {
 		}
 
 		if (validateContains(WHITE_LIST_URLS, url)) {
-			CommonLog.log("url = " + url + " 放行");
+			LoggerHelper.log("url = " + url + " 放行");
 			filterChain.doFilter(request, httpResponse);
 		} else {
 			if (StrUtil.isNotBlank(auth)) {
@@ -135,7 +135,7 @@ public class OAuthIndexPageFilter implements Filter {
 			} else {
 				try {
 					String code = request.getParameter("code");
-					CommonLog.log("code = " + code);
+					LoggerHelper.log("code = " + code);
 					// 获取请求主体数据
 					BufferedReader reader = request.getReader();
 					StringBuilder requestBody = new StringBuilder();
@@ -147,18 +147,18 @@ public class OAuthIndexPageFilter implements Filter {
 					if (StrUtil.isNotBlank(requestBody.toString())) {
 						body = JSON.parseObject(requestBody.toString());
 					}
-					CommonLog.log("body = " + body);
+					LoggerHelper.log("body = " + body);
 					// 验证code
 					if (StrUtil.isNotBlank(code)) {
 						String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, url);
-						CommonLog.log("token = " + token);
+						LoggerHelper.log("token = " + token);
 						session.setAttribute("token", token);
 						if (StrUtil.isBlank(token)) {
 							throw new WTRuntimeException("获取登录Token失败!");
 						}
 						// JDBC 验证用户是否存在
 						JSONObject userInfo = GithubOAuthProvider.getUserInfo(token);
-						CommonLog.log("userInfo = ", userInfo);
+						LoggerHelper.log("userInfo = ", userInfo);
 						String loginUserName = userInfo.getString("login");
 						String input = StrUtil.format("{}:{}", loginUserName, loginUserName);
 						String encoding = new BASE64Encoder().encode(input.getBytes());
@@ -168,15 +168,15 @@ public class OAuthIndexPageFilter implements Filter {
 					} else if (body != null) {
 						// 可以获取body进行验证
 						String username = body.getString("username");
-						CommonLog.log("username = " + username);
+						LoggerHelper.log("username = " + username);
 						String password = body.getString("password");
-						CommonLog.log("password = " + password);
+						LoggerHelper.log("password = " + password);
 						if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
 							OpenDjPasswordService service = new OpenDjPasswordService();
 							if (service.authentication(username, password)) {
 								String input = StrUtil.format("{}:{}", username, password);
 								String encoding = new BASE64Encoder().encode(input.getBytes());
-								CommonLog.log("encoding = ", encoding);
+								LoggerHelper.log("encoding = ", encoding);
 								RequestWrap requestWrap = newWrapRequest(httpServletRequest, encoding, session);
 								httpResponse.sendRedirect(requestWrap.getRequestURL().toString());
 								return;
@@ -223,7 +223,7 @@ public class OAuthIndexPageFilter implements Filter {
 	 * @return {@link String[]}
 	 */
 	private String[] convertAuthHeader(String auth) {
-		CommonLog.log("auth = " + auth);
+		LoggerHelper.log("auth = " + auth);
 		if (auth.contains("Basic ")) {
 			auth = auth.replace("Basic ", "");
 		}
@@ -272,7 +272,7 @@ public class OAuthIndexPageFilter implements Filter {
 
 	@Override
 	public void destroy() {
-		CommonLog.log("销毁首页拦截器");
+		LoggerHelper.log("销毁首页拦截器");
 	}
 
 }

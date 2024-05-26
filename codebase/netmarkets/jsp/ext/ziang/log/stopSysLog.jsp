@@ -1,6 +1,6 @@
-<%@ page import="ext.ziang.common.util.CommonLog" %>
+<%@ page import="ext.ziang.common.util.LoggerHelper" %>
 <%
-    CommonLog.closeDebug();
+    LoggerHelper.closeDebug();
 %>
 
 <script>

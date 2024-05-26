@@ -3,7 +3,7 @@ package ext.ziang.docTag;
 import java.util.HashMap;
 
 import ext.ziang.common.helper.cache.CommonSingleCache;
-import ext.ziang.common.util.CommonLog;
+import ext.ziang.common.util.LoggerHelper;
 import wt.method.RemoteAccess;
 
 /**
@@ -26,10 +26,10 @@ public class LearnJcaTagUtil implements RemoteAccess {
 		jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
 		jcaTagMap.put("cache", "ext.ziang.common.helper.cache.CommonSingleCache");
 		jcaTagMap.put("test", "test");
-		CommonLog.log("jcaTagMap", jcaTagMap);
+		LoggerHelper.log("jcaTagMap", jcaTagMap);
 		jcaTagMap.forEach((key, value) -> {
-			CommonLog.log("key", key);
-			CommonLog.log("value", value);
+			LoggerHelper.log("key", key);
+			LoggerHelper.log("value", value);
 			CommonSingleCache.put(key, value);
 		});
 	}

@@ -126,6 +126,15 @@ public class SyncCorrectBomBuilder extends AbstractConfigurableTableBuilder {
 		result.addComponent(modifyStamp);
 	}
 
+	/**
+	 * 构建可配置表
+	 *
+	 * @param s
+	 *            视图名称
+	 * @return {@link ConfigurableTable }
+	 * @throws WTException
+	 *             WT异常
+	 */
 	@Override
 	public ConfigurableTable buildConfigurableTable(String s) throws WTException {
 		return null;

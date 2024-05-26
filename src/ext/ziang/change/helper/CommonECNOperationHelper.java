@@ -14,7 +14,7 @@ import com.ptc.windchill.enterprise.copy.server.CoreMetaUtility;
 
 import cn.hutool.core.util.StrUtil;
 import ext.ziang.common.helper.user.CommonWTPrincipalHelper;
-import ext.ziang.common.util.CommonLog;
+import ext.ziang.common.util.LoggerHelper;
 import ext.ziang.common.util.ToolUtils;
 import wt.change2.AffectedActivityData;
 import wt.change2.ChangeHelper2;
@@ -133,7 +133,7 @@ public class CommonECNOperationHelper {
 		querySpec.appendAnd();
 		querySpec.appendWhere(new SearchCondition(new ClassAttribute(WTChangeOrder2.class, WTChangeOrder2.TEMPLATED),
 				SearchCondition.EQUAL, new ConstantExpression(1)), new int[] { 0 });
-		CommonLog.log("查询ECN querySpec = ", querySpec);
+		LoggerHelper.log("查询ECN querySpec = ", querySpec);
 		QueryResult qr = PersistenceHelper.manager.find(querySpec);
 		if (qr.hasMoreElements()) {
 			return (WTChangeOrder2) qr.nextElement();

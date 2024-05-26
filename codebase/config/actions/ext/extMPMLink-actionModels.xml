@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE listofactions SYSTEM 'actions.dtd'>
+<actionmodels>
+    <!--     -->
+    <model name="infoToolbarActionListMpmprocessplan" menufor="com.ptc.windchill.mpml.processplan.MPMProcessPlan">
+        <action name="view" type="object"/>
+        <!--  View Information  -->
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <submodel name="processplan.actions.open"/>
+        <!--  Open In ==>  -->
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <action name="checkin" type="wip"/>
+        <!--  Check In  -->
+        <action name="checkout" type="wip"/>
+        <!--  Check Out  -->
+        <action name="undocheckout" type="wip"/>
+        <!--  Undo Checkout  -->
+        <action name="REVISEITEMS" type="pdmObject"/>
+        <!--  New Revision  -->
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <submodel name="Fly-out for New actions"/>
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <action name="copy" type="object"/>
+        <!--  =====================================  -->
+        <action name="createWorkflow" type="extResGroup"/>
+        <!--  Copy  -->
+        <action name="renameObjectWizard" type="object"/>
+        <!--  Rename  -->
+        <action name="CONTAINERMOVE" type="pdmObject"/>
+        <!--  Move  -->
+        <action name="SETSTATE" type="pdmObject"/>
+        <!--  Set State  -->
+        <action name="MULTI_OBJ_DELETE" type="pdmObject"/>
+        <!--  Delete (Non-Information page)  -->
+        <action name="MULTI_OBJ_DELETE_DETAILS" type="pdmObject"/>
+        <!--  Delete (Information page)  -->
+        <action name="reassignLC" type="lifecycle"/>
+        <!--  Reassign Life Cycle  -->
+        <action name="resetTeam" type="team"/>
+        <!--  Reset Team  -->
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <submodel name="Fly-out for Add to actions"/>
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <action name="DISPLAYRELATEDMANUFACTURINGITEMS" type="object"/>
+        <!--  MPMLink Display Related Manufacturing items report  -->
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <action name="associateDistributionTarget" type="tgt"/>
+        <!--  ESI Associate distribution Targets  -->
+        <action name="sendToDistributionTarget" type="tgt"/>
+        <!--  ESI Send to Distribution Target  -->
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <action name="launchWI_PP" type="explorer"/>
+        <!--  Work Instruction  -->
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <action name="userInitiatedReplication" type="replication"/>
+        <!--  Use Initiated Replication  -->
+        <action name="launchFromInfoPage" type="massUpdate"/>
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <action name="ManageSecurity" type="accessPermission"/>
+        <!--  Edit Access Control  -->
+        <action name="EDITSECURITYLABELS" type="object"/>
+        <!--  Edit Security Labels  -->
+        <action name="createSubscription" type="subscription"/>
+        <!--  Subscribe  -->
+        <action name="separator" type="separator"/>
+        <action name="track_new_work" type="resourceAssignment"/>
+        <!--  Track new Work against subject of deliverable -->
+        <action name="new_plan_activity" type="planActivity"/>
+        <!--  New Plan Activity against subject  -->
+    </model>
+</actionmodels>

@@ -2,9 +2,7 @@ package ext.ziang.common.helper.cache;
 
 import java.util.HashMap;
 
-import ext.ziang.common.util.CommonLog;
 import wt.util.Cache;
-import wt.util.WTProperties;
 
 /**
  * 通用单缓存

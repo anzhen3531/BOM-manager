@@ -17,7 +17,8 @@ import com.ptc.windchill.option.service.OptionHelper;
 import com.ptc.wpcfg.doc.DocHelper;
 import com.ptc.wpcfg.doc.VariantSpecMaster;
 import ext.ziang.common.helper.CommonQuerySpec;
-import ext.ziang.common.util.CommonLog;
+import ext.ziang.common.util.LoggerHelper;
+import net.fortuna.ical4j.model.property.Clazz;
 import wt.access.agreement.AgreementHelper;
 import wt.access.agreement.AuthorizationAgreementMaster;
 import wt.change2.ChangeHelper2;
@@ -41,8 +42,7 @@ import wt.services.ServiceFactory;
 import wt.services.applicationcontext.implementation.DefaultServiceProvider;
 import wt.util.InstalledProperties;
 import wt.util.WTException;
-import wt.vc.Iterated;
-import wt.vc.Mastered;
+import wt.vc.*;
 import wt.vc.baseline.ManagedBaseline;
 import wt.vc.baseline.ManagedBaselineIdentity;
 import wt.vc.config.LatestConfigSpec;
@@ -102,13 +102,13 @@ public class CommonQueryHelper implements RemoteAccess {
 					// 更改文档名称
 					boolean flag = true;
 					WTDocument document = (WTDocument) persistable;
-					CommonLog.log("WTDocument object:" + document);
+					LoggerHelper.log("WTDocument object:" + document);
 					String var17 = number != null && !number.isEmpty() ? number : document.getNumber();
 					if (document.isTemplated() && !document.getName().equals(name)) {
 						flag = WTDocumentHelper.service.validDocTemplateIdentity(name, var17,
 								document.getContainerName());
 					}
-					CommonLog.log("perform Rename:" + flag);
+					LoggerHelper.log("perform Rename:" + flag);
 					if (flag) {
 						WTDocumentHelper.service.changeWTDocumentMasterIdentity((WTDocumentMaster) master, name, var17,
 								organization);
@@ -123,7 +123,7 @@ public class CommonQueryHelper implements RemoteAccess {
 					if (!baselineIdentity.getName().equals(baseline.getName())
 							|| !baselineIdentity.getNumber().equals(baseline.getNumber())) {
 						IdentityHelper.service.changeIdentity(master, baselineIdentity);
-						CommonLog.log("Set baseline identity");
+						LoggerHelper.log("Set baseline identity");
 					}
 				} else if (master instanceof ManagedCollection) {
 					// 更改管理集合
@@ -136,7 +136,7 @@ public class CommonQueryHelper implements RemoteAccess {
 					if (!collectionIdentity.getName().equals(managedCollection.getName())
 							|| !collectionIdentity.getNumber().equals(managedCollection.getNumber())) {
 						IdentityHelper.service.changeIdentity(master, collectionIdentity);
-						CommonLog.log("Set managed collection identity");
+						LoggerHelper.log("Set managed collection identity");
 					}
 				} else if (master instanceof OptionSetMaster) {
 					// 更改选项集名称
@@ -172,7 +172,7 @@ public class CommonQueryHelper implements RemoteAccess {
 				}
 			}
 		} catch (Exception e) {
-			CommonLog.log("CustomCommonUtil.updateNameAndNumberByObject  error ====> " + e.getMessage());
+			LoggerHelper.log("CustomCommonUtil.updateNameAndNumberByObject  error ====> " + e.getMessage());
 		}
 	}
 
@@ -233,7 +233,7 @@ public class CommonQueryHelper implements RemoteAccess {
 	 * @return WTPartMaster
 	 */
 	public static String findLastSerialByColumnNotLength(String partNumberPrefix, String column, Class clazz) {
-		CommonLog.log("CustomCommonUtil.findLastSerialNumberByPrefix Start");
+		LoggerHelper.log("CustomCommonUtil.findLastSerialNumberByPrefix Start");
 		String number = null;
 		try {
 			QuerySpec qs = new QuerySpec();
@@ -245,7 +245,7 @@ public class CommonQueryHelper implements RemoteAccess {
 			qs.appendAnd();
 			CommonQuerySpec.addSearchNumberLimit(qs, 1, 0);
 			CommonQuerySpec.addOrderByClass(qs, clazz, column, true, tableIndex);
-			CommonLog.log("findLastSerialNumberByPrefix qs = ", qs);
+			LoggerHelper.log("findLastSerialNumberByPrefix qs = ", qs);
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
 				return (String) ((Object[]) qr.nextElement())[0];
@@ -253,7 +253,7 @@ public class CommonQueryHelper implements RemoteAccess {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		CommonLog.log("CustomCommonUtil.findLastSerialNumberByPrefix End");
+		LoggerHelper.log("CustomCommonUtil.findLastSerialNumberByPrefix End");
 		return number;
 	}
 
@@ -278,7 +278,7 @@ public class CommonQueryHelper implements RemoteAccess {
 					new Class[] { String.class, Class.class, String.class },
 					new Object[] { originNumber, clazz, column });
 		} else {
-			CommonLog.log("CustomCommonUtil.findLastSerialNumberByPrefix Start :" + LocalDateTime.now());
+			LoggerHelper.log("CustomCommonUtil.findLastSerialNumberByPrefix Start :" + LocalDateTime.now());
 			try {
 				QuerySpec querySpec = new QuerySpec(clazz);
 				CommonQuerySpec.addSearchConditionByClass(querySpec, 0, clazz, column, SearchCondition.EQUAL,
@@ -290,7 +290,7 @@ public class CommonQueryHelper implements RemoteAccess {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			CommonLog.log("CustomCommonUtil.findLastSerialNumberByPrefix End :" + LocalDateTime.now());
+			LoggerHelper.log("CustomCommonUtil.findLastSerialNumberByPrefix End :" + LocalDateTime.now());
 			return null;
 		}
 	}
@@ -339,7 +339,7 @@ public class CommonQueryHelper implements RemoteAccess {
 		List<T> partList = new ArrayList<>();
 		CommonQuerySpec.addSearchConditionByClass(querySpec, 0, t.getClass(), cloumn, SearchCondition.LIKE,
 				prefix + SearchCondition.PATTERN_MATCH_MULITPLE);
-		CommonLog.log("findObjectByPrefix querySpec = ", querySpec);
+		LoggerHelper.log("findObjectByPrefix querySpec = ", querySpec);
 		QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
 		LatestConfigSpec latestConfigSpec = new LatestConfigSpec();
 		QueryResult result = latestConfigSpec.process(queryResult);
@@ -449,4 +449,23 @@ public class CommonQueryHelper implements RemoteAccess {
 	// }
 	// }
 
+	/**
+	 * 查找链接
+	 *
+	 * @param clazz
+	 *            类
+	 * @param persistable
+	 *            持久性
+	 * @param relateStr
+	 *            关联 str
+	 * @param isReturnObj
+	 *            是返回obj
+	 * @return {@code QueryResult }
+	 * @throws WTException
+	 *             WT异常
+	 */
+	public static QueryResult findLink(Class clazz, Persistable persistable, String relateStr,
+			Boolean isReturnObj) throws WTException {
+		return PersistenceHelper.manager.navigate(persistable, relateStr, clazz, isReturnObj);
+	}
 }

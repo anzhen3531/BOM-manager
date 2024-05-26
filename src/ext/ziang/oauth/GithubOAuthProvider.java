@@ -23,7 +23,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 import cn.hutool.core.util.StrUtil;
-import ext.ziang.common.util.CommonLog;
+import ext.ziang.common.util.LoggerHelper;
 import wt.util.WTException;
 
 /**
@@ -49,7 +49,7 @@ public class GithubOAuthProvider {
 		params.add(new BasicNameValuePair("code", code));
 		params.add(new BasicNameValuePair("client_secret", OAuthConfigConstant.CLIENT_SECRET));
 		String response = buildCommonRequestTOPost(OAuthConfigConstant.ACCESS_TOKEN_URL, null, false, params);
-		CommonLog.log("response = " + response);
+		LoggerHelper.log("response = " + response);
 		if (StrUtil.isBlank(response)) {
 			throw new WTException("登录失败");
 		}
@@ -83,7 +83,7 @@ public class GithubOAuthProvider {
 	 */
 	public static synchronized String buildCommonRequestTOPost(String path, String token, boolean isSendUserInfo,
 			List<BasicNameValuePair> params) {
-		CommonLog.log("GithubOAuthProvider.buildCommonRequest INTO " + LocalDateTime.now());
+		LoggerHelper.log("GithubOAuthProvider.buildCommonRequest INTO " + LocalDateTime.now());
 		String responseString = null;
 		CloseableHttpClient httpclient = null;
 		CloseableHttpResponse response = null;
@@ -103,12 +103,12 @@ public class GithubOAuthProvider {
 				httpPost.setEntity(new UrlEncodedFormEntity(params));
 			}
 			response = httpclient.execute(httpPost);
-			CommonLog.log("response = " + response);
+			LoggerHelper.log("response = " + response);
 			int statusCode = response.getStatusLine().getStatusCode();
 			HttpEntity entity = response.getEntity();
 			responseString = EntityUtils.toString(entity, StandardCharsets.UTF_8);
 			if (statusCode != 200) {
-				CommonLog.log("接口调用失败！");
+				LoggerHelper.log("接口调用失败！");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,7 +124,7 @@ public class GithubOAuthProvider {
 				e.printStackTrace();
 			}
 		}
-		CommonLog.log("GithubOAuthProvider.buildCommonRequest END " + LocalDateTime.now());
+		LoggerHelper.log("GithubOAuthProvider.buildCommonRequest END " + LocalDateTime.now());
 		return responseString;
 	}
 
@@ -138,7 +138,7 @@ public class GithubOAuthProvider {
 	 * @return {@link String}
 	 */
 	public static synchronized String buildCommonRequestTOGet(String path, String token) {
-		CommonLog.log("GithubOAuthProvider.buildCommonRequestTOGet INTO " + LocalDateTime.now());
+		LoggerHelper.log("GithubOAuthProvider.buildCommonRequestTOGet INTO " + LocalDateTime.now());
 		String responseString = null;
 		CloseableHttpClient httpclient = null;
 		CloseableHttpResponse response = null;
@@ -152,13 +152,13 @@ public class GithubOAuthProvider {
 			http.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
 			http.setHeader(HttpHeaders.AUTHORIZATION, token);
 			response = httpclient.execute(http);
-			CommonLog.log("response = " + response);
+			LoggerHelper.log("response = " + response);
 			int statusCode = response.getStatusLine().getStatusCode();
 			HttpEntity entity = response.getEntity();
 			responseString = EntityUtils.toString(entity, StandardCharsets.UTF_8);
-			CommonLog.log("responseString = " + responseString);
+			LoggerHelper.log("responseString = " + responseString);
 			if (statusCode != 200) {
-				CommonLog.log("接口调用失败！");
+				LoggerHelper.log("接口调用失败！");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -174,7 +174,7 @@ public class GithubOAuthProvider {
 				e.printStackTrace();
 			}
 		}
-		CommonLog.log("GithubOAuthProvider.buildCommonRequestTOGet END " + LocalDateTime.now());
+		LoggerHelper.log("GithubOAuthProvider.buildCommonRequestTOGet END " + LocalDateTime.now());
 		return responseString;
 	}
 }

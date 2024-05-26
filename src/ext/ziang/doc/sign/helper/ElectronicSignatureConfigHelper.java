@@ -3,7 +3,7 @@ package ext.ziang.doc.sign.helper;
 import java.util.ArrayList;
 import java.util.List;
 
-import ext.ziang.common.util.CommonLog;
+import ext.ziang.common.util.LoggerHelper;
 import ext.ziang.model.ElectronicSignatureConfig;
 import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
@@ -33,7 +33,7 @@ public class ElectronicSignatureConfigHelper {
 			throws WTException {
 		List<ElectronicSignatureConfig> electronicSignatureConfigs = new ArrayList<>();
 		QuerySpec querySpec = new QuerySpec(ElectronicSignatureConfig.class);
-		CommonLog.log("findAllElectronicSignatureConfig querySpec = ", querySpec);
+		LoggerHelper.log("findAllElectronicSignatureConfig querySpec = ", querySpec);
 		QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
 		while (queryResult.hasMoreElements()) {
 			electronicSignatureConfigs.add((ElectronicSignatureConfig) queryResult.nextElement());
@@ -55,7 +55,7 @@ public class ElectronicSignatureConfigHelper {
 				ElectronicSignatureConfig.DOC_TYPE,
 				SearchCondition.EQUAL, docType);
 		querySpec.appendWhere(searchCondition, new int[] { 0 });
-		CommonLog.log("querySpec = ", querySpec);
+		LoggerHelper.log("querySpec = ", querySpec);
 		QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
 		if (queryResult.hasMoreElements()) {
 			return (ElectronicSignatureConfig) queryResult.nextElement();

@@ -11,7 +11,7 @@ import com.ptc.core.components.suggest.SuggestResult;
 import com.ptc.core.components.suggest.Suggestable;
 
 import ext.ziang.common.helper.query.CommonQueryHelper;
-import ext.ziang.common.util.CommonLog;
+import ext.ziang.common.util.LoggerHelper;
 import wt.part.WTPart;
 
 /**
@@ -37,18 +37,18 @@ public class StandardPartPickerSuggestable implements Suggestable {
 	 */
 	@Override
 	public Collection<SuggestResult> getSuggestions(SuggestParms suggestParms) {
-		CommonLog.log("StandardPartPicker =>  Suggestable");
+		LoggerHelper.log("StandardPartPicker =>  Suggestable");
 		ArrayList<SuggestResult> results = Lists.newArrayList();
 		// 获取搜索参数
 		String keyword = suggestParms.getSearchTerm();
 		// 当前key 为输入值
 		String typeName = suggestParms.getParm("typeName");
-		CommonLog.log("mapKey = " + typeName);
-		CommonLog.log("keyword = " + keyword);
+		LoggerHelper.log("mapKey = " + typeName);
+		LoggerHelper.log("keyword = " + keyword);
 		if (StrUtil.isNotBlank(keyword) && typeName.contains("WTPart")) {
 			try {
 				List<WTPart> parts = CommonQueryHelper.findPartByPrefix(keyword);
-				CommonLog.log("parts = " + parts);
+				LoggerHelper.log("parts = " + parts);
 				// Suggest 第一个函数为内部的Value 第二个值填写的为括号的值
 				parts.forEach(part -> results
 						.add(SuggestResult.valueOf(part.getNumber(), part.getName() + "," + part.getViewName())));

@@ -17,7 +17,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import ext.ziang.change.entity.CorrectBomEntity;
 import ext.ziang.common.helper.part.CommonPartHelper;
-import ext.ziang.common.util.CommonLog;
+import ext.ziang.common.util.LoggerHelper;
 import wt.change2.AffectedActivityData;
 import wt.change2.ChangeHelper2;
 import wt.change2.WTChangeActivity2;
@@ -67,16 +67,16 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 	 */
 	@Override
 	public Map<Object, List> getNodes(List list) {
-		CommonLog.log("GetNodes LocalDateTime.now() = ", LocalDateTime.now());
-		CommonLog.log("CorrectBomBuilderHandler.getNodes");
-		CommonLog.log("list = ", list);
+		LoggerHelper.log("GetNodes LocalDateTime.now() = ", LocalDateTime.now());
+		LoggerHelper.log("CorrectBomBuilderHandler.getNodes");
+		LoggerHelper.log("list = ", list);
 		HashMap hashMap = null;
 		boolean bool = SessionServerHelper.manager.isAccessEnforced();
 		try {
 			hashMap = new HashMap();
 			for (Object object : list) {
-				CommonLog.log("object = ", object);
-				CommonLog.log("object = ", object instanceof String);
+				LoggerHelper.log("object = ", object);
+				LoggerHelper.log("object = ", object instanceof String);
 				if (object instanceof CorrectBomEntity) {
 					List<CorrectBomEntity> correctBomEntities = new ArrayList<>();
 					CorrectBomEntity entity = (CorrectBomEntity) object;
@@ -125,7 +125,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 				return;
 			}
 			WTCollection links = WTPartHelper.service.getSubstituteLinks(link);
-			CommonLog.log(String.format("当前物料{%s}替代件数量{%d}", part.getNumber(), links.size()));
+			LoggerHelper.log(String.format("当前物料{%s}替代件数量{%d}", part.getNumber(), links.size()));
 			if (!links.isEmpty()) {
 				// 遍历所有的替代件
 				for (Object substitute : links) {
@@ -135,7 +135,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 					WTPartMaster substituteMaster = (WTPartMaster) substituteLink.getRoleBObject();
 					WTPart substitutePart = CommonPartHelper.findLatestWTPartByMasterAndView(
 							substituteMaster, part.getViewName());
-					CommonLog.log("substitutePart = ", substitutePart);
+					LoggerHelper.log("substitutePart = ", substitutePart);
 					correctBomEntities.add(convertBomEntity(substitutePart, substituteLink, part));
 				}
 			}
@@ -166,7 +166,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 				WTChangeActivity2 wtChangeActivity2 = (WTChangeActivity2) primaryObj;
 				// 获取受影响对象
 				QueryResult changeablesBefore = ChangeHelper2.service.getChangeablesAfter(wtChangeActivity2);
-				CommonLog.log("changeablesBefore.size() = " + changeablesBefore.size());
+				LoggerHelper.log("changeablesBefore.size() = " + changeablesBefore.size());
 				while (changeablesBefore.hasMoreElements()) {
 					Object object = changeablesBefore.nextElement();
 					System.out.println("object = " + object);
@@ -177,7 +177,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 							WTPart part = (WTPart) roleBObject;
 							LocalizableMessage iterationDisplayIdentifier = VersionControlHelper
 									.getIterationDisplayIdentifier(part);
-							CommonLog.log("iterationDisplayIdentifier = " + iterationDisplayIdentifier);
+							LoggerHelper.log("iterationDisplayIdentifier = " + iterationDisplayIdentifier);
 							partList.add(part);
 							beanList.add(convertBomEntity(part, false));
 						}
@@ -185,12 +185,12 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 						WTPart part = (WTPart) object;
 						LocalizableMessage iterationDisplayIdentifier = VersionControlHelper
 								.getIterationDisplayIdentifier(part);
-						CommonLog.log("iterationDisplayIdentifier = " + iterationDisplayIdentifier);
+						LoggerHelper.log("iterationDisplayIdentifier = " + iterationDisplayIdentifier);
 						partList.add(part);
 						beanList.add(convertBomEntity(part, false));
 					}
 				}
-				CommonLog.log("partList = " + beanList.size());
+				LoggerHelper.log("partList = " + beanList.size());
 				return beanList;
 			} else {
 				return new ArrayList<>();
@@ -317,7 +317,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 			Object parentObj) throws WTException {
 		HashMap<Object, Object> hashMap = new HashMap<>();
 		String[] split = oid.split("\\|");
-		CommonLog.log("oid = " + oid);
+		LoggerHelper.log("oid = " + oid);
 		String partObjId = split[0];
 		String parentObjId = null;
 		if (split.length == 2) {
@@ -328,19 +328,19 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 		WTPart parentPart = null;
 		if (StrUtil.isNotBlank(parentObjId)) {
 			parentPart = CommonPartHelper.getWTPartByObjectId(parentObjId);
-			CommonLog.log("parentPart.getName() = " + parentPart.getName());
-			CommonLog.log("parentPart.getNumber() = " + parentPart.getNumber());
+			LoggerHelper.log("parentPart.getName() = " + parentPart.getName());
+			LoggerHelper.log("parentPart.getNumber() = " + parentPart.getNumber());
 		}
 		QueryResult qr = WTPartHelper.service.getUsesWTPartMasters(part);
 		// 查询到剩余部件
 		WTPartUsageLink link;
 		WTPart latestPart;
-		CommonLog.log("findChildNodeByRoot current Start =============> ");
-		CommonLog.log("part.getName() = " + part.getName());
-		CommonLog.log("part.getNumber() = " + part.getNumber());
-		CommonLog.log("part.viewName() = " + part.getViewName());
-		CommonLog.log("findChildNodeByRoot current End  =============> ");
-		CommonLog.log("qr  = " + qr.size());
+		LoggerHelper.log("findChildNodeByRoot current Start =============> ");
+		LoggerHelper.log("part.getName() = " + part.getName());
+		LoggerHelper.log("part.getNumber() = " + part.getNumber());
+		LoggerHelper.log("part.viewName() = " + part.getViewName());
+		LoggerHelper.log("findChildNodeByRoot current End  =============> ");
+		LoggerHelper.log("qr  = " + qr.size());
 		handlerSubstitutePart(part, parentPart, correctBomEntities);
 		while (qr.hasMoreElements()) {
 			link = (WTPartUsageLink) qr.nextElement();
@@ -355,11 +355,11 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 				if (latestPart == null) {
 					continue;
 				}
-				CommonLog.log("findChildNodeByRoot current Start =============> ");
-				CommonLog.log("child part.getName() = " + latestPart.getName());
-				CommonLog.log("child part.getNumber() = " + latestPart.getNumber());
-				CommonLog.log("child part.viewName() = " + latestPart.getViewName());
-				CommonLog.log("findChildNodeByRoot current End  =============> ");
+				LoggerHelper.log("findChildNodeByRoot current Start =============> ");
+				LoggerHelper.log("child part.getName() = " + latestPart.getName());
+				LoggerHelper.log("child part.getNumber() = " + latestPart.getNumber());
+				LoggerHelper.log("child part.viewName() = " + latestPart.getViewName());
+				LoggerHelper.log("findChildNodeByRoot current End  =============> ");
 				correctBomEntities.add(convertBomEntity(latestPart, link, part));
 			}
 		}

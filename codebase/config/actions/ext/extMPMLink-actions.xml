@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE listofactions SYSTEM 'actions.dtd'>
+<listofactions>
+    <objecttype name="extResGroup" resourceBundle="ext.huayu.resource.ExtResGroupResource">
+        <!--创建装配物料清单-->
+        <action name="createWorkflow">
+            <command url="/netmarkets/jsp/ext/ziang/mpm/report/export.jsp?type=WorkflowPic" windowType="popup"/>
+            <supportedTypes>
+                <type value="com.ptc.windchill.mpml.processplan.MPMProcessPlan"></type>
+            </supportedTypes>
+        </action>
+    </objecttype>
+</listofactions>
