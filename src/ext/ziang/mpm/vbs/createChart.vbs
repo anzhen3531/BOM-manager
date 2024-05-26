@@ -108,7 +108,7 @@ For Each element In listArray
         map.Add element, Array(startXIndex, startYIndex)
         objShape1.TextFrame.Characters.Text = element
     End If
-    If startYIndex > endYIndex Then
+    If (startYIndex + 40) > endYIndex Then
         startYIndex = defaultStartYIndex
         startXIndex = startXIndex + defaultGap
         index = 1
