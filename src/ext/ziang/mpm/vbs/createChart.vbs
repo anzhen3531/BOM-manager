@@ -1,4 +1,5 @@
 ' 定义函数
+
 Function URLDecode(encodedStr)
     Dim decodedStr, i, c
     decodedStr = ""
@@ -17,7 +18,7 @@ Function URLDecode(encodedStr)
 End Function
 
 ' 生命变量
-Dim objExcel, objWorkbook, objSheet, objShape, newExcelFile
+Dim objExcel, objWorkbook, objSheet, objShape
 
 Set args = WScript.Arguments
 ' 获取Java传递的参数总量
@@ -40,11 +41,6 @@ For Each keyValue In Split(mapString, ",")
     mapDict(URLDecode(arr(0))) = URLDecode(arr(1))
 Next
 
-WScript.Echo "Excel file: " & excelFile
-WScript.Echo "List items: " & Join(listArray, ", ")
-For Each key In mapDict.Keys
-    WScript.Echo key & ": " & mapDict(key)
-Next
 ' 选择打开哪个应用
 Set objExcel = CreateObject("Excel.Application")
 ' 设置是否展示打开
@@ -52,36 +48,6 @@ objExcel.Visible = True
 Set objWorkbook = objExcel.Workbooks.Open(excelFile)
 Set objSheet = objWorkbook.Sheets(1)
 
-' 获取名称管理器中的某个单元格（假设名称为"MyNamedRange"）
-Set namedRange = objWorkbook.Names("绘图起始点").RefersToRange
-Set cell = namedRange.Cells(1, 1) ' 假设只需要第一个单元格
-
-
-Set namedRangeX = objWorkbook.Names("流程图结束点X").RefersToRange
-Set cellX = namedRangeX.Cells(1, 1) ' 假设只需要第一个单元格
-Set namedRangeY = objWorkbook.Names("流程图结束点Y").RefersToRange
-Set cellY = namedRangeY.Cells(1, 1) ' 假设只需要第一个单元格
-
-' 获取单元格的行和列
-row = cell.Row
-rowX = cellX.Row
-rowY = cellY.Row
-WScript.Echo row
-WScript.Echo rowX
-WScript.Echo rowY
-column = cell.Column
-columnX = cellY.Column
-columnY = cellY.Column
-WScript.Echo column
-WScript.Echo columnY
-WScript.Echo columnX
-
-' 创建一个Scripting.Dictionary对象（类似于Map）
-Set coordinates = CreateObject("Scripting.Dictionary")
-coordinates.Add "Row", row
-coordinates.Add "Column", column
-' 在工作表中绘制矩形
-WScript.Echo "Drawing lines on Excel sheet..."
 ' 定义初始位置
 startXIndex = 350
 startYIndex = 140
@@ -90,6 +56,32 @@ index = 1
 indexY = 1
 defaultStartXIndex = 350
 defaultStartYIndex = 140
+endYIndex = 0
+endXIndex = 0
+' 获取名称管理器的引用
+For Each node In objWorkbook.Names
+    If InStr(1, node.Name , "picStartIndex", 1) > 0 Then
+        defaultStartXIndex = node.RefersToRange.Left
+        startXIndex = node.RefersToRange.Left
+        startYIndex = node.RefersToRange.Top
+        defaultStartYIndex = node.RefersToRange.Top
+    ElseIf InStr(1, node.Name , "picEndX", 1) > 0 Then
+        endXIndex = node.RefersToRange.Left - 20
+    ElseIf InStr(1, node.Name , "picEndY", 1) > 0 Then
+        endYIndex = node.RefersToRange.Top - 20
+    End if
+    cellTop = node.RefersToRange.Top
+    cellLeft = node.RefersToRange.Left
+    WScript.Echo "Cell A1 is at pixel position: Top = " & cellTop & ", Left = " & cellLeft & "name=" & node.name
+Next
+
+
+' 创建一个Scripting.Dictionary对象（类似于Map）
+Set coordinates = CreateObject("Scripting.Dictionary")
+coordinates.Add "Row", row
+coordinates.Add "Column", column
+' 在工作表中绘制矩形
+WScript.Echo "Drawing lines on Excel sheet..."
 ' 定义一个Map 用于存储每个矩形的位置信息
 ' 应该还需要加个判断 用于确定这个是否是菱形
 ' 菱形的横纵坐标和位置起始点其实是不同
@@ -116,7 +108,7 @@ For Each element In listArray
         map.Add element, Array(startXIndex, startYIndex)
         objShape1.TextFrame.Characters.Text = element
     End If
-    If index = 6 Then
+    If startYIndex > endYIndex Then
         startYIndex = defaultStartYIndex
         startXIndex = startXIndex + defaultGap
         index = 1

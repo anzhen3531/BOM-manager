@@ -30,11 +30,11 @@ public class WorkflowPictureDoc {
 			// VBS脚本路径
 			String scriptPath = "D:\\project\\BOM-manager\\src\\ext\\ziang\\mpm\\vbs\\createChart.vbs";
 			// 要传递的Excel文件路径
-			String excelFilePath = "C:\\Users\\ander\\Desktop\\WorkflowPicTepm.xlsx";
+			String excelFilePath = "D:\\project\\BOM-manager\\codebase\\netmarkets\\jsp\\ext\\ziang\\mpm\\template\\WorkflowPicTepm.xlsx";
 			Map<String, String> map = new HashMap<>();
 			List<String> arrayList = new ArrayList<>();
 			arrayList.add("Material");
-			for (int i = 0; i < 14; i++) {
+			for (int i = 0; i < 30; i++) {
 				String s = "OP" + i;
 				if (i == 10) {
 					s = s + "R";
@@ -112,7 +112,6 @@ public class WorkflowPictureDoc {
 				}
 				latestOp = label;
 			}
-
 			// 转换List和Map为字符串并进行URL编码
 			String listString = opLabelList.stream()
 					.map(WorkflowPictureDoc::encode)
