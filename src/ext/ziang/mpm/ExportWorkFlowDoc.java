@@ -177,8 +177,9 @@ public class ExportWorkFlowDoc {
 		if (size > tempSize) {
 			for (int i = 1; i <= size - tempSize; i++) {
 				if (sheet != null) {
-					Row row = getRow(sheet, startWriteOpIndex);
-					copyRow(sheet, row, sheet.createRow(endWriteOpIndex + i));
+					Row row = getRow(sheet, endWriteOpIndex);
+					sheet.shiftRows(endWriteOpIndex, sheet.getLastRowNum(), 1);
+					copyRow(row, sheet.createRow(endWriteOpIndex + i));
 				}
 			}
 		}
@@ -243,14 +244,12 @@ public class ExportWorkFlowDoc {
 	/**
 	 * 复制行
 	 *
-	 * @param sheet
-	 *            表
 	 * @param sourceRow
 	 *            源行
 	 * @param targetRow
 	 *            目标行
 	 */
-	private static void copyRow(Sheet sheet, Row sourceRow, Row targetRow) {
+	private static void copyRow(Row sourceRow, Row targetRow) {
 		for (int i = 0; i < sourceRow.getLastCellNum(); i++) {
 			Cell sourceCell = sourceRow.getCell(i);
 			Cell targetCell = targetRow.createCell(i);
