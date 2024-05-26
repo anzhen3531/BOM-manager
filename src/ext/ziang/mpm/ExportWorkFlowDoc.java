@@ -165,7 +165,7 @@ public class ExportWorkFlowDoc {
 	 *            数据映射
 	 */
 	private static void handlerExcelData(XSSFWorkbook workBook, Map<String, Object> dataMap) {
-		HashMap<String, String> opLabelMapping = (HashMap<String, String>) dataMap.get("opLabelList");
+		HashMap<String, String> opLabelMapping = (HashMap<String, String>) dataMap.get("opLabelMap");
 		// 获取起始位置之后进行处理
 		XSSFSheet sheet = workBook.getSheetAt(0);
 		// 确定数据总行数
