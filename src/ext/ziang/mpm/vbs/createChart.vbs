@@ -49,7 +49,7 @@ Next
 ' 选择打开哪个应用
 Set objExcel = CreateObject("Excel.Application")
 ' 设置是否展示打开
-objExcel.Visible = True
+objExcel.Visible = False
 Set objWorkbook = objExcel.Workbooks.Open(excelFile)
 Set objSheet = objWorkbook.Sheets(1)
 
