@@ -29,7 +29,6 @@ import ext.ziang.common.constants.PathConstants;
 import ext.ziang.common.helper.WTPathHelper;
 import ext.ziang.common.helper.mpm.MPMCustomHelper;
 import ext.ziang.common.util.ToolUtils;
-import wt.doc.WTDocument;
 import wt.util.WTException;
 
 /**
@@ -40,8 +39,8 @@ import wt.util.WTException;
  */
 public class ExportWorkFlowDoc {
 
-	public static final Integer startWriteOpIndex = 6;
-	public static final Integer endWriteOpIndex = 23;
+	public static final Integer startWriteOpIndex = 8;
+	public static final Integer endWriteOpIndex = 25;
 
 	/**
 	 * 收集数据
@@ -136,6 +135,7 @@ public class ExportWorkFlowDoc {
 		}
 		String docName = plan.getName() + "_工序卡";
 		String newPath = filePath + File.separator + docName + ".xlsx";
+		System.out.println("newPath = " + newPath);
 		File oldfile = new File(newPath);
 		if (oldfile != null) {
 			oldfile.delete();
@@ -172,20 +172,21 @@ public class ExportWorkFlowDoc {
 		Set<String> opLabelList = opLabelMapping.keySet();
 		int size = opLabelList.size();
 		// 判断是否需要进行扩容
-		if (size > endWriteOpIndex - startWriteOpIndex) {
-			for (int i = 1; i <= size - (endWriteOpIndex - startWriteOpIndex); i++) {
+		int tempSize = endWriteOpIndex - startWriteOpIndex;
+		System.out.println("tempSize = " + tempSize);
+		if (size > tempSize) {
+			for (int i = 1; i <= size - tempSize; i++) {
 				if (sheet != null) {
 					Row row = getRow(sheet, startWriteOpIndex);
 					copyRow(sheet, row, sheet.createRow(startWriteOpIndex + i));
 				}
 			}
 		}
-
 		//
 		if (sheet != null) {
-			//
-			Row row = getRow(sheet, startWriteOpIndex);
+			int index = startWriteOpIndex;
 			opLabelMapping.forEach((key, value) -> {
+				Row row = getRow(sheet, index);
 				getCell(row, 0).setCellValue(key);
 				getCell(row, 1).setCellValue(value);
 			});
