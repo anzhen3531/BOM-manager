@@ -178,18 +178,19 @@ public class ExportWorkFlowDoc {
 			for (int i = 1; i <= size - tempSize; i++) {
 				if (sheet != null) {
 					Row row = getRow(sheet, startWriteOpIndex);
-					copyRow(sheet, row, sheet.createRow(startWriteOpIndex + i));
+					copyRow(sheet, row, sheet.createRow(endWriteOpIndex + i));
 				}
 			}
 		}
-		//
+
 		if (sheet != null) {
 			int index = startWriteOpIndex;
-			opLabelMapping.forEach((key, value) -> {
+			for (String key : opLabelMapping.keySet()) {
 				Row row = getRow(sheet, index);
 				getCell(row, 0).setCellValue(key);
-				getCell(row, 1).setCellValue(value);
-			});
+				getCell(row, 1).setCellValue(opLabelMapping.get(key));
+				index += 1;
+			}
 		}
 	}
 

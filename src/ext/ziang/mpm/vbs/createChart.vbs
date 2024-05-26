@@ -31,9 +31,6 @@ End If
 excelFile = args(0)
 listString = URLDecode(args(1))
 mapString = URLDecode(args(2))
-' 重写写出到哪个Excel
-newExcelFile = "C:\Users\ander\Desktop\WorkflowPicTemp1.xlsx"
-
 ' 解析List字符串
 listArray = Split(listString, ",")
 
@@ -149,7 +146,6 @@ For Each key In mapDict.Keys
     End If
 Next
 
-objWorkbook.SaveAs newExcelFile
 objWorkbook.Save
 objWorkbook.Close
 objExcel.Quit
