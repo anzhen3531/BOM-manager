@@ -175,7 +175,7 @@ public class ExportWorkFlowDoc {
 		int tempSize = endWriteOpIndex - startWriteOpIndex;
 		System.out.println("tempSize = " + tempSize);
 		if (size > tempSize) {
-			for (int i = 1; i <= size - tempSize; i++) {
+			for (int i = 1; i < size - tempSize; i++) {
 				if (sheet != null) {
 					Row row = getRow(sheet, endWriteOpIndex);
 					sheet.shiftRows(endWriteOpIndex, sheet.getLastRowNum(), 1);
