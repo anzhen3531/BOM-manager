@@ -102,7 +102,7 @@ public class WorkflowPictureDoc {
 			String excelFilePath = (String) dataMap.get("filePath");
 			ArrayList<String> opLabelList = (ArrayList<String>) dataMap.get("opLabelList");
 			Map<String, String> map = new HashMap<>();
-			opLabelList.add("Material");
+			opLabelList.add(0, "Material");
 			opLabelList.add("End");
 			String latestOp = "";
 			// 处理相关的链接线路

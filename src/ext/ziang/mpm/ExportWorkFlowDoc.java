@@ -63,7 +63,7 @@ public class ExportWorkFlowDoc {
 				return link.getOperationLabel();
 			}
 			return null;
-		}).filter(Objects::nonNull).collect(Collectors.toList());
+		}).filter(Objects::nonNull).sorted().collect(Collectors.toList());
 		dataMap.put("opLabelList", opLabelList);
 		dataMap.put("opLabelMap", labelAndOpMapping);
 		return dataMap;

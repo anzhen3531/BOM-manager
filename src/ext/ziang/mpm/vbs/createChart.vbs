@@ -1,5 +1,4 @@
 ' 定义函数
-
 Function URLDecode(encodedStr)
     Dim decodedStr, i, c
     decodedStr = ""
@@ -53,6 +52,34 @@ objExcel.Visible = True
 Set objWorkbook = objExcel.Workbooks.Open(excelFile)
 Set objSheet = objWorkbook.Sheets(1)
 
+' 获取名称管理器中的某个单元格（假设名称为"MyNamedRange"）
+Set namedRange = objWorkbook.Names("绘图起始点").RefersToRange
+Set cell = namedRange.Cells(1, 1) ' 假设只需要第一个单元格
+
+
+Set namedRangeX = objWorkbook.Names("流程图结束点X").RefersToRange
+Set cellX = namedRangeX.Cells(1, 1) ' 假设只需要第一个单元格
+Set namedRangeY = objWorkbook.Names("流程图结束点Y").RefersToRange
+Set cellY = namedRangeY.Cells(1, 1) ' 假设只需要第一个单元格
+
+' 获取单元格的行和列
+row = cell.Row
+rowX = cellX.Row
+rowY = cellY.Row
+WScript.Echo row
+WScript.Echo rowX
+WScript.Echo rowY
+column = cell.Column
+columnX = cellY.Column
+columnY = cellY.Column
+WScript.Echo column
+WScript.Echo columnY
+WScript.Echo columnX
+
+' 创建一个Scripting.Dictionary对象（类似于Map）
+Set coordinates = CreateObject("Scripting.Dictionary")
+coordinates.Add "Row", row
+coordinates.Add "Column", column
 ' 在工作表中绘制矩形
 WScript.Echo "Drawing lines on Excel sheet..."
 ' 定义初始位置
