@@ -178,7 +178,7 @@ public class ExportWorkFlowDoc {
 		if (size > tempSize) {
 			for (int i = 1; i < size - tempSize; i++) {
 				if (sheet != null) {
-					sheet.shiftRows(endWriteOpIndex, sheet.getLastRowNum(), 1);
+					sheet.shiftRows(endWriteOpIndex + i, sheet.getLastRowNum(), 1);
 					copyRowStylesAndMergedRegions(sheet, startWriteOpIndex, endWriteOpIndex + i);
 				}
 			}
