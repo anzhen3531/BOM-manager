@@ -43,7 +43,7 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 		result.setLabel("选择产生对象BOM");
 		result.setSelectable(true);
 		result.setSingleSelect(true);
-		result.setId("ext.ziang.part.builder.SelectOriginBomBuilder");
+		result.setId("SelectOriginBomBuilder");
 		// 设置展示数量
 		result.setShowCount(true);
 		result.setConfigurable(true);
