@@ -18,12 +18,11 @@
 
 <div id='driverAttributesPane'>
     <%@ include file="/netmarkets/jsp/components/defineItemReadOnlyPropertyPanel.jspf" %>
-
+    <%--配置一个类型picker--%>
     <jca:configureTypePicker>
         <picker:pickerParam name="seedType" value="wt.doc.WTDocument|com.ptc.ReferenceDocument"/>
         <picker:pickerParam name="defaultType" value='wt.doc.WTDocument|com.ptc.ReferenceDocument'/>
     </jca:configureTypePicker>
-
 
     <%@ include file="/netmarkets/jsp/components/defineItem.jspf" %>
 </div>
@@ -34,11 +33,15 @@
     <script language='Javascript'>
         PTC.wizard.loadAttributeTableURL = "${mvc:getTypeBasedComponentURL('attributesTable')}";
         PTC.driverAttributes.on("afterRefresh", function () {
+            // 重新加载属性表格
             PTC.wizard.attributePanelLoader.reloadAttributesTable();
             loadCompenetPanel();
         });
+        // 设置创建类型
         PTC.onReady(function () {
+            // 获取创建类型之类的
             document.getElementById("createType").onchange = function () {
+                // 获取创建类型
                 var createType = document.getElementById("createType").value;
                 pickerGo(createType, '');
                 PTC.wizard.attributePanelLoader.goAttributeTableProgress();
@@ -78,20 +81,10 @@
         var createType = document.getElementById("createType").value;
         document.getElementById("formType").value = createType;
     }
-
-
 </script>
-<%--<%--%>
-<%--    if("createTechnologyDoc".equals(actionName)){--%>
-<%--%>--%>
-<%--<jsp:include page="${mvc:getComponentURL('ext.olight.pmgt.taskbook.builder.TaskBookLayoutBuilder')}" flush="true" />--%>
-<%--<%--%>
-
-<%--}else if("editTaskBook".equals(actionName)){--%>
-
-<%--%>--%>
-<%--<jsp:include page="${mvc:getComponentURL('ext.olight.pmgt.taskbook.builder.TaskBookLayoutBuilder')}" flush="true" />--%>
-<%--<%--%>
-<%--}--%>
-<%--%>--%>
+<%--<%if ("createTechnologyDoc".equals(actionName)) {%>--%>
+<%--<jsp:include page="${mvc:getComponentURL('ext.olight.pmgt.taskbook.builder.TaskBookLayoutBuilder')}" flush="true"/>--%>
+<%--<%} else if ("editTaskBook".equals(actionName)) {%>--%>
+<%--<jsp:include page="${mvc:getComponentURL('ext.olight.pmgt.taskbook.builder.TaskBookLayoutBuilder')}" flush="true"/>--%>
+<%--<%}%>--%>
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>

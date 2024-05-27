@@ -1,5 +1,4 @@
 ' 定义函数
-
 Function URLDecode(encodedStr)
     Dim decodedStr, i, c
     decodedStr = ""

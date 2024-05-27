@@ -27,7 +27,7 @@
                    defaultVersionValue="LATEST"
                    showTypePicker="true"
                    multiSelect="true"
-                   pickerCallback="searchAffectBom"
+                   pickerCallback="addRelatedPartPickerCallback"
                    inline="true"
 />
 
