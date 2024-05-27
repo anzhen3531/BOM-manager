@@ -72,7 +72,7 @@
             if (theJSONObject.length > 0) {
                 for (let i = 0; i < theJSONObject.length; i++) {
                     console.log(theJSONObject[i].oid);
-                    window.opener.PTC.jca.table.Utils.addRow(PTC.jca.table.Utils.getTable("<%=tableBuilderId%>"), theJSONObject[i]);
+                    window.opener.PTC.jca.table.Utils.addRow(PTC.jca.table.Utils.getTable("SelectOriginBomBuilder"), theJSONObject[i]);
                 }
             }
             alert("添加完成");
