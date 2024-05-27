@@ -253,7 +253,7 @@ public class ExportWorkFlowDoc {
 	 */
 	private static void copyRowStylesAndMergedRegions(XSSFSheet sheet, int sourceRowIndex, int targetRowIndex) {
 		Row sourceRow = sheet.getRow(sourceRowIndex);
-		Row targetRow = sheet.getRow(targetRowIndex);
+		Row targetRow = getRow(sheet, targetRowIndex);
 		if (sourceRow == null) {
 			return;
 		}
