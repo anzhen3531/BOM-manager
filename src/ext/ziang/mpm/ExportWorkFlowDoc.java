@@ -176,7 +176,7 @@ public class ExportWorkFlowDoc {
 		int tempSize = endWriteOpIndex - startWriteOpIndex;
 		System.out.println("tempSize = " + tempSize);
 		if (size > tempSize) {
-			for (int i = 1; i < size - tempSize; i++) {
+			for (int i = 0; i < (size - tempSize - 1); i++) {
 				if (sheet != null) {
 					sheet.shiftRows(endWriteOpIndex + i, sheet.getLastRowNum(), 1);
 					copyRowStylesAndMergedRegions(sheet, startWriteOpIndex, endWriteOpIndex + i);
@@ -281,22 +281,6 @@ public class ExportWorkFlowDoc {
 		CellStyle newCellStyle = workbook.createCellStyle();
 		newCellStyle.cloneStyleFrom(oldCell.getCellStyle());
 		newCell.setCellStyle(newCellStyle);
-		switch (oldCell.getCellType()) {
-			case STRING:
-				newCell.setCellValue(oldCell.getStringCellValue());
-				break;
-			case NUMERIC:
-				newCell.setCellValue(oldCell.getNumericCellValue());
-				break;
-			case BOOLEAN:
-				newCell.setCellValue(oldCell.getBooleanCellValue());
-				break;
-			case FORMULA:
-				newCell.setCellFormula(oldCell.getCellFormula());
-				break;
-			default:
-				break;
-		}
 	}
 
 	/**
