@@ -65,8 +65,6 @@
     <%--}--%>
 
     function searchAffectBom(object) {
-        var tableId = tableUtils.findTableID(event);
-        var table = tableUtils.getTable(tableId);
         try {
             // 获取选择的对象
             var theJSONObject = object.pickedObject;
@@ -74,7 +72,7 @@
             if (theJSONObject.length > 0) {
                 for (let i = 0; i < theJSONObject.length; i++) {
                     console.log(theJSONObject[i].oid);
-                    window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
+                    window.opener.PTC.jca.table.Utils.addRow(window.opener.PTC.jca.table.Utils.getTable('<%=tableBuilderId%>'), theJSONObject[i]);
                 }
             }
             alert("添加完成");
