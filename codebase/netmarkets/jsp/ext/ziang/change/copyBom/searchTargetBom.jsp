@@ -68,11 +68,12 @@
         try {
             // 获取选择的对象
             var theJSONObject = object.pickedObject;
-            console.log(theJSONObject)
             if (theJSONObject.length > 0) {
-                for (let i = 0; i < theJSONObject.length; i++) {
+                for (var i = 0; i < theJSONObject.length; i++) {
                     console.log(theJSONObject[i].oid);
-                    window.opener.PTC.jca.table.Utils.addRow(window.opener.PTC.jca.table.Utils.getTable('<%=tableBuilderId%>'), theJSONObject[i]);
+                    console.log(theJSONObject[i]);
+                    window.opener.PTC.jca.table.Utils.addRow(window.opener.PTC.jca.table.Utils.getTable('<%=tableBuilderId%>'),
+                        theJSONObject[i].oid);
                 }
             }
             alert("添加完成");
