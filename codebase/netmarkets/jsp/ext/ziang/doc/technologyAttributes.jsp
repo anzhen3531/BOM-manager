@@ -20,7 +20,7 @@
     <%@ include file="/netmarkets/jsp/components/defineItemReadOnlyPropertyPanel.jspf" %>
 
     <jca:configureTypePicker>
-        <picker:pickerParam name="seedType" value="wt.doc.WTDocument"/>
+        <picker:pickerParam name="seedType" value="wt.doc.WTDocument|com.ptc.ReferenceDocument"/>
         <picker:pickerParam name="defaultType" value='wt.doc.WTDocument|com.ptc.ReferenceDocument'/>
     </jca:configureTypePicker>
 
