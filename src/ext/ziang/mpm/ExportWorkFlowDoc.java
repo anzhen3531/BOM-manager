@@ -16,9 +16,11 @@ import java.util.stream.Collectors;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -179,7 +181,9 @@ public class ExportWorkFlowDoc {
 				if (sheet != null) {
 					Row row = getRow(sheet, endWriteOpIndex);
 					sheet.shiftRows(endWriteOpIndex, sheet.getLastRowNum(), 1);
-					copyRow(row, sheet.createRow(endWriteOpIndex + i));
+					// 复制样式和合并单元格
+					XSSFRow sheetRow = sheet.createRow(endWriteOpIndex + i);
+					copyRowStylesAndMergedRegions(sheet, endWriteOpIndex + i, startWriteOpIndex);
 				}
 			}
 		}
@@ -242,61 +246,84 @@ public class ExportWorkFlowDoc {
 	}
 
 	/**
-	 * 复制行
+	 * 复制行样式和合并区域
 	 *
-	 * @param sourceRow
-	 *            源行
-	 * @param targetRow
-	 *            目标行
+	 * @param sheet
+	 *            表
+	 * @param sourceRowIndex
+	 *            源行索引
+	 * @param targetRowIndex
+	 *            目标行索引
 	 */
-	private static void copyRow(Row sourceRow, Row targetRow) {
-		for (int i = 0; i < sourceRow.getLastCellNum(); i++) {
-			Cell sourceCell = sourceRow.getCell(i);
-			Cell targetCell = targetRow.createCell(i);
-			if (sourceCell != null) {
-				copyCell(sourceCell, targetCell);
-			}
+	private static void copyRowStylesAndMergedRegions(XSSFSheet sheet, int sourceRowIndex, int targetRowIndex) {
+		Row sourceRow = sheet.getRow(sourceRowIndex);
+		Row targetRow = sheet.getRow(targetRowIndex);
+		if (sourceRow == null) {
+			return;
 		}
-		// 复制行高
-		targetRow.setHeight(sourceRow.getHeight());
+		for (int i = 0; i < sourceRow.getLastCellNum(); i++) {
+			Cell oldCell = sourceRow.getCell(i);
+			Cell newCell = targetRow.createCell(i);
+			if (oldCell == null) {
+				continue;
+			}
+			copyCellStyle(oldCell, newCell);
+		}
+		copyMergedRegions(sheet, sourceRowIndex, targetRowIndex);
 	}
 
 	/**
-	 * 复制单元格
+	 * 复制单元格样式
 	 *
-	 * @param sourceCell
-	 *            源单元格
-	 * @param targetCell
-	 *            目标单元格
+	 * @param oldCell
+	 *            旧单元格
+	 * @param newCell
+	 *            新电池
 	 */
-	private static void copyCell(Cell sourceCell, Cell targetCell) {
-		// 复制单元格样式
-		CellStyle newCellStyle = targetCell.getSheet().getWorkbook().createCellStyle();
-		newCellStyle.cloneStyleFrom(sourceCell.getCellStyle());
-		targetCell.setCellStyle(newCellStyle);
-		// 复制单元格内容
-		switch (sourceCell.getCellType()) {
+	private static void copyCellStyle(Cell oldCell, Cell newCell) {
+		Workbook workbook = oldCell.getSheet().getWorkbook();
+		CellStyle newCellStyle = workbook.createCellStyle();
+		newCellStyle.cloneStyleFrom(oldCell.getCellStyle());
+		newCell.setCellStyle(newCellStyle);
+		switch (oldCell.getCellType()) {
 			case STRING:
-				targetCell.setCellValue(sourceCell.getStringCellValue());
+				newCell.setCellValue(oldCell.getStringCellValue());
 				break;
 			case NUMERIC:
-				if (DateUtil.isCellDateFormatted(sourceCell)) {
-					targetCell.setCellValue(sourceCell.getDateCellValue());
-				} else {
-					targetCell.setCellValue(sourceCell.getNumericCellValue());
-				}
+				newCell.setCellValue(oldCell.getNumericCellValue());
 				break;
 			case BOOLEAN:
-				targetCell.setCellValue(sourceCell.getBooleanCellValue());
+				newCell.setCellValue(oldCell.getBooleanCellValue());
 				break;
 			case FORMULA:
-				targetCell.setCellFormula(sourceCell.getCellFormula());
-				break;
-			case BLANK:
-				targetCell.setBlank();
+				newCell.setCellFormula(oldCell.getCellFormula());
 				break;
 			default:
 				break;
+		}
+	}
+
+	/**
+	 * 复制合并区域
+	 *
+	 * @param sheet
+	 *            表
+	 * @param sourceRowIndex
+	 *            源行索引
+	 * @param targetRowIndex
+	 *            目标行索引
+	 */
+	private static void copyMergedRegions(Sheet sheet, int sourceRowIndex, int targetRowIndex) {
+		for (int i = 0; i < sheet.getNumMergedRegions(); i++) {
+			CellRangeAddress cellRangeAddress = sheet.getMergedRegion(i);
+			if (cellRangeAddress.getFirstRow() == sourceRowIndex) {
+				CellRangeAddress newCellRangeAddress = new CellRangeAddress(
+						targetRowIndex,
+						targetRowIndex + (cellRangeAddress.getLastRow() - cellRangeAddress.getFirstRow()),
+						cellRangeAddress.getFirstColumn(),
+						cellRangeAddress.getLastColumn());
+				sheet.addMergedRegion(newCellRangeAddress);
+			}
 		}
 	}
 }

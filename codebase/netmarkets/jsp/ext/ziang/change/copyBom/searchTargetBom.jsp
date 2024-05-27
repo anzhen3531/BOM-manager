@@ -27,7 +27,7 @@
                    defaultVersionValue="LATEST"
                    showTypePicker="true"
                    multiSelect="true"
-                   pickerCallback="addRelatedPartPickerCallback"
+                   pickerCallback="searchAffectBom"
                    inline="true"
 />
 
@@ -68,12 +68,17 @@
         try {
             // 获取选择的对象
             var theJSONObject = object.pickedObject;
+            let table = window.opener.PTC.jca.table.Utils.getTable('<%=tableBuilderId%>')
             if (theJSONObject.length > 0) {
                 for (var i = 0; i < theJSONObject.length; i++) {
                     console.log(theJSONObject[i].oid);
                     console.log(theJSONObject[i]);
-                    window.opener.PTC.jca.table.Utils.addRow(window.opener.PTC.jca.table.Utils.getTable('<%=tableBuilderId%>'),
-                        theJSONObject[i].oid);
+                    // 编写一个接口并返回
+                    // 可以写一个接口将JSON返回
+                    let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
+                    console.log(rowData);
+                    //
+                    window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i].oid);
                 }
             }
             alert("添加完成");
