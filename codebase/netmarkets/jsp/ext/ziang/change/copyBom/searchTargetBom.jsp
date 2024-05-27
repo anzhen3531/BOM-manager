@@ -33,9 +33,38 @@
 
 <%-- 回调接口得到OID设置到对应中即可 --%>
 <script>
+    <%--function searchAffectBom(object) {--%>
+    <%--    let oidList = [];--%>
+    <%--    let oid;--%>
+    <%--    try {--%>
+    <%--        // 获取选择的对象--%>
+    <%--        var theJSONObject = object.pickedObject;--%>
+    <%--        console.log(theJSONObject)--%>
+    <%--        if (theJSONObject.length > 0) {--%>
+    <%--            for (let i = 0; i < theJSONObject.length; i++) {--%>
+    <%--                console.log(theJSONObject[i].oid);--%>
+    <%--                oidList.push(theJSONObject[i].oid);--%>
+    <%--                if (oid === undefined || oid === "") {--%>
+    <%--                    oid = theJSONObject[i].oid;--%>
+    <%--                } else {--%>
+    <%--                    oid += "," + theJSONObject[i].oid;--%>
+    <%--                }--%>
+    <%--            }--%>
+    <%--        }--%>
+    <%--        let params = {--%>
+    <%--            oidList: oid--%>
+    <%--        };--%>
+    <%--        console.log(params);--%>
+    <%--        alert(oid);--%>
+    <%--        // 刷新父页面接口--%>
+    <%--        window.opener.PTC.jca.table.Utils.addRow('<%=tableBuilderId%>', params);--%>
+    <%--        alert("添加完成");--%>
+    <%--    } catch (e) {--%>
+    <%--        alert(e);--%>
+    <%--    }--%>
+    <%--}--%>
+
     function searchAffectBom(object) {
-        let oidList = [];
-        let oid;
         try {
             // 获取选择的对象
             var theJSONObject = object.pickedObject;
@@ -43,21 +72,9 @@
             if (theJSONObject.length > 0) {
                 for (let i = 0; i < theJSONObject.length; i++) {
                     console.log(theJSONObject[i].oid);
-                    oidList.push(theJSONObject[i].oid);
-                    if (oid === undefined || oid === "") {
-                        oid = theJSONObject[i].oid;
-                    } else {
-                        oid += "," + theJSONObject[i].oid;
-                    }
+                    window.opener.PTC.jca.table.Utils.addRow(PTC.jca.table.Utils.getTable('<%=tableBuilderId%>'), theJSONObject[i]);
                 }
             }
-            let params = {
-                oidList: oid
-            };
-            console.log(params);
-            alert(oid);
-            // 刷新父页面接口
-            window.opener.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
             alert("添加完成");
         } catch (e) {
             alert(e);
