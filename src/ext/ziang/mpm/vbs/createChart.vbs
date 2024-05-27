@@ -172,5 +172,4 @@ Set objLine = Nothing
 Set objSheet = Nothing
 Set objWorkbook = Nothing
 Set objExcel = Nothing
-
 WScript.Quit 0 ' 返回零退出代码表示成功执行
