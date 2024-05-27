@@ -20,7 +20,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -179,11 +178,8 @@ public class ExportWorkFlowDoc {
 		if (size > tempSize) {
 			for (int i = 1; i < size - tempSize; i++) {
 				if (sheet != null) {
-					Row row = getRow(sheet, endWriteOpIndex);
 					sheet.shiftRows(endWriteOpIndex, sheet.getLastRowNum(), 1);
-					// 复制样式和合并单元格
-					XSSFRow sheetRow = sheet.createRow(endWriteOpIndex + i);
-					copyRowStylesAndMergedRegions(sheet, endWriteOpIndex + i, startWriteOpIndex);
+					copyRowStylesAndMergedRegions(sheet, startWriteOpIndex, endWriteOpIndex + i);
 				}
 			}
 		}
