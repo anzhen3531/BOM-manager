@@ -1,4 +1,5 @@
 ' 定义函数
+
 Function URLDecode(encodedStr)
     Dim decodedStr, i, c
     decodedStr = ""
@@ -88,32 +89,59 @@ Dim map
 Set map = CreateObject("Scripting.Dictionary")
 defaultGap = 100
 ' 默认菱形的长宽
-defaultDiamondWidth = 80
-defaultDiamondHeight = 30
+defaultDiamondWidth = 90
+defaultDiamondHeight = 60
 ' 定义一个默认矩形的长宽
 ' 绘制图形
+flag = False
 For Each element In listArray
     WScript.Echo element
     If element = "End" Or element = "Material" Then
-        Set objShape1 = objSheet.Shapes.AddShape(1, startXIndex, startYIndex, 50, 20)
-        map.Add element, Array(startXIndex, startYIndex)
+        Set objShape1 = objSheet.Shapes.AddShape(69, startXIndex-5, startYIndex, 60, 20)
         objShape1.TextFrame.Characters.Text = element
+        objShape1.TextFrame2.WordWrap = True
+        objShape1.TextFrame.AutoSize = False
+        newWidth = objShape1.Width
+        newHeight = objShape1.Height
+        map.Add element, Array(startXIndex - 5, startYIndex, newWidth, newHeight)
     ElseIf InStr(1, element, "R", 1) > 0 Then
-        Set objShape1 = objSheet.Shapes.AddShape(4, startXIndex, startYIndex, defaultDiamondWidth, defaultDiamondHeight)
-        map.Add element, Array(startXIndex, startYIndex)
+        If (startYIndex + defaultDiamondHeight) > endYIndex Then
+            startYIndex = defaultStartYIndex
+            startXIndex = startXIndex + defaultGap
+            index = 1
+        Else
+            startYIndex = startYIndex + 40
+            index = index + 1
+            flag = True
+        End If
+        ' 将图片贴到当前位置
+        Set objShape1 = objSheet.Shapes.AddShape(4, startXIndex - 20, startYIndex, defaultDiamondWidth, defaultDiamondHeight)
         objShape1.TextFrame.Characters.Text = element
+        objShape1.TextFrame2.WordWrap = True
+        objShape1.TextFrame2.TextRange.Font.Size = 8
+        objShape1.TextFrame.AutoSize = False
+        newWidth = objShape1.Width
+        newHeight = objShape1.Height
+        WScript.Echo "newHeight = " & newHeight & " newWidth = " & newWidth
+        map.Add element, Array(startXIndex - 20, startYIndex, newWidth, newHeight)
     Else
         Set objShape1 = objSheet.Shapes.AddShape(1, startXIndex, startYIndex, 50, 20)
-        map.Add element, Array(startXIndex, startYIndex)
         objShape1.TextFrame.Characters.Text = element
+        map.Add element, Array(startXIndex, startYIndex, 50, 20)
     End If
-    If (startYIndex + 40) > endYIndex Then
+    If (startYIndex + 50) > endYIndex Then
         startYIndex = defaultStartYIndex
         startXIndex = startXIndex + defaultGap
         index = 1
     Else
-        startYIndex = startYIndex + 40
-        index = index + 1
+        If flag Then
+            startYIndex = startYIndex + defaultDiamondHeight + 20
+            index = index + 1
+            flag = False
+        Else
+            startYIndex = startYIndex + 40
+            index = index + 1
+        End If
     End If
 Next
 
@@ -139,11 +167,11 @@ For Each key In mapDict.Keys
         End If
         ' 输出调试信息
         WScript.Echo "key: " & key
-        WScript.Echo "valuesO(0): " & valuesO(0) & ", valuesO(1): " & valuesO(1)
+        WScript.Echo "valuesO(0): " & valuesO(0) & ", valuesO(1): " & valuesO(1) & ", valuesO(2): " & valuesO(2) & ", valuesO(3): " & valuesO(3)
         WScript.Echo "mapDict(key): " & mapDict(key)
-        WScript.Echo "valuesT(0): " & valuesT(0) & ", valuesT(1): " & valuesT(1)
-        If valuesO(0) <> valuesT(0) And valuesO(1) <> valuesT(1) Then
-            Set objShape = objSheet.Shapes.AddConnector(2, valuesO(0) + 50, valuesO(1) + 10, valuesT(0), valuesT(1) + 10) ' 1 表示直线连接器，(100, 100) 是起点坐标，(100, 200) 是终点坐标
+        WScript.Echo "valuesT(0): " & valuesT(0) & ", valuesT(1): " & valuesT(1) & ", valuesT(2): " & valuesT(2) & ", valuesO(3): " & valuesT(3)
+        If valuesO(0) <> valuesT(0)  And valuesO(1) <> valuesT(1) And valuesO(1) > valuesT(1)  Then
+            Set objShape = objSheet.Shapes.AddConnector(2, valuesO(0) + (valuesO(2)), valuesO(1) + (valuesO(3) / 2), valuesT(0) , valuesT(1) + (valuesT(3) / 2))
             ' 设置箭头样式
             With objShape.Line
                 .EndArrowheadStyle = 3 ' 结束箭头样式
@@ -151,7 +179,7 @@ For Each key In mapDict.Keys
                 .EndArrowheadLength = 2 ' 结束箭头长度
             End With
         Else
-            Set objShape = objSheet.Shapes.AddConnector(1, valuesO(0) + 25, valuesO(1) + 20, valuesT(0) + 25, valuesT(1)) ' 1 表示直线连接器，(100, 100) 是起点坐标，(100, 200) 是终点坐标
+            Set objShape = objSheet.Shapes.AddConnector(1, valuesO(0) + (valuesO(2) / 2), valuesO(1) + valuesO(3), valuesT(0) + (valuesT(2) / 2), valuesT(1)) ' 1 表示直线连接器，(100, 100) 是起点坐标，(100, 200) 是终点坐标
             ' 设置箭头样式
             With objShape.Line
                 .EndArrowheadStyle = 3 ' 结束箭头样式

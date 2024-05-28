@@ -36,13 +36,15 @@ public class WorkflowPictureDoc {
 			arrayList.add("Material");
 			for (int i = 0; i < 30; i++) {
 				String s = "OP" + i;
-				if (i == 10) {
-					s = s + "R";
+				if (i == 10 || i == 11) {
+					s = s + "(R)12312312312321";
+				}
+				if (i == 5) {
+					s = s + "|'D'";
 				}
 				arrayList.add(s);
 			}
 			arrayList.add("End");
-
 			String latestOp = "o";
 			for (String s : arrayList) {
 				if (StrUtil.isNotBlank(latestOp)) {
