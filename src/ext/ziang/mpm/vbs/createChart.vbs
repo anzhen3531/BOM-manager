@@ -192,7 +192,7 @@ For Each key In mapDict.Keys
     End If
 Next
 objWorkbook.Save
-objWorkbook.Close SaveChanges = False
+objWorkbook.Close
 objExcel.Quit
 Set objShape = Nothing
 Set objLine = Nothing
