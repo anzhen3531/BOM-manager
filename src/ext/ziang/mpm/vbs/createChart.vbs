@@ -44,7 +44,7 @@ Next
 ' 选择打开哪个应用
 Set objExcel = CreateObject("Excel.Application")
 ' 设置是否展示打开
-objExcel.Visible = True
+objExcel.Visible = False
 Set objWorkbook = objExcel.Workbooks.Open(excelFile)
 Set objSheet = objWorkbook.Sheets(1)
 
@@ -97,7 +97,7 @@ flag = False
 For Each element In listArray
     WScript.Echo element
     If element = "End" Or element = "Material" Then
-        Set objShape1 = objSheet.Shapes.AddShape(69, startXIndex-5, startYIndex, 60, 20)
+        Set objShape1 = objSheet.Shapes.AddShape(69, startXIndex - 5, startYIndex, 60, 20)
         objShape1.TextFrame.Characters.Text = element
         objShape1.TextFrame2.WordWrap = True
         objShape1.TextFrame.AutoSize = False
@@ -170,7 +170,7 @@ For Each key In mapDict.Keys
         WScript.Echo "valuesO(0): " & valuesO(0) & ", valuesO(1): " & valuesO(1) & ", valuesO(2): " & valuesO(2) & ", valuesO(3): " & valuesO(3)
         WScript.Echo "mapDict(key): " & mapDict(key)
         WScript.Echo "valuesT(0): " & valuesT(0) & ", valuesT(1): " & valuesT(1) & ", valuesT(2): " & valuesT(2) & ", valuesO(3): " & valuesT(3)
-        If valuesO(0) <> valuesT(0)  And valuesO(1) <> valuesT(1) And valuesO(1) > valuesT(1)  Then
+        If valuesO(0) <> valuesT(0) And valuesO(1) <> valuesT(1) And valuesO(1) > valuesT(1) Then
             Set objShape = objSheet.Shapes.AddConnector(2, valuesO(0) + (valuesO(2)), valuesO(1) + (valuesO(3) / 2), valuesT(0) , valuesT(1) + (valuesT(3) / 2))
             ' 设置箭头样式
             With objShape.Line
@@ -191,8 +191,8 @@ For Each key In mapDict.Keys
         WScript.Echo "valuesO is NOT an array"
     End If
 Next
-
-objWorkbook.Close
+objWorkbook.Save
+objWorkbook.Close SaveChanges=False
 objExcel.Quit
 Set objShape = Nothing
 Set objLine = Nothing
