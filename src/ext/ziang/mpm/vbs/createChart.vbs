@@ -194,6 +194,8 @@ Next
 WScript.Echo newFilePath
 objWorkbook.SaveAs newFilePath
 objWorkbook.Close
+objExcel.ScreenUpdating = True
+objExcel.DisplayAlerts = True
 objExcel.Quit
 Set objShape = Nothing
 Set objLine = Nothing
