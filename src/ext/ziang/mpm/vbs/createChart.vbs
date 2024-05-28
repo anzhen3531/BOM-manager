@@ -51,6 +51,9 @@ objExcel.Visible = False
 Set objWorkbook = objExcel.Workbooks.Open(excelFile)
 Set objSheet = objWorkbook.Sheets(1)
 
+' 获取脚本所在的目录
+newFilePath = Replace(excelFile, "WorkflowPicTepm.xlsx", "WorkflowPic.xlsx")
+
 ' 定义初始位置
 startXIndex = 350
 startYIndex = 140
@@ -188,7 +191,8 @@ For Each key In mapDict.Keys
     End If
 Next
 
-objWorkbook.SaveAs excelFile
+WScript.Echo newFilePath
+objWorkbook.SaveAs newFilePath
 objWorkbook.Close
 objExcel.Quit
 Set objShape = Nothing

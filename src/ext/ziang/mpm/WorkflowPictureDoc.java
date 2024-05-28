@@ -30,7 +30,7 @@ public class WorkflowPictureDoc {
 			// VBS脚本路径
 			String scriptPath = "D:\\project\\BOM-manager\\src\\ext\\ziang\\mpm\\vbs\\createChart.vbs";
 			// 要传递的Excel文件路径
-			String excelFilePath = "C:\\Users\\ander\\Desktop\\WorkflowPicTepm (2).xlsx";
+			String excelFilePath = "C:\\Users\\ander\\Desktop\\WorkflowPicTepm.xlsx";
 			Map<String, String> map = new HashMap<>();
 			List<String> arrayList = new ArrayList<>();
 			arrayList.add("Material");
