@@ -52,7 +52,7 @@ Set objWorkbook = objExcel.Workbooks.Open(excelFile)
 Set objSheet = objWorkbook.Sheets(1)
 
 ' 获取脚本所在的目录
-newFilePath = Replace(excelFile, "WorkflowPicTepm.xlsx", "WorkflowPic.xlsx")
+newFilePath = Replace(excelFile, "WorkflowPicTepm", "WorkflowPic")
 
 ' 定义初始位置
 startXIndex = 350

@@ -134,7 +134,7 @@ public class ExportWorkFlowDoc {
 		if (!file.exists()) {
 			file.mkdirs();
 		}
-		String docName = plan.getName() + "_工序卡";
+		String docName = plan.getName() + "_WorkflowPicTepm工序卡";
 		String newPath = filePath + File.separator + docName + ".xlsx";
 		System.out.println("newPath = " + newPath);
 		File oldfile = new File(newPath);
