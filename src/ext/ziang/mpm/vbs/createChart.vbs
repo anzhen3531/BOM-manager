@@ -1,4 +1,5 @@
 ' 定义函数
+
 Function URLDecode(encodedStr)
     Dim decodedStr, i, c
     decodedStr = ""
@@ -43,7 +44,7 @@ Next
 ' 选择打开哪个应用
 Set objExcel = CreateObject("Excel.Application")
 ' 设置是否展示打开
-objExcel.Visible = False
+objExcel.Visible = True
 Set objWorkbook = objExcel.Workbooks.Open(excelFile)
 Set objSheet = objWorkbook.Sheets(1)
 
@@ -191,7 +192,7 @@ For Each key In mapDict.Keys
     End If
 Next
 objWorkbook.Save
-objWorkbook.Close SaveChanges=False
+objWorkbook.Close SaveChanges = False
 objExcel.Quit
 Set objShape = Nothing
 Set objLine = Nothing
