@@ -43,8 +43,11 @@ Next
 
 ' 选择打开哪个应用
 Set objExcel = CreateObject("Excel.Application")
+' 忽略弹框
+objExcel.ScreenUpdating = False
+objExcel.DisplayAlerts = False
 ' 设置是否展示打开
-objExcel.Visible = True
+objExcel.Visible = False
 Set objWorkbook = objExcel.Workbooks.Open(excelFile)
 Set objSheet = objWorkbook.Sheets(1)
 
@@ -75,24 +78,17 @@ For Each node In objWorkbook.Names
     WScript.Echo "Cell A1 is at pixel position: Top = " & cellTop & ", Left = " & cellLeft & "name=" & node.name
 Next
 
-
-' 创建一个Scripting.Dictionary对象（类似于Map）
 Set coordinates = CreateObject("Scripting.Dictionary")
 coordinates.Add "Row", row
 coordinates.Add "Column", column
-' 在工作表中绘制矩形
 WScript.Echo "Drawing lines on Excel sheet..."
-' 定义一个Map 用于存储每个矩形的位置信息
-' 应该还需要加个判断 用于确定这个是否是菱形
-' 菱形的横纵坐标和位置起始点其实是不同
 Dim map
 Set map = CreateObject("Scripting.Dictionary")
 defaultGap = 100
 ' 默认菱形的长宽
 defaultDiamondWidth = 90
 defaultDiamondHeight = 60
-' 定义一个默认矩形的长宽
-' 绘制图形
+
 flag = False
 For Each element In listArray
     WScript.Echo element
@@ -191,7 +187,8 @@ For Each key In mapDict.Keys
         WScript.Echo "valuesO is NOT an array"
     End If
 Next
-objWorkbook.Save
+
+objWorkbook.SaveAs excelFile
 objWorkbook.Close
 objExcel.Quit
 Set objShape = Nothing
