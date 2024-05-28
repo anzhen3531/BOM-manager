@@ -11,15 +11,15 @@
         if ("WorkflowPic".equals(type)) {
             filePath = ExportWorkFlowDoc.createExcel(oid);
         }
-        System.out.println(oid + "======" + type);
-        DownloadFileUtil.downloadFile(filePath, response);
-        response.flushBuffer();
-        out.clear();
-        out = pageContext.pushBody();
-        File file = new File(filePath);
-        if (file.exists()) {
-            file.delete();
-        }
+//        System.out.println(oid + "======" + type);
+//        DownloadFileUtil.downloadFile(filePath, response);
+//        response.flushBuffer();
+//        out.clear();
+//        out = pageContext.pushBody();
+//        File file = new File(filePath);
+//        if (file.exists()) {
+//            file.delete();
+//        }
     } catch (Exception e) {
         e.printStackTrace();
 %>
