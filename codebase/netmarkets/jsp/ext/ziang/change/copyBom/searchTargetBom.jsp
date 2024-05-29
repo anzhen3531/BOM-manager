@@ -75,10 +75,9 @@
                     console.log(theJSONObject[i]);
                     let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
                     console.log(rowData);
-                    alert("/")
-                    alert(rowData)
-                    // 判断这个行数据是否存在把。之后才能删除
-                    window.opener.PTC.jca.table.Utils.removeRows(table, theJSONObject[i].oid)
+                    for (var i = 0; i < rowData.getCount(); i++) {
+                        alert(rowData.get(i));
+                    }
                     window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
                 }
             }
