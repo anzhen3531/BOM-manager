@@ -31,14 +31,13 @@
                    inline="true"
 />
 
-<%-- 回调接口得到OID设置到对应中即可 --%>
 <script>
     <%--function searchAffectBom(object) {--%>
     <%--    let oidList = [];--%>
     <%--    let oid;--%>
     <%--    try {--%>
     <%--        // 获取选择的对象--%>
-    <%--        var theJSONObject = object.pickedObject;--%>
+    <%--        let theJSONObject = object.pickedObject;--%>
     <%--        console.log(theJSONObject)--%>
     <%--        if (theJSONObject.length > 0) {--%>
     <%--            for (let i = 0; i < theJSONObject.length; i++) {--%>
@@ -66,26 +65,26 @@
 
     function searchAffectBom(object) {
         try {
-            // 获取选择的对象
-            var theJSONObject = object.pickedObject;
+            let theJSONObject = object.pickedObject;
             let table = window.opener.PTC.jca.table.Utils.getTable('<%=tableBuilderId%>')
             if (theJSONObject.length > 0) {
                 let tableArr = [];
                 let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
-                for (var i = 0; i < rowData.getCount(); i++) {
-                    let oid = rowData.get(i).data.oid;
+                for (let index = 0; index < rowData.getCount(); index++) {
+                    let oid = rowData.get(index).data.oid;
                     if (!tableArr.includes(oid)) {
                         tableArr.push(oid);
                     }
                 }
-                alert(tableArr)
-                for (var i = 0; i < theJSONObject.length; i++) {
+                // 获取数据进行判断
+                for (let i = 0; i < theJSONObject.length; i++) {
                     if (!tableArr.includes(theJSONObject[i].oid)) {
+                        // 发送AJAX请求到后端
+                        // 通过后端的情况返回相关数据
                         window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
                     }
                 }
             }
-            alert("添加完成");
         } catch (e) {
             alert(e);
         }
