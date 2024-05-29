@@ -70,18 +70,16 @@
             var theJSONObject = object.pickedObject;
             let table = window.opener.PTC.jca.table.Utils.getTable('<%=tableBuilderId%>')
             if (theJSONObject.length > 0) {
-                for (var i = 0; i < theJSONObject.length; i++) {
-                    let flag = true;
-                    let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
-                    for (var i = 0; i < rowData.getCount(); i++) {
-                        console.log(rowData.get(i));
-                        console.log(rowData.get(i).data);
-                        alert("表格中存在" + rowData.get(i).data.oid);
-                        if (rowData.get(i).data.oid === theJSONObject[i].oid) {
-                            flag = false;
-                        }
+                let tableArr = [];
+                let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
+                for (var i = 0; i < rowData.getCount(); i++) {
+                    let oid = rowData.get(i).data.oid;
+                    if (!tableArr.includes(oid)) {
+                        tableArr.push(oid);
                     }
-                    if (flag) {
+                }
+                for (var i = 0; i < theJSONObject.length; i++) {
+                    if (tableArr.includes(theJSONObject[i].oid)) {
                         window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
                     }
                 }
