@@ -73,12 +73,11 @@
                 for (var i = 0; i < theJSONObject.length; i++) {
                     console.log(theJSONObject[i].oid);
                     console.log(theJSONObject[i]);
-                    // 编写一个接口并返回
-                    // 可以写一个接口将JSON返回
                     let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
                     console.log(rowData);
+                    // 判断这个行数据是否存在把。之后才能删除
                     window.opener.PTC.jca.table.Utils.removeRows(table, theJSONObject[i].oid)
-                    window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i].oid);
+                    window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
                 }
             }
             alert("添加完成");
