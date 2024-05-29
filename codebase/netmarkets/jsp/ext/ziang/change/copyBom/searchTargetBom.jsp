@@ -91,8 +91,8 @@
                                 console.log('Success:', responseData);
                                 // 这边添加即可
                                 alert(responseData.msg);
-                                alert(response.data);
-                                window.opener.PTC.jca.table.Utils.addRow(table, response.data);
+                                alert(responseData.data);
+                                window.opener.PTC.jca.table.Utils.addRow(table, responseData.data);
                             },
                             failure: function (response) {
                                 console.log('Failure:', response.status);
