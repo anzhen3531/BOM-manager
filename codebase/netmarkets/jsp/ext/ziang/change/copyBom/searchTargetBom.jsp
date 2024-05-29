@@ -76,7 +76,7 @@
                     let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
                     console.log(rowData);
                     for (var i = 0; i < rowData.getCount(); i++) {
-                        alert(rowData.get(i));
+                        console.log(rowData.get(i));
                     }
                     window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
                 }
