@@ -77,7 +77,7 @@
                     // 可以写一个接口将JSON返回
                     let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
                     console.log(rowData);
-                    //
+                    window.opener.PTC.jca.table.Utils.removeRows(table, theJSONObject[i].oid)
                     window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i].oid);
                 }
             }

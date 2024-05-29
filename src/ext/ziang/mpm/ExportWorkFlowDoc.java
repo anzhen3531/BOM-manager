@@ -1,8 +1,10 @@
 package ext.ziang.mpm;
 
+import java.beans.PropertyVetoException;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,12 +32,20 @@ import ext.ziang.common.constants.PathConstants;
 import ext.ziang.common.helper.WTPathHelper;
 import ext.ziang.common.helper.mpm.MPMCustomHelper;
 import ext.ziang.common.util.ToolUtils;
+import wt.content.ApplicationData;
+import wt.content.ContentHelper;
+import wt.content.ContentHolder;
+import wt.content.ContentRoleType;
+import wt.content.ContentServerHelper;
+import wt.content.FormatContentHolder;
+import wt.doc.WTDocument;
+import wt.fc.PersistenceHelper;
 import wt.util.WTException;
 
 /**
  * 导出工作流程文档
  *
- * @author ander
+ * @author anzhen
  * @date 2024/05/23
  */
 public class ExportWorkFlowDoc {
@@ -49,6 +59,8 @@ public class ExportWorkFlowDoc {
 	 * @param mpmProcessPlan
 	 *            MPM工艺计划
 	 * @return {@link Map }<{@link String }, {@link Object }>
+	 * @throws WTException
+	 *             WT异常
 	 */
 	public static Map<String, Object> collectData(MPMProcessPlan mpmProcessPlan) throws WTException {
 		// 获取所有的信息
@@ -89,13 +101,23 @@ public class ExportWorkFlowDoc {
 			String excelPath = handlerDataWriteExcel(plan, dataMap);
 			// 通过类型获取默认这个图文档是否存在
 			System.out.println("excelPath = " + excelPath);
-			// WTDocument describeDoc = MPMCustomHelper.getDocDescribeOfProcessPlan(plan,
-			// "");
-			// if (describeDoc == null) {
-			// // 创建文档并设置内容
-			// } else {
-			// // 导出文档更新内容即可
-			// }
+			String docType = "com.ziang.WorkFlowPic";
+			WTDocument describeDoc = MPMCustomHelper.getDocDescribeOfProcessPlan(plan, docType);
+			if (describeDoc == null) {
+				// describeDoc = createDoc(plan, dataMap);
+				// linkDoc(plan, describeDoc);
+				// dataMap.put("fileNumber",
+				// describeDoc.getNumber() + " " +
+				// describeDoc.getVersionIdentifier().getValue());
+				// dataMap.put("createDate",
+				// TimeZoneUtil.getGMT8Time(describeDoc.getModifyTimestamp(), "YYYY/MM/dd"));
+				// addPrimaryContent(describeDoc, newPath, describeDoc.getName() + ".xlsx");
+			} else {
+				File file = new File(excelPath);
+				if (file.exists()) {
+					updateContent(describeDoc, newPath, file.getName());
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new WTException(e.getMessage());
@@ -151,6 +173,11 @@ public class ExportWorkFlowDoc {
 			map.put("filePath", newPath);
 			handlerWorkflowPictureExcel(map);
 			return newPath;
+			// 删除之前的文档
+
+			// 获取excel处理过之后的文档对象
+			//
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -305,5 +332,35 @@ public class ExportWorkFlowDoc {
 				sheet.addMergedRegion(newCellRangeAddress);
 			}
 		}
+	}
+
+	/**
+	 *
+	 * @param holder
+	 * @param filePath
+	 * @param fileName
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws WTException
+	 * @throws PropertyVetoException
+	 * @throws IOException
+	 */
+	public static ContentHolder updateContent(ContentHolder holder, String filePath, String fileName)
+			throws WTException {
+		ApplicationData applicationdata = ApplicationData.newApplicationData(holder);
+		ContentHolder ch;
+		try {
+			applicationdata.setFileName(fileName);
+			applicationdata.setUploadedFromPath(filePath);
+			applicationdata.setRole(ContentRoleType.PRIMARY);
+			ch = ContentHelper.service.getContents(holder);
+			ContentServerHelper.service.deleteContent(holder, ContentHelper.getPrimary((FormatContentHolder) ch));
+			ch = (FormatContentHolder) PersistenceHelper.manager.refresh(ch);
+			ContentServerHelper.service.updateContent(ch, applicationdata, filePath + File.separator + fileName);
+		} catch (Exception e) {
+			throw new WTException(e);
+		}
+
+		return ch;
 	}
 }
