@@ -1,6 +1,7 @@
 package ext.ziang.part.rest;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -27,7 +28,7 @@ public class PartRestController {
 	 */
 	private PartRestService service = new PartRestServiceImpl();
 
-	@POST
+	@GET
 	@Path("/info")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, MediaType.MULTIPART_FORM_DATA })
 	@Produces(MediaType.APPLICATION_JSON)

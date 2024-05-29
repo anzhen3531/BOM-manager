@@ -80,8 +80,22 @@
                 for (let i = 0; i < theJSONObject.length; i++) {
                     if (!tableArr.includes(theJSONObject[i].oid)) {
                         // 发送AJAX请求到后端
-                        // 通过后端的情况返回相关数据
-                        window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
+                        Ext.Ajax.request({
+                            url: 'https://api.example.com/data',
+                            method: 'GET',
+                            params: {
+                                oid: theJSONObject[i].oid,
+                            },
+                            success: function (response) {
+                                var responseData = Ext.decode(response.responseText);
+                                console.log('Success:', responseData);
+                                // 这边添加即可
+                                //  window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
+                            },
+                            failure: function (response) {
+                                console.log('Failure:', response.status);
+                            }
+                        });
                     }
                 }
             }
