@@ -81,7 +81,7 @@
                     if (!tableArr.includes(theJSONObject[i].oid)) {
                         // 发送AJAX请求到后端
                         Ext.Ajax.request({
-                            url: 'https://api.example.com/data',
+                            url: 'http://plm.ziang.com:80/Windchill/servlet/rest/part/info',
                             method: 'GET',
                             params: {
                                 oid: theJSONObject[i].oid,
@@ -90,6 +90,7 @@
                                 var responseData = Ext.decode(response.responseText);
                                 console.log('Success:', responseData);
                                 // 这边添加即可
+                                alert(responseData.msg);
                                 //  window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
                             },
                             failure: function (response) {
