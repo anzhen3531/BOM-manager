@@ -88,10 +88,6 @@
                             },
                             success: function (response) {
                                 let responseData = Ext.decode(response.responseText);
-                                console.log('Success:', responseData);
-                                // 这边添加即可
-                                alert(responseData.msg);
-                                alert(responseData.data);
                                 window.opener.PTC.jca.table.Utils.addRow(table, responseData.data);
                             },
                             failure: function (response) {
