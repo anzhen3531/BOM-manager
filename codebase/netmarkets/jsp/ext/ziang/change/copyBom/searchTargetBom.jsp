@@ -91,7 +91,9 @@
                                 console.log('Success:', responseData);
                                 // 这边添加即可
                                 alert(responseData.msg);
-                                //  window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
+                                let data = Ext.decode(response.data);
+                                alert(data.oid);
+                                // window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
                             },
                             failure: function (response) {
                                 console.log('Failure:', response.status);
