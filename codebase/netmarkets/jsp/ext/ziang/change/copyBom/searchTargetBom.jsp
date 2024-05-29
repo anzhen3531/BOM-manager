@@ -71,13 +71,11 @@
             let table = window.opener.PTC.jca.table.Utils.getTable('<%=tableBuilderId%>')
             if (theJSONObject.length > 0) {
                 for (var i = 0; i < theJSONObject.length; i++) {
-                    console.log(theJSONObject[i].oid);
-                    console.log(theJSONObject[i]);
                     let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
-                    console.log(rowData);
                     for (var i = 0; i < rowData.getCount(); i++) {
                         console.log(rowData.get(i));
                         console.log(rowData.get(i).data);
+                        alert( "表格中存在" + rowData.get(i).data.oid);
                     }
                     window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
                 }
