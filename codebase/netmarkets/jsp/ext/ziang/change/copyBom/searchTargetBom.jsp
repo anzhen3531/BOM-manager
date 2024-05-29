@@ -87,7 +87,7 @@
                                 oid: theJSONObject[i].oid,
                             },
                             success: function (response) {
-                                var responseData = Ext.decode(response.responseText);
+                                let responseData = Ext.decode(response.responseText);
                                 console.log('Success:', responseData);
                                 // 这边添加即可
                                 alert(responseData.msg);

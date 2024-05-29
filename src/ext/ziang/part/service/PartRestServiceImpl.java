@@ -35,7 +35,7 @@ public class PartRestServiceImpl implements PartRestService {
 
 	private PartInfoEntity convertInfoBean(WTPart part) throws Exception {
 		PartInfoEntity infoEntity = new PartInfoEntity();
-		infoEntity.setDesc(IBAUtils.getIBAValue(part, ""));
+		// infoEntity.setDesc(IBAUtils.getIBAValue(part, ""));
 		infoEntity.setName(part.getName());
 		infoEntity.setNumber(part.getNumber());
 		infoEntity.setVersion(VersionControlHelper.getVersionDisplayIdentifier(part)
