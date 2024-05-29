@@ -78,6 +78,7 @@
                         tableArr.push(oid);
                     }
                 }
+                alert(tableArr)
                 for (var i = 0; i < theJSONObject.length; i++) {
                     if (!tableArr.includes(theJSONObject[i].oid)) {
                         window.opener.PTC.jca.table.Utils.addRow(table, theJSONObject[i]);
