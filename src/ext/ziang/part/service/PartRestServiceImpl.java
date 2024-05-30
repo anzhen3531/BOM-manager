@@ -33,6 +33,13 @@ public class PartRestServiceImpl implements PartRestService {
 		return R.fail();
 	}
 
+	/**
+	 * 转换 info bean
+	 *
+	 * @param part 部分
+	 * @return {@link PartInfoEntity }
+	 * @throws Exception 例外
+	 */
 	private PartInfoEntity convertInfoBean(WTPart part) throws Exception {
 		PartInfoEntity infoEntity = new PartInfoEntity();
 		// infoEntity.setDesc(IBAUtils.getIBAValue(part, ""));

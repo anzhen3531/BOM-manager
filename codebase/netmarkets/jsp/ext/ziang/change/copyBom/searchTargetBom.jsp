@@ -79,23 +79,15 @@
                 // 获取数据进行判断
                 for (let i = 0; i < theJSONObject.length; i++) {
                     if (!tableArr.includes(theJSONObject[i].oid)) {
-                        // 发送AJAX请求到后端
-                        Ext.Ajax.request({
-                            url: 'http://plm.ziang.com:80/Windchill/servlet/rest/part/info',
-                            method: 'GET',
-                            params: {
-                                oid: theJSONObject[i].oid,
-                            },
-                            success: function (response) {
-                                let responseData = Ext.decode(response.responseText);
-                                window.opener.PTC.jca.table.Utils.addRow(table, responseData.data);
-                            },
-                            failure: function (response) {
-                                console.log('Failure:', response.status);
-                            }
-                        });
+                        tableArr.push(theJSONObject[i].oid);
                     }
                 }
+                // 参数
+                let params = {
+                    oidList: tableArr
+                };
+                console.log(params);
+                window.opener.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
             }
         } catch (e) {
             alert(e);
