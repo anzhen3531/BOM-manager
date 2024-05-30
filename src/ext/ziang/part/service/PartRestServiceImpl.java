@@ -3,10 +3,10 @@ package ext.ziang.part.service;
 import java.util.Locale;
 
 import ext.ziang.common.result.R;
-import ext.ziang.common.util.IBAUtils;
 import ext.ziang.common.util.ToolUtils;
 import ext.ziang.part.entity.PartInfoEntity;
 import wt.fc.Persistable;
+import wt.fc.ReferenceFactory;
 import wt.part.WTPart;
 import wt.vc.VersionControlHelper;
 import wt.vc.VersionReference;
@@ -41,7 +41,7 @@ public class PartRestServiceImpl implements PartRestService {
 		infoEntity.setVersion(VersionControlHelper.getVersionDisplayIdentifier(part)
 				.getLocalizedMessage(Locale.CHINA));
 		infoEntity.setLifecycle(part.getLifeCycleName());
-		infoEntity.setOid(VersionReference.newVersionReference(part).toString());
+		infoEntity.setOid(new ReferenceFactory().getReferenceString(VersionReference.newVersionReference(part)));
 		infoEntity.setUnit(part.getDefaultUnit().getDisplay(Locale.CHINA));
 		infoEntity.setUpdateTime(part.getModifyTimestamp());
 		infoEntity.setCreateBy(part.getCreatorFullName());
