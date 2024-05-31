@@ -59,7 +59,7 @@
                 };
                 console.log(params);
                 alert(params);
-                window.opener.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, false);
+                window.opener.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
             }
         } catch (e) {
             alert(e);
