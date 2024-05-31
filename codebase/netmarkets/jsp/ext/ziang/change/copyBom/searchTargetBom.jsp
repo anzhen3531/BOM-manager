@@ -33,6 +33,10 @@
 
 <script>
 
+    /**
+     * 搜索相关的物料
+     * @param object
+     */
     function searchAffectBom(object) {
         try {
             let theJSONObject = object.pickedObject;
@@ -63,11 +67,12 @@
                         }
                     }
                 }
+                // 判断此次获取的数据是否是由重复的
                 let params = {
                     oidList: oidList
                 };
+                //
                 console.log(oidList);
-                alert(oidList);
                 window.opener.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
             }
         } catch (e) {
