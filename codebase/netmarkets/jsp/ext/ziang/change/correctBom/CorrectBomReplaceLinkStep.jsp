@@ -8,12 +8,17 @@
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/fmt" prefix="fmt" %>
 
+
+<%
+    boolean flag = false;
+%>
+
 <%--前面的选项--%>
 <fieldset id="General" class="x-fieldset x-form-label-left" style="width: auto; display: block;">
     <legend class="x-fieldset-header x-unselectable" id="ext-gen464">
         <div class="x-tool x-tool-toggle" id="Details_hidebutton" onclick="tohide(this)">&nbsp;</div>
         <span class="x-fieldset-header-text" id="ext-gen468">
-            <span class="attributePanel-fieldset-title">搜索相关物料</span>
+            <span class="attributePanel-fieldset-title">搜索条件</span>
         </span>
     </legend>
     <div class="x-fieldset-bwrap" id="ext-gen465">
@@ -22,36 +27,28 @@
             <div id="dataStoreGeneral" style="width: auto; height: auto;">
                 <table class="attributePanel-group-panel">
                     <tbody>
-                    <tr>
-                        <td class="attributePanel-asterisk"></td>
-                        <td class="attributePanel-label">
-                            受影响的部件编号:
-                        </td>
-                        <td class="attributePanel-value">
-                            <wctags:itemPicker id="originPartPicker"
-                                               componentId="pdmlPartMasterPicker"
-                                               showVersion="true"
-                                               defaultVersionValue="LATEST"
-                                               objectType="WCTYPE|wt.part.WTPart|com.ziang.formalPanzer"
-                                               showTypePicker="true"
-                                               multiSelect="false"
-                                               pickerCallback="alignmentOriginCallback"
-                                               pickedAttributes="number,view"
-                                               pickerTitle="搜索受影响的部件编号"
-                                               readOnlyPickerTextBox="false"
-                                               baseWhereClause="(oneOffVersionInfo.identifier.oneOffVersionId='~~COM_PTC_SEARCH_QB_NULL~~')"/>
-                        </td>
 
-                        <td class="attributePanel-asterisk"></td>
-                    </tr>
                     <tr>
                         <td class="attributePanel-asterisk"></td>
-                        <td class="attributePanel-label" id="originDesc51406359424000">
-                            源物料描述:
+                        <td class="attributePanel-label" id="operationType">
+                            操作类型:
                         </td>
-                        <td class="attributePanel-value" id="originDesc">
+                        <td class="attributePanel-value" attrid="replaceType">
+                            <w:radioButton label="指定料号"
+                                           name="radio"
+                                           id="appointPartNumber"
+                                           value="appointPartNumber"
+                                           onclick="handlerAppointPartNumber()"/>
+
+                            <w:radioButton label="模糊匹配"
+                                           name="radio"
+                                           id="fuzzySearch"
+                                           value="fuzzySearch"
+                                           onclick="handlerFuzzySearch()"/>
                         </td>
+                        <td class="attributePanel-asterisk"></td>
                     </tr>
+
                     <tr>
                         <td class="attributePanel-asterisk"></td>
                         <td class="attributePanel-label" id="replaceType51406359424000">
@@ -86,7 +83,37 @@
                         </td>
                         <td class="attributePanel-asterisk"></td>
                     </tr>
+                    <%if (flag) {%>
+                    <tr>
+                        <td class="attributePanel-asterisk"></td>
+                        <td class="attributePanel-label">
+                            受影响的部件编号:
+                        </td>
+                        <td class="attributePanel-value">
+                            <wctags:itemPicker id="originPartPicker"
+                                               componentId="pdmlPartMasterPicker"
+                                               showVersion="true"
+                                               defaultVersionValue="LATEST"
+                                               objectType="WCTYPE|wt.part.WTPart|com.ziang.formalPanzer"
+                                               showTypePicker="true"
+                                               multiSelect="false"
+                                               pickerCallback="alignmentOriginCallback"
+                                               pickedAttributes="number,view"
+                                               pickerTitle="搜索受影响的部件编号"
+                                               readOnlyPickerTextBox="false"
+                                               baseWhereClause="(oneOffVersionInfo.identifier.oneOffVersionId='~~COM_PTC_SEARCH_QB_NULL~~')"/>
+                        </td>
 
+                        <td class="attributePanel-asterisk"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributePanel-asterisk"></td>
+                        <td class="attributePanel-label" id="originDesc51406359424000">
+                            源物料描述:
+                        </td>
+                        <td class="attributePanel-value" id="originDesc">
+                        </td>
+                    </tr>
                     <tr>
                         <td class="attributePanel-asterisk"></td>
                         <td class="attributePanel-label">
@@ -116,7 +143,6 @@
                         <td class="attributePanel-value" id="replaceDesc">
                         </td>
                     </tr>
-
                     <tr>
                         <td class="attributePanel-asterisk"></td>
                         <td class="attributePanel-label" id="amount">
@@ -132,12 +158,19 @@
                         </td>
                         <td class="attributePanel-asterisk"></td>
                     </tr>
+                    <%}%>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </fieldset>
+
+
+<div>
+    <jsp:include page="${mvc:getComponentURL('ext.ziang.part.builder.SelectTargetBomBuilder')}"
+                 flush="true"/>
+</div>
 
 <div>
     <jsp:include page="${mvc:getComponentURL('ext.ziang.change.builder.AsyncCorrectBomBuilder')}"
@@ -204,6 +237,58 @@
     function handlerSelectRadio() {
 
     }
+
+    function handlerSearchPartByDesc() {
+        try {
+            let theJSONObject = object.pickedObject;
+            let table = window.opener.PTC.jca.table.Utils.getTable('AsyncCorrectBomBuilder')
+            let flag = true;
+            if (theJSONObject.length > 0) {
+                let oidList = "";
+                let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
+                for (let index = 0; index < rowData.getCount(); index++) {
+                    let oid = rowData.get(index).data.oid;
+                    if (!oidList.includes(oid)) {
+                        if (flag) {
+                            oidList += oid;
+                            flag = false;
+                        } else {
+                            oidList += "," + oid;
+                        }
+                    }
+                }
+                // 获取数据进行判断
+                for (let i = 0; i < theJSONObject.length; i++) {
+                    if (!oidList.includes(theJSONObject[i].oid)) {
+                        if (flag) {
+                            oidList += theJSONObject[i].oid;
+                            flag = false;
+                        } else {
+                            oidList += "," + theJSONObject[i].oid;
+                        }
+                    }
+                }
+                // 判断此次获取的数据是否是由重复的
+                let params = {
+                    oidList: oidList
+                };
+                // 判断是否满足搜索条件
+                console.log(oidList);
+                window.opener.PTC.jca.table.Utils.reload('SelectTargetBomBuilder', params, true);
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function handlerAppointPartNumber() {
+        <%flag = false;%>
+    }
+
+    function handlerFuzzySearch() {
+        <%flag = true;%>
+    }
+
 </script>
 
 

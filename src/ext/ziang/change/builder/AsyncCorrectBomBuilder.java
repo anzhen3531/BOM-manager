@@ -54,7 +54,7 @@ public class AsyncCorrectBomBuilder extends AbstractConfigurableTableBuilder imp
 		result.setLabel("批量修改BOM");
 		result.setSelectable(true);
 		result.setSingleSelect(false);
-		result.setId("SingleCorrectBomBuilder");
+		result.setId("AsyncCorrectBomBuilder");
 		result.setShowCount(true);
 		result.setShowTreeLines(true);
 		result.setDataSourceMode(DataSourceMode.ASYNCHRONOUS);
