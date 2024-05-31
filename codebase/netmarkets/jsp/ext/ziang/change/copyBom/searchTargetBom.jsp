@@ -57,6 +57,7 @@
                     if (!oidList.includes(theJSONObject[i].oid)) {
                         if (flag) {
                             oidList += theJSONObject[i].oid;
+                            flag = false;
                         } else {
                             oidList += "," + theJSONObject[i].oid;
                         }
