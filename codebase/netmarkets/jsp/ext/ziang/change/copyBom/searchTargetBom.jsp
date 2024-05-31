@@ -37,28 +37,36 @@
         try {
             let theJSONObject = object.pickedObject;
             let table = window.opener.PTC.jca.table.Utils.getTable('<%=tableBuilderId%>')
+            let flag = true;
             if (theJSONObject.length > 0) {
-                let tableArr = [];
+                let oidList = "";
                 let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
                 for (let index = 0; index < rowData.getCount(); index++) {
                     let oid = rowData.get(index).data.oid;
-                    if (!tableArr.includes(oid)) {
-                        tableArr.push(oid);
+                    if (!oidList.includes(oid)) {
+                        if (flag) {
+                            oidList += oid;
+                            flag = false;
+                        } else {
+                            oidList += "," + oid;
+                        }
                     }
                 }
                 // 获取数据进行判断
                 for (let i = 0; i < theJSONObject.length; i++) {
-                    if (!tableArr.includes(theJSONObject[i].oid)) {
-                        tableArr.push(theJSONObject[i].oid);
+                    if (!oidList.includes(theJSONObject[i].oid)) {
+                        if (flag) {
+                            oidList += theJSONObject[i].oid;
+                        } else {
+                            oidList += "," + theJSONObject[i].oid;
+                        }
                     }
                 }
-                // 参数
-                alert(tableArr.length);
                 let params = {
-                    oidList: tableArr
+                    oidList: oidList
                 };
-                console.log(params);
-                alert(params);
+                console.log(oidList);
+                alert(oidList);
                 window.opener.PTC.jca.table.Utils.reload('<%=tableBuilderId%>', params, true);
             }
         } catch (e) {
