@@ -76,10 +76,10 @@ public class SelectOriginBomBuilder extends AbstractComponentBuilder {
 			throws WTException {
 		LoggerHelper.log("SelectOriginBomBuilder buildComponentData");
 		String oidList = (String) componentParams.getParameter("oidList");
+		LoggerHelper.log("oidList = ", oidList);
 		JcaComponentParams jcaComponentParams = (JcaComponentParams) componentParams;
 		NmHelperBean helperBean = jcaComponentParams.getHelperBean();
 		LoggerHelper.log("helperBean.getRequest().getParameterMap() = ", helperBean.getRequest().getParameterMap());
-		LoggerHelper.log("oidList = ", oidList);
 		ArrayList<Persistable> returnList = new ArrayList<>();
 		if (StrUtil.isBlank(oidList)) {
 			return returnList;

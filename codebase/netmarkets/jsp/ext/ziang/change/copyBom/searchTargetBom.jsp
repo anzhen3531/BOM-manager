@@ -53,6 +53,7 @@
                     }
                 }
                 // 参数
+                alert(tableArr.length);
                 let params = {
                     oidList: tableArr
                 };
