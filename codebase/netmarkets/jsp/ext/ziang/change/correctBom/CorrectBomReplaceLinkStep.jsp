@@ -248,11 +248,14 @@
     function handlerSearchPartByDesc(str) {
         try {
             let table = PTC.jca.table.Utils.getTable('AsyncCorrectBomBuilder')
+            console.log(table);
             let flag = true;
             let oidList = "";
             let rowData = PTC.jca.table.Utils.getRowData(table);
+            console.log(rowData);
             for (let index = 0; index < rowData.getCount(); index++) {
                 let oid = rowData.get(index).data.oid;
+                console.log(oid);
                 let description = rowData.get(index).data.description;
                 console.log(description);
                 let name = rowData.get(index).data.name;
