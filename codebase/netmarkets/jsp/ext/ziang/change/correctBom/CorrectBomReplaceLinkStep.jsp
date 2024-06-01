@@ -247,10 +247,10 @@
 
     function handlerSearchPartByDesc(str) {
         try {
-            let table = window.opener.PTC.jca.table.Utils.getTable('AsyncCorrectBomBuilder')
+            let table = PTC.jca.table.Utils.getTable('AsyncCorrectBomBuilder')
             let flag = true;
             let oidList = "";
-            let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
+            let rowData = PTC.jca.table.Utils.getRowData(table);
             for (let index = 0; index < rowData.getCount(); index++) {
                 let oid = rowData.get(index).data.oid;
                 let description = rowData.get(index).data.description;
@@ -272,7 +272,7 @@
                 };
                 // 判断是否满足搜索条件
                 console.log(oidList);
-                window.opener.PTC.jca.table.Utils.reload('SelectTargetBomBuilder', params, true);
+                PTC.jca.table.Utils.reload('SelectTargetBomBuilder', params, true);
             }
         } catch (e) {
             alert(e);
