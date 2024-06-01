@@ -166,8 +166,6 @@
 
                         <td class="attributePanel-asterisk"></td>
                     </tr>
-
-
                     </tbody>
                 </table>
             </div>
@@ -260,7 +258,7 @@
                     console.log(description);
                     let name = rowData.get(index).data.name;
                     console.log(name);
-                    if (description.includes(str)) {
+                    if (name.includes(str)) {
                         if (!oidList.includes(oid)) {
                             if (flag) {
                                 oidList += oid;
