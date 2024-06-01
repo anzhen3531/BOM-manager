@@ -31,13 +31,14 @@
                         </td>
                         <td class="attributePanel-value" attrid="replaceType">
                             <w:radioButton label="指定料号"
-                                           name="radio"
+                                           name="operationType"
                                            id="appointPartNumber"
                                            value="appointPartNumber"
+                                           checked="true"
                                            onclick="toggleRows(true)"/>
 
                             <w:radioButton label="模糊匹配"
-                                           name="radio"
+                                           name="operationType"
                                            id="fuzzySearch"
                                            value="fuzzySearch"
                                            onclick="toggleRows(false)"/>
