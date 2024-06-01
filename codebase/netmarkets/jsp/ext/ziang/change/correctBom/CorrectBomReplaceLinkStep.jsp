@@ -254,11 +254,13 @@
             let rowData = PTC.jca.table.Utils.getRowData(table);
             console.log(rowData);
             for (let index = 0; index < rowData.getCount(); index++) {
+                let data = rowData.get(index).data;
+                console.log(data);
                 let oid = rowData.get(index).data.oid;
                 console.log(oid);
                 let description = rowData.get(index).data.description;
                 console.log(description);
-                let name = rowData.get(index).data.name;
+                let name = rowData.get(index).data.name.gui.html;
                 console.log(name);
                 if (name.includes(str)) {
                     if (!oidList.includes(oid)) {
