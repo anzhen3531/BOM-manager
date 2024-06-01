@@ -264,11 +264,21 @@
                 console.log(name);
                 if (name.includes(str)) {
                     if (!oidList.includes(oid)) {
-                        if (flag) {
-                            oidList += oid;
-                            flag = false;
+                        if (oid.includes("|")) {
+                            oid = oid.splice("|")[0]
+                            if (flag) {
+                                oidList += oid;
+                                flag = false;
+                            } else {
+                                oidList += "," + oid;
+                            }
                         } else {
-                            oidList += "," + oid;
+                            if (flag) {
+                                oidList += oid;
+                                flag = false;
+                            } else {
+                                oidList += "," + oid;
+                            }
                         }
                     }
                 }
