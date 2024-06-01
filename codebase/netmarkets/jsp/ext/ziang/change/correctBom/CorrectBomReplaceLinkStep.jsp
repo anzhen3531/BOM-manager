@@ -258,14 +258,14 @@
                 console.log(data);
                 let oid = rowData.get(index).data.oid;
                 console.log(oid);
-                let description = rowData.get(index).data.description;
+                let description = rowData.get(index).data.description.gui.html;
                 console.log(description);
                 let name = rowData.get(index).data.name.gui.html;
                 console.log(name);
                 if (name.includes(str)) {
                     if (!oidList.includes(oid)) {
                         if (oid.includes("|")) {
-                            oid = oid.splice("|")[0]
+                            oid = oid.split("|")[0]
                             if (flag) {
                                 oidList += oid;
                                 flag = false;
