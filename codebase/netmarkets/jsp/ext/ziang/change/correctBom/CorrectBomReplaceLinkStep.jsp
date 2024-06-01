@@ -161,7 +161,7 @@
                             点击查找:
                         </td>
                         <td class="attributePanel-value">
-                            <button onclick="handlerSearchPartByDesc('Test')"></button>
+                            <input type="button" onclick="handlerSearchPartByDesc('Test')" value="点击查找"/>
                         </td>
 
                         <td class="attributePanel-asterisk"></td>
@@ -286,11 +286,6 @@
     function toggleRows(isVisible) {
         rowsVisible = isVisible;
     }
-
-
-    // 绘制一个节点
-
-
 </script>
 
 
