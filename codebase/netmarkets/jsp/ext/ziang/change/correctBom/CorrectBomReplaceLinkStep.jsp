@@ -9,10 +9,6 @@
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/fmt" prefix="fmt" %>
 
 
-<%
-    boolean flag = false;
-%>
-
 <%--前面的选项--%>
 <fieldset id="General" class="x-fieldset x-form-label-left" style="width: auto; display: block;">
     <legend class="x-fieldset-header x-unselectable" id="ext-gen464">
@@ -38,13 +34,13 @@
                                            name="radio"
                                            id="appointPartNumber"
                                            value="appointPartNumber"
-                                           onclick="handlerAppointPartNumber()"/>
+                                           onclick="toggleRows(true)"/>
 
                             <w:radioButton label="模糊匹配"
                                            name="radio"
                                            id="fuzzySearch"
                                            value="fuzzySearch"
-                                           onclick="handlerFuzzySearch()"/>
+                                           onclick="toggleRows(false)"/>
                         </td>
                         <td class="attributePanel-asterisk"></td>
                     </tr>
@@ -83,82 +79,86 @@
                         </td>
                         <td class="attributePanel-asterisk"></td>
                     </tr>
-                    <%if (flag) {%>
-                    <tr>
-                        <td class="attributePanel-asterisk"></td>
-                        <td class="attributePanel-label">
-                            受影响的部件编号:
-                        </td>
-                        <td class="attributePanel-value">
-                            <wctags:itemPicker id="originPartPicker"
-                                               componentId="pdmlPartMasterPicker"
-                                               showVersion="true"
-                                               defaultVersionValue="LATEST"
-                                               objectType="WCTYPE|wt.part.WTPart|com.ziang.formalPanzer"
-                                               showTypePicker="true"
-                                               multiSelect="false"
-                                               pickerCallback="alignmentOriginCallback"
-                                               pickedAttributes="number,view"
-                                               pickerTitle="搜索受影响的部件编号"
-                                               readOnlyPickerTextBox="false"
-                                               baseWhereClause="(oneOffVersionInfo.identifier.oneOffVersionId='~~COM_PTC_SEARCH_QB_NULL~~')"/>
-                        </td>
+                    <div id="searchConditionNumber">
+                        <tr>
+                            <td class="attributePanel-asterisk"></td>
+                            <td class="attributePanel-label">
+                                受影响的部件编号:
+                            </td>
+                            <td class="attributePanel-value">
+                                <wctags:itemPicker id="originPartPicker"
+                                                   componentId="pdmlPartMasterPicker"
+                                                   showVersion="true"
+                                                   defaultVersionValue="LATEST"
+                                                   objectType="WCTYPE|wt.part.WTPart|com.ziang.formalPanzer"
+                                                   showTypePicker="true"
+                                                   multiSelect="false"
+                                                   pickerCallback="alignmentOriginCallback"
+                                                   pickedAttributes="number,view"
+                                                   pickerTitle="搜索受影响的部件编号"
+                                                   readOnlyPickerTextBox="false"
+                                                   baseWhereClause="(oneOffVersionInfo.identifier.oneOffVersionId='~~COM_PTC_SEARCH_QB_NULL~~')"/>
+                            </td>
 
-                        <td class="attributePanel-asterisk"></td>
-                    </tr>
-                    <tr>
-                        <td class="attributePanel-asterisk"></td>
-                        <td class="attributePanel-label" id="originDesc51406359424000">
-                            源物料描述:
-                        </td>
-                        <td class="attributePanel-value" id="originDesc">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="attributePanel-asterisk"></td>
-                        <td class="attributePanel-label">
-                            替换的物料编号:
-                        </td>
-                        <td class="attributePanel-value">
-                            <wctags:itemPicker id="replacePartPicker"
-                                               componentId="pdmlPartMasterPicker"
-                                               showVersion="true"
-                                               defaultVersionValue="LATEST"
-                                               objectType="WCTYPE|wt.part.WTPart|com.ziang.formalPanzer"
-                                               showTypePicker="true"
-                                               multiSelect="false"
-                                               pickerCallback="alignmentReplaceCallback"
-                                               pickedAttributes="number,view"
-                                               pickerTitle="搜索需要替换的物料"
-                                               readOnlyPickerTextBox="false"
-                                               baseWhereClause="(oneOffVersionInfo.identifier.oneOffVersionId='~~COM_PTC_SEARCH_QB_NULL~~')"/>
-                        </td>
-                        <td class="attributePanel-asterisk"></td>
-                    </tr>
-                    <tr>
-                        <td class="attributePanel-asterisk"></td>
-                        <td class="attributePanel-label" id="replacewDesc51406359424000">
-                            替换的物料描述:
-                        </td>
-                        <td class="attributePanel-value" id="replaceDesc">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="attributePanel-asterisk"></td>
-                        <td class="attributePanel-label" id="amount">
-                            替换的物料用量:
-                        </td>
-                        <td class="attributePanel-value" id="amountNum">
-                            <w:textBox propertyLabel="替换的物料用量"
-                                       id="substitutionAmount"
-                                       name="substitutionAmountName"
-                                       size="40"
-                                       maxlength="60"
-                                       required="false"/>
-                        </td>
-                        <td class="attributePanel-asterisk"></td>
-                    </tr>
-                    <%}%>
+                            <td class="attributePanel-asterisk"></td>
+                        </tr>
+                        <tr>
+                            <td class="attributePanel-asterisk"></td>
+                            <td class="attributePanel-label" id="originDesc51406359424000">
+                                源物料描述:
+                            </td>
+                            <td class="attributePanel-value" id="originDesc">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="attributePanel-asterisk"></td>
+                            <td class="attributePanel-label">
+                                替换的物料编号:
+                            </td>
+                            <td class="attributePanel-value">
+                                <wctags:itemPicker id="replacePartPicker"
+                                                   componentId="pdmlPartMasterPicker"
+                                                   showVersion="true"
+                                                   defaultVersionValue="LATEST"
+                                                   objectType="WCTYPE|wt.part.WTPart|com.ziang.formalPanzer"
+                                                   showTypePicker="true"
+                                                   multiSelect="false"
+                                                   pickerCallback="alignmentReplaceCallback"
+                                                   pickedAttributes="number,view"
+                                                   pickerTitle="搜索需要替换的物料"
+                                                   readOnlyPickerTextBox="false"
+                                                   baseWhereClause="(oneOffVersionInfo.identifier.oneOffVersionId='~~COM_PTC_SEARCH_QB_NULL~~')"/>
+                            </td>
+                            <td class="attributePanel-asterisk"></td>
+                        </tr>
+                        <tr>
+                            <td class="attributePanel-asterisk"></td>
+                            <td class="attributePanel-label" id="replacewDesc51406359424000">
+                                替换的物料描述:
+                            </td>
+                            <td class="attributePanel-value" id="replaceDesc">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="attributePanel-asterisk"></td>
+                            <td class="attributePanel-label" id="amount">
+                                替换的物料用量:
+                            </td>
+                            <td class="attributePanel-value" id="amountNum">
+                                <w:textBox propertyLabel="替换的物料用量"
+                                           id="substitutionAmount"
+                                           name="substitutionAmountName"
+                                           size="40"
+                                           maxlength="60"
+                                           required="false"/>
+                            </td>
+                            <td class="attributePanel-asterisk"></td>
+                        </tr>
+                    </div>
+
+                    <div id="searchConditionFuzzy">
+123123123
+                    </div>
                     </tbody>
                 </table>
             </div>
@@ -281,12 +281,19 @@
         }
     }
 
-    function handlerAppointPartNumber() {
-        <%flag = false;%>
-    }
+    let rowsVisible = false;
 
-    function handlerFuzzySearch() {
-        <%flag = true;%>
+    function toggleRows(isVisible) {
+        rowsVisible = isVisible;
+        const searchNumber = document.getElementById('searchConditionNumber');
+        const searchFuzzy = document.getElementById('searchConditionFuzzy');
+        if (rowsVisible) {
+            searchNumber.classList.remove('hidden');
+            searchFuzzy.classList.add('hidden');
+        } else {
+            searchFuzzy.classList.remove('hidden');
+            searchNumber.classList.add('hidden');
+        }
     }
 
 </script>
