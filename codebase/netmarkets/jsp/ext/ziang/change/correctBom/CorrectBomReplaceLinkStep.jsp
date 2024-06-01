@@ -79,86 +79,95 @@
                         </td>
                         <td class="attributePanel-asterisk"></td>
                     </tr>
-                    <div id="searchConditionNumber">
-                        <tr>
-                            <td class="attributePanel-asterisk"></td>
-                            <td class="attributePanel-label">
-                                受影响的部件编号:
-                            </td>
-                            <td class="attributePanel-value">
-                                <wctags:itemPicker id="originPartPicker"
-                                                   componentId="pdmlPartMasterPicker"
-                                                   showVersion="true"
-                                                   defaultVersionValue="LATEST"
-                                                   objectType="WCTYPE|wt.part.WTPart|com.ziang.formalPanzer"
-                                                   showTypePicker="true"
-                                                   multiSelect="false"
-                                                   pickerCallback="alignmentOriginCallback"
-                                                   pickedAttributes="number,view"
-                                                   pickerTitle="搜索受影响的部件编号"
-                                                   readOnlyPickerTextBox="false"
-                                                   baseWhereClause="(oneOffVersionInfo.identifier.oneOffVersionId='~~COM_PTC_SEARCH_QB_NULL~~')"/>
-                            </td>
+                    <tr>
+                        <td class="attributePanel-asterisk"></td>
+                        <td class="attributePanel-label">
+                            受影响的部件编号:
+                        </td>
+                        <td class="attributePanel-value">
+                            <wctags:itemPicker id="originPartPicker"
+                                               componentId="pdmlPartMasterPicker"
+                                               showVersion="true"
+                                               defaultVersionValue="LATEST"
+                                               objectType="WCTYPE|wt.part.WTPart|com.ziang.formalPanzer"
+                                               showTypePicker="true"
+                                               multiSelect="false"
+                                               pickerCallback="alignmentOriginCallback"
+                                               pickedAttributes="number,view"
+                                               pickerTitle="搜索受影响的部件编号"
+                                               readOnlyPickerTextBox="false"
+                                               baseWhereClause="(oneOffVersionInfo.identifier.oneOffVersionId='~~COM_PTC_SEARCH_QB_NULL~~')"/>
+                        </td>
 
-                            <td class="attributePanel-asterisk"></td>
-                        </tr>
-                        <tr>
-                            <td class="attributePanel-asterisk"></td>
-                            <td class="attributePanel-label" id="originDesc51406359424000">
-                                源物料描述:
-                            </td>
-                            <td class="attributePanel-value" id="originDesc">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="attributePanel-asterisk"></td>
-                            <td class="attributePanel-label">
-                                替换的物料编号:
-                            </td>
-                            <td class="attributePanel-value">
-                                <wctags:itemPicker id="replacePartPicker"
-                                                   componentId="pdmlPartMasterPicker"
-                                                   showVersion="true"
-                                                   defaultVersionValue="LATEST"
-                                                   objectType="WCTYPE|wt.part.WTPart|com.ziang.formalPanzer"
-                                                   showTypePicker="true"
-                                                   multiSelect="false"
-                                                   pickerCallback="alignmentReplaceCallback"
-                                                   pickedAttributes="number,view"
-                                                   pickerTitle="搜索需要替换的物料"
-                                                   readOnlyPickerTextBox="false"
-                                                   baseWhereClause="(oneOffVersionInfo.identifier.oneOffVersionId='~~COM_PTC_SEARCH_QB_NULL~~')"/>
-                            </td>
-                            <td class="attributePanel-asterisk"></td>
-                        </tr>
-                        <tr>
-                            <td class="attributePanel-asterisk"></td>
-                            <td class="attributePanel-label" id="replacewDesc51406359424000">
-                                替换的物料描述:
-                            </td>
-                            <td class="attributePanel-value" id="replaceDesc">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="attributePanel-asterisk"></td>
-                            <td class="attributePanel-label" id="amount">
-                                替换的物料用量:
-                            </td>
-                            <td class="attributePanel-value" id="amountNum">
-                                <w:textBox propertyLabel="替换的物料用量"
-                                           id="substitutionAmount"
-                                           name="substitutionAmountName"
-                                           size="40"
-                                           maxlength="60"
-                                           required="false"/>
-                            </td>
-                            <td class="attributePanel-asterisk"></td>
-                        </tr>
-                    </div>
+                        <td class="attributePanel-asterisk"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributePanel-asterisk"></td>
+                        <td class="attributePanel-label" id="originDesc51406359424000">
+                            源物料描述:
+                        </td>
+                        <td class="attributePanel-value" id="originDesc">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attributePanel-asterisk"></td>
+                        <td class="attributePanel-label">
+                            替换的物料编号:
+                        </td>
+                        <td class="attributePanel-value">
+                            <wctags:itemPicker id="replacePartPicker"
+                                               componentId="pdmlPartMasterPicker"
+                                               showVersion="true"
+                                               defaultVersionValue="LATEST"
+                                               objectType="WCTYPE|wt.part.WTPart|com.ziang.formalPanzer"
+                                               showTypePicker="true"
+                                               multiSelect="false"
+                                               pickerCallback="alignmentReplaceCallback"
+                                               pickedAttributes="number,view"
+                                               pickerTitle="搜索需要替换的物料"
+                                               readOnlyPickerTextBox="false"
+                                               baseWhereClause="(oneOffVersionInfo.identifier.oneOffVersionId='~~COM_PTC_SEARCH_QB_NULL~~')"/>
+                        </td>
+                        <td class="attributePanel-asterisk"></td>
+                    </tr>
+                    <tr>
+                        <td class="attributePanel-asterisk"></td>
+                        <td class="attributePanel-label" id="replacewDesc51406359424000">
+                            替换的物料描述:
+                        </td>
+                        <td class="attributePanel-value" id="replaceDesc">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="attributePanel-asterisk"></td>
+                        <td class="attributePanel-label" id="amount">
+                            替换的物料用量:
+                        </td>
+                        <td class="attributePanel-value" id="amountNum">
+                            <w:textBox propertyLabel="替换的物料用量"
+                                       id="substitutionAmount"
+                                       name="substitutionAmountName"
+                                       size="40"
+                                       maxlength="60"
+                                       required="false"/>
+                        </td>
+                        <td class="attributePanel-asterisk"></td>
+                    </tr>
 
-                    <div id="searchConditionFuzzy">
-123123123
-                    </div>
+
+                    <tr>
+                        <td class="attributePanel-asterisk"></td>
+                        <td class="attributePanel-label">
+                            点击查找:
+                        </td>
+                        <td class="attributePanel-value">
+                            <button onclick="handlerSearchPartByDesc('Test')"></button>
+                        </td>
+
+                        <td class="attributePanel-asterisk"></td>
+                    </tr>
+
+
                     </tbody>
                 </table>
             </div>
@@ -238,9 +247,8 @@
 
     }
 
-    function handlerSearchPartByDesc() {
+    function handlerSearchPartByDesc(str) {
         try {
-            let theJSONObject = object.pickedObject;
             let table = window.opener.PTC.jca.table.Utils.getTable('AsyncCorrectBomBuilder')
             let flag = true;
             if (theJSONObject.length > 0) {
@@ -248,27 +256,21 @@
                 let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
                 for (let index = 0; index < rowData.getCount(); index++) {
                     let oid = rowData.get(index).data.oid;
-                    if (!oidList.includes(oid)) {
-                        if (flag) {
-                            oidList += oid;
-                            flag = false;
-                        } else {
-                            oidList += "," + oid;
+                    let description = rowData.get(index).data.description;
+                    console.log(description);
+                    let name = rowData.get(index).data.name;
+                    console.log(name);
+                    if (description.includes(str)) {
+                        if (!oidList.includes(oid)) {
+                            if (flag) {
+                                oidList += oid;
+                                flag = false;
+                            } else {
+                                oidList += "," + oid;
+                            }
                         }
                     }
                 }
-                // 获取数据进行判断
-                for (let i = 0; i < theJSONObject.length; i++) {
-                    if (!oidList.includes(theJSONObject[i].oid)) {
-                        if (flag) {
-                            oidList += theJSONObject[i].oid;
-                            flag = false;
-                        } else {
-                            oidList += "," + theJSONObject[i].oid;
-                        }
-                    }
-                }
-                // 判断此次获取的数据是否是由重复的
                 let params = {
                     oidList: oidList
                 };
@@ -285,16 +287,11 @@
 
     function toggleRows(isVisible) {
         rowsVisible = isVisible;
-        const searchNumber = document.getElementById('searchConditionNumber');
-        const searchFuzzy = document.getElementById('searchConditionFuzzy');
-        if (rowsVisible) {
-            searchNumber.classList.remove('hidden');
-            searchFuzzy.classList.add('hidden');
-        } else {
-            searchFuzzy.classList.remove('hidden');
-            searchNumber.classList.add('hidden');
-        }
     }
+
+
+    // 绘制一个节点
+
 
 </script>
 
