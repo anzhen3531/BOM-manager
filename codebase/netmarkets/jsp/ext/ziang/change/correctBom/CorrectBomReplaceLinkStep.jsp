@@ -249,23 +249,21 @@
         try {
             let table = window.opener.PTC.jca.table.Utils.getTable('AsyncCorrectBomBuilder')
             let flag = true;
-            if (theJSONObject.length > 0) {
-                let oidList = "";
-                let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
-                for (let index = 0; index < rowData.getCount(); index++) {
-                    let oid = rowData.get(index).data.oid;
-                    let description = rowData.get(index).data.description;
-                    console.log(description);
-                    let name = rowData.get(index).data.name;
-                    console.log(name);
-                    if (name.includes(str)) {
-                        if (!oidList.includes(oid)) {
-                            if (flag) {
-                                oidList += oid;
-                                flag = false;
-                            } else {
-                                oidList += "," + oid;
-                            }
+            let oidList = "";
+            let rowData = window.opener.PTC.jca.table.Utils.getRowData(table);
+            for (let index = 0; index < rowData.getCount(); index++) {
+                let oid = rowData.get(index).data.oid;
+                let description = rowData.get(index).data.description;
+                console.log(description);
+                let name = rowData.get(index).data.name;
+                console.log(name);
+                if (name.includes(str)) {
+                    if (!oidList.includes(oid)) {
+                        if (flag) {
+                            oidList += oid;
+                            flag = false;
+                        } else {
+                            oidList += "," + oid;
                         }
                     }
                 }
