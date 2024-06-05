@@ -155,7 +155,6 @@
                         <td class="attributePanel-asterisk"></td>
                     </tr>
 
-
                     <tr>
                         <td class="attributePanel-asterisk"></td>
                         <td class="attributePanel-label">
