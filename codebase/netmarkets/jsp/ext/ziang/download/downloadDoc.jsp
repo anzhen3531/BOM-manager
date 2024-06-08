@@ -29,9 +29,11 @@
         filePath = ApplicationDataOperationHelper.downloadDoc(request.getParameter("oid"));
     }
     if (StrUtil.isNotBlank(filePath)) {
+        System.out.println("filePath = " + filePath);
 %>
 <script>
     let filePath = '<%=filePath%>';
+    console.log(filePath)
     filePath = filePath.replace(/\\/g, "/"); // 将Windows路径的反斜杠转换为正斜杠
     window.location.href = '/Windchill/netmarkets/jsp/ext/ziang/download/downloadFile.jsp?fileName=' + filePath;
 </script>
