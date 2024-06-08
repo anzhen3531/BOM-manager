@@ -13,7 +13,7 @@ import com.ptc.core.meta.common.TypeIdentifierHelper;
 import com.ptc.windchill.enterprise.copy.server.CoreMetaUtility;
 
 import cn.hutool.core.util.StrUtil;
-import ext.ziang.common.helper.user.CommonWTPrincipalHelper;
+import ext.ziang.common.helper.user.WTPrincipalHelper;
 import ext.ziang.common.util.LoggerHelper;
 import ext.ziang.common.util.ToolUtils;
 import wt.change2.AffectedActivityData;
@@ -246,7 +246,7 @@ public class CommonECNOperationHelper {
 	public static TeamReference addUserToTeam(TeamReference reference, String userName) throws WTException {
 		Persistable object = reference.getObject();
 		Team team = (Team) object;
-		WTUser wtUser = CommonWTPrincipalHelper.getUserByFullName(userName);
+		WTUser wtUser = WTPrincipalHelper.getUserByFullName(userName);
 		Vector roles = team.getRoles();
 		for (Object roleObj : roles) {
 			if (roleObj instanceof Role) {

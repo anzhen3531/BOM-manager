@@ -7,7 +7,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import org.apache.commons.lang3.StringUtils;
@@ -308,21 +307,22 @@ public class ExpressUtils {
 	}
 
 	public static void main(String[] args) {
-		// 创建一个ScriptEngineManager实例
-		ScriptEngineManager manager = new ScriptEngineManager();
-		// 获取Nashorn JavaScript引擎
-		ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
-		try {
-			// 执行JavaScript代码
-			scriptEngine.eval(
-					"(((" +
-							"ain('{item_attribute18}','H(N)')  || " +
-							"ain('{item_attribute18}','H')  ||  " +
-							"ain('{item_attribute18}','H(N)')  || " +
-							"ain('{item_attribute18}','H'))))"); // 确保在执行脚本前设置变量
-			engine.eval("print(ain);"); // 如果ain是个函数，确保已定义该函数
-		} catch (ScriptException e) {
-			e.printStackTrace();
-		}
+		// // 创建一个ScriptEngineManager实例
+		// ScriptEngineManager manager = new ScriptEngineManager();
+		// // 获取Nashorn JavaScript引擎
+		// ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
+		// try {
+		// // 执行JavaScript代码
+		// scriptEngine.eval(
+		// "(((" +
+		// "ain('{item_attribute18}','H(N)') || " +
+		// "ain('{item_attribute18}','H') || " +
+		// "ain('{item_attribute18}','H(N)') || " +
+		// "ain('{item_attribute18}','H'))))"); // 确保在执行脚本前设置变量
+		// engine.eval("print(ain);"); // 如果ain是个函数，确保已定义该函数
+		// } catch (ScriptException e) {
+		// e.printStackTrace();
+		// }
+
 	}
 }

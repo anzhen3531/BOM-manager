@@ -19,7 +19,7 @@ import wt.util.WTException;
  * @date 2023/12/30
  *       WTPrincipalUtil.getContextUserLast()
  */
-public class CommonWTPrincipalHelper {
+public class WTPrincipalHelper {
 	/**
 	 * 获取上下文用户 Last
 	 *

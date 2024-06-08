@@ -30,7 +30,7 @@ import wt.vc.baseline.ManagedBaseline;
  * @finish 2024/04/30
  * @Core BaselineService 系统提供的针对基线的API
  */
-public class CommonBaseLineHelper {
+public class BaseLineHelper {
 
 	/**
 	 * 根据基线名称获取基线

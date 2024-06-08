@@ -3,7 +3,11 @@ package ext.ziang.common.helper.part;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 
+import com.ptc.windchill.uwgm.common.associate.AssociationType;
+
 import ext.ziang.common.helper.query.CommonQueryHelper;
+import wt.epm.EPMDocument;
+import wt.epm.build.EPMBuildRule;
 import wt.fc.ObjectIdentifier;
 import wt.fc.ObjectReference;
 import wt.fc.PersistenceHelper;
@@ -25,7 +29,7 @@ import wt.vc.views.ViewHelper;
  * @author anzhen
  * @date 2024/04/20
  */
-public class CommonPartHelper {
+public class PartHelper {
 	/**
 	 * 按号码获取 WTPART Master
 	 *
@@ -125,5 +129,34 @@ public class CommonPartHelper {
 			SessionServerHelper.manager.setAccessEnforced(flag);
 		}
 		return null;
+	}
+
+	/**
+	 * 获取与部件相关活动 EPM 模型
+	 *
+	 * @param part
+	 *            部分
+	 * @return {@link EPMDocument }
+	 */
+	public static EPMDocument getPartRelatedActiveEPM3D(WTPart part) throws WTException {
+		EPMDocument epm3D = null;
+		QueryResult qr = PersistenceHelper.manager.navigate(part, EPMBuildRule.BUILD_SOURCE_ROLE, EPMBuildRule.class,
+				false);
+		// 过滤所有者关系
+		while (qr.hasMoreElements()) {
+			EPMBuildRule rule = (EPMBuildRule) qr.nextElement();
+			// 查询关联规则
+			AssociationType type = AssociationType.getAssociationType(rule, true);
+			if ("ACTIVE".equals(type.name())) {
+				EPMDocument epm = (EPMDocument) rule.getBuildSource();
+				// 判断文档类型为CAD装配和 CAD组件
+				if (epm.getDocType().toString().equals("CADASSEMBLY")
+						|| epm.getDocType().toString().equals("CADCOMPONENT")) {
+					epm3D = epm;
+				}
+				break;
+			}
+		}
+		return epm3D;
 	}
 }

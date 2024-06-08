@@ -35,6 +35,15 @@
             <command windowType="popup"
                      url="/netmarkets/jsp/ext/ziang/doc.sign/docSignConfig.jsp"/>
         </action>
+
+        <!--搜索物料即可-->
+        <action name="downloadDoc">
+            <command windowType="popup" url="/netmarkets/jsp/ext/ziang/download/downloadDoc.jsp?type=mult"/>
+            <supportedTypes>
+                <type value="com.ptc.ReferenceDocument"></type>
+            </supportedTypes>
+        </action>
+
     </objecttype>
 
 </listofactions>

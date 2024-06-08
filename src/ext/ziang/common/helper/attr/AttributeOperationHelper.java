@@ -76,7 +76,7 @@ import wt.util.WTPropertyVetoException;
  * @author anzhen
  * @date 2024/02/29
  */
-public class CommonOperationAttrHelper {
+public class AttributeOperationHelper {
 	/**
 	 * 基本 def 服务
 	 */
