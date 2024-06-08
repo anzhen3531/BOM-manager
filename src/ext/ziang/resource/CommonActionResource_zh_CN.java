@@ -101,4 +101,25 @@ public class CommonActionResource_zh_CN extends WTListResourceBundle {
 	public static final String EXTCOMMONACTION_downloadPartDocMult_DESCRIPTION = "extCommonAction.downloadPartDocMult.description";
 	@RBEntry("批量下载部件相关文档")
 	public static final String EXTCOMMONACTION_downloadPartDocMult_TOOLTIP = "extCommonAction.downloadPartDocMult.tooltip";
+
+	@RBEntry("下载部件相关文档")
+	public static final String EXTCOMMONACTION_DOWNLOADPARTDOCSINGLE_TITLE = "extCommonAction.downloadPartDocSingle.title";
+	@RBEntry("下载部件相关文档")
+	public static final String EXTCOMMONACTION_DOWNLOADPARTDOCSINGLE_DESCRIPTION = "extCommonAction.downloadPartDocSingle.description";
+	@RBEntry("下载部件相关文档")
+	public static final String EXTCOMMONACTION_DOWNLOADPARTDOCSINGLE_TOOLTIP = "extCommonAction.downloadPartDocSingle.tooltip";
+
+	@RBEntry("下载文档内容")
+	public static final String EXTCOMMONACTION_DOWNLOADDOCSINGLE_TITLE = "extCommonAction.downloadDocSingle.title";
+	@RBEntry("下载文档内容")
+	public static final String EXTCOMMONACTION_DOWNLOADDOCSINGLE_DESCRIPTION = "extCommonAction.downloadDocSingle.description";
+	@RBEntry("下载文档内容")
+	public static final String EXTCOMMONACTION_DOWNLOADDOCSINGLE_TOOLTIP = "extCommonAction.downloadDocSingle.tooltip";
+
+	@RBEntry("下载图纸内容")
+	public static final String EXTCOMMONACTION_DOWNLOADEPMDOCSINGLE_TITLE = "extCommonAction.downloadEPMDocSingle.title";
+	@RBEntry("下载图纸内容")
+	public static final String EXTCOMMONACTION_DOWNLOADEPMDOCSINGLE_DESCRIPTION = "extCommonAction.downloadEPMDocSingle.description";
+	@RBEntry("下载图纸内容")
+	public static final String EXTCOMMONACTION_DOWNLOADEPMDOCSINGLE_TOOLTIP = "extCommonAction.downloadEPMDocSingle.tooltip";
 }
