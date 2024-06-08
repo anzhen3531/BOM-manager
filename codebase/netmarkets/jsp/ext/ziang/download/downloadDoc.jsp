@@ -7,7 +7,6 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <%
-    NmCommandBean commandBean = new NmCommandBean();
     ArrayList selectedInOpener = commandBean.getSelected();
     System.out.println("selectedInOpener.size() = " + selectedInOpener.size());
     ArrayList<String> strings = new ArrayList<>();
