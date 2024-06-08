@@ -27,8 +27,8 @@
     } else {
         filePath = ApplicationDataOperationHelper.downloadDoc(request.getParameter("oid"));
     }
-    ApplicationDataOperationHelper.downloadFile(filePath, response);
     response.getOutputStream().close();
+    ApplicationDataOperationHelper.downloadFile(filePath, response);
     response.flushBuffer();
     out.clear();
     out = pageContext.pushBody();
