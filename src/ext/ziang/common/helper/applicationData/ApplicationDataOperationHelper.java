@@ -319,7 +319,9 @@ public class ApplicationDataOperationHelper {
 		List<File> partZipList = new ArrayList<>();
 		for (String oid : oidList) {
 			String content = downloadPartRelateDocContent(oid);
-			partZipList.add(new File(content));
+			if (StrUtil.isNotBlank(content)){
+				partZipList.add(new File(content));
+			}
 		}
 		String path = tempPath + File.separator + generateUniqueRandomNumber(6) + File.separator;
 		if (!new File(path).exists()) {
