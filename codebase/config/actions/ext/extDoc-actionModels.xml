@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE listofactions SYSTEM 'actions.dtd'>
+
+<actionmodels>
+    <model name="docs row actions toolbar" menufor="wt.doc.WTDocument">
+        <action name="view" type="object"/>
+        <!--  Info page  -->
+        <action name="separator" type="separator"/>
+        <submodel name="thingworxActionsMenu"/>
+        <action name="separator" type="separator"/>
+        <action name="download_primary_attachment" type="attachments"/>
+        <action name="redirect_primary_attachment" type="attachments"/>
+        <action name="separator" type="separator"/>
+        <submodel name="docs row actions open"/>
+        <action name="separator" type="separator"/>
+        <action name="checkin" type="wip"/>
+        <!--  Check In  -->
+        <action name="checkin" type="clashDefinition"/>
+        <!--  Enabled only if Clash Definition (replaces wip version)  -->
+        <action name="checkout" type="object"/>
+        <!--  Check Out  -->
+        <action name="checkout_and_download" type="wip"/>
+        <!--  Check Out and Download  -->
+        <action name="checkoutAndEdit" type="document"/>
+        <!--  Check Out and Edit  -->
+        <action name="checkoutAndEditClashJobDefinition" type="clashDefinition"/>
+        <!--  Check Out and Edit a Clash  -->
+        <action name="undocheckout" type="object"/>
+        <!--  Undo Checkout  -->
+        <action name="edit" type="document"/>
+
+        <action name="downloadDocSingle" type="extCommonAction"/>
+        <!--  Edit  -->
+        <action name="editClashJobDefinition" type="clashDefinition"/>
+        <!--  Edit a Clash  -->
+        <action name="viewClashJobDefinition" type="clashDefinition"/>
+        <!--  View a Clash  -->
+        <action name="submitClashJobDefinition" type="clashDefinition"/>
+        <action name="replace_content" type="wip"/>
+        <!--  Replace Content  -->
+        <action name="REVISEITEMS" type="pdmObject"/>
+        <!--  Revise  -->
+        <action name="separator" type="separator"/>
+        <submodel name="docs row actions new"/>
+        <action name="separator" type="separator"/>
+        <action name="copy" type="object"/>
+        <!--  Copy  -->
+        <action name="renameDocumentWizard" type="document"/>
+        <!--  doc specific Rename  -->
+        <action name="route" type="workflow"/>
+        <!--  Route ProjectLink  -->
+        <action name="CONTAINERMOVE" type="pdmObject"/>
+        <!--  Move  -->
+        <action name="SETSTATE" type="pdmObject"/>
+        <!--  Set State  -->
+        <action name="emailPage" type="document"/>
+        <!--  email Page  -->
+        <action name="export" type="object"/>
+        <!--  Export ProjectLink  -->
+        <action name="EXPORT" type="pdmObject"/>
+        <!--  Export PDMLink  -->
+        <action name="MULTI_OBJ_DELETE" type="pdmObject"/>
+        <!--  Delete  -->
+        <action name="MULTI_OBJ_DELETE_DETAILS" type="pdmObject"/>
+        <!--  Delete  -->
+        <action name="deleteIterations" type="object"/>
+        <!--  Delete all old iterations  -->
+        <action name="reassignLC" type="lifecycle"/>
+        <!--  Reassign Life Cycle  -->
+        <action name="resetTeam" type="team"/>
+        <!--  Reset Team  -->
+        <action name="disable" type="document"/>
+        <!--  Disable template  -->
+        <action name="enable" type="document"/>
+        <!--  Enable template  -->
+        <action name="userInitiatedReplication" type="replication"/>
+        <!--  Use Initiated Replication  -->
+        <action name="separator" type="separator"/>
+        <submodel name="docs row actions add"/>
+        <action name="separator" type="separator"/>
+        <action name="SBSendToPdm" type="sandbox"/>
+        <!--  Send to PDM  -->
+        <action name="sandboxUndoCheckoutDetails" type="object"/>
+        <!--  Undo PDM Checkout Details  -->
+        <action name="sandboxCheckoutShare" type="object"/>
+        <!--  PDM Checkout when shared  -->
+        <action name="convertToShare" type="sandbox"/>
+        <!--  Convert to Share  -->
+        <action name="removeShare" type="object"/>
+        <!--  Remove Share  -->
+        <action name="separator" type="separator"/>
+        <submodel name="docs row actions compare"/>
+        <action name="separator" type="separator"/>
+        <action name="DISPLAYRELATEDMANUFACTURINGITEMS" type="object"/>
+        <!--  MPMLink Display Related Manufacturing items report  -->
+        <action name="batchPrint" type="wvs"/>
+        <action name="separator" type="separator"/>
+        <action name="markLinkAsSuspect" type="requirement"/>
+        <action name="separator" type="separator"/>
+        <action name="RefreshAssociationsDB" type="SoftwareBuild"/>
+        <!--  Update Defect Associations  -->
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <action name="associateDistributionTarget" type="tgt"/>
+        <!--  ESI Associate Distribution Targets (JCA action)  -->
+        <action name="sendToDistributionTarget" type="tgt"/>
+        <!--  ESI Send to Distribution Target  -->
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <includeFilter name="ActionFilterOnProject2State"/>
+        <action name="ManageSecurity" type="accessPermission"/>
+        <!--  Edit Access Control  -->
+        <action name="EDITSECURITYLABELS" type="object"/>
+        <!--  Edit Security Labels  -->
+        <action name="createSubscription" type="subscription"/>
+        <!--  Subscribe  -->
+        <action name="separator" type="separator"/>
+        <!--  =====================================  -->
+        <action name="manageApplicabilityGWT" type="corestruct"/>
+        <!--  Manage Applicability Dialog  -->
+        <action name="separator" type="separator"/>
+        <action name="track_new_work" type="resourceAssignment"/>
+        <!--  Track new Work against subject of deliverable -->
+        <action name="new_plan_activity" type="planActivity"/>
+        <!--  New Plan Activity against subject  -->
+    </model>
+</actionmodels>
