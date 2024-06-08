@@ -77,6 +77,9 @@ public class ApplicationDataOperationHelper {
 	 * @return
 	 */
 	public static String downloadRepresentationDoc(EPMDocument epmDoc, boolean is2d) {
+		if (epmDoc == null) {
+			return null;
+		}
 		String version = epmDoc.getVersionIdentifier().getValue() + "_"
 				+ epmDoc.getIterationInfo().getIdentifier().getValue();
 		String fileName;
@@ -350,24 +353,29 @@ public class ApplicationDataOperationHelper {
 			EPMDocument epm3D = PartHelper.getPartRelatedActiveEPM3D(part);
 			// 获取3d
 			String path3dFile = downloadRepresentationDoc(epm3D, false);
-			fileList.add(new File(path3dFile));
-			EPMDocument epm2d = getSldDRW(epm3D);
-			// 获取2d
-			String epm2dpath = downloadSecondaryDoc(epm2d);
-			System.out.println("查询签名附件 epm2dpath = " + epm2dpath);
-			if (epm2dpath == null || epm2dpath.isEmpty()) {
-				epm2dpath = downloadRepresentationDoc(epm2d, true);
+			if (StrUtil.isNotBlank(path3dFile)) {
+				// TODO
+				fileList.add(new File(path3dFile));
+				EPMDocument epm2d = getSldDRW(epm3D);
+				// 获取2d
+				String epm2dpath = downloadSecondaryDoc(epm2d);
+				System.out.println("查询签名附件 epm2dpath = " + epm2dpath);
+				if (epm2dpath == null || epm2dpath.isEmpty()) {
+					epm2dpath = downloadRepresentationDoc(epm2d, true);
+				}
+				if (StrUtil.isNotBlank(epm2dpath)) {
+					fileList.add(new File(epm2dpath));
+					String path = tempPath + File.separator + generateUniqueRandomNumber(6) + File.separator;
+					if (!new File(path).exists()) {
+						new File(path).mkdirs();
+					}
+					String pathFile = path + part.getNumber() + part.getVersionIdentifier().getValue() + "_"
+							+ part.getIterationInfo().getIdentifier().getValue() + ".zip";
+					File file = new File(pathFile);
+					handlerFileZip(fileList, file, false);
+					return file.getPath();
+				}
 			}
-			fileList.add(new File(epm2dpath));
-			String path = tempPath + File.separator + generateUniqueRandomNumber(6) + File.separator;
-			if (!new File(path).exists()) {
-				new File(path).mkdirs();
-			}
-			String pathFile = path + part.getNumber() + part.getVersionIdentifier().getValue() + "_"
-					+ part.getIterationInfo().getIdentifier().getValue() + ".zip";
-			File file = new File(pathFile);
-			handlerFileZip(fileList, file, false);
-			return file.getPath();
 		}
 		return null;
 	}
@@ -490,7 +498,9 @@ public class ApplicationDataOperationHelper {
 		List<File> fileList = new ArrayList<>();
 		for (String string : strings) {
 			String filePath = downloadEpmDoc(string);
-			fileList.add(new File(filePath));
+			if (StrUtil.isNotBlank(filePath)) {
+				fileList.add(new File(filePath));
+			}
 		}
 		String path = tempPath + File.separator + generateUniqueRandomNumber(6) + File.separator;
 		if (!new File(path).exists()) {
