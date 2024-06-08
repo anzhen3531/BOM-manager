@@ -7,7 +7,8 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <%
-    ArrayList selectedInOpener = commandBean.getSelectedOidForPopup();
+    // NmCommandBean commandBean = new NmCommandBean();
+    ArrayList selectedInOpener = commandBean.getSelectedContextsForPopup();
     System.out.println("commandBean.getNmOidSelected() = " + commandBean.getNmOidSelected());
     System.out.println("commandBean.getNmOidSelectedInOpener() = " + commandBean.getNmOidSelectedInOpener());
     System.out.println("commandBean.getSelectedOidForPopup() = " + commandBean.getSelectedOidForPopup());
