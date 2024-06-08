@@ -80,4 +80,25 @@ public class CommonActionResource_zh_CN extends WTListResourceBundle {
 	public static final String CUSTOM_UPDATESIGNCONFIG_DESCRIPTION = "custom.updateSignConfig.description";
 	@RBEntry("修改签字位置配置")
 	public static final String CUSTOM_UPDATESIGNCONFIG_TOOLTIP = "custom.updateSignConfig.tooltip";
+
+	@RBEntry("批量下载文档主内容")
+	public static final String EXTCOMMONACTION_DOWNLOADDOCMULT_TITLE = "extCommonAction.downloadDocMult.title";
+	@RBEntry("批量下载文档主内容")
+	public static final String EXTCOMMONACTION_DOWNLOADDOCMULT_DESCRIPTION = "extCommonAction.downloadDocMult.description";
+	@RBEntry("批量下载文档主内容")
+	public static final String EXTCOMMONACTION_DOWNLOADDOCMULT_TOOLTIP = "extCommonAction.downloadDocMult.tooltip";
+
+	@RBEntry("批量下载图纸")
+	public static final String EXTCOMMONACTION_downloadEPMDocMult_TITLE = "extCommonAction.downloadEPMDocMult.title";
+	@RBEntry("批量下载图纸")
+	public static final String EXTCOMMONACTION_downloadEPMDocMult_DESCRIPTION = "extCommonAction.downloadEPMDocMult.description";
+	@RBEntry("批量下载图纸")
+	public static final String EXTCOMMONACTION_downloadEPMDocMult_TOOLTIP = "extCommonAction.downloadEPMDocMult.tooltip";
+
+	@RBEntry("批量下载部件相关文档")
+	public static final String EXTCOMMONACTION_downloadPartDocMult_TITLE = "extCommonAction.downloadPartDocMult.title";
+	@RBEntry("批量下载部件相关文档")
+	public static final String EXTCOMMONACTION_downloadPartDocMult_DESCRIPTION = "extCommonAction.downloadPartDocMult.description";
+	@RBEntry("批量下载部件相关文档")
+	public static final String EXTCOMMONACTION_downloadPartDocMult_TOOLTIP = "extCommonAction.downloadPartDocMult.tooltip";
 }
