@@ -16,7 +16,8 @@
     System.out.println("commandBean.getSelectedContextsForPopup() = " + commandBean.getSelectedContextsForPopup());
     ArrayList<String> strings = new ArrayList<>();
     String filePath;
-    if (request.getParameter("type").equals("mult")) {
+    String parameter = request.getParameter("type");
+    if ("mult".equals(parameter)) {
         for (Object selected : selectedInOpener) {
             if (selected instanceof NmContext) {
                 NmContext context = (NmContext) selected;

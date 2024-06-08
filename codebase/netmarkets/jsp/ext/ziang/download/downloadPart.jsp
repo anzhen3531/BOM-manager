@@ -17,7 +17,8 @@
     System.out.println("selectedInOpener.size() = " + selected.size());
     ArrayList<String> strings = new ArrayList<>();
     String filePath;
-    if (request.getParameter("type").equals("mult")) {
+    String parameter = request.getParameter("type");
+    if ("mult".equals(parameter)) {
         for (Object select : selected) {
             if (select instanceof NmContext) {
                 NmContext context = (NmContext) select;
