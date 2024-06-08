@@ -28,13 +28,7 @@
         filePath = ApplicationDataOperationHelper.downloadDoc(request.getParameter("oid"));
     }
     ApplicationDataOperationHelper.downloadFile(filePath, response);
-    response.flushBuffer();
     out.clear();
-    out = pageContext.pushBody();
-    File file = new File(filePath);
-    if (file.exists()) {
-        file.delete();
-    }
 %>
 
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
