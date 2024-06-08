@@ -199,6 +199,9 @@ public class ApplicationDataOperationHelper {
 	 * @return
 	 */
 	public static String downloadSecondaryDoc(EPMDocument epmDoc) throws WTException {
+		if (epmDoc == null) {
+			return null;
+		}
 		// 获取签名文件
 		String version2d = epmDoc.getVersionIdentifier().getValue() + "_"
 				+ epmDoc.getIterationInfo().getIdentifier().getValue();
@@ -359,7 +362,7 @@ public class ApplicationDataOperationHelper {
 				// TODO
 				fileList.add(new File(path3dFile));
 			}
-			if (epm3D != null){
+			if (epm3D != null) {
 				EPMDocument epm2d = getSldDRW(epm3D);
 				// 获取2d
 				String epm2dpath = downloadSecondaryDoc(epm2d);
