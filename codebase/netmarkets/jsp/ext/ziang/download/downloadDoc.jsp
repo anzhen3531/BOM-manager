@@ -30,8 +30,9 @@
     }
     if (StrUtil.isNotBlank(filePath)) {
 %>
-<%@ include file="/netmarkets/jsp/util/end.jspf" %>
 <script>
     window.location.href = '/Windchill/netmarkets/jsp/ext/ziang/download/downloadFile.jsp?fileName=' + '<%=filePath%>';
 </script>
 <%}%>
+
+<%@ include file="/netmarkets/jsp/util/end.jspf" %>
