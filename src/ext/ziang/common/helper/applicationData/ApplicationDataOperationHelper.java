@@ -570,8 +570,10 @@ public class ApplicationDataOperationHelper {
 	/**
 	 * 由 ASM 下载
 	 *
-	 * @param epmDocument EPM 文档
-	 * @param selectPath  选择路径
+	 * @param epmDocument
+	 *            EPM 文档
+	 * @param selectPath
+	 *            选择路径
 	 * @return {@link String }
 	 */
 	public static String downloadByASM(EPMDocument epmDocument, String selectPath) {
@@ -752,5 +754,11 @@ public class ApplicationDataOperationHelper {
 			return refLink;
 		}
 		return null;
+	}
+
+	public static String escapePathForJavaScript(String filePath) {
+		return filePath.replace("\\", "\\\\")
+				.replace("'", "\\'")
+				.replace("\"", "\\\"");
 	}
 }
