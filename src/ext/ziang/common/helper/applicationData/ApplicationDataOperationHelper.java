@@ -378,7 +378,7 @@ public class ApplicationDataOperationHelper {
 			if (!new File(path).exists()) {
 				new File(path).mkdirs();
 			}
-			String pathFile = path + part.getNumber() + part.getVersionIdentifier().getValue() + "_"
+			String pathFile = path + part.getNumber() + "_" + part.getVersionIdentifier().getValue() + "_"
 					+ part.getIterationInfo().getIdentifier().getValue() + ".zip";
 			File file = new File(pathFile);
 			handlerFileZip(fileList, file, false);
