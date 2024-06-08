@@ -5,6 +5,7 @@
          pageEncoding="UTF-8" %>
 <%
     String fileName = request.getParameter("fileName");
+    System.out.println("fileName = " + fileName);
     if (StrUtil.isBlank(fileName)) {
         return;
     }
