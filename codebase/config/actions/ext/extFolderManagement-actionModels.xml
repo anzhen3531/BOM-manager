@@ -105,7 +105,13 @@
       <action name="CONTAINERMOVE" type="pdmObject"/>
       <!--  Move  -->
       <action name="separator" type="separator"/>
-      <action name="downloadDoc" type="extCommonAction"/>
+
+      <action name="downloadDocMult" type="extCommonAction"/>
+
+      <action name="downloadEPMDocMult" type="extCommonAction"/>
+
+      <action name="downloadPartDocMult" type="extCommonAction"/>
+
       <action name="multiObjectCheckIn" type="wip"/>
       <!--  multiObjectCheckIn  -->
       <action name="multiObjectCheckOut" type="wip"/>
