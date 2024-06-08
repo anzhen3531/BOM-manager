@@ -319,7 +319,7 @@ public class ApplicationDataOperationHelper {
 		List<File> partZipList = new ArrayList<>();
 		for (String oid : oidList) {
 			String content = downloadPartRelateDocContent(oid);
-			if (StrUtil.isNotBlank(content)){
+			if (StrUtil.isNotBlank(content)) {
 				partZipList.add(new File(content));
 			}
 		}
@@ -358,26 +358,26 @@ public class ApplicationDataOperationHelper {
 			if (StrUtil.isNotBlank(path3dFile)) {
 				// TODO
 				fileList.add(new File(path3dFile));
-				EPMDocument epm2d = getSldDRW(epm3D);
-				// 获取2d
-				String epm2dpath = downloadSecondaryDoc(epm2d);
-				System.out.println("查询签名附件 epm2dpath = " + epm2dpath);
-				if (epm2dpath == null || epm2dpath.isEmpty()) {
-					epm2dpath = downloadRepresentationDoc(epm2d, true);
-				}
-				if (StrUtil.isNotBlank(epm2dpath)) {
-					fileList.add(new File(epm2dpath));
-					String path = tempPath + File.separator + generateUniqueRandomNumber(6) + File.separator;
-					if (!new File(path).exists()) {
-						new File(path).mkdirs();
-					}
-					String pathFile = path + part.getNumber() + part.getVersionIdentifier().getValue() + "_"
-							+ part.getIterationInfo().getIdentifier().getValue() + ".zip";
-					File file = new File(pathFile);
-					handlerFileZip(fileList, file, false);
-					return file.getPath();
-				}
 			}
+			EPMDocument epm2d = getSldDRW(epm3D);
+			// 获取2d
+			String epm2dpath = downloadSecondaryDoc(epm2d);
+			System.out.println("查询签名附件 epm2dpath = " + epm2dpath);
+			if (StrUtil.isNotBlank(epm2dpath)) {
+				epm2dpath = downloadRepresentationDoc(epm2d, true);
+			}
+			if (StrUtil.isNotBlank(epm2dpath)) {
+				fileList.add(new File(epm2dpath));
+			}
+			String path = tempPath + File.separator + generateUniqueRandomNumber(6) + File.separator;
+			if (!new File(path).exists()) {
+				new File(path).mkdirs();
+			}
+			String pathFile = path + part.getNumber() + part.getVersionIdentifier().getValue() + "_"
+					+ part.getIterationInfo().getIdentifier().getValue() + ".zip";
+			File file = new File(pathFile);
+			handlerFileZip(fileList, file, false);
+			return file.getPath();
 		}
 		return null;
 	}
