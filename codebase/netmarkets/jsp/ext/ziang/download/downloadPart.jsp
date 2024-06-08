@@ -7,14 +7,19 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <%
-    ArrayList selectedInOpener = commandBean.getSelected();
-    System.out.println("selectedInOpener.size() = " + selectedInOpener.size());
+    ArrayList selected = commandBean.getSelected();
+    System.out.println("commandBean.getNmOidSelected() = " + commandBean.getNmOidSelected());
+    System.out.println("commandBean.getNmOidSelectedInOpener() = " + commandBean.getNmOidSelectedInOpener());
+    System.out.println("commandBean.getSelectedOidForPopup() = " + commandBean.getSelectedOidForPopup());
+    System.out.println("commandBean.getSelectedOidForPopup() = " + commandBean.getSelectedOidForPopup());
+    System.out.println("commandBean.getSelectedContextsForPopup() = " + commandBean.getSelectedContextsForPopup());
+    System.out.println("selectedInOpener.size() = " + selected.size());
     ArrayList<String> strings = new ArrayList<>();
     String filePath;
     if (request.getParameter("type").equals("mult")) {
-        for (Object selected : selectedInOpener) {
-            if (selected instanceof NmContext) {
-                NmContext context = (NmContext) selected;
+        for (Object select : selected) {
+            if (select instanceof NmContext) {
+                NmContext context = (NmContext) select;
                 System.out.println("context.getTargetOid() = " + context.getTargetOid());
                 strings.add(context.getTargetOid().toString());
             }

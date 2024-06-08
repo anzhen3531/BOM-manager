@@ -8,7 +8,11 @@
 
 <%
     ArrayList selectedInOpener = commandBean.getSelected();
-    System.out.println("selectedInOpener.size() = " + selectedInOpener.size());
+    System.out.println("commandBean.getNmOidSelected() = " + commandBean.getNmOidSelected());
+    System.out.println("commandBean.getNmOidSelectedInOpener() = " + commandBean.getNmOidSelectedInOpener());
+    System.out.println("commandBean.getSelectedOidForPopup() = " + commandBean.getSelectedOidForPopup());
+    System.out.println("commandBean.getSelectedOidForPopup() = " + commandBean.getSelectedOidForPopup());
+    System.out.println("commandBean.getSelectedContextsForPopup() = " + commandBean.getSelectedContextsForPopup());
     ArrayList<String> strings = new ArrayList<>();
     String filePath;
     if (request.getParameter("type").equals("mult")) {
