@@ -17,7 +17,7 @@ import com.ptc.netmarkets.util.beans.NmCommandBean;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import ext.ziang.change.entity.CorrectBomEntity;
-import ext.ziang.common.helper.part.CommonPartHelper;
+import ext.ziang.common.helper.part.PartHelper;
 import ext.ziang.common.util.LoggerHelper;
 import wt.change2.AffectedActivityData;
 import wt.change2.ChangeHelper2;
@@ -119,7 +119,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 		boolean flag = SessionServerHelper.manager.setAccessEnforced(false);
 		try {
 			// 先查询替代件
-			WTPartUsageLink link = CommonPartHelper.findWTPartUsageLink(parentPart, part);
+			WTPartUsageLink link = PartHelper.findWTPartUsageLink(parentPart, part);
 			LoggerHelper.log("parentPart = " + parentPart.getNumber() + "=>  part" + part.getNumber());
 			if (link == null) {
 				return;
@@ -133,7 +133,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 					WTPartSubstituteLink substituteLink = (WTPartSubstituteLink) reference
 							.getObject();
 					WTPartMaster substituteMaster = (WTPartMaster) substituteLink.getRoleBObject();
-					WTPart substitutePart = CommonPartHelper.findLatestWTPartByMasterAndView(
+					WTPart substitutePart = PartHelper.findLatestWTPartByMasterAndView(
 							substituteMaster, part.getViewName());
 					LoggerHelper.log("substitutePart = ", substitutePart);
 					correctBomEntities.add(convertBomEntity(substitutePart, substituteLink, part));
@@ -347,10 +347,10 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 		LoggerHelper.log("parentObjId = " + parentObjId);
 		LoggerHelper.log("partObjId = " + partObjId);
 
-		WTPart part = CommonPartHelper.getWTPartByObjectId(partObjId);
+		WTPart part = PartHelper.getWTPartByObjectId(partObjId);
 		WTPart parentPart = null;
 		if (StrUtil.isNotBlank(parentObjId)) {
-			parentPart = CommonPartHelper.getWTPartByObjectId(parentObjId);
+			parentPart = PartHelper.getWTPartByObjectId(parentObjId);
 			LoggerHelper.log("parentPart.getName() = " + parentPart.getName());
 			LoggerHelper.log("parentPart.getNumber() = " + parentPart.getNumber());
 		}
@@ -374,7 +374,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 				// 查询使用部件
 				WTPartMaster master = (WTPartMaster) persistable;
 				LoggerHelper.log("master = " + master);
-				latestPart = CommonPartHelper.findLatestWTPartByMasterAndView(master, part.getViewName());
+				latestPart = PartHelper.findLatestWTPartByMasterAndView(master, part.getViewName());
 				if (latestPart == null) {
 					continue;
 				}

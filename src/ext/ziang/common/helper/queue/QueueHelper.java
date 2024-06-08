@@ -9,7 +9,7 @@ import wt.queue.WtQueue;
  * @author anzhen
  * @date 2024/04/29
  */
-public class CustomQueueHelper {
+public class QueueHelper {
 	/**
 	 * 按名称查找队列
 	 *

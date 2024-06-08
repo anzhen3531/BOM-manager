@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!DOCTYPE listofactions SYSTEM 'actions.dtd'>
+
+<actionmodels>
+    <model name="search_table_actions_toolbar">
+        <!-- This action model is used for persistable wt.fc.Persistable object type  -->
+        <action name="openInMatrixEditor" type="productfamily"/>
+        <!-- Matrix editor for selected objects -->
+        <action name="viewSchematic" type="partslink" shortcut="true"/>
+        <action name="list_copy" type="object" shortcut="true"/>
+        <!--  Copy  -->
+        <action name="CONTAINERMOVE" type="pdmObject"/>
+        <!--  Move  -->
+        <action name="separator" type="separator"/>
+        <!--  Seperator  -->
+        <action name="multiObjectCheckIn" type="wip"/>
+        <!-- multiObjectCheckIn -->
+        <action name="multiObjectCheckOut" type="wip"/>
+        <action name="downloadDocMult" type="extCommonAction"/>
+        <action name="downloadEPMDocMult" type="extCommonAction"/>
+        <action name="downloadPartDocMult" type="extCommonAction"/>
+        <!-- multiObjectCheckOut -->
+        <action name="WFMULTICHECKOUT" type="folder"/>
+        <!-- checkout to workspace -->
+        <action name="multiObjectUndoCheckout" type="wip"/>
+        <!--  multiObjectUndoCheckout  -->
+        <action name="editMultiObjects" type="object" shortcut="true"/>
+        <!--  Edit Multi Object  -->
+        <action name="separator" type="separator"/>
+        <!--  Seperator  -->
+        <submodel name="new_submenu"/>
+        <action name="separator" type="separator"/>
+        <!--  Seperator  -->
+        <action name="WFSAVEASFROMSEARCH" type="pdmObject"/>
+        <!--  Save As  -->
+        <action name="MULTIRENAMEFROMSEARCH" type="pdmObject"/>
+        <!--  Rename  -->
+        <action name="cadmultiexport" type="object"/>
+        <!--  Export CAD documents  -->
+        <action name="list_delete" type="search" shortcut="true"/>
+        <!--  Delete  -->
+        <action name="send_owner_notification_wizard" type="network"/>
+        <!--  Email Object Owners -->
+        <action name="downloadDocumentsToCompressedFile" type="document"/>
+        <!--  Download Document To Compressed File -->
+        <action name="batchPrint" type="wvs"/>
+        <!--  Send file to new Batch Print UI -->
+        <action name="SETSTATE_FROMFOLDERS" type="pdmObject"/>
+        <!--  Set State  -->
+        <action name="separator" type="separator"/>
+        <!--  Seperator  -->
+        <action name="WFADDTOWORKSPACE" type="folder" shortcut="true"/>
+        <!--  Add to Workspace  -->
+        <submodel name="add_to_submenu"/>
+        <!--  Add To actions  -->
+        <action name="separator" type="separator"/>
+        <!--  Seperator  -->
+        <submodel name="compare_submenu"/>
+        <submodel name="process_submenu"/>
+        <submodel name="folderbrowser_toolbar_exportlisttofile_submenu"/>
+        <!--  Export  -->
+        <action name="separator" type="separator"/>
+        <!--  Seperator  -->
+        <action name="route" type="workflow"/>
+        <!--  Route  -->
+        <action name="userInitiatedReplication" type="replication"/>
+        <!--  User Initiated Replication  -->
+        <action name="separator" type="separator"/>
+        <!--  Seperator  -->
+        <action name="multireassign" type="work"/>
+        <action name="multiaccept" type="work"/>
+        <action name="multiunaccept" type="work"/>
+        <action name="separator" type="separator"/>
+        <!--  Seperator  -->
+        <action name="MULTIEDITSECURITYLABELS" type="object"/>
+        <!--  Edit Security Labels  -->
+        <action name="createSubscription" type="subscription"/>
+        <!--  Subscribe  -->
+    </model>
+</actionmodels>

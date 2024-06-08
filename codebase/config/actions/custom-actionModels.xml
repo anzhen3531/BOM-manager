@@ -5,5 +5,9 @@
     <include href="config/actions/ext/extFolderManagement-actionModels.xml"/>
     <include href="config/actions/ext/extNavigation-actionModels.xml"/>
     <include href="config/actions/ext/extMPMLink-actionModels.xml"/>
+    <include href="config/actions/ext/extSearch-actionmodels.xml"/>
+    <include href="config/actions/ext/extPart-actionModels.xml"/>
+    <include href="config/actions/ext/extDoc-actionModels.xml"/>
+    <include href="config/actions/ext/extEpm-actionModels.xml"/>
 
 </actionmodels>

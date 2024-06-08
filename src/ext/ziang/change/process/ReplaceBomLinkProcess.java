@@ -16,7 +16,7 @@ import com.ptc.netmarkets.util.misc.NmContext;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import ext.ziang.common.helper.part.CommonPartHelper;
+import ext.ziang.common.helper.part.PartHelper;
 import ext.ziang.common.util.ToolUtils;
 import wt.fc.PersistenceHelper;
 import wt.fc.PersistenceServerHelper;
@@ -130,8 +130,8 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 			System.out.println("ReplaceBomLinkProcess.handlerReplaceAndSubstitution");
 			System.out.println("componentPart = " + componentPart + ", originNumber = " + originNumber
 					+ ", replaceNumber = " + replaceNumber + ", replaceType = " + replaceType);
-			WTPartMaster originMaster = CommonPartHelper.getWTPartMasterByNumber(originNumber);
-			WTPartMaster replaceMaster = CommonPartHelper.getWTPartMasterByNumber(replaceNumber);
+			WTPartMaster originMaster = PartHelper.getWTPartMasterByNumber(originNumber);
+			WTPartMaster replaceMaster = PartHelper.getWTPartMasterByNumber(replaceNumber);
 			System.out.println("replaceMaster = " + replaceMaster);
 			System.out.println("originMaster = " + originMaster);
 			if (originMaster == null || replaceMaster == null) {
@@ -139,10 +139,10 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 			}
 			WTPart originLatestPart;
 			WTPart replaceLatestPart = null;
-			originLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(originMaster, "Design");
-			replaceLatestPart = CommonPartHelper.findLatestWTPartByMasterAndView(replaceMaster, "Design");
+			originLatestPart = PartHelper.findLatestWTPartByMasterAndView(originMaster, "Design");
+			replaceLatestPart = PartHelper.findLatestWTPartByMasterAndView(replaceMaster, "Design");
 			// 查询Link
-			WTPartUsageLink link = CommonPartHelper.findWTPartUsageLink(componentPart, originLatestPart);
+			WTPartUsageLink link = PartHelper.findWTPartUsageLink(componentPart, originLatestPart);
 			if (link == null) {
 				throw new WTException(
 						String.format("操作异常：当前受影响源物料{%s}没有和选择的BOM{%s}存在关联关系", originNumber, componentPart.getNumber()));
@@ -153,7 +153,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 			switch (replaceType) {
 				case "replace":
 					System.out.println("进入替换结构相关");
-					WTPartUsageLink checkoutVersionLink = CommonPartHelper.findWTPartUsageLink(componentWorkCopy,
+					WTPartUsageLink checkoutVersionLink = PartHelper.findWTPartUsageLink(componentWorkCopy,
 							originLatestPart);
 					QueryResult result = PersistenceServerHelper.manager.query(WTPartUsageLink.class, componentWorkCopy,
 							WTPartUsageLink.USED_BY_ROLE,
@@ -172,7 +172,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 						return workable;
 					}
 				case "substitution":
-					WTPartUsageLink originLink = CommonPartHelper.findWTPartUsageLink(componentWorkCopy,
+					WTPartUsageLink originLink = PartHelper.findWTPartUsageLink(componentWorkCopy,
 							originLatestPart);
 					System.out.println("originLink = " + originLink);
 					if (originLink == null) {
@@ -201,7 +201,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 						return workable;
 					}
 				case "deleteSubstitution":
-					WTPartUsageLink usageLink = CommonPartHelper.findWTPartUsageLink(componentWorkCopy,
+					WTPartUsageLink usageLink = PartHelper.findWTPartUsageLink(componentWorkCopy,
 							originLatestPart);
 					QueryResult substituteFor = PersistenceHelper.manager.find(WTPartSubstituteLink.class,
 							usageLink,
@@ -220,7 +220,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 					}
 					break;
 				case "mainChangeSubstitute":
-					WTPartUsageLink originPartLink = CommonPartHelper.findWTPartUsageLink(componentWorkCopy,
+					WTPartUsageLink originPartLink = PartHelper.findWTPartUsageLink(componentWorkCopy,
 							originLatestPart);
 					System.out.println("originLink = " + originPartLink);
 					if (originPartLink == null) {
