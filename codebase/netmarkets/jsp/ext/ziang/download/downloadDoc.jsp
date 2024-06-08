@@ -3,6 +3,7 @@
 <%@ page import="com.ptc.netmarkets.util.misc.NmContext" %>
 <%@ page import="java.io.File" %>
 <%@ page import="ext.ziang.common.helper.applicationData.ApplicationDataOperationHelper" %>
+<%@ page import="cn.hutool.core.util.StrUtil" %>
 <%@ include file="/netmarkets/jsp/util/beginPopup.jspf" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 
@@ -27,12 +28,10 @@
     } else {
         filePath = ApplicationDataOperationHelper.downloadDoc(request.getParameter("oid"));
     }
-    response.getOutputStream().close();
-    ApplicationDataOperationHelper.downloadFile(filePath, response);
-    response.flushBuffer();
-    out.clear();
-    out = pageContext.pushBody();
+    if (StrUtil.isNotBlank(filePath)) {
 %>
-
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
-
+<script>
+    window.location.href = '/Windchill/netmarkets/jsp/ext/ziang/download/downloadFile.jsp?fileName=' + '<%=filePath%>';
+</script>
+<%}%>
