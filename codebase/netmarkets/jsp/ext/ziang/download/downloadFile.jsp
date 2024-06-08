@@ -5,7 +5,7 @@
          pageEncoding="UTF-8" %>
 <%
     String fileName = request.getParameter("fileName");
-    if (StrUtil.isNotBlank(fileName)) {
+    if (StrUtil.isBlank(fileName)) {
         return;
     }
     ApplicationDataOperationHelper.downloadFile(fileName, response);
