@@ -34,7 +34,6 @@
     let filePath = '<%=filePath%>';
     filePath = filePath.replace(/\\/g, "/"); // 将Windows路径的反斜杠转换为正斜杠
     window.location.href = '/Windchill/netmarkets/jsp/ext/ziang/download/downloadFile.jsp?fileName=' + filePath;
-    window.close()
 </script>
 <%}%>
 
