@@ -36,14 +36,39 @@
                      url="/netmarkets/jsp/ext/ziang/doc.sign/docSignConfig.jsp"/>
         </action>
 
-        <!--搜索物料即可-->
-        <action name="downloadDoc">
+        <!--批量下载文档-->
+        <action name="downloadDocMult">
             <command windowType="popup" url="/netmarkets/jsp/ext/ziang/download/downloadDoc.jsp?type=mult"/>
             <supportedTypes>
                 <type value="com.ptc.ReferenceDocument"></type>
             </supportedTypes>
         </action>
-
+        <!--下载单个文档-->
+        <action name="downloadDocSingle">
+            <command windowType="popup" url="/netmarkets/jsp/ext/ziang/download/downloadDoc.jsp"/>
+        </action>
+        <!--单个下载图纸-->
+        <action name="downloadEPMDocSingle">
+            <command windowType="popup" url="/netmarkets/jsp/ext/ziang/download/downloadEpmDoc.jsp"/>
+            <supportedTypes>
+                <type value="wt.epm.EPMDocument"></type>
+            </supportedTypes>
+        </action>
+        <!--单个下载图纸-->
+        <action name="downloadEPMDocMult">
+            <command windowType="popup" url="/netmarkets/jsp/ext/ziang/download/downloadEpmDoc.jsp?type=mult"/>
+        </action>
+        <!--单个下载部件关联的文档或者图纸-->
+        <action name="downloadPartDocSingle">
+            <command windowType="popup" url="/netmarkets/jsp/ext/ziang/download/downloadPart.jsp"/>
+            <supportedTypes>
+                <type value="wt.part.WTPart"></type>
+            </supportedTypes>
+        </action>
+        <!--多个下载部件关联的文档或者图纸-->
+        <action name="downloadPartDocMult">
+            <command windowType="popup" url="/netmarkets/jsp/ext/ziang/download/downloadPart.jsp?type=mult"/>
+        </action>
     </objecttype>
 
 </listofactions>
