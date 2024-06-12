@@ -331,6 +331,8 @@ public class ExpressUtils {
 			e.printStackTrace();
 		}
 
+		System.out.println("validateIsNotBlankAttr(\"123123\",\"123\",\"12312\",null) = " + validateIsNotBlankAttr("123123", "123", "12312", null));
+
 	}
 
 	public static ScriptEngine scriptEngine() throws ScriptException {
@@ -360,4 +362,19 @@ public class ExpressUtils {
 		return engine;
 	}
 
+	/**
+	 * 验证不是空白属性
+	 *
+	 * @param isNotBlankAttr 不是空白 attr
+	 *
+	 * @return boolean
+	 */
+	public static boolean validateIsNotBlankAttr(String... isNotBlankAttr) {
+		for (String stringValue : isNotBlankAttr) {
+			if (StringUtils.isBlank(stringValue)) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

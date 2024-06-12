@@ -36,8 +36,8 @@ public class WorkflowPictureDoc {
 			arrayList.add("Material");
 			for (int i = 0; i < 30; i++) {
 				String s = "OP" + i;
-				if (i == 10 || i == 11) {
-					s = s + "(R)12312312312321";
+				if (i == 10 || i == 14) {
+					s = s + "(R)$F";
 				}
 				if (i == 5) {
 					s = s + "|'D'";
@@ -52,7 +52,6 @@ public class WorkflowPictureDoc {
 				}
 				latestOp = s;
 			}
-
 			// 转换List和Map为字符串并进行URL编码
 			String listString = arrayList.stream()
 					.map(WorkflowPictureDoc::encode)
@@ -60,6 +59,7 @@ public class WorkflowPictureDoc {
 			String mapString = map.entrySet().stream()
 					.map(entry -> encode(entry.getKey()) + "=" + encode(entry.getValue()))
 					.collect(Collectors.joining(","));
+
 			System.out.println("mapString = " + mapString);
 			System.out.println("listString = " + listString);
 			String command = String.format("cscript //NoLogo \"%s\" \"%s\" \"%s\" \"%s\"",
