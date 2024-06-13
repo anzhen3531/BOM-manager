@@ -17,6 +17,23 @@ Function URLDecode(encodedStr)
     URLDecode = decodedStr
 End Function
 
+' 设置默认样式函数
+
+Function SetDefaultStyle(shape)
+    shape.Fill.ForeColor.RGB = RGB(255, 255, 255)
+    shape.Line.ForeColor.RGB = RGB(0, 0, 0)
+    shape.TextFrame.Characters.Font.Color = RGB(0, 0, 0)
+    shape.TextFrame2.WordWrap = True
+    shape.TextFrame.AutoSize = False
+    shape.TextFrame.VerticalOverflow = 0
+    shape.TextFrame.MarginBottom = 0
+    shape.TextFrame.MarginLeft = 0
+    shape.TextFrame.MarginRight = 0
+    shape.TextFrame.MarginTop = 0
+    shape.TextFrame.HorizontalAlignment = - 4108 ' xlCenter
+    shape.TextFrame.VerticalAlignment = - 4108 ' xlCenter
+End Function
+
 ' 声明变量
 Dim objExcel, objWorkbook, objSheet, objShape
 Set args = WScript.Arguments
@@ -87,22 +104,14 @@ For Each element In listArray
     If element = "End" Or element = "Material" Then
         Set objShape1 = objSheet.Shapes.AddShape(69, startXIndex, startYIndex, 65, 20)
         objShape1.TextFrame.Characters.Text = element
-        objShape1.Fill.ForeColor.RGB = RGB(255, 255, 255)
-        objShape1.Line.ForeColor.RGB = RGB(0, 0, 0)
-        objShape1.TextFrame.Characters.Font.Color = RGB(0, 0, 0)
-        objShape1.TextFrame2.WordWrap = True
-        objShape1.TextFrame.AutoSize = False
+        SetDefaultStyle(objShape1)
         newWidth = objShape1.Width
         newHeight = objShape1.Height
         map.Add element, Array(startXIndex, startYIndex, 65, 20)
     ElseIf InStr(1, element, """D""", 1) > 0 Then
         Set objShape1 = objSheet.Shapes.AddShape(1, startXIndex, startYIndex, 65, 20)
         objShape1.TextFrame.Characters.Text = Replace(element, "+", " ")
-        objShape1.Fill.ForeColor.RGB = RGB(255, 255, 255)
-        objShape1.Line.ForeColor.RGB = RGB(0, 0, 0)
-        objShape1.TextFrame.Characters.Font.Color = RGB(0, 0, 0)
-        objShape1.TextFrame2.WordWrap = True
-        objShape1.TextFrame.AutoSize = False
+        SetDefaultStyle(objShape1)
         newWidth = objShape1.Width
         newHeight = objShape1.Height
         map.Add element, Array(startXIndex, startYIndex, 65, 20)
@@ -116,14 +125,8 @@ For Each element In listArray
             flag = True
         End If
         Set objShape1 = objSheet.Shapes.AddShape(4, startXIndex - 13, startYIndex, defaultDiamondWidth, defaultDiamondHeight)
-        objShape1.TextFrame.Characters.Text = element
-        objShape1.Fill.ForeColor.RGB = RGB(255, 255, 255)
-        objShape1.Line.ForeColor.RGB = RGB(0, 0, 0)
-        objShape1.TextFrame.Characters.Font.Color = RGB(0, 0, 0)
         objShape1.TextFrame.Characters.Text = Replace(element, "$F", "")
-        objShape1.TextFrame2.WordWrap = True
-        objShape1.TextFrame2.TextRange.Font.Size = 8
-        objShape1.TextFrame.AutoSize = False
+        SetDefaultStyle(objShape1)
         newWidth = objShape1.Width
         newHeight = objShape1.Height
         ' WScript.Echo "newHeight = " & newHeight & " newWidth = " & newWidth
@@ -131,9 +134,7 @@ For Each element In listArray
     Else
         Set objShape1 = objSheet.Shapes.AddShape(1, startXIndex, startYIndex, 65, 20)
         objShape1.TextFrame.Characters.Text = element
-        objShape1.Fill.ForeColor.RGB = RGB(255, 255, 255)
-        objShape1.Line.ForeColor.RGB = RGB(0, 0, 0)
-        objShape1.TextFrame.Characters.Font.Color = RGB(0, 0, 0)
+        SetDefaultStyle(objShape1)
         map.Add element, Array(startXIndex, startYIndex, 65, 20)
     End If
     If (startYIndex + 50) > endYIndex Then
