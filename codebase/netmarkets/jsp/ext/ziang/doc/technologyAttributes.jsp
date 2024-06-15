@@ -32,6 +32,7 @@
 <div id='setAttributesTablePane'>
     <script language='Javascript'>
         PTC.wizard.loadAttributeTableURL = "${mvc:getTypeBasedComponentURL('attributesTable')}";
+        // 添加销售函数
         PTC.driverAttributes.on("afterRefresh", function () {
             // 重新加载属性表格
             PTC.wizard.attributePanelLoader.reloadAttributesTable();
@@ -44,6 +45,7 @@
                 // 获取创建类型
                 var createType = document.getElementById("createType").value;
                 pickerGo(createType, '');
+                // 查询该方法
                 PTC.wizard.attributePanelLoader.goAttributeTableProgress();
                 PTC.driverAttributes.refreshDriverAttributes('/servlet/TypeBasedIncludeServlet?contextAction=defineItemAttributesPanel');
                 //选择事件.

@@ -8,7 +8,9 @@
 <%--
 添加一个搜索表格
 --%>
-
+<div class="inlineHelpBox">
+    当前为配置PDF的签字位置而用
+</div>
 
 <div>
     <jsp:include page="${mvc:getComponentURL('ext.ziang.doc.sign.builder.ElectronicSignatureConfigBuilder')}"

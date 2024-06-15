@@ -74,6 +74,7 @@
     let password = "<%=password%>";
 
     window.onload = function () {
+        // 发送一个Ajax的请求即可
         this.login("/Windchill/netmarkets/jsp/ext/ziang/oauth2/toMainPage.jsp", fullName, password);
     }
 </script>
