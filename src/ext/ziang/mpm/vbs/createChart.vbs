@@ -17,6 +17,23 @@ Function URLDecode(encodedStr)
     URLDecode = decodedStr
 End Function
 
+' 设置默认样式函数
+
+Function SetDefaultStyle(shape)
+    shape.Fill.ForeColor.RGB = RGB(255, 255, 255)
+    shape.Line.ForeColor.RGB = RGB(0, 0, 0)
+    shape.TextFrame.Characters.Font.Color = RGB(0, 0, 0)
+    shape.TextFrame2.WordWrap = True
+    shape.TextFrame.AutoSize = False
+    shape.TextFrame.VerticalOverflow = 0
+    shape.TextFrame.MarginBottom = 0
+    shape.TextFrame.MarginLeft = 0
+    shape.TextFrame.MarginRight = 0
+    shape.TextFrame.MarginTop = 0
+    shape.TextFrame.HorizontalAlignment = - 4108 ' xlCenter
+    shape.TextFrame.VerticalAlignment = - 4108 ' xlCenter
+End Function
+
 ' 声明变量
 Dim objExcel, objWorkbook, objSheet, objShape
 Set args = WScript.Arguments
@@ -40,9 +57,6 @@ Next
 
 ' 打开一个ExcelApp
 Set objExcel = CreateObject("Excel.Application")
-' 关闭警告
-objExcel.ScreenUpdating = False
-objExcel.DisplayAlerts = False
 ' 显示打开
 objExcel.Visible = True
 Set objWorkbook = objExcel.Workbooks.Open(excelFile)
@@ -86,47 +100,33 @@ flag = False
 
 WScript.Echo "Drawing Model on Excel sheet..."
 For Each element In listArray
-    ' WScript.Echo element
+' WScript.Echo element
     If element = "End" Or element = "Material" Then
         Set objShape1 = objSheet.Shapes.AddShape(69, startXIndex, startYIndex, 65, 20)
         objShape1.TextFrame.Characters.Text = element
-        objShape1.Fill.ForeColor.RGB = RGB(255, 255, 255)
-        objShape1.Line.ForeColor.RGB = RGB(0, 0, 0)
-        objShape1.TextFrame.Characters.Font.Color = RGB(0, 0, 0)
-        objShape1.TextFrame2.WordWrap = True
-        objShape1.TextFrame.AutoSize = False
+        SetDefaultStyle(objShape1)
         newWidth = objShape1.Width
         newHeight = objShape1.Height
         map.Add element, Array(startXIndex, startYIndex, 65, 20)
     ElseIf InStr(1, element, """D""", 1) > 0 Then
         Set objShape1 = objSheet.Shapes.AddShape(1, startXIndex, startYIndex, 65, 20)
         objShape1.TextFrame.Characters.Text = Replace(element, "+", " ")
-        objShape1.Fill.ForeColor.RGB = RGB(255, 255, 255)
-        objShape1.Line.ForeColor.RGB = RGB(0, 0, 0)
-        objShape1.TextFrame.Characters.Font.Color = RGB(0, 0, 0)
-        objShape1.TextFrame2.WordWrap = True
-        objShape1.TextFrame.AutoSize = False
+        SetDefaultStyle(objShape1)
         newWidth = objShape1.Width
         newHeight = objShape1.Height
         map.Add element, Array(startXIndex, startYIndex, 65, 20)
-    ElseIf InStr(1, element, "R", 1) > 0 Then
+    ElseIf InStr(1, element, "$F", 1) > 0 Then
         If (startYIndex + defaultDiamondHeight) > endYIndex Then
             startYIndex = defaultStartYIndex
             startXIndex = startXIndex + defaultGap
             index = 1
+            flag = True
         Else
-            startYIndex = startYIndex + 40
-            index = index + 1
             flag = True
         End If
         Set objShape1 = objSheet.Shapes.AddShape(4, startXIndex - 13, startYIndex, defaultDiamondWidth, defaultDiamondHeight)
-        objShape1.TextFrame.Characters.Text = element
-        objShape1.Fill.ForeColor.RGB = RGB(255, 255, 255)
-        objShape1.Line.ForeColor.RGB = RGB(0, 0, 0)
-        objShape1.TextFrame.Characters.Font.Color = RGB(0, 0, 0)
-        objShape1.TextFrame2.WordWrap = True
-        objShape1.TextFrame2.TextRange.Font.Size = 8
-        objShape1.TextFrame.AutoSize = False
+        objShape1.TextFrame.Characters.Text = Replace(element, "$F", "")
+        SetDefaultStyle(objShape1)
         newWidth = objShape1.Width
         newHeight = objShape1.Height
         ' WScript.Echo "newHeight = " & newHeight & " newWidth = " & newWidth
@@ -134,9 +134,7 @@ For Each element In listArray
     Else
         Set objShape1 = objSheet.Shapes.AddShape(1, startXIndex, startYIndex, 65, 20)
         objShape1.TextFrame.Characters.Text = element
-        objShape1.Fill.ForeColor.RGB = RGB(255, 255, 255)
-        objShape1.Line.ForeColor.RGB = RGB(0, 0, 0)
-        objShape1.TextFrame.Characters.Font.Color = RGB(0, 0, 0)
+        SetDefaultStyle(objShape1)
         map.Add element, Array(startXIndex, startYIndex, 65, 20)
     End If
     If (startYIndex + 50) > endYIndex Then
@@ -146,6 +144,11 @@ For Each element In listArray
     Else
         If flag Then
             startYIndex = startYIndex + defaultDiamondHeight + 20
+            If (startYIndex + 50) > endYIndex Then
+                startYIndex = defaultStartYIndex
+                startXIndex = startXIndex + defaultGap
+                index = 1
+            End If
             index = index + 1
             flag = False
         Else
@@ -160,10 +163,10 @@ WScript.Echo "Drawing lines on Excel sheet..."
 Dim valuesO
 Dim valuesT
 For Each key In mapDict.Keys
-    ' WScript.Echo key
+' WScript.Echo key
     valuesO = map(key)
     If IsArray(valuesO) Then
-        ' WScript.Echo "valuesO is an array"
+    ' WScript.Echo "valuesO is an array"
         valuesT = map(mapDict(key))
         '        WScript.Echo "key: " & key
         '        WScript.Echo "valuesO(0): " & valuesO(0) & ", valuesO(1): " & valuesO(1) & ", valuesO(2): " & valuesO(2) & ", valuesO(3): " & valuesO(3)
@@ -193,15 +196,15 @@ For Each key In mapDict.Keys
     End If
 Next
 
-WScript.Echo newFilePath
-objWorkbook.SaveAs newFilePath
+On Error Resume Next
+objWorkbook.Save True
+' 关闭工作簿，不保存更改
 objWorkbook.Close
-objExcel.ScreenUpdating = True
-objExcel.DisplayAlerts = True
+' 退出 Excel
 objExcel.Quit
+' 释放对象
 Set objShape = Nothing
 Set objLine = Nothing
 Set objSheet = Nothing
 Set objWorkbook = Nothing
 Set objExcel = Nothing
-WScript.Quit 0

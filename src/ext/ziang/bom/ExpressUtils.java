@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,7 +25,17 @@ import cn.hutool.script.JavaScriptEngine;
  * @date 2022/7/12
  */
 public class ExpressUtils {
-	static ScriptEngine scriptEngine = new JavaScriptEngine();
+	static ScriptEngine scriptEngine;
+
+	static {
+		try {
+			scriptEngine = scriptEngine();
+		} catch (ScriptException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+
 	static final LRUCache<String, String> expressStrCache = CacheUtil.newLRUCache(512, 5 * 60 * 1000);
 	static final String NUMBER_VALUE_REGEX = "^[\\d\\.]*";
 	static CacheManager caffeineCacheManager;
@@ -306,23 +317,64 @@ public class ExpressUtils {
 		}
 	}
 
-	public static void main(String[] args) {
-		// // 创建一个ScriptEngineManager实例
-		// ScriptEngineManager manager = new ScriptEngineManager();
-		// // 获取Nashorn JavaScript引擎
-		// ScriptEngine engine = new ScriptEngineManager().getEngineByName("nashorn");
-		// try {
-		// // 执行JavaScript代码
-		// scriptEngine.eval(
-		// "(((" +
-		// "ain('{item_attribute18}','H(N)') || " +
-		// "ain('{item_attribute18}','H') || " +
-		// "ain('{item_attribute18}','H(N)') || " +
-		// "ain('{item_attribute18}','H'))))"); // 确保在执行脚本前设置变量
-		// engine.eval("print(ain);"); // 如果ain是个函数，确保已定义该函数
-		// } catch (ScriptException e) {
-		// e.printStackTrace();
-		// }
+	public static void main(String[] args) throws ScriptException {
+		try {
+			// 执行JavaScript代码
+			Object eval = scriptEngine.eval(
+					"(((" +
+							"ain('{item_attribute18}','H(N)') || " +
+							"ain('{item_attribute18}','H') || " +
+							"ain('{item_attribute18}','H(N)') || " +
+							"ain('{item_attribute18}','H'))))");
+			System.out.println("eval = " + eval);
+		} catch (ScriptException e) {
+			e.printStackTrace();
+		}
 
+		System.out.println("validateIsNotBlankAttr(\"123123\",\"123\",\"12312\",null) = " + validateIsNotBlankAttr("123123", "123", "12312", null));
+
+	}
+
+	public static ScriptEngine scriptEngine() throws ScriptException {
+		StringBuffer exp = new StringBuffer();
+		exp.append("      function ain(fieldValue, value) {");
+		exp.append(
+				"          return value != null && fieldValue != null && (';'+value+';').indexOf(';' + fieldValue +';') >= 0;");
+		exp.append("      };");
+
+		exp.append("      function eq(fieldValue, value) {");
+		exp.append("          return value != null && fieldValue != null && ''+fieldValue == ''+value;");
+		exp.append("      };");
+
+		exp.append("      function notin(fieldValue, value) {");
+		exp.append(
+				"          return value != null && fieldValue != null && (';'+value+';').indexOf(';' + fieldValue +';') < 0;");
+		exp.append("      };");
+
+		exp.append("      function numRange(fieldValue, valueFrom,valueTo) {");
+		exp.append("          return valueFrom != null && valueTo != null && fieldValue != null && " +
+				" fieldValue >= valueFrom && fieldValue<=valueTo ;");
+		exp.append("      };");
+		// 结果
+		ScriptEngineManager manager = new ScriptEngineManager(null);
+		ScriptEngine engine = manager.getEngineByName("nashorn");
+		engine.eval(exp.toString());
+		return engine;
+	}
+
+	/**
+	 * 验证不是空白属性
+	 *
+	 * @param isNotBlankAttr 不是空白 attr
+	 *
+	 * @return boolean
+	 */
+	public static boolean validateIsNotBlankAttr(String... isNotBlankAttr) {
+		for (String stringValue : isNotBlankAttr) {
+			if (StringUtils.isBlank(stringValue)) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
