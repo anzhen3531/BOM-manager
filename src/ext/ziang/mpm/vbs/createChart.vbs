@@ -83,7 +83,6 @@ For Each node In objWorkbook.Names
     End if
     cellTop = node.RefersToRange.Top
     cellLeft = node.RefersToRange.Left
-    ' WScript.Echo "Cell A1 is at pixel position: Top = " & cellTop & ", Left = " & cellLeft & "name=" & node.name
 Next
 
 Set coordinates = CreateObject("Scripting.Dictionary")
@@ -96,7 +95,6 @@ defaultGap = 100
 defaultDiamondWidth = 90
 defaultDiamondHeight = 60
 flag = False
-
 
 WScript.Echo "Drawing Model on Excel sheet..."
 For Each element In listArray
