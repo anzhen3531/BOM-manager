@@ -40,7 +40,7 @@ public class WorkflowPictureDoc {
 					s = s + "(R)$F";
 				}
 				if (i == 5) {
-					s = s + "|'D'";
+					s = s + "|'D12312312";
 				}
 				arrayList.add(s);
 			}
