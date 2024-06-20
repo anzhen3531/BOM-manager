@@ -1,12 +1,12 @@
 package ext.ziang.docTag;
 
-import java.rmi.RemoteException;
-import java.util.HashMap;
-
+import ext.ziang.cache.CommonCacheHelper;
 import ext.ziang.cache.CommonPartCache;
-import ext.ziang.common.helper.cache.CommonSingleCache;
 import ext.ziang.common.util.LoggerHelper;
 import wt.method.RemoteAccess;
+
+import java.rmi.RemoteException;
+import java.util.HashMap;
 
 /**
  * 学习 JCA 标签实用程序
@@ -16,21 +16,14 @@ import wt.method.RemoteAccess;
  */
 public class LearnJcaTagUtil implements RemoteAccess {
 
-    public static CommonPartCache commonPartCache = null;
-
     static {
-        try {
-            commonPartCache = new CommonPartCache();
-            initAttr();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        }
+        initAttr();
     }
 
     /**
      * 初始化 attr
      */
-    public static void initAttr() throws RemoteException {
+    public static void initAttr() {
         HashMap<Object, Object> jcaTagMap = new HashMap<>();
         jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
         jcaTagMap.put("cache", "ext.ziang.common.helper.cache.CommonSingleCache");
@@ -39,8 +32,8 @@ public class LearnJcaTagUtil implements RemoteAccess {
         jcaTagMap.forEach((key, value) -> {
             LoggerHelper.log("key", key);
             LoggerHelper.log("value", value);
-            commonPartCache.put(key, value);
         });
+        CommonCacheHelper.put("LearnJcaTagUtil_Map", jcaTagMap);
     }
 
     /**
@@ -50,25 +43,13 @@ public class LearnJcaTagUtil implements RemoteAccess {
      */
     public static HashMap<Object, Object> getExamplePropertyPanelData() {
         HashMap<Object, Object> jcaTagMap = new HashMap<>();
+        Object learnJcaTagUtilMap = CommonCacheHelper.get("LearnJcaTagUtil_Map");
+        System.out.println("learnJcaTagUtilMap = " + learnJcaTagUtilMap);
         jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
         jcaTagMap.put("cache", "ext.ziang.common.helper.cache.CommonSingleCache");
         jcaTagMap.put("test", "test");
-        for (Object key : getKeys()) {
-            System.out.println("key = " + key);
-        }
-        System.out.println("commonPartCache.get(\"className\") = " + commonPartCache.get("className"));
-        System.out.println("commonPartCache.get(\"cache) = " + commonPartCache.get("cache"));
-        System.out.println("commonPartCache.get(\"test\") = " + commonPartCache.get("test"));
-        return jcaTagMap;
-    }
-
-    /**
-     * 获取密钥
-     *
-     * @return {@link Object[]}
-     */
-    public static Object[] getKeys() {
-        return CommonSingleCache.getAllKeys();
+        HashMap<Object, Object> map = (HashMap<Object, Object>) learnJcaTagUtilMap;
+        return map;
     }
 
     public static LearnJcaTagUtil newLearnJcaTagUtil() throws RemoteException {

@@ -10,7 +10,6 @@ public class CommonPartCache extends CacheManager {
 
     private static volatile CommonPartCache cache = null;
 
-
     static CommonPartCache getCommonPartCache() throws RemoteException {
         if (cache == null) {
             synchronized (CommonPartCache.class) {
