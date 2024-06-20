@@ -1,7 +1,6 @@
 package ext.ziang.docTag;
 
 import ext.ziang.cache.CommonCacheHelper;
-import ext.ziang.cache.CommonPartCache;
 import ext.ziang.common.util.LoggerHelper;
 import wt.method.RemoteAccess;
 

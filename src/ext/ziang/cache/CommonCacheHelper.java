@@ -3,11 +3,11 @@ package ext.ziang.cache;
 import java.rmi.RemoteException;
 
 public class CommonCacheHelper {
-    public static CommonPartCache cache = null;
+    public static CommonCache cache = null;
 
     static {
         try {
-            cache = new CommonPartCache();
+            cache = new CommonCache();
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
