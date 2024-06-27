@@ -1,10 +1,11 @@
 package ext.ziang.docTag;
 
-import java.util.HashMap;
-
-import ext.ziang.common.helper.cache.CommonSingleCache;
+import ext.ziang.cache.CommonCacheHelper;
 import ext.ziang.common.util.LoggerHelper;
 import wt.method.RemoteAccess;
+
+import java.rmi.RemoteException;
+import java.util.HashMap;
 
 /**
  * 学习 JCA 标签实用程序
@@ -14,53 +15,44 @@ import wt.method.RemoteAccess;
  */
 public class LearnJcaTagUtil implements RemoteAccess {
 
-	static {
-		initAttr();
-	}
+    static {
+        initAttr();
+    }
 
-	/**
-	 * 初始化 attr
-	 */
-	public static void initAttr() {
-		HashMap<Object, Object> jcaTagMap = new HashMap<>();
-		jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
-		jcaTagMap.put("cache", "ext.ziang.common.helper.cache.CommonSingleCache");
-		jcaTagMap.put("test", "test");
-		LoggerHelper.log("jcaTagMap", jcaTagMap);
-		jcaTagMap.forEach((key, value) -> {
-			LoggerHelper.log("key", key);
-			LoggerHelper.log("value", value);
-			CommonSingleCache.put(key, value);
-		});
-	}
+    /**
+     * 初始化 attr
+     */
+    public static void initAttr() {
+        HashMap<Object, Object> jcaTagMap = new HashMap<>();
+        jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
+        jcaTagMap.put("cache", "ext.ziang.common.helper.cache.CommonSingleCache");
+        jcaTagMap.put("test", "test");
+        LoggerHelper.log("jcaTagMap", jcaTagMap);
+        jcaTagMap.forEach((key, value) -> {
+            LoggerHelper.log("key", key);
+            LoggerHelper.log("value", value);
+        });
+        CommonCacheHelper.put("LearnJcaTagUtil_Map", jcaTagMap);
+    }
 
-	/**
-	 * 获取示例属性面板数据
-	 *
-	 * @return {@link HashMap}<{@link Object}, {@link Object}>
-	 */
-	public static HashMap<Object, Object> getExamplePropertyPanelData() {
-		HashMap<Object, Object> jcaTagMap = new HashMap<>();
-		jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
-		jcaTagMap.put("cache", "ext.ziang.common.helper.cache.CommonSingleCache");
-		jcaTagMap.put("test", "test");
-		for (Object key : getKeys()) {
-			System.out.println("key = " + key);
-		}
-		return jcaTagMap;
-	}
+    /**
+     * 获取示例属性面板数据
+     *
+     * @return {@link HashMap}<{@link Object}, {@link Object}>
+     */
+    public static HashMap<Object, Object> getExamplePropertyPanelData() {
+        HashMap<Object, Object> jcaTagMap = new HashMap<>();
+        Object learnJcaTagUtilMap = CommonCacheHelper.get("LearnJcaTagUtil_Map");
+        System.out.println("learnJcaTagUtilMap = " + learnJcaTagUtilMap);
+        jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
+        jcaTagMap.put("cache", "ext.ziang.common.helper.cache.CommonSingleCache");
+        jcaTagMap.put("test", "test");
+        HashMap<Object, Object> map = (HashMap<Object, Object>) learnJcaTagUtilMap;
+        return map;
+    }
 
-	/**
-	 * 获取密钥
-	 *
-	 * @return {@link Object[]}
-	 */
-	public static Object[] getKeys() {
-		return CommonSingleCache.getAllKeys();
-	}
-
-	public static LearnJcaTagUtil newLearnJcaTagUtil() {
-		initAttr();
-		return new LearnJcaTagUtil();
-	}
+    public static LearnJcaTagUtil newLearnJcaTagUtil() throws RemoteException {
+        initAttr();
+        return new LearnJcaTagUtil();
+    }
 }
