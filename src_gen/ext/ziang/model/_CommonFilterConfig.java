@@ -4,27 +4,27 @@ package ext.ziang.model;
 public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java.io.Externalizable {
    static final long serialVersionUID = 1;
 
-   static final java.lang.String RESOURCE = "ext.ziang.model.modelResource";
-   static final java.lang.String CLASSNAME = CommonFilterConfig.class.getName();
+   static final String RESOURCE = "ext.ziang.model.modelResource";
+   static final String CLASSNAME = CommonFilterConfig.class.getName();
 
    /**
     * 按钮名称
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public static final java.lang.String ACTION_NAME = "actionName";
+   public static final String ACTION_NAME = "actionName";
    static int ACTION_NAME_UPPER_LIMIT = -1;
-   java.lang.String actionName;
+   String actionName;
    /**
     * 按钮名称
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public java.lang.String getActionName() {
+   public String getActionName() {
       return actionName;
    }
    /**
@@ -32,24 +32,24 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public void setActionName(java.lang.String actionName) throws wt.util.WTPropertyVetoException {
+   public void setActionName(String actionName) throws wt.util.WTPropertyVetoException {
       actionNameValidate(actionName);
       this.actionName = actionName;
    }
-   void actionNameValidate(java.lang.String actionName) throws wt.util.WTPropertyVetoException {
+   void actionNameValidate(String actionName) throws wt.util.WTPropertyVetoException {
       if (actionName == null || actionName.trim().length() == 0)
          throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.REQUIRED_ATTRIBUTE,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "actionName") },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "actionName") },
                new java.beans.PropertyChangeEvent(this, "actionName", this.actionName, actionName));
       if (ACTION_NAME_UPPER_LIMIT < 1) {
-         try { ACTION_NAME_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("actionName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { ACTION_NAME_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("actionName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { ACTION_NAME_UPPER_LIMIT = 64; }
       }
       if (actionName != null && !wt.fc.PersistenceHelper.checkStoredLength(actionName.toString(), ACTION_NAME_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "actionName"), java.lang.String.valueOf(java.lang.Math.min(ACTION_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "actionName"), String.valueOf(Math.min(ACTION_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "actionName", this.actionName, actionName));
    }
 
@@ -58,19 +58,19 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public static final java.lang.String ROLE_NAME = "roleName";
+   public static final String ROLE_NAME = "roleName";
    static int ROLE_NAME_UPPER_LIMIT = -1;
-   java.lang.String roleName;
+   String roleName;
    /**
     * 角色
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public java.lang.String getRoleName() {
+   public String getRoleName() {
       return roleName;
    }
    /**
@@ -78,20 +78,20 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public void setRoleName(java.lang.String roleName) throws wt.util.WTPropertyVetoException {
+   public void setRoleName(String roleName) throws wt.util.WTPropertyVetoException {
       roleNameValidate(roleName);
       this.roleName = roleName;
    }
-   void roleNameValidate(java.lang.String roleName) throws wt.util.WTPropertyVetoException {
+   void roleNameValidate(String roleName) throws wt.util.WTPropertyVetoException {
       if (ROLE_NAME_UPPER_LIMIT < 1) {
-         try { ROLE_NAME_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("roleName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { ROLE_NAME_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("roleName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { ROLE_NAME_UPPER_LIMIT = 64; }
       }
       if (roleName != null && !wt.fc.PersistenceHelper.checkStoredLength(roleName.toString(), ROLE_NAME_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "roleName"), java.lang.String.valueOf(java.lang.Math.min(ROLE_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "roleName"), String.valueOf(Math.min(ROLE_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "roleName", this.roleName, roleName));
    }
 
@@ -100,19 +100,19 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public static final java.lang.String GROUP_NAME = "groupName";
+   public static final String GROUP_NAME = "groupName";
    static int GROUP_NAME_UPPER_LIMIT = -1;
-   java.lang.String groupName;
+   String groupName;
    /**
     * 团队
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public java.lang.String getGroupName() {
+   public String getGroupName() {
       return groupName;
    }
    /**
@@ -120,20 +120,20 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public void setGroupName(java.lang.String groupName) throws wt.util.WTPropertyVetoException {
+   public void setGroupName(String groupName) throws wt.util.WTPropertyVetoException {
       groupNameValidate(groupName);
       this.groupName = groupName;
    }
-   void groupNameValidate(java.lang.String groupName) throws wt.util.WTPropertyVetoException {
+   void groupNameValidate(String groupName) throws wt.util.WTPropertyVetoException {
       if (GROUP_NAME_UPPER_LIMIT < 1) {
-         try { GROUP_NAME_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("groupName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { GROUP_NAME_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("groupName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { GROUP_NAME_UPPER_LIMIT = 64; }
       }
       if (groupName != null && !wt.fc.PersistenceHelper.checkStoredLength(groupName.toString(), GROUP_NAME_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "groupName"), java.lang.String.valueOf(java.lang.Math.min(GROUP_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "groupName"), String.valueOf(Math.min(GROUP_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "groupName", this.groupName, groupName));
    }
 
@@ -142,19 +142,19 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public static final java.lang.String GROUP_INNER_NAME = "groupInnerName";
+   public static final String GROUP_INNER_NAME = "groupInnerName";
    static int GROUP_INNER_NAME_UPPER_LIMIT = -1;
-   java.lang.String groupInnerName;
+   String groupInnerName;
    /**
     * 团队内部名称
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public java.lang.String getGroupInnerName() {
+   public String getGroupInnerName() {
       return groupInnerName;
    }
    /**
@@ -162,20 +162,20 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public void setGroupInnerName(java.lang.String groupInnerName) throws wt.util.WTPropertyVetoException {
+   public void setGroupInnerName(String groupInnerName) throws wt.util.WTPropertyVetoException {
       groupInnerNameValidate(groupInnerName);
       this.groupInnerName = groupInnerName;
    }
-   void groupInnerNameValidate(java.lang.String groupInnerName) throws wt.util.WTPropertyVetoException {
+   void groupInnerNameValidate(String groupInnerName) throws wt.util.WTPropertyVetoException {
       if (GROUP_INNER_NAME_UPPER_LIMIT < 1) {
-         try { GROUP_INNER_NAME_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("groupInnerName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { GROUP_INNER_NAME_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("groupInnerName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { GROUP_INNER_NAME_UPPER_LIMIT = 64; }
       }
       if (groupInnerName != null && !wt.fc.PersistenceHelper.checkStoredLength(groupInnerName.toString(), GROUP_INNER_NAME_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "groupInnerName"), java.lang.String.valueOf(java.lang.Math.min(GROUP_INNER_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "groupInnerName"), String.valueOf(Math.min(GROUP_INNER_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "groupInnerName", this.groupInnerName, groupInnerName));
    }
 
@@ -184,19 +184,19 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public static final java.lang.String TYPE_NAME = "typeName";
+   public static final String TYPE_NAME = "typeName";
    static int TYPE_NAME_UPPER_LIMIT = -1;
-   java.lang.String typeName;
+   String typeName;
    /**
     * 类型名称
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public java.lang.String getTypeName() {
+   public String getTypeName() {
       return typeName;
    }
    /**
@@ -204,20 +204,20 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public void setTypeName(java.lang.String typeName) throws wt.util.WTPropertyVetoException {
+   public void setTypeName(String typeName) throws wt.util.WTPropertyVetoException {
       typeNameValidate(typeName);
       this.typeName = typeName;
    }
-   void typeNameValidate(java.lang.String typeName) throws wt.util.WTPropertyVetoException {
+   void typeNameValidate(String typeName) throws wt.util.WTPropertyVetoException {
       if (TYPE_NAME_UPPER_LIMIT < 1) {
-         try { TYPE_NAME_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("typeName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { TYPE_NAME_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("typeName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { TYPE_NAME_UPPER_LIMIT = 64; }
       }
       if (typeName != null && !wt.fc.PersistenceHelper.checkStoredLength(typeName.toString(), TYPE_NAME_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "typeName"), java.lang.String.valueOf(java.lang.Math.min(TYPE_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "typeName"), String.valueOf(Math.min(TYPE_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "typeName", this.typeName, typeName));
    }
 
@@ -226,19 +226,19 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public static final java.lang.String TYPE_INNER_NAME = "typeInnerName";
+   public static final String TYPE_INNER_NAME = "typeInnerName";
    static int TYPE_INNER_NAME_UPPER_LIMIT = -1;
-   java.lang.String typeInnerName;
+   String typeInnerName;
    /**
     * 类型内部名称
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public java.lang.String getTypeInnerName() {
+   public String getTypeInnerName() {
       return typeInnerName;
    }
    /**
@@ -246,24 +246,24 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public void setTypeInnerName(java.lang.String typeInnerName) throws wt.util.WTPropertyVetoException {
+   public void setTypeInnerName(String typeInnerName) throws wt.util.WTPropertyVetoException {
       typeInnerNameValidate(typeInnerName);
       this.typeInnerName = typeInnerName;
    }
-   void typeInnerNameValidate(java.lang.String typeInnerName) throws wt.util.WTPropertyVetoException {
+   void typeInnerNameValidate(String typeInnerName) throws wt.util.WTPropertyVetoException {
       if (typeInnerName == null || typeInnerName.trim().length() == 0)
          throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.REQUIRED_ATTRIBUTE,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "typeInnerName") },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "typeInnerName") },
                new java.beans.PropertyChangeEvent(this, "typeInnerName", this.typeInnerName, typeInnerName));
       if (TYPE_INNER_NAME_UPPER_LIMIT < 1) {
-         try { TYPE_INNER_NAME_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("typeInnerName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { TYPE_INNER_NAME_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("typeInnerName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { TYPE_INNER_NAME_UPPER_LIMIT = 128; }
       }
       if (typeInnerName != null && !wt.fc.PersistenceHelper.checkStoredLength(typeInnerName.toString(), TYPE_INNER_NAME_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "typeInnerName"), java.lang.String.valueOf(java.lang.Math.min(TYPE_INNER_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "typeInnerName"), String.valueOf(Math.min(TYPE_INNER_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "typeInnerName", this.typeInnerName, typeInnerName));
    }
 
@@ -272,19 +272,19 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public static final java.lang.String LIFECYCLE_STATE = "lifecycleState";
+   public static final String LIFECYCLE_STATE = "lifecycleState";
    static int LIFECYCLE_STATE_UPPER_LIMIT = -1;
-   java.lang.String lifecycleState;
+   String lifecycleState;
    /**
     * 生命周期状态
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public java.lang.String getLifecycleState() {
+   public String getLifecycleState() {
       return lifecycleState;
    }
    /**
@@ -292,24 +292,24 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.CommonFilterConfig
+    * @see CommonFilterConfig
     */
-   public void setLifecycleState(java.lang.String lifecycleState) throws wt.util.WTPropertyVetoException {
+   public void setLifecycleState(String lifecycleState) throws wt.util.WTPropertyVetoException {
       lifecycleStateValidate(lifecycleState);
       this.lifecycleState = lifecycleState;
    }
-   void lifecycleStateValidate(java.lang.String lifecycleState) throws wt.util.WTPropertyVetoException {
+   void lifecycleStateValidate(String lifecycleState) throws wt.util.WTPropertyVetoException {
       if (LIFECYCLE_STATE_UPPER_LIMIT < 1) {
-         try { LIFECYCLE_STATE_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("lifecycleState").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { LIFECYCLE_STATE_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("lifecycleState").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { LIFECYCLE_STATE_UPPER_LIMIT = 64; }
       }
       if (lifecycleState != null && !wt.fc.PersistenceHelper.checkStoredLength(lifecycleState.toString(), LIFECYCLE_STATE_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "lifecycleState"), java.lang.String.valueOf(java.lang.Math.min(LIFECYCLE_STATE_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "lifecycleState"), String.valueOf(Math.min(LIFECYCLE_STATE_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "lifecycleState", this.lifecycleState, lifecycleState));
    }
 
-   public java.lang.String getConceptualClassname() {
+   public String getConceptualClassname() {
       return CLASSNAME;
    }
 
@@ -317,7 +317,7 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
       return wt.introspection.WTIntrospector.getClassInfo(getConceptualClassname());
    }
 
-   public java.lang.String getType() {
+   public String getType() {
       try { return getClassInfo().getDisplayName(); }
       catch (wt.introspection.WTIntrospectionException wte) { return wt.util.WTStringUtilities.tail(getConceptualClassname(), '.'); }
    }
@@ -342,11 +342,11 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
       super.writeExternal(output);
    }
 
-   public void readExternal(java.io.ObjectInput input) throws java.io.IOException, java.lang.ClassNotFoundException {
+   public void readExternal(java.io.ObjectInput input) throws java.io.IOException, ClassNotFoundException {
       long readSerialVersionUID = input.readLong();
-      readVersion( (ext.ziang.model.CommonFilterConfig) this, input, readSerialVersionUID, false, false );
+      readVersion( (CommonFilterConfig) this, input, readSerialVersionUID, false, false );
    }
-   protected void super_readExternal_CommonFilterConfig(java.io.ObjectInput input) throws java.io.IOException, java.lang.ClassNotFoundException {
+   protected void super_readExternal_CommonFilterConfig(java.io.ObjectInput input) throws java.io.IOException, ClassNotFoundException {
       super.readExternal(input);
    }
 
@@ -374,21 +374,21 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
       typeName = input.getString( "typeName" );
    }
 
-   boolean readVersion4589292226265852034L( java.io.ObjectInput input, long readSerialVersionUID, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   boolean readVersion4589292226265852034L( java.io.ObjectInput input, long readSerialVersionUID, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       if ( !superDone )
          super.readExternal( input );
 
-      actionName = (java.lang.String) input.readObject();
-      groupInnerName = (java.lang.String) input.readObject();
-      groupName = (java.lang.String) input.readObject();
-      lifecycleState = (java.lang.String) input.readObject();
-      roleName = (java.lang.String) input.readObject();
-      typeInnerName = (java.lang.String) input.readObject();
-      typeName = (java.lang.String) input.readObject();
+      actionName = (String) input.readObject();
+      groupInnerName = (String) input.readObject();
+      groupName = (String) input.readObject();
+      lifecycleState = (String) input.readObject();
+      roleName = (String) input.readObject();
+      typeInnerName = (String) input.readObject();
+      typeName = (String) input.readObject();
       return true;
    }
 
-   protected boolean readVersion( CommonFilterConfig thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   protected boolean readVersion( CommonFilterConfig thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       boolean success = true;
 
       if ( readSerialVersionUID == EXTERNALIZATION_VERSION_UID )
@@ -401,11 +401,11 @@ public abstract class _CommonFilterConfig extends wt.fc.WTObject implements java
 
       return success;
    }
-   protected boolean super_readVersion_CommonFilterConfig( _CommonFilterConfig thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   protected boolean super_readVersion_CommonFilterConfig( _CommonFilterConfig thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       return super.readVersion(thisObject, input, readSerialVersionUID, passThrough, superDone);
    }
 
-   boolean readOldVersion( java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   boolean readOldVersion( java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       throw new java.io.InvalidClassException(CLASSNAME, "Local class not compatible: stream classdesc externalizationVersionUID="+readSerialVersionUID+" local class externalizationVersionUID="+EXTERNALIZATION_VERSION_UID);
    }
 }

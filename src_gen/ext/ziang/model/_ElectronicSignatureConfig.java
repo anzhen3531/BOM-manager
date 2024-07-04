@@ -4,27 +4,27 @@ package ext.ziang.model;
 public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implements java.io.Externalizable {
    static final long serialVersionUID = 1;
 
-   static final java.lang.String RESOURCE = "ext.ziang.model.modelResource";
-   static final java.lang.String CLASSNAME = ElectronicSignatureConfig.class.getName();
+   static final String RESOURCE = "ext.ziang.model.modelResource";
+   static final String CLASSNAME = ElectronicSignatureConfig.class.getName();
 
    /**
     * 文档类型外部名称
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public static final java.lang.String DOC_TYPE = "docType";
+   public static final String DOC_TYPE = "docType";
    static int DOC_TYPE_UPPER_LIMIT = -1;
-   java.lang.String docType;
+   String docType;
    /**
     * 文档类型外部名称
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public java.lang.String getDocType() {
+   public String getDocType() {
       return docType;
    }
    /**
@@ -32,24 +32,24 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public void setDocType(java.lang.String docType) throws wt.util.WTPropertyVetoException {
+   public void setDocType(String docType) throws wt.util.WTPropertyVetoException {
       docTypeValidate(docType);
       this.docType = docType;
    }
-   void docTypeValidate(java.lang.String docType) throws wt.util.WTPropertyVetoException {
+   void docTypeValidate(String docType) throws wt.util.WTPropertyVetoException {
       if (docType == null || docType.trim().length() == 0)
          throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.REQUIRED_ATTRIBUTE,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "docType") },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "docType") },
                new java.beans.PropertyChangeEvent(this, "docType", this.docType, docType));
       if (DOC_TYPE_UPPER_LIMIT < 1) {
-         try { DOC_TYPE_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("docType").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { DOC_TYPE_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("docType").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { DOC_TYPE_UPPER_LIMIT = 128; }
       }
       if (docType != null && !wt.fc.PersistenceHelper.checkStoredLength(docType.toString(), DOC_TYPE_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "docType"), java.lang.String.valueOf(java.lang.Math.min(DOC_TYPE_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "docType"), String.valueOf(Math.min(DOC_TYPE_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "docType", this.docType, docType));
    }
 
@@ -58,19 +58,19 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public static final java.lang.String DOC_TYPE_NAME = "docTypeName";
+   public static final String DOC_TYPE_NAME = "docTypeName";
    static int DOC_TYPE_NAME_UPPER_LIMIT = -1;
-   java.lang.String docTypeName;
+   String docTypeName;
    /**
     * 文档类型显示名称
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public java.lang.String getDocTypeName() {
+   public String getDocTypeName() {
       return docTypeName;
    }
    /**
@@ -78,24 +78,24 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public void setDocTypeName(java.lang.String docTypeName) throws wt.util.WTPropertyVetoException {
+   public void setDocTypeName(String docTypeName) throws wt.util.WTPropertyVetoException {
       docTypeNameValidate(docTypeName);
       this.docTypeName = docTypeName;
    }
-   void docTypeNameValidate(java.lang.String docTypeName) throws wt.util.WTPropertyVetoException {
+   void docTypeNameValidate(String docTypeName) throws wt.util.WTPropertyVetoException {
       if (docTypeName == null || docTypeName.trim().length() == 0)
          throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.REQUIRED_ATTRIBUTE,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "docTypeName") },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "docTypeName") },
                new java.beans.PropertyChangeEvent(this, "docTypeName", this.docTypeName, docTypeName));
       if (DOC_TYPE_NAME_UPPER_LIMIT < 1) {
-         try { DOC_TYPE_NAME_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("docTypeName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { DOC_TYPE_NAME_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("docTypeName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { DOC_TYPE_NAME_UPPER_LIMIT = 128; }
       }
       if (docTypeName != null && !wt.fc.PersistenceHelper.checkStoredLength(docTypeName.toString(), DOC_TYPE_NAME_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "docTypeName"), java.lang.String.valueOf(java.lang.Math.min(DOC_TYPE_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "docTypeName"), String.valueOf(Math.min(DOC_TYPE_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "docTypeName", this.docTypeName, docTypeName));
    }
 
@@ -104,19 +104,19 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public static final java.lang.String CONTENT_TYPE = "contentType";
+   public static final String CONTENT_TYPE = "contentType";
    static int CONTENT_TYPE_UPPER_LIMIT = -1;
-   java.lang.String contentType;
+   String contentType;
    /**
     * 内容类型
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public java.lang.String getContentType() {
+   public String getContentType() {
       return contentType;
    }
    /**
@@ -124,24 +124,24 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public void setContentType(java.lang.String contentType) throws wt.util.WTPropertyVetoException {
+   public void setContentType(String contentType) throws wt.util.WTPropertyVetoException {
       contentTypeValidate(contentType);
       this.contentType = contentType;
    }
-   void contentTypeValidate(java.lang.String contentType) throws wt.util.WTPropertyVetoException {
+   void contentTypeValidate(String contentType) throws wt.util.WTPropertyVetoException {
       if (contentType == null || contentType.trim().length() == 0)
          throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.REQUIRED_ATTRIBUTE,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "contentType") },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "contentType") },
                new java.beans.PropertyChangeEvent(this, "contentType", this.contentType, contentType));
       if (CONTENT_TYPE_UPPER_LIMIT < 1) {
-         try { CONTENT_TYPE_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("contentType").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { CONTENT_TYPE_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("contentType").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { CONTENT_TYPE_UPPER_LIMIT = 128; }
       }
       if (contentType != null && !wt.fc.PersistenceHelper.checkStoredLength(contentType.toString(), CONTENT_TYPE_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "contentType"), java.lang.String.valueOf(java.lang.Math.min(CONTENT_TYPE_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "contentType"), String.valueOf(Math.min(CONTENT_TYPE_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "contentType", this.contentType, contentType));
    }
 
@@ -150,19 +150,19 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public static final java.lang.String WORK_ITEM_NAME = "workItemName";
+   public static final String WORK_ITEM_NAME = "workItemName";
    static int WORK_ITEM_NAME_UPPER_LIMIT = -1;
-   java.lang.String workItemName;
+   String workItemName;
    /**
     * 活动名称
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public java.lang.String getWorkItemName() {
+   public String getWorkItemName() {
       return workItemName;
    }
    /**
@@ -170,24 +170,24 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public void setWorkItemName(java.lang.String workItemName) throws wt.util.WTPropertyVetoException {
+   public void setWorkItemName(String workItemName) throws wt.util.WTPropertyVetoException {
       workItemNameValidate(workItemName);
       this.workItemName = workItemName;
    }
-   void workItemNameValidate(java.lang.String workItemName) throws wt.util.WTPropertyVetoException {
+   void workItemNameValidate(String workItemName) throws wt.util.WTPropertyVetoException {
       if (workItemName == null || workItemName.trim().length() == 0)
          throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.REQUIRED_ATTRIBUTE,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "workItemName") },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "workItemName") },
                new java.beans.PropertyChangeEvent(this, "workItemName", this.workItemName, workItemName));
       if (WORK_ITEM_NAME_UPPER_LIMIT < 1) {
-         try { WORK_ITEM_NAME_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("workItemName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { WORK_ITEM_NAME_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("workItemName").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { WORK_ITEM_NAME_UPPER_LIMIT = 128; }
       }
       if (workItemName != null && !wt.fc.PersistenceHelper.checkStoredLength(workItemName.toString(), WORK_ITEM_NAME_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "workItemName"), java.lang.String.valueOf(java.lang.Math.min(WORK_ITEM_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "workItemName"), String.valueOf(Math.min(WORK_ITEM_NAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "workItemName", this.workItemName, workItemName));
    }
 
@@ -196,19 +196,19 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public static final java.lang.String SIGN_XINDEX = "signXIndex";
+   public static final String SIGN_XINDEX = "signXIndex";
    static int SIGN_XINDEX_UPPER_LIMIT = -1;
-   java.lang.String signXIndex;
+   String signXIndex;
    /**
     * 签字X轴索引
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public java.lang.String getSignXIndex() {
+   public String getSignXIndex() {
       return signXIndex;
    }
    /**
@@ -216,20 +216,20 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public void setSignXIndex(java.lang.String signXIndex) throws wt.util.WTPropertyVetoException {
+   public void setSignXIndex(String signXIndex) throws wt.util.WTPropertyVetoException {
       signXIndexValidate(signXIndex);
       this.signXIndex = signXIndex;
    }
-   void signXIndexValidate(java.lang.String signXIndex) throws wt.util.WTPropertyVetoException {
+   void signXIndexValidate(String signXIndex) throws wt.util.WTPropertyVetoException {
       if (SIGN_XINDEX_UPPER_LIMIT < 1) {
-         try { SIGN_XINDEX_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("signXIndex").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { SIGN_XINDEX_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("signXIndex").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { SIGN_XINDEX_UPPER_LIMIT = 128; }
       }
       if (signXIndex != null && !wt.fc.PersistenceHelper.checkStoredLength(signXIndex.toString(), SIGN_XINDEX_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "signXIndex"), java.lang.String.valueOf(java.lang.Math.min(SIGN_XINDEX_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "signXIndex"), String.valueOf(Math.min(SIGN_XINDEX_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "signXIndex", this.signXIndex, signXIndex));
    }
 
@@ -238,19 +238,19 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public static final java.lang.String SIGN_YINDEX = "signYIndex";
+   public static final String SIGN_YINDEX = "signYIndex";
    static int SIGN_YINDEX_UPPER_LIMIT = -1;
-   java.lang.String signYIndex;
+   String signYIndex;
    /**
     * 签字Y轴索引
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public java.lang.String getSignYIndex() {
+   public String getSignYIndex() {
       return signYIndex;
    }
    /**
@@ -258,20 +258,20 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public void setSignYIndex(java.lang.String signYIndex) throws wt.util.WTPropertyVetoException {
+   public void setSignYIndex(String signYIndex) throws wt.util.WTPropertyVetoException {
       signYIndexValidate(signYIndex);
       this.signYIndex = signYIndex;
    }
-   void signYIndexValidate(java.lang.String signYIndex) throws wt.util.WTPropertyVetoException {
+   void signYIndexValidate(String signYIndex) throws wt.util.WTPropertyVetoException {
       if (SIGN_YINDEX_UPPER_LIMIT < 1) {
-         try { SIGN_YINDEX_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("signYIndex").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { SIGN_YINDEX_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("signYIndex").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { SIGN_YINDEX_UPPER_LIMIT = 128; }
       }
       if (signYIndex != null && !wt.fc.PersistenceHelper.checkStoredLength(signYIndex.toString(), SIGN_YINDEX_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "signYIndex"), java.lang.String.valueOf(java.lang.Math.min(SIGN_YINDEX_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "signYIndex"), String.valueOf(Math.min(SIGN_YINDEX_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "signYIndex", this.signYIndex, signYIndex));
    }
 
@@ -280,19 +280,19 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public static final java.lang.String STATUS = "status";
+   public static final String STATUS = "status";
    static int STATUS_UPPER_LIMIT = -1;
-   java.lang.Integer status;
+   Integer status;
    /**
     * 状态
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public java.lang.Integer getStatus() {
+   public Integer getStatus() {
       return status;
    }
    /**
@@ -300,16 +300,16 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public void setStatus(java.lang.Integer status) throws wt.util.WTPropertyVetoException {
+   public void setStatus(Integer status) throws wt.util.WTPropertyVetoException {
       statusValidate(status);
       this.status = status;
    }
-   void statusValidate(java.lang.Integer status) throws wt.util.WTPropertyVetoException {
-      if (status != null && ((java.lang.Number) status).floatValue() > 2)
+   void statusValidate(Integer status) throws wt.util.WTPropertyVetoException {
+      if (status != null && ((Number) status).floatValue() > 2)
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "status"), java.lang.String.valueOf(java.lang.Math.min(STATUS_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "status"), String.valueOf(Math.min(STATUS_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "status", this.status, status));
    }
 
@@ -318,19 +318,19 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public static final java.lang.String EXTENDED_FIELD = "extendedField";
+   public static final String EXTENDED_FIELD = "extendedField";
    static int EXTENDED_FIELD_UPPER_LIMIT = -1;
-   java.lang.String extendedField;
+   String extendedField;
    /**
     * 扩展字段
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public java.lang.String getExtendedField() {
+   public String getExtendedField() {
       return extendedField;
    }
    /**
@@ -338,20 +338,20 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public void setExtendedField(java.lang.String extendedField) throws wt.util.WTPropertyVetoException {
+   public void setExtendedField(String extendedField) throws wt.util.WTPropertyVetoException {
       extendedFieldValidate(extendedField);
       this.extendedField = extendedField;
    }
-   void extendedFieldValidate(java.lang.String extendedField) throws wt.util.WTPropertyVetoException {
+   void extendedFieldValidate(String extendedField) throws wt.util.WTPropertyVetoException {
       if (EXTENDED_FIELD_UPPER_LIMIT < 1) {
-         try { EXTENDED_FIELD_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("extendedField").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { EXTENDED_FIELD_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("extendedField").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { EXTENDED_FIELD_UPPER_LIMIT = 128; }
       }
       if (extendedField != null && !wt.fc.PersistenceHelper.checkStoredLength(extendedField.toString(), EXTENDED_FIELD_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "extendedField"), java.lang.String.valueOf(java.lang.Math.min(EXTENDED_FIELD_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "extendedField"), String.valueOf(Math.min(EXTENDED_FIELD_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "extendedField", this.extendedField, extendedField));
    }
 
@@ -360,19 +360,19 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public static final java.lang.String EXTENDED_FIELD1 = "extendedField1";
+   public static final String EXTENDED_FIELD1 = "extendedField1";
    static int EXTENDED_FIELD1_UPPER_LIMIT = -1;
-   java.lang.String extendedField1;
+   String extendedField1;
    /**
     * 扩展字段1
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public java.lang.String getExtendedField1() {
+   public String getExtendedField1() {
       return extendedField1;
    }
    /**
@@ -380,20 +380,20 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public void setExtendedField1(java.lang.String extendedField1) throws wt.util.WTPropertyVetoException {
+   public void setExtendedField1(String extendedField1) throws wt.util.WTPropertyVetoException {
       extendedField1Validate(extendedField1);
       this.extendedField1 = extendedField1;
    }
-   void extendedField1Validate(java.lang.String extendedField1) throws wt.util.WTPropertyVetoException {
+   void extendedField1Validate(String extendedField1) throws wt.util.WTPropertyVetoException {
       if (EXTENDED_FIELD1_UPPER_LIMIT < 1) {
-         try { EXTENDED_FIELD1_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("extendedField1").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { EXTENDED_FIELD1_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("extendedField1").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { EXTENDED_FIELD1_UPPER_LIMIT = 128; }
       }
       if (extendedField1 != null && !wt.fc.PersistenceHelper.checkStoredLength(extendedField1.toString(), EXTENDED_FIELD1_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "extendedField1"), java.lang.String.valueOf(java.lang.Math.min(EXTENDED_FIELD1_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "extendedField1"), String.valueOf(Math.min(EXTENDED_FIELD1_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "extendedField1", this.extendedField1, extendedField1));
    }
 
@@ -402,19 +402,19 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public static final java.lang.String EXTENDED_FIELD2 = "extendedField2";
+   public static final String EXTENDED_FIELD2 = "extendedField2";
    static int EXTENDED_FIELD2_UPPER_LIMIT = -1;
-   java.lang.String extendedField2;
+   String extendedField2;
    /**
     * 扩展字段2
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public java.lang.String getExtendedField2() {
+   public String getExtendedField2() {
       return extendedField2;
    }
    /**
@@ -422,24 +422,24 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.ElectronicSignatureConfig
+    * @see ElectronicSignatureConfig
     */
-   public void setExtendedField2(java.lang.String extendedField2) throws wt.util.WTPropertyVetoException {
+   public void setExtendedField2(String extendedField2) throws wt.util.WTPropertyVetoException {
       extendedField2Validate(extendedField2);
       this.extendedField2 = extendedField2;
    }
-   void extendedField2Validate(java.lang.String extendedField2) throws wt.util.WTPropertyVetoException {
+   void extendedField2Validate(String extendedField2) throws wt.util.WTPropertyVetoException {
       if (EXTENDED_FIELD2_UPPER_LIMIT < 1) {
-         try { EXTENDED_FIELD2_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("extendedField2").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { EXTENDED_FIELD2_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("extendedField2").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { EXTENDED_FIELD2_UPPER_LIMIT = 128; }
       }
       if (extendedField2 != null && !wt.fc.PersistenceHelper.checkStoredLength(extendedField2.toString(), EXTENDED_FIELD2_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "extendedField2"), java.lang.String.valueOf(java.lang.Math.min(EXTENDED_FIELD2_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "extendedField2"), String.valueOf(Math.min(EXTENDED_FIELD2_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "extendedField2", this.extendedField2, extendedField2));
    }
 
-   public java.lang.String getConceptualClassname() {
+   public String getConceptualClassname() {
       return CLASSNAME;
    }
 
@@ -447,7 +447,7 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
       return wt.introspection.WTIntrospector.getClassInfo(getConceptualClassname());
    }
 
-   public java.lang.String getType() {
+   public String getType() {
       try { return getClassInfo().getDisplayName(); }
       catch (wt.introspection.WTIntrospectionException wte) { return wt.util.WTStringUtilities.tail(getConceptualClassname(), '.'); }
    }
@@ -475,11 +475,11 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
       super.writeExternal(output);
    }
 
-   public void readExternal(java.io.ObjectInput input) throws java.io.IOException, java.lang.ClassNotFoundException {
+   public void readExternal(java.io.ObjectInput input) throws java.io.IOException, ClassNotFoundException {
       long readSerialVersionUID = input.readLong();
-      readVersion( (ext.ziang.model.ElectronicSignatureConfig) this, input, readSerialVersionUID, false, false );
+      readVersion( (ElectronicSignatureConfig) this, input, readSerialVersionUID, false, false );
    }
-   protected void super_readExternal_ElectronicSignatureConfig(java.io.ObjectInput input) throws java.io.IOException, java.lang.ClassNotFoundException {
+   protected void super_readExternal_ElectronicSignatureConfig(java.io.ObjectInput input) throws java.io.IOException, ClassNotFoundException {
       super.readExternal(input);
    }
 
@@ -513,24 +513,24 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
       workItemName = input.getString( "workItemName" );
    }
 
-   boolean readVersion_9132151901755674697L( java.io.ObjectInput input, long readSerialVersionUID, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   boolean readVersion_9132151901755674697L( java.io.ObjectInput input, long readSerialVersionUID, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       if ( !superDone )
          super.readExternal( input );
 
-      contentType = (java.lang.String) input.readObject();
-      docType = (java.lang.String) input.readObject();
-      docTypeName = (java.lang.String) input.readObject();
-      extendedField = (java.lang.String) input.readObject();
-      extendedField1 = (java.lang.String) input.readObject();
-      extendedField2 = (java.lang.String) input.readObject();
-      signXIndex = (java.lang.String) input.readObject();
-      signYIndex = (java.lang.String) input.readObject();
-      status = (java.lang.Integer) input.readObject();
-      workItemName = (java.lang.String) input.readObject();
+      contentType = (String) input.readObject();
+      docType = (String) input.readObject();
+      docTypeName = (String) input.readObject();
+      extendedField = (String) input.readObject();
+      extendedField1 = (String) input.readObject();
+      extendedField2 = (String) input.readObject();
+      signXIndex = (String) input.readObject();
+      signYIndex = (String) input.readObject();
+      status = (Integer) input.readObject();
+      workItemName = (String) input.readObject();
       return true;
    }
 
-   protected boolean readVersion( ElectronicSignatureConfig thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   protected boolean readVersion( ElectronicSignatureConfig thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       boolean success = true;
 
       if ( readSerialVersionUID == EXTERNALIZATION_VERSION_UID )
@@ -543,11 +543,11 @@ public abstract class _ElectronicSignatureConfig extends wt.fc.WTObject implemen
 
       return success;
    }
-   protected boolean super_readVersion_ElectronicSignatureConfig( _ElectronicSignatureConfig thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   protected boolean super_readVersion_ElectronicSignatureConfig( _ElectronicSignatureConfig thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       return super.readVersion(thisObject, input, readSerialVersionUID, passThrough, superDone);
    }
 
-   boolean readOldVersion( java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   boolean readOldVersion( java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       throw new java.io.InvalidClassException(CLASSNAME, "Local class not compatible: stream classdesc externalizationVersionUID="+readSerialVersionUID+" local class externalizationVersionUID="+EXTERNALIZATION_VERSION_UID);
    }
 }

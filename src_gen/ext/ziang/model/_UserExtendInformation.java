@@ -4,27 +4,27 @@ package ext.ziang.model;
 public abstract class _UserExtendInformation extends wt.fc.WTObject implements java.io.Externalizable {
    static final long serialVersionUID = 1;
 
-   static final java.lang.String RESOURCE = "ext.ziang.model.modelResource";
-   static final java.lang.String CLASSNAME = UserExtendInformation.class.getName();
+   static final String RESOURCE = "ext.ziang.model.modelResource";
+   static final String CLASSNAME = UserExtendInformation.class.getName();
 
    /**
     * 用户名
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public static final java.lang.String USERNAME = "username";
+   public static final String USERNAME = "username";
    static int USERNAME_UPPER_LIMIT = -1;
-   java.lang.String username;
+   String username;
    /**
     * 用户名
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public java.lang.String getUsername() {
+   public String getUsername() {
       return username;
    }
    /**
@@ -32,24 +32,24 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public void setUsername(java.lang.String username) throws wt.util.WTPropertyVetoException {
+   public void setUsername(String username) throws wt.util.WTPropertyVetoException {
       usernameValidate(username);
       this.username = username;
    }
-   void usernameValidate(java.lang.String username) throws wt.util.WTPropertyVetoException {
+   void usernameValidate(String username) throws wt.util.WTPropertyVetoException {
       if (username == null || username.trim().length() == 0)
          throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.REQUIRED_ATTRIBUTE,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "username") },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "username") },
                new java.beans.PropertyChangeEvent(this, "username", this.username, username));
       if (USERNAME_UPPER_LIMIT < 1) {
-         try { USERNAME_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("username").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { USERNAME_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("username").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { USERNAME_UPPER_LIMIT = 128; }
       }
       if (username != null && !wt.fc.PersistenceHelper.checkStoredLength(username.toString(), USERNAME_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "username"), java.lang.String.valueOf(java.lang.Math.min(USERNAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "username"), String.valueOf(Math.min(USERNAME_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "username", this.username, username));
    }
 
@@ -58,19 +58,19 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public static final java.lang.String PASSWORD = "password";
+   public static final String PASSWORD = "password";
    static int PASSWORD_UPPER_LIMIT = -1;
-   java.lang.String password;
+   String password;
    /**
     * 密码
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public java.lang.String getPassword() {
+   public String getPassword() {
       return password;
    }
    /**
@@ -78,24 +78,24 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public void setPassword(java.lang.String password) throws wt.util.WTPropertyVetoException {
+   public void setPassword(String password) throws wt.util.WTPropertyVetoException {
       passwordValidate(password);
       this.password = password;
    }
-   void passwordValidate(java.lang.String password) throws wt.util.WTPropertyVetoException {
+   void passwordValidate(String password) throws wt.util.WTPropertyVetoException {
       if (password == null || password.trim().length() == 0)
          throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.REQUIRED_ATTRIBUTE,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "password") },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "password") },
                new java.beans.PropertyChangeEvent(this, "password", this.password, password));
       if (PASSWORD_UPPER_LIMIT < 1) {
-         try { PASSWORD_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("password").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { PASSWORD_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("password").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { PASSWORD_UPPER_LIMIT = 128; }
       }
       if (password != null && !wt.fc.PersistenceHelper.checkStoredLength(password.toString(), PASSWORD_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "password"), java.lang.String.valueOf(java.lang.Math.min(PASSWORD_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "password"), String.valueOf(Math.min(PASSWORD_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "password", this.password, password));
    }
 
@@ -104,19 +104,19 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public static final java.lang.String ALTERNATE_USER_NAME1 = "alternateUserName1";
+   public static final String ALTERNATE_USER_NAME1 = "alternateUserName1";
    static int ALTERNATE_USER_NAME1_UPPER_LIMIT = -1;
-   java.lang.String alternateUserName1;
+   String alternateUserName1;
    /**
     * 别名1
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public java.lang.String getAlternateUserName1() {
+   public String getAlternateUserName1() {
       return alternateUserName1;
    }
    /**
@@ -124,20 +124,20 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public void setAlternateUserName1(java.lang.String alternateUserName1) throws wt.util.WTPropertyVetoException {
+   public void setAlternateUserName1(String alternateUserName1) throws wt.util.WTPropertyVetoException {
       alternateUserName1Validate(alternateUserName1);
       this.alternateUserName1 = alternateUserName1;
    }
-   void alternateUserName1Validate(java.lang.String alternateUserName1) throws wt.util.WTPropertyVetoException {
+   void alternateUserName1Validate(String alternateUserName1) throws wt.util.WTPropertyVetoException {
       if (ALTERNATE_USER_NAME1_UPPER_LIMIT < 1) {
-         try { ALTERNATE_USER_NAME1_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("alternateUserName1").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { ALTERNATE_USER_NAME1_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("alternateUserName1").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { ALTERNATE_USER_NAME1_UPPER_LIMIT = 128; }
       }
       if (alternateUserName1 != null && !wt.fc.PersistenceHelper.checkStoredLength(alternateUserName1.toString(), ALTERNATE_USER_NAME1_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "alternateUserName1"), java.lang.String.valueOf(java.lang.Math.min(ALTERNATE_USER_NAME1_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "alternateUserName1"), String.valueOf(Math.min(ALTERNATE_USER_NAME1_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "alternateUserName1", this.alternateUserName1, alternateUserName1));
    }
 
@@ -146,19 +146,19 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public static final java.lang.String ALTERNATE_USER_NAME2 = "alternateUserName2";
+   public static final String ALTERNATE_USER_NAME2 = "alternateUserName2";
    static int ALTERNATE_USER_NAME2_UPPER_LIMIT = -1;
-   java.lang.String alternateUserName2;
+   String alternateUserName2;
    /**
     * 别名2
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public java.lang.String getAlternateUserName2() {
+   public String getAlternateUserName2() {
       return alternateUserName2;
    }
    /**
@@ -166,20 +166,20 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public void setAlternateUserName2(java.lang.String alternateUserName2) throws wt.util.WTPropertyVetoException {
+   public void setAlternateUserName2(String alternateUserName2) throws wt.util.WTPropertyVetoException {
       alternateUserName2Validate(alternateUserName2);
       this.alternateUserName2 = alternateUserName2;
    }
-   void alternateUserName2Validate(java.lang.String alternateUserName2) throws wt.util.WTPropertyVetoException {
+   void alternateUserName2Validate(String alternateUserName2) throws wt.util.WTPropertyVetoException {
       if (ALTERNATE_USER_NAME2_UPPER_LIMIT < 1) {
-         try { ALTERNATE_USER_NAME2_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("alternateUserName2").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { ALTERNATE_USER_NAME2_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("alternateUserName2").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { ALTERNATE_USER_NAME2_UPPER_LIMIT = 128; }
       }
       if (alternateUserName2 != null && !wt.fc.PersistenceHelper.checkStoredLength(alternateUserName2.toString(), ALTERNATE_USER_NAME2_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "alternateUserName2"), java.lang.String.valueOf(java.lang.Math.min(ALTERNATE_USER_NAME2_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "alternateUserName2"), String.valueOf(Math.min(ALTERNATE_USER_NAME2_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "alternateUserName2", this.alternateUserName2, alternateUserName2));
    }
 
@@ -188,19 +188,19 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public static final java.lang.String ALTERNATE_USER_NAME3 = "alternateUserName3";
+   public static final String ALTERNATE_USER_NAME3 = "alternateUserName3";
    static int ALTERNATE_USER_NAME3_UPPER_LIMIT = -1;
-   java.lang.String alternateUserName3;
+   String alternateUserName3;
    /**
     * 别名3
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public java.lang.String getAlternateUserName3() {
+   public String getAlternateUserName3() {
       return alternateUserName3;
    }
    /**
@@ -208,20 +208,20 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public void setAlternateUserName3(java.lang.String alternateUserName3) throws wt.util.WTPropertyVetoException {
+   public void setAlternateUserName3(String alternateUserName3) throws wt.util.WTPropertyVetoException {
       alternateUserName3Validate(alternateUserName3);
       this.alternateUserName3 = alternateUserName3;
    }
-   void alternateUserName3Validate(java.lang.String alternateUserName3) throws wt.util.WTPropertyVetoException {
+   void alternateUserName3Validate(String alternateUserName3) throws wt.util.WTPropertyVetoException {
       if (ALTERNATE_USER_NAME3_UPPER_LIMIT < 1) {
-         try { ALTERNATE_USER_NAME3_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("alternateUserName3").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { ALTERNATE_USER_NAME3_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("alternateUserName3").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { ALTERNATE_USER_NAME3_UPPER_LIMIT = 128; }
       }
       if (alternateUserName3 != null && !wt.fc.PersistenceHelper.checkStoredLength(alternateUserName3.toString(), ALTERNATE_USER_NAME3_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "alternateUserName3"), java.lang.String.valueOf(java.lang.Math.min(ALTERNATE_USER_NAME3_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "alternateUserName3"), String.valueOf(Math.min(ALTERNATE_USER_NAME3_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "alternateUserName3", this.alternateUserName3, alternateUserName3));
    }
 
@@ -230,19 +230,19 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public static final java.lang.String ALTERNATE_USER_NAME4 = "alternateUserName4";
+   public static final String ALTERNATE_USER_NAME4 = "alternateUserName4";
    static int ALTERNATE_USER_NAME4_UPPER_LIMIT = -1;
-   java.lang.String alternateUserName4;
+   String alternateUserName4;
    /**
     * 别名4
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public java.lang.String getAlternateUserName4() {
+   public String getAlternateUserName4() {
       return alternateUserName4;
    }
    /**
@@ -250,20 +250,20 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public void setAlternateUserName4(java.lang.String alternateUserName4) throws wt.util.WTPropertyVetoException {
+   public void setAlternateUserName4(String alternateUserName4) throws wt.util.WTPropertyVetoException {
       alternateUserName4Validate(alternateUserName4);
       this.alternateUserName4 = alternateUserName4;
    }
-   void alternateUserName4Validate(java.lang.String alternateUserName4) throws wt.util.WTPropertyVetoException {
+   void alternateUserName4Validate(String alternateUserName4) throws wt.util.WTPropertyVetoException {
       if (ALTERNATE_USER_NAME4_UPPER_LIMIT < 1) {
-         try { ALTERNATE_USER_NAME4_UPPER_LIMIT = (java.lang.Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("alternateUserName4").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
+         try { ALTERNATE_USER_NAME4_UPPER_LIMIT = (Integer) wt.introspection.WTIntrospector.getClassInfo(CLASSNAME).getPropertyDescriptor("alternateUserName4").getValue(wt.introspection.WTIntrospector.UPPER_LIMIT); }
          catch (wt.introspection.WTIntrospectionException e) { ALTERNATE_USER_NAME4_UPPER_LIMIT = 128; }
       }
       if (alternateUserName4 != null && !wt.fc.PersistenceHelper.checkStoredLength(alternateUserName4.toString(), ALTERNATE_USER_NAME4_UPPER_LIMIT, true))
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "alternateUserName4"), java.lang.String.valueOf(java.lang.Math.min(ALTERNATE_USER_NAME4_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "alternateUserName4"), String.valueOf(Math.min(ALTERNATE_USER_NAME4_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "alternateUserName4", this.alternateUserName4, alternateUserName4));
    }
 
@@ -272,19 +272,19 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public static final java.lang.String STATE = "state";
+   public static final String STATE = "state";
    static int STATE_UPPER_LIMIT = -1;
-   java.lang.Integer state;
+   Integer state;
    /**
     * 状态
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public java.lang.Integer getState() {
+   public Integer getState() {
       return state;
    }
    /**
@@ -292,20 +292,20 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
     * <p>
     * <b>Supported API: </b>true
     *
-    * @see ext.ziang.model.UserExtendInformation
+    * @see UserExtendInformation
     */
-   public void setState(java.lang.Integer state) throws wt.util.WTPropertyVetoException {
+   public void setState(Integer state) throws wt.util.WTPropertyVetoException {
       stateValidate(state);
       this.state = state;
    }
-   void stateValidate(java.lang.Integer state) throws wt.util.WTPropertyVetoException {
-      if (state != null && ((java.lang.Number) state).floatValue() > 2)
+   void stateValidate(Integer state) throws wt.util.WTPropertyVetoException {
+      if (state != null && ((Number) state).floatValue() > 2)
          throw new wt.util.WTPropertyVetoException("wt.introspection.introspectionResource", wt.introspection.introspectionResource.UPPER_LIMIT,
-               new java.lang.Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "state"), java.lang.String.valueOf(java.lang.Math.min(STATE_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
+               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "state"), String.valueOf(Math.min(STATE_UPPER_LIMIT, wt.fc.PersistenceHelper.DB_MAX_SQL_STRING_SIZE/wt.fc.PersistenceHelper.DB_MAX_BYTES_PER_CHAR)) },
                new java.beans.PropertyChangeEvent(this, "state", this.state, state));
    }
 
-   public java.lang.String getConceptualClassname() {
+   public String getConceptualClassname() {
       return CLASSNAME;
    }
 
@@ -313,7 +313,7 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
       return wt.introspection.WTIntrospector.getClassInfo(getConceptualClassname());
    }
 
-   public java.lang.String getType() {
+   public String getType() {
       try { return getClassInfo().getDisplayName(); }
       catch (wt.introspection.WTIntrospectionException wte) { return wt.util.WTStringUtilities.tail(getConceptualClassname(), '.'); }
    }
@@ -338,11 +338,11 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
       super.writeExternal(output);
    }
 
-   public void readExternal(java.io.ObjectInput input) throws java.io.IOException, java.lang.ClassNotFoundException {
+   public void readExternal(java.io.ObjectInput input) throws java.io.IOException, ClassNotFoundException {
       long readSerialVersionUID = input.readLong();
-      readVersion( (ext.ziang.model.UserExtendInformation) this, input, readSerialVersionUID, false, false );
+      readVersion( (UserExtendInformation) this, input, readSerialVersionUID, false, false );
    }
-   protected void super_readExternal_UserExtendInformation(java.io.ObjectInput input) throws java.io.IOException, java.lang.ClassNotFoundException {
+   protected void super_readExternal_UserExtendInformation(java.io.ObjectInput input) throws java.io.IOException, ClassNotFoundException {
       super.readExternal(input);
    }
 
@@ -370,21 +370,21 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
       username = input.getString( "username" );
    }
 
-   boolean readVersion2220197413769775524L( java.io.ObjectInput input, long readSerialVersionUID, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   boolean readVersion2220197413769775524L( java.io.ObjectInput input, long readSerialVersionUID, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       if ( !superDone )
          super.readExternal( input );
 
-      alternateUserName1 = (java.lang.String) input.readObject();
-      alternateUserName2 = (java.lang.String) input.readObject();
-      alternateUserName3 = (java.lang.String) input.readObject();
-      alternateUserName4 = (java.lang.String) input.readObject();
-      password = (java.lang.String) input.readObject();
-      state = (java.lang.Integer) input.readObject();
-      username = (java.lang.String) input.readObject();
+      alternateUserName1 = (String) input.readObject();
+      alternateUserName2 = (String) input.readObject();
+      alternateUserName3 = (String) input.readObject();
+      alternateUserName4 = (String) input.readObject();
+      password = (String) input.readObject();
+      state = (Integer) input.readObject();
+      username = (String) input.readObject();
       return true;
    }
 
-   protected boolean readVersion( UserExtendInformation thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   protected boolean readVersion( UserExtendInformation thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       boolean success = true;
 
       if ( readSerialVersionUID == EXTERNALIZATION_VERSION_UID )
@@ -397,11 +397,11 @@ public abstract class _UserExtendInformation extends wt.fc.WTObject implements j
 
       return success;
    }
-   protected boolean super_readVersion_UserExtendInformation( _UserExtendInformation thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   protected boolean super_readVersion_UserExtendInformation( _UserExtendInformation thisObject, java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       return super.readVersion(thisObject, input, readSerialVersionUID, passThrough, superDone);
    }
 
-   boolean readOldVersion( java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, java.lang.ClassNotFoundException {
+   boolean readOldVersion( java.io.ObjectInput input, long readSerialVersionUID, boolean passThrough, boolean superDone ) throws java.io.IOException, ClassNotFoundException {
       throw new java.io.InvalidClassException(CLASSNAME, "Local class not compatible: stream classdesc externalizationVersionUID="+readSerialVersionUID+" local class externalizationVersionUID="+EXTERNALIZATION_VERSION_UID);
    }
 }
