@@ -4,8 +4,9 @@ import com.ptc.core.components.descriptor.ModelContext;
 import com.ptc.core.components.rendering.guicomponents.AttributeGuiComponent;
 import com.ptc.core.components.rendering.guicomponents.TextDisplayComponent;
 import ext.ziang.model.PanzerPart;
-import wt.part.WTPart;
 import wt.util.WTException;
+
+import java.util.Locale;
 
 /**
  * 显示标识符数据实用程序
@@ -28,13 +29,18 @@ public class DisplayIdentifierDataUtility extends StringDataUtility {
      * @throws WTException WTException
      */
     public AttributeGuiComponent createSingleValueDisplayComponent(String var1, Object var2, Object var3, ModelContext var4) throws WTException {
-
+        System.out.println("DisplayIdentifierDataUtility.createSingleValueDisplayComponent");
+        System.out.println("var1 = " + var1 + ", var2 = " + var2 + ", var3 = " + var3);
         if (var2 instanceof PanzerPart) {
+            PanzerPart panzerPart = (PanzerPart) var2;
             // 单独处理
             System.out.println("进入部件处理方式");
+            TextDisplayComponent textDisplayComponent = new TextDisplayComponent(var1);
+            textDisplayComponent.setValue(panzerPart.getNumber() + ", " +
+                    panzerPart.getName() + ", " +
+                    panzerPart.getIterationDisplayIdentifier().getLocalizedMessage(Locale.CHINA));
+            return textDisplayComponent;
         }
-        System.out.println("DisplayIdentifierDataUtility.createSingleValueDisplayComponent");
-        System.out.println("var1 = " + var1 + ", var2 = " + var2 + ", var3 = " + var3 + ", var4 = " + var4);
         AttributeGuiComponent var5 = super.createSingleValueDisplayComponent(var1, var2, var3, var4);
         if (var5 instanceof TextDisplayComponent) {
             ((TextDisplayComponent) var5).setCreateHyperlinks(false);
