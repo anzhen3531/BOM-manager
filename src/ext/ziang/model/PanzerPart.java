@@ -10,7 +10,6 @@ import wt.util.WTException;
         superClass = WTPart.class,
         extendable = true,
         foreignKeys = {@GeneratedForeignKey(
-            name = "PanzerPartMaster",
             foreignKeyRole = @ForeignKeyRole(
                     name = "master",
                     type = PanzerPartMaster.class,
