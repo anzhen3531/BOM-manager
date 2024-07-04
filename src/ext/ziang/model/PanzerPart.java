@@ -1,10 +1,7 @@
 package ext.ziang.model;
 
 
-import com.ptc.windchill.annotations.metadata.ColumnProperties;
-import com.ptc.windchill.annotations.metadata.GenAsPersistable;
-import com.ptc.windchill.annotations.metadata.GeneratedProperty;
-import com.ptc.windchill.annotations.metadata.PropertyConstraints;
+import com.ptc.windchill.annotations.metadata.*;
 import wt.part.WTPart;
 import wt.util.WTException;
 
@@ -12,6 +9,23 @@ import wt.util.WTException;
 @GenAsPersistable(
         superClass = WTPart.class,
         extendable = true,
+        foreignKeys = {@GeneratedForeignKey(
+            name = "PanzerPartMaster",
+            foreignKeyRole = @ForeignKeyRole(
+                    name = "master",
+                    type = PanzerPartMaster.class,
+                    supportedAPI = SupportedAPI.PUBLIC,
+                    cascade = false,
+                    constraints = @PropertyConstraints(
+                            required = true
+                    )
+            ),
+            myRole = @MyRole(
+                    name = "iteration",
+                    supportedAPI = SupportedAPI.PUBLIC,
+                    cascade = false
+            )
+        )},
         properties = {
                 @GeneratedProperty(name = "description",
                         type = String.class,
