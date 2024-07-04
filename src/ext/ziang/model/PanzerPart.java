@@ -6,6 +6,7 @@ import com.ptc.windchill.annotations.metadata.GenAsPersistable;
 import com.ptc.windchill.annotations.metadata.GeneratedProperty;
 import com.ptc.windchill.annotations.metadata.PropertyConstraints;
 import wt.part.WTPart;
+import wt.util.WTException;
 
 // @formatter:off
 @GenAsPersistable(
@@ -30,7 +31,7 @@ import wt.part.WTPart;
 public class PanzerPart extends _PanzerPart {
     static final long serialVersionUID = 1;
 
-    public static PanzerPart newPanzerPart() {
+    public static PanzerPart newPanzerPart() throws WTException {
         PanzerPart instance = new PanzerPart();
         instance.initialize();
         return instance;
