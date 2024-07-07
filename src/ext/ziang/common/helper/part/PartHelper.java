@@ -5,7 +5,7 @@ import java.rmi.RemoteException;
 
 import com.ptc.windchill.uwgm.common.associate.AssociationType;
 
-import ext.ziang.common.helper.query.CommonQueryHelper;
+import ext.ziang.common.helper.query.CommonMethodHelper;
 import wt.epm.EPMDocument;
 import wt.epm.build.EPMBuildRule;
 import wt.fc.ObjectIdentifier;
@@ -39,7 +39,7 @@ public class PartHelper {
 	 */
 	public static WTPartMaster getWTPartMasterByNumber(String originNumber)
 			throws RemoteException, InvocationTargetException {
-		return (WTPartMaster) CommonQueryHelper.findMasterByColumn(originNumber, WTPartMaster.class,
+		return (WTPartMaster) CommonMethodHelper.findMasterByColumn(originNumber, WTPartMaster.class,
 				WTPartMaster.NUMBER);
 	}
 

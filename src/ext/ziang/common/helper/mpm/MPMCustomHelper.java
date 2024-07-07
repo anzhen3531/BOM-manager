@@ -5,15 +5,11 @@ import com.ptc.core.meta.common.impl.TypeIdentifierUtilityHelper;
 import com.ptc.windchill.mpml.MPMDocumentDescribeLink;
 import com.ptc.windchill.mpml.MPMDocumentManageable;
 import com.ptc.windchill.mpml.processplan.MPMProcessPlan;
-import com.ptc.windchill.mpml.processplan.operation.MPMOperation;
-import com.ptc.windchill.mpml.processplan.operation.MPMOperationMaster;
 import com.ptc.windchill.mpml.processplan.operation.MPMOperationUsageLink;
-import ext.ziang.common.helper.query.CommonQueryHelper;
+import ext.ziang.common.helper.query.CommonMethodHelper;
 import wt.doc.WTDocument;
-import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
 import wt.util.WTException;
-import wt.vc.VersionControlHelper;
 import wt.vc.config.LatestConfigSpec;
 
 import java.rmi.RemoteException;
@@ -41,7 +37,7 @@ public class MPMCustomHelper {
 		List<WTDocument> docList = new ArrayList<>();
 		LatestConfigSpec latestConfigSpec = new LatestConfigSpec();
 		QueryResult result = latestConfigSpec
-				.process(CommonQueryHelper.findLink(MPMDocumentDescribeLink.class,
+				.process(CommonMethodHelper.findLink(MPMDocumentDescribeLink.class,
 						manageable, MPMDocumentDescribeLink.DESCRIBED_BY_ROLE, true));
 		if (result != null) {
 			while (result.hasMoreElements()) {
@@ -92,7 +88,7 @@ public class MPMCustomHelper {
 	 *
 	 */
 	public static List<MPMOperationUsageLink> findChildOperationList(MPMProcessPlan mpmProcessPlan) throws WTException {
-		QueryResult linkQr = CommonQueryHelper.findLink(MPMOperationUsageLink.class, mpmProcessPlan,
+		QueryResult linkQr = CommonMethodHelper.findLink(MPMOperationUsageLink.class, mpmProcessPlan,
 				MPMOperationUsageLink.USES_ROLE, false);
 		List<MPMOperationUsageLink> operationList = new ArrayList<>();
 		while (linkQr.hasMoreElements()) {

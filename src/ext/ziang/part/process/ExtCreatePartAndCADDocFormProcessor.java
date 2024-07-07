@@ -5,7 +5,7 @@ import com.ptc.core.components.forms.FormResult;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
 import com.ptc.windchill.enterprise.part.forms.CreatePartAndCADDocFormProcessor;
 import ext.ziang.common.constants.AttributeConstants;
-import ext.ziang.common.helper.query.CommonQueryHelper;
+import ext.ziang.common.helper.query.CommonMethodHelper;
 import ext.ziang.common.util.IBAUtils;
 import org.apache.log4j.Logger;
 import wt.part.WTPart;
@@ -21,7 +21,7 @@ import java.util.List;
  * @date 2024/07/07
  */
 public class ExtCreatePartAndCADDocFormProcessor extends CreatePartAndCADDocFormProcessor {
-    Logger logger = Logger.getLogger(ExtCreatePartAndCADDocFormProcessor.class);
+    public static final Logger logger = Logger.getLogger(ExtCreatePartAndCADDocFormProcessor.class);
 
     @Override
     public FormResult postProcess(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
@@ -34,8 +34,9 @@ public class ExtCreatePartAndCADDocFormProcessor extends CreatePartAndCADDocForm
             try {
                 classify = IBAUtils.getIBAValue(part, AttributeConstants.CLASSIFY.getInnerName());
                 logger.error(classify);
-                CommonQueryHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(), part.getOrganization().getOrganizationIdentifier().toString());
+                CommonMethodHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(), part.getOrganization());
             } catch (Exception e) {
+                logger.error(e.getMessage(), e);
                 throw new RuntimeException(e);
             }
         }

@@ -10,7 +10,7 @@ import com.ptc.core.components.suggest.SuggestParms;
 import com.ptc.core.components.suggest.SuggestResult;
 import com.ptc.core.components.suggest.Suggestable;
 
-import ext.ziang.common.helper.query.CommonQueryHelper;
+import ext.ziang.common.helper.query.CommonMethodHelper;
 import ext.ziang.common.util.LoggerHelper;
 import wt.part.WTPart;
 
@@ -47,7 +47,7 @@ public class StandardPartPickerSuggestable implements Suggestable {
 		LoggerHelper.log("keyword = " + keyword);
 		if (StrUtil.isNotBlank(keyword) && typeName.contains("WTPart")) {
 			try {
-				List<WTPart> parts = CommonQueryHelper.findPartByPrefix(keyword);
+				List<WTPart> parts = CommonMethodHelper.findPartByPrefix(keyword);
 				LoggerHelper.log("parts = " + parts);
 				// Suggest 第一个函数为内部的Value 第二个值填写的为括号的值
 				parts.forEach(part -> results
