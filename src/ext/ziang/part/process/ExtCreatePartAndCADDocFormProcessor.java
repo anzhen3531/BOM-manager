@@ -34,7 +34,7 @@ public class ExtCreatePartAndCADDocFormProcessor extends CreatePartAndCADDocForm
             try {
                 classify = IBAUtils.getIBAValue(part, AttributeConstants.CLASSIFY.getInnerName());
                 logger.error(classify);
-                CommonQueryHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(), part.getOrganizationUniqueIdentifier());
+                CommonQueryHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(), part.getOrganization().getOrganizationIdentifier().toString());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
