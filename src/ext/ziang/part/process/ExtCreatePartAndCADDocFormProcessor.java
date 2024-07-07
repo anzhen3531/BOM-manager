@@ -28,6 +28,7 @@ public class ExtCreatePartAndCADDocFormProcessor extends CreatePartAndCADDocForm
         FormResult formResult = super.doOperation(nmCommandBean, list);
         logger.debug("list = " + list);
         Object object = list.get(0).getObject();
+        System.out.println("object = " + object);
         if (object instanceof WTPart) {
             WTPart part = (WTPart) object;
             String classify = IBAUtils.getStringIBAValue(part, AttributeConstants.CLASSIFY.getInnerName());
