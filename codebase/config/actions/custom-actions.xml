@@ -35,12 +35,24 @@
                      windowType="popup"/>
         </action>
 
-        <action name="updateUser" ajax="row" >
+        <action name="updateUser" ajax="row">
             <command method="execute" class="ext.ziang.user.process.ExtEditUserFormProcessor" windowType="popup"/>
             <includeFilter name="updateActionValidator"/>
             <includeFilter name="disconnectedPrincipalActionsFilter"/>
             <includeFilter name="disabledPrincipalActionsFilter"/>
         </action>
     </objecttype>
+
+
+    <objecttype resourceBundle="com.ptc.windchill.enterprise.part.partResource" name="part" class="wt.part.WTPart">
+        <action name="createPartWizard" uicomponent="CREATE_PART" ajax="row">
+            <command onClick="validateCreateLocation(event)" method="execute"
+                     class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor"
+                     url="/netmarkets/jsp/part/createPartWizard.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
+                     windowType="popup"/>
+            <includeFilter name="showNewActionPreValidation"/>
+        </action>
+    </objecttype>
+
 
 </listofactions>

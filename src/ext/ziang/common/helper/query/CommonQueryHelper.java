@@ -188,8 +188,7 @@ public class CommonQueryHelper implements RemoteAccess {
 	private static WTOrganization getWTOrganization(String orgId) throws WTException {
 		WTOrganization organization = null;
 		if (orgId != null && !orgId.isEmpty()) {
-			TypeInstanceIdentifier typeInstanceIdentifier = (TypeInstanceIdentifier) DEFAULT_IDENTIFIER_FACTORY
-					.get(orgId);
+			TypeInstanceIdentifier typeInstanceIdentifier = (TypeInstanceIdentifier) DEFAULT_IDENTIFIER_FACTORY.get(orgId);
 			if (typeInstanceIdentifier != null) {
 				ObjectReference objectReference = TypeIdentifierUtility.getObjectReference(typeInstanceIdentifier);
 				Persistable persistable = objectReference.getObject();

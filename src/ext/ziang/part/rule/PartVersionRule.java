@@ -1,4 +1,4 @@
-package ext.ziang.ruleConfig;
+package ext.ziang.part.rule;
 
 import wt.inf.container.WTContainerRef;
 import wt.rule.algorithm.RuleAlgorithm;
@@ -11,7 +11,7 @@ import wt.util.WTException;
  * @date 2024/04/09
  * FIXME: 初始化规则中使用
  */
-public class PartNumberRule implements RuleAlgorithm {
+public class PartVersionRule implements RuleAlgorithm {
 	/**
 	 * 算
 	 *
