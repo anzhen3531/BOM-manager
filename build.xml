@@ -116,17 +116,6 @@
 			<include name="ext/ziang/**/*.java" />
 			<exclude name="ext/ziang/**/-*.java" />
 	    </javac>
-
-		<javac srcdir="${wtsrc-gen}" destdir="${wtcodebase}" listfiles="on" debug="on" encoding="UTF-8" deprecation="off" failonerror="true" includeantruntime="false">
-			<classpath>
-				<pathelement location="${wthome}/srclib/servlet.jar"/>
-				<fileset dir="${wthome}/codebase/WEB-INF/lib" includes="*.jar"/>
-				<fileset dir="${wthome}/codebase/lib" includes="*.jar"/>
-				<fileset dir="${wthome}/lib" includes="*.jar"/>
-				<fileset dir="${wthome}/srclib/tool" includes="Annotations.jar"/>
-			</classpath>
-			<include name="ext/ziang/**/*.java" />
-		</javac>
 	</target>
 
 	<!--====================================================================-->
