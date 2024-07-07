@@ -3,7 +3,6 @@ package com.ptc.core.components.factory.dataUtilities;
 import com.ptc.core.components.descriptor.ModelContext;
 import com.ptc.core.components.rendering.guicomponents.AttributeGuiComponent;
 import com.ptc.core.components.rendering.guicomponents.TextDisplayComponent;
-import ext.ziang.model.PanzerPart;
 import wt.util.WTException;
 
 import java.util.Locale;
