@@ -3,10 +3,10 @@ package ext.ziang.part.process;
 import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.components.forms.FormResult;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
-import com.ptc.tml.utils.IBAUtils;
 import com.ptc.windchill.enterprise.part.forms.CreatePartAndCADDocFormProcessor;
 import ext.ziang.common.constants.AttributeConstants;
 import ext.ziang.common.helper.query.CommonQueryHelper;
+import ext.ziang.common.util.IBAUtils;
 import org.apache.log4j.Logger;
 import wt.part.WTPart;
 import wt.util.WTException;
@@ -31,8 +31,13 @@ public class ExtCreatePartAndCADDocFormProcessor extends CreatePartAndCADDocForm
         System.out.println("object = " + object);
         if (object instanceof WTPart) {
             WTPart part = (WTPart) object;
-            String classify = IBAUtils.getStringIBAValue(part, AttributeConstants.CLASSIFY.getInnerName());
-            CommonQueryHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(), part.getOrganizationUniqueIdentifier());
+            String classify;
+            try {
+                classify = IBAUtils.getIBAValue(part, AttributeConstants.CLASSIFY.getInnerName());
+                CommonQueryHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(), part.getOrganizationUniqueIdentifier());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         return formResult;
     }
