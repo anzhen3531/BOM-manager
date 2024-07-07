@@ -71,6 +71,7 @@ public class CommonQueryHelper implements RemoteAccess {
      * @param persistable 实例对象
      */
     public static void updateNameAndNumberByObject(Persistable persistable, String name, String number, String orgId) {
+        log.info("persistable = " + persistable + ", name = " + name + ", number = " + number + ", orgId = " + orgId);
         Identified master = null;
         if (persistable instanceof Iterated) {
             Iterated iterated = (Iterated) persistable;
