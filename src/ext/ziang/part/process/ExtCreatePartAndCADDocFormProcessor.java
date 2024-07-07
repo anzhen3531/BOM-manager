@@ -25,7 +25,7 @@ public class ExtCreatePartAndCADDocFormProcessor extends CreatePartAndCADDocForm
 
     @Override
     public FormResult postProcess(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
-        FormResult formResult = super.doOperation(nmCommandBean, list);
+        FormResult formResult = super.postProcess(nmCommandBean, list);
         logger.debug("list = " + list);
         Object object = list.get(0).getObject();
         System.out.println("object = " + object);
