@@ -1,11 +1,5 @@
 package ext.ziang.common.helper.query;
 
-import java.lang.reflect.InvocationTargetException;
-import java.rmi.RemoteException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.ptc.core.managedcollection.ManagedCollectionIdentity;
 import com.ptc.core.meta.common.IdentifierFactory;
 import com.ptc.core.meta.common.TypeInstanceIdentifier;
@@ -18,7 +12,7 @@ import com.ptc.wpcfg.doc.DocHelper;
 import com.ptc.wpcfg.doc.VariantSpecMaster;
 import ext.ziang.common.helper.CommonQuerySpec;
 import ext.ziang.common.util.LoggerHelper;
-import net.fortuna.ical4j.model.property.Clazz;
+import org.apache.log4j.Logger;
 import wt.access.agreement.AgreementHelper;
 import wt.access.agreement.AuthorizationAgreementMaster;
 import wt.change2.ChangeHelper2;
@@ -37,15 +31,25 @@ import wt.part.WTPartHelper;
 import wt.part.WTPartMaster;
 import wt.part.alternaterep.WTPartAlternateRepMaster;
 import wt.part.alternaterep.service.WTPartAlternateRepService;
-import wt.query.*;
+import wt.query.ClassAttribute;
+import wt.query.ClassTableExpression;
+import wt.query.QuerySpec;
+import wt.query.SearchCondition;
 import wt.services.ServiceFactory;
 import wt.services.applicationcontext.implementation.DefaultServiceProvider;
 import wt.util.InstalledProperties;
 import wt.util.WTException;
-import wt.vc.*;
+import wt.vc.Iterated;
+import wt.vc.Mastered;
 import wt.vc.baseline.ManagedBaseline;
 import wt.vc.baseline.ManagedBaselineIdentity;
 import wt.vc.config.LatestConfigSpec;
+
+import java.lang.reflect.InvocationTargetException;
+import java.rmi.RemoteException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 通用查询帮助程序
@@ -54,7 +58,7 @@ import wt.vc.config.LatestConfigSpec;
  * @date 2024/05/09
  */
 public class CommonQueryHelper implements RemoteAccess {
-
+	private static final Logger log = Logger.getLogger(CommonQueryHelper.class.getName());
 	private static final IdentifierFactory DEFAULT_IDENTIFIER_FACTORY = (IdentifierFactory) DefaultServiceProvider
 			.getService(IdentifierFactory.class, "default");
 
@@ -172,6 +176,7 @@ public class CommonQueryHelper implements RemoteAccess {
 				}
 			}
 		} catch (Exception e) {
+			log.error(e);
 			LoggerHelper.log("CustomCommonUtil.updateNameAndNumberByObject  error ====> " + e.getMessage());
 		}
 	}
