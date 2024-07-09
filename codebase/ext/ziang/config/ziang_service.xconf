@@ -16,6 +16,9 @@
 
         <Option serviceClass="ext.ziang.part.datautility.StandardPickerDataUtility"
                 requestor="null" selector="StandardPickerDataUtility" cardinality="singleton"/>
+
+        <Option serviceClass="ext.ziang.part.datautility.AttributeDataUtility"
+                requestor="null" selector="AttributeDataUtility" cardinality="singleton"/>
     </Service>
 
 

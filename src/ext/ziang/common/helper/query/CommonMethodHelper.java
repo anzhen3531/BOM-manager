@@ -1,9 +1,15 @@
 package ext.ziang.common.helper.query;
 
+import com.ptc.core.command.common.bean.repository.PageMode;
+import com.ptc.core.command.common.bean.repository.ResultContainer;
 import com.ptc.core.managedcollection.ManagedCollectionIdentity;
-import com.ptc.core.meta.common.IdentifierFactory;
-import com.ptc.core.meta.common.TypeInstanceIdentifier;
+import com.ptc.core.meta.common.*;
+import com.ptc.core.meta.container.common.AttributeContainerSet;
+import com.ptc.core.meta.container.common.AttributeContainerSpec;
 import com.ptc.core.meta.server.TypeIdentifierUtility;
+import com.ptc.core.query.command.common.BasicQueryCommand;
+import com.ptc.core.query.common.CriteriaHelper;
+import com.ptc.core.query.common.RelationalConfigSpecAttributeContainerFunction;
 import com.ptc.windchill.classproxy.WorkPackageClassProxy;
 import com.ptc.windchill.mpml.MPMLinkHelper;
 import com.ptc.windchill.option.model.*;
@@ -11,6 +17,8 @@ import com.ptc.windchill.option.service.OptionHelper;
 import com.ptc.wpcfg.doc.DocHelper;
 import com.ptc.wpcfg.doc.VariantSpecMaster;
 import ext.ziang.common.helper.CommonQuerySpec;
+import org.apache.commons.compress.utils.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wt.access.agreement.AgreementHelper;
@@ -31,19 +39,24 @@ import wt.part.WTPartHelper;
 import wt.part.WTPartMaster;
 import wt.part.alternaterep.WTPartAlternateRepMaster;
 import wt.part.alternaterep.service.WTPartAlternateRepService;
+import wt.pom.DBProperties;
 import wt.query.ClassAttribute;
 import wt.query.ClassTableExpression;
 import wt.query.QuerySpec;
 import wt.query.SearchCondition;
 import wt.services.ServiceFactory;
 import wt.services.applicationcontext.implementation.DefaultServiceProvider;
+import wt.session.SessionServerHelper;
+import wt.type.ClientTypedUtility;
 import wt.util.InstalledProperties;
 import wt.util.WTException;
+import wt.util.WTPropertyVetoException;
 import wt.vc.Iterated;
 import wt.vc.Mastered;
 import wt.vc.baseline.ManagedBaseline;
 import wt.vc.baseline.ManagedBaselineIdentity;
 import wt.vc.config.LatestConfigSpec;
+import wt.vc.views.ViewHelper;
 
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
@@ -58,7 +71,7 @@ import java.util.List;
  * @date 2024/05/09
  */
 public class CommonMethodHelper implements RemoteAccess {
-    private final static Logger log = LoggerFactory.getLogger(CommonMethodHelper.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(CommonMethodHelper.class);
     private static final IdentifierFactory DEFAULT_IDENTIFIER_FACTORY = (IdentifierFactory) DefaultServiceProvider
             .getService(IdentifierFactory.class, "default");
 
@@ -84,7 +97,7 @@ public class CommonMethodHelper implements RemoteAccess {
      * @param organization
      */
     public static void updateNameAndNumberByObject(Persistable persistable, String name, String number, WTOrganization organization) {
-        log.error("persistable = " + persistable + ", name = " + name + ", number = " + number + ", organization = " + organization);
+        LOGGER.error("persistable = " + persistable + ", name = " + name + ", number = " + number + ", organization = " + organization);
         Identified master = null;
         if (persistable instanceof Iterated) {
             Iterated iterated = (Iterated) persistable;
@@ -115,12 +128,12 @@ public class CommonMethodHelper implements RemoteAccess {
                     // 更改文档名称
                     boolean flag = true;
                     WTDocument document = (WTDocument) persistable;
-                    log.debug("WTDocument object:" + document);
+                    LOGGER.debug("WTDocument object:" + document);
                     String newNumber = number != null && !number.isEmpty() ? number : document.getNumber();
                     if (document.isTemplated() && !document.getName().equals(name)) {
                         flag = WTDocumentHelper.service.validDocTemplateIdentity(name, newNumber, document.getContainerName());
                     }
-                    log.debug("perform Rename:" + flag);
+                    LOGGER.debug("perform Rename:" + flag);
                     if (flag) {
                         WTDocumentHelper.service.changeWTDocumentMasterIdentity((WTDocumentMaster) master, name, newNumber,
                                 organization);
@@ -134,7 +147,7 @@ public class CommonMethodHelper implements RemoteAccess {
                     if (!baselineIdentity.getName().equals(baseline.getName())
                             || !baselineIdentity.getNumber().equals(baseline.getNumber())) {
                         IdentityHelper.service.changeIdentity(master, baselineIdentity);
-                        log.debug("Set baseline identity");
+                        LOGGER.debug("Set baseline identity");
                     }
                 } else if (master instanceof ManagedCollection) {
                     // 更改管理集合
@@ -147,7 +160,7 @@ public class CommonMethodHelper implements RemoteAccess {
                     if (!collectionIdentity.getName().equals(managedCollection.getName())
                             || !collectionIdentity.getNumber().equals(managedCollection.getNumber())) {
                         IdentityHelper.service.changeIdentity(master, collectionIdentity);
-                        log.debug("Set managed collection identity");
+                        LOGGER.debug("Set managed collection identity");
                     }
                 } else if (master instanceof OptionSetMaster) {
                     // 更改选项集名称
@@ -184,7 +197,7 @@ public class CommonMethodHelper implements RemoteAccess {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("CustomCommonUtil.updateNameAndNumberByObject  error ====> " + e.getMessage(), e);
+            LOGGER.error("CustomCommonUtil.updateNameAndNumberByObject  error ====> " + e.getMessage(), e);
         }
     }
 
@@ -238,7 +251,7 @@ public class CommonMethodHelper implements RemoteAccess {
      * @return WTPartMaster
      */
     public static String findLastSerialByColumnNotLength(String partNumberPrefix, String column, Class clazz) {
-        log.debug("CustomCommonUtil.findLastSerialNumberByPrefix Start");
+        LOGGER.debug("CustomCommonUtil.findLastSerialNumberByPrefix Start");
         String number = null;
         try {
             QuerySpec qs = new QuerySpec();
@@ -250,7 +263,7 @@ public class CommonMethodHelper implements RemoteAccess {
             qs.appendAnd();
             CommonQuerySpec.addSearchNumberLimit(qs, 1, 0);
             CommonQuerySpec.addOrderByClass(qs, clazz, column, true, tableIndex);
-            log.debug("findLastSerialNumberByPrefix qs {}", qs);
+            LOGGER.debug("findLastSerialNumberByPrefix qs {}", qs);
             QueryResult qr = PersistenceHelper.manager.find(qs);
             if (qr.hasMoreElements()) {
                 return (String) ((Object[]) qr.nextElement())[0];
@@ -258,7 +271,7 @@ public class CommonMethodHelper implements RemoteAccess {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        log.debug("CustomCommonUtil.findLastSerialNumberByPrefix End");
+        LOGGER.debug("CustomCommonUtil.findLastSerialNumberByPrefix End");
         return number;
     }
 
@@ -280,7 +293,7 @@ public class CommonMethodHelper implements RemoteAccess {
                     new Class[]{String.class, Class.class, String.class},
                     new Object[]{originNumber, clazz, column});
         } else {
-            log.debug("CustomCommonUtil.findLastSerialNumberByPrefix Start :" + LocalDateTime.now());
+            LOGGER.debug("CustomCommonUtil.findLastSerialNumberByPrefix Start :" + LocalDateTime.now());
             try {
                 QuerySpec querySpec = new QuerySpec(clazz);
                 CommonQuerySpec.addSearchConditionByClass(querySpec, 0, clazz, column, SearchCondition.EQUAL,
@@ -292,7 +305,7 @@ public class CommonMethodHelper implements RemoteAccess {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            log.debug("CustomCommonUtil.findLastSerialNumberByPrefix End :" + LocalDateTime.now());
+            LOGGER.debug("CustomCommonUtil.findLastSerialNumberByPrefix End :" + LocalDateTime.now());
             return null;
         }
     }
@@ -333,7 +346,7 @@ public class CommonMethodHelper implements RemoteAccess {
         List<T> partList = new ArrayList<>();
         CommonQuerySpec.addSearchConditionByClass(querySpec, 0, t.getClass(), cloumn, SearchCondition.LIKE,
                 prefix + SearchCondition.PATTERN_MATCH_MULITPLE);
-        log.debug("findObjectByPrefix querySpec = ", querySpec);
+        LOGGER.debug("findObjectByPrefix querySpec = ", querySpec);
         QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
         LatestConfigSpec latestConfigSpec = new LatestConfigSpec();
         QueryResult result = latestConfigSpec.process(queryResult);
@@ -456,5 +469,86 @@ public class CommonMethodHelper implements RemoteAccess {
     public static QueryResult findLink(Class clazz, Persistable persistable, String relateStr,
                                        Boolean isReturnObj) throws WTException {
         return PersistenceHelper.manager.navigate(persistable, relateStr, clazz, isReturnObj);
+    }
+
+    /**
+     * Describe：查询指定试图物料对应的属性值是否唯一
+     * 可以用来查询物料描述等字段是否是全局唯一的
+     *
+     * @param partNumber   物料编号
+     * @param ibaAttrName  属性名称
+     * @param ibaAttrValue 属性值
+     * @param viewName     试图名称
+     * @param type         类型
+     * @return 部件
+     * @throws WTException WTException
+     */
+    public static List<Persistable> findWTPartIsOnly(String partNumber, String ibaAttrName, String ibaAttrValue,
+                                                     String viewName, String type) throws WTException {
+        List<Persistable> listPersistables = Lists.newArrayList();
+        boolean flag = SessionServerHelper.manager.setAccessEnforced(false);
+        try {
+            // 获取类型Id
+            TypeIdentifier typeIdentifier = TypeIdentifierHelper.getTypeIdentifier(type);
+            // 获取iba属性id
+            AttributeTypeIdentifier attrAti = ClientTypedUtility.getAttributeTypeIdentifier(ibaAttrName, typeIdentifier);
+            // 获取视图id
+            AttributeTypeIdentifier viewNameAti = ClientTypedUtility.getAttributeTypeIdentifier("view.id", typeIdentifier);
+            // 获取最新版本
+            RelationalConfigSpecAttributeContainerFunction function = new RelationalConfigSpecAttributeContainerFunction();
+            function.setTypeDefinition(typeIdentifier);
+            function.setRelationalConfigSpec(new LatestConfigSpec().getRelationalConfigSpec());
+
+            AttributeContainerSpec filter = new AttributeContainerSpec();
+            filter.putEntries(new AttributeTypeIdentifier[]{attrAti, viewNameAti});
+            filter.setNextOperation(new DisplayOperationIdentifier());
+            int querylimit = DBProperties.PAGING_SNAPSHOT_QUERY_LIMIT;
+            if (querylimit < 0) {
+                querylimit = 20000;
+            }
+            BasicQueryCommand queryCmd = new BasicQueryCommand();
+            try {
+                queryCmd.setPageMode(PageMode.EXPLICIT_PAGING);
+                queryCmd.setCount(querylimit);
+                queryCmd.setOffset(0);
+                queryCmd.setFilter(filter);
+                // 最新版本条件查询
+                AttributeContainerSet functionCriteria = CriteriaHelper.newCriteria(function, false);
+                queryCmd.appendCriteria(functionCriteria, false);
+                if (StringUtils.isNotBlank(viewName)) {
+                    Object attrValue = (Object) PersistenceHelper
+                            .getObjectIdentifier(ViewHelper.service.getView(viewName)).getId();
+                    AttributeContainerSet viewCriteria = CriteriaHelper.newCriteria(viewNameAti, attrValue, false);
+                    queryCmd.appendCriteria(viewCriteria, false);
+                }
+                // 增加值条件
+                AttributeContainerSet attrCriteria = CriteriaHelper.newCriteria(attrAti, WildcardSet.EQUALS,
+                        ibaAttrValue, false);
+                queryCmd.appendCriteria(attrCriteria, false);
+                queryCmd = (BasicQueryCommand) queryCmd.execute();
+                ResultContainer result = queryCmd.getResultContainer();
+                int size = result.getSize();
+                for (int i = 0; i < size; ++i) {
+                    Persistable persistable = new ReferenceFactory()
+                            .getReference(result.getTypeInstanceAt(i).getPersistenceIdentifier()).getObject();
+                    String persistableNumber = "";
+                    if (persistable instanceof WTPart) {
+                        WTPart wtPart = (WTPart) persistable;
+                        persistableNumber = wtPart.getNumber();
+                    }
+                    // 判断当前编号和传递的编号是否一致 不一致则存储
+                    if (!StringUtils.equals(persistableNumber, partNumber)) {
+                        listPersistables.add(persistable);
+                    }
+                }
+            } catch (UnsupportedOperationException e) {
+                e.printStackTrace();
+            } catch (WTPropertyVetoException e) {
+                e.printStackTrace();
+            }
+        } finally {
+            SessionServerHelper.manager.setAccessEnforced(flag);
+        }
+        return listPersistables;
     }
 }

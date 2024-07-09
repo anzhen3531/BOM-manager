@@ -17,6 +17,7 @@ public class CommonCache extends CacheManager {
      * @throws RemoteException 远程异常
      */
     CommonCache() throws RemoteException {
+         super.createCache("CommonCache", 100, false);
     }
 
     private static volatile CommonCache cache = null;

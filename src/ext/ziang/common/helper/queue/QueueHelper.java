@@ -28,6 +28,8 @@ public class QueueHelper {
 		return null;
 	}
 
+	// 发布定时队列
+	// 设置定时时间即可
 
 	// 创建对垒
 }
