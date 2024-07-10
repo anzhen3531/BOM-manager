@@ -29,6 +29,7 @@
         <action name="WFCANCELCHECKOUT" type="pdmObject"/>
         <!--  Undo Checkout for objects checked out to workspace -->
         <action name="edit" type="part"/>
+        <action name="derivedPart" type="extPart"/>
         <!--  Edit  -->
         <action name="editNewPartInWorkspace" type="part"/>
         <!--  Edit newly created part in a workspace  -->

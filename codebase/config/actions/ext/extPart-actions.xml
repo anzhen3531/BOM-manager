@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE listofactions SYSTEM 'actions.dtd'>
+<listofactions>
+
+    <objecttype name="extPart" resourceBundle="ext.ziang.resource.CommonActionResource">
+        <!--开启日志-->
+        <action name="derivedPart">
+            <command url="/netmarkets/jsp/derived/derivedPart.jsp"
+                     method="execute"
+                     class="ext.ziang.doc.sign.CreateOrUpdateSignConfigProcess"
+                     windowType="popup"/>
+        </action>
+    </objecttype>
+
+</listofactions>

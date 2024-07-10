@@ -6,6 +6,7 @@
     <include href="config/actions/ext/extFolderManagement-actions.xml"/>
     <include href="config/actions/ext/extNavigation-actions.xml"/>
     <include href="config/actions/ext/extMPMLink-actions.xml"/>
+    <include href="config/actions/ext/extPart-actions.xml"/>
 
     <objecttype name="document" class="wt.doc.WTDocument"
                 resourceBundle="com.ptc.windchill.enterprise.doc.documentResource">

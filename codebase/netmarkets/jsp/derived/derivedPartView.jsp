@@ -128,6 +128,7 @@ Below javascript is required to add listener on multiPartWizAttributesTableDescr
 
 <%-- Set the default part management help --%>
 <c:set var="helpKey" value="PartCreate_help" scope="page"/>
+<%--TODO 这样可以自由定制自己配置的完成按钮--%>
 <c:set var="buttonList" value="DefaultWizardButtonsNoApply" scope="page"/>
 
 <%-->
@@ -268,6 +269,17 @@ is also different for multiple part create wizard.
     }
 
     // 编写默认复制属性的代码
-    PTC.onReady()
+    PTC.onReady(() => {
+        console.log("into derivedPartView")
+        // 进行加载创建物料panel
+        PTC.attributePanel.on("afterRender", function (attributePanel) {
+            // 可以直接修改类型
+            // 直接设置可配置模块类型
+            let oldName = attributePanel.getAttributeValue("name");
+            let newName = oldName + "more text";
+            attributePanel.setAttributeValue("name", newName);
+        });
+    })
+
 
 </script>
