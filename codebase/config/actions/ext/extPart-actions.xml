@@ -2,17 +2,18 @@
 <!DOCTYPE listofactions SYSTEM 'actions.dtd'>
 <listofactions>
 
+    <!--    -->
     <objecttype name="extPart" resourceBundle="ext.ziang.resource.CommonActionResource">
         <!--开启日志-->
         <action name="derivedPart"  uicomponent="CREATE_PART" ajax="row" >
-            <command onClick="validateCreateLocation(event)"
-                     method="execute"
+            <command method="execute"
                      class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor"
-                     url="/netmarkets/jsp/derived/derivedPart.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
+                     url="/netmarkets/jsp/ext/ziang/derived/derivedPart.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
                      windowType="popup"/>
         </action>
     </objecttype>
 
+    <!--    -->
     <objecttype resourceBundle="com.ptc.windchill.enterprise.part.partResource" name="part" class="wt.part.WTPart" >
         <action name="createPartWizard" uicomponent="CREATE_PART" ajax="row" >
             <command onClick="validateCreateLocation(event)"

@@ -4,7 +4,3 @@
 
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
 
-
-<script>
-
-</script>

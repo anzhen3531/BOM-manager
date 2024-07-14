@@ -7,35 +7,35 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <%
-    try {
-        ReusableAttributeReadView attributeReadView = AttributeOperationHelper.createReusableAttribute(
-                "4A00100100101",
-                null,
-                "wt.iba.definition.StringDefinition",
-                "4A00100100101",
-                "机型",
-                "OR:wt.iba.definition.AttributeOrganizer:112123",
-                null);
+    //    try {
+//        ReusableAttributeReadView attributeReadView = AttributeOperationHelper.createReusableAttribute(
+//                "4A00100100101",
+//                null,
+//                "wt.iba.definition.StringDefinition",
+//                "4A00100100101",
+//                "机型",
+//                "OR:wt.iba.definition.AttributeOrganizer:112123",
+//                null);
+//
+//        ObjectIdentifier objectIdentifier = attributeReadView.getOid();
+//        String string = objectIdentifier.toString();
+//        System.out.println("string = " + string);
+//
+//        boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
+//        System.out.println("accessEnforced = " + accessEnforced);
+//        //  OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588
+//        // 通过名称查询对应的节点
+//        AttributeOperationHelper.createAttributeDefinition("4A00100100101",
+//                "机型",
+//                "4A00100100101",
+//                "OR:wt.iba.definition.StringDefinition:126002",
+//                "OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588");
 
-        ObjectIdentifier objectIdentifier = attributeReadView.getOid();
-        String string = objectIdentifier.toString();
-        System.out.println("string = " + string);
-
-        boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
-        System.out.println("accessEnforced = " + accessEnforced);
-        //  OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588
-        // 通过名称查询对应的节点
-        AttributeOperationHelper.createAttributeDefinition("4A00100100101",
-                "机型",
-                "4A00100100101",
-                "OR:wt.iba.definition.StringDefinition:126002",
-                "OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588");
-
-        //  创建枚举
-        //  CommonOperationAttrUtil.createConstraint(
-        //          "-com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588-com.ptc.core.lwc.server.LWCIBAAttDefinition:126007", 26537L);
-
-    } catch (WTException e) {
-        throw new RuntimeException(e);
-    }
+    //  创建枚举
+    //  CommonOperationAttrUtil.createConstraint(
+    //          "-com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588-com.ptc.core.lwc.server.LWCIBAAttDefinition:126007", 26537L);
+//    } catch (WTException e) {
+//        throw new RuntimeException(e);
+//    }
+    AttributeOperationHelper.findClassificationAttrs("MainGun");
 %>
