@@ -624,9 +624,11 @@ public class AttributeOperationHelper {
                     if (ruleDataObj != null) {
                         System.out.println("ruleDataObj = " + ruleDataObj);
                         System.out.println("ruleDataObj.getRuleData() = " + ruleDataObj.getRuleData());
-                        System.out.println("ruleDataObj.getEnumDef() = " + ruleDataObj.getEnumDef());
-                        EnumerationDefinitionReadView enumDef = ruleDataObj.getEnumDef();
-                        System.out.println("enumDef.getName() = " + enumDef.getName());
+                        if (ruleDataObj.getEnumDef() != null) {
+                            System.out.println("ruleDataObj.getEnumDef() = " + ruleDataObj.getEnumDef());
+                            EnumerationDefinitionReadView enumDef = ruleDataObj.getEnumDef();
+                            System.out.println("enumDef.getName() = " + enumDef.getName());
+                        }
                     }
                 }
             }
