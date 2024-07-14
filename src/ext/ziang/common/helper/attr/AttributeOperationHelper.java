@@ -634,9 +634,9 @@ public class AttributeOperationHelper {
                                     System.out.println("key = " + key);
                                     System.out.println("entry.getValue() = " + entry.getValue());
                                     EnumerationEntryReadView value = entry.getValue();
-                                    if (value != null) {
-                                        System.out.println("value.getName() = " + value.getName());
-                                        System.out.println("value.getId() = " + value.getId());
+                                    PropertyValueReadView entryValueView = value.getPropertyValueByName(PropertyDefinitionConstants.DISPLAY_NAME_PROPERTY);
+                                    if (Objects.nonNull(entryValueView)) {
+                                        System.out.println("entryValueView.getValueAsString() = " + entryValueView.getValueAsString());
                                     }
                                 }
                             }
