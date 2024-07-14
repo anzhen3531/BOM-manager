@@ -621,11 +621,13 @@ public class AttributeOperationHelper {
                 Collection<ConstraintDefinitionReadView> allConstraints = attribute.getAllConstraints();
                 for (ConstraintDefinitionReadView constraintDefinitionReadView : allConstraints) {
                     ConstraintDefinitionReadView.RuleDataObject ruleDataObj = constraintDefinitionReadView.getRuleDataObj();
-                    System.out.println("ruleDataObj = " + ruleDataObj);
-                    System.out.println("ruleDataObj.getRuleData() = " + ruleDataObj.getRuleData());
-                    System.out.println("ruleDataObj.getEnumDef() = " + ruleDataObj.getEnumDef());
-                    EnumerationDefinitionReadView enumDef = ruleDataObj.getEnumDef();
-                    System.out.println("enumDef.getName() = " + enumDef.getName());
+                    if (ruleDataObj != null) {
+                        System.out.println("ruleDataObj = " + ruleDataObj);
+                        System.out.println("ruleDataObj.getRuleData() = " + ruleDataObj.getRuleData());
+                        System.out.println("ruleDataObj.getEnumDef() = " + ruleDataObj.getEnumDef());
+                        EnumerationDefinitionReadView enumDef = ruleDataObj.getEnumDef();
+                        System.out.println("enumDef.getName() = " + enumDef.getName());
+                    }
                 }
             }
             return attributeDescriptionMap;
