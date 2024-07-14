@@ -10,23 +10,7 @@ import com.ptc.core.lwc.client.util.NewConstraintInflator;
 import com.ptc.core.lwc.client.util.PropertyDefinitionHelper;
 import com.ptc.core.lwc.common.*;
 import com.ptc.core.lwc.common.dynamicEnum.EnumerationConstraintsHelper;
-import com.ptc.core.lwc.common.view.AttributeDefinitionReadView;
-import com.ptc.core.lwc.common.view.AttributeDefinitionWriteView;
-import com.ptc.core.lwc.common.view.ConstraintDefinitionReadView;
-import com.ptc.core.lwc.common.view.ConstraintDefinitionWriteView;
-import com.ptc.core.lwc.common.view.ConstraintRuleDefinitionReadView;
-import com.ptc.core.lwc.common.view.DatatypeReadView;
-import com.ptc.core.lwc.common.view.DisplayStyleReadView;
-import com.ptc.core.lwc.common.view.PropertyDefinitionReadView;
-import com.ptc.core.lwc.common.view.PropertyValueReadView;
-import com.ptc.core.lwc.common.view.PropertyValueWriteView;
-import com.ptc.core.lwc.common.view.ReadView;
-import com.ptc.core.lwc.common.view.ReadViewIdentifier;
-import com.ptc.core.lwc.common.view.ReusableAttributeReadView;
-import com.ptc.core.lwc.common.view.ReusableAttributeWriteView;
-import com.ptc.core.lwc.common.view.SeparatorReadView;
-import com.ptc.core.lwc.common.view.TypeDefinitionReadView;
-import com.ptc.core.lwc.common.view.TypeDefinitionWriteView;
+import com.ptc.core.lwc.common.view.*;
 import com.ptc.core.lwc.server.LWCBasicConstraint;
 import com.ptc.core.lwc.server.LWCEnumerationBasedConstraint;
 import com.ptc.core.lwc.server.LWCIBAAttDefinition;
@@ -626,6 +610,7 @@ public class AttributeOperationHelper {
             Map<String, String> attributeDescriptionMap = Maps.newHashMap();
             // 获取分类属性和相关描述
             for (AttributeDefinitionReadView attribute : allAttributes) {
+                System.out.println("attribute = " + attribute.getName());
                 PropertyValueReadView propertyValueByName = attribute.getPropertyValueByName(PropertyDefinitionConstants.DESCRIPTION_PROPERTY);
                 String description = "";
                 if (java.util.Objects.nonNull(propertyValueByName)) {
@@ -635,15 +620,12 @@ public class AttributeOperationHelper {
                 // 获取所有的规则
                 Collection<ConstraintDefinitionReadView> allConstraints = attribute.getAllConstraints();
                 for (ConstraintDefinitionReadView constraintDefinitionReadView : allConstraints) {
-                    System.out.println("constraintDefinitionReadView = " + constraintDefinitionReadView);
-                    System.out.println("constraintDefinitionReadView.getAllConditions() = " + constraintDefinitionReadView.getAllConditions());
-                    for (ConstraintDefinitionReadView condition : constraintDefinitionReadView.getAllConditions()) {
-                        System.out.println("allCondition = " + condition.getAttName());
-                    }
-                    Collection<PropertyValueReadView> allProperties = constraintDefinitionReadView.getAllProperties();
-                    for (PropertyValueReadView propertyValueReadView : allProperties) {
-                        System.out.println(propertyValueReadView.getName());
-                    }
+                    ConstraintDefinitionReadView.RuleDataObject ruleDataObj = constraintDefinitionReadView.getRuleDataObj();
+                    System.out.println("ruleDataObj = " + ruleDataObj);
+                    System.out.println("ruleDataObj.getRuleData() = " + ruleDataObj.getRuleData());
+                    System.out.println("ruleDataObj.getEnumDef() = " + ruleDataObj.getEnumDef());
+                    EnumerationDefinitionReadView enumDef = ruleDataObj.getEnumDef();
+                    System.out.println("enumDef.getName() = " + enumDef.getName());
                 }
             }
             return attributeDescriptionMap;

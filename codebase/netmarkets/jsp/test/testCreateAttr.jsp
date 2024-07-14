@@ -7,6 +7,7 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <%
+    // \netmarkets\jsp\test\testCreateAttr.jsp
     //    try {
 //        ReusableAttributeReadView attributeReadView = AttributeOperationHelper.createReusableAttribute(
 //                "4A00100100101",
