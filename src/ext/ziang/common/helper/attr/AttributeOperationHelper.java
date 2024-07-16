@@ -369,7 +369,7 @@ public class AttributeOperationHelper {
         typeDefWriteView = typeDefReadView.getWritableView();
         // 默认设置枚举
         ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(attrDefWriteView.getName(),
-                typeDefWriteView.getReadViewIdentifier(), 26537L);
+                typeDefWriteView.getReadViewIdentifier(), 29611L);
         attrDefWriteView.setConstraintDefinition(enumConstraint);
         typeDefWriteView.setAttribute(writableView);
         typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
