@@ -31,6 +31,8 @@ import wt.doc.WTDocumentMasterIdentity;
 import wt.fc.IdentityHelper;
 import wt.fc.ObjectIdentifier;
 import wt.fc.PersistenceHelper;
+import wt.fc.collections.WTArrayList;
+import wt.fc.collections.WTCollection;
 import wt.iba.definition.AbstractAttributeDefinition;
 import wt.iba.definition.AttributeDefinition;
 import wt.iba.definition.IBADefinitionException;
@@ -98,8 +100,7 @@ public class AttributeOperationHelper {
         UNITS_SERVICE = (UnitsService) ServiceFactory.getService(UnitsService.class);
         boolean falg = true;
         try {
-            falg = WTProperties.getServerProperties().getProperty("com.ptc.core.lwc.autoAddSingleValuedConstraint",
-                    falg);
+            falg = WTProperties.getServerProperties().getProperty("com.ptc.core.lwc.autoAddSingleValuedConstraint", falg);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -114,14 +115,7 @@ public class AttributeOperationHelper {
      * @throws WTException WT异常
      */
     public static void main(String[] args) throws WTException {
-        createReusableAttribute(
-                "testCreateAttr",
-                null,
-                "wt.iba.definition.StringDefinition",
-                "test",
-                "测试创建属性",
-                "OR:wt.iba.definition.AttributeOrganizer:156004",
-                null);
+        createReusableAttribute("testCreateAttr", null, "wt.iba.definition.StringDefinition", "test", "测试创建属性", "OR:wt.iba.definition.AttributeOrganizer:156004", null);
         // TODO
         // CreateAttributeFormProcessor 创建属性关联 完成
         // NewConstraintFormProcessor 创建枚举关联 完成
@@ -141,9 +135,7 @@ public class AttributeOperationHelper {
      * @return {@link ReusableAttributeReadView}
      * @throws WTException WT异常
      */
-    public static ReusableAttributeReadView createReusableAttribute(String internalName, String logicalIdentifier,
-                                                                    String dataType, String description, String displayName, String oid, String qtyOfMeasure)
-            throws WTException {
+    public static ReusableAttributeReadView createReusableAttribute(String internalName, String logicalIdentifier, String dataType, String description, String displayName, String oid, String qtyOfMeasure) throws WTException {
         ReusableAttributeReadView reusableAttributeReadView = null;
         if (oid == null) {
             throw new WTException("New reusable attribute needs to have a reusable organizer as parent!");
@@ -172,8 +164,7 @@ public class AttributeOperationHelper {
 
             // 获取父级对象oid 父级对象类型 AttributeOrganizer 可以编写高级查询查询
             ObjectIdentifier parentIdentifier = OidHelper.getOid(oid);
-            ReusableAttributeWriteView reusableAttribute = createReusableAttribute(internalName, dataType, qtyOfMeasure,
-                    orgName, description, displayName, internalName, logicalIdentifier, parentIdentifier);
+            ReusableAttributeWriteView reusableAttribute = createReusableAttribute(internalName, dataType, qtyOfMeasure, orgName, description, displayName, internalName, logicalIdentifier, parentIdentifier);
             try {
                 reusableAttribute.getId();
                 // 通过id获取属性视图
@@ -201,21 +192,14 @@ public class AttributeOperationHelper {
      * @return {@link ReusableAttributeWriteView}
      * @throws WTException WT异常
      */
-    private static ReusableAttributeWriteView createReusableAttribute(String internalName, String dataType,
-                                                                      String qtyOfMeasure, String orgName, String description, String displayName, String internalName1,
-                                                                      String logicalIdentifier, ObjectIdentifier parentIdentifier) throws WTException {
+    private static ReusableAttributeWriteView createReusableAttribute(String internalName, String dataType, String qtyOfMeasure, String orgName, String description, String displayName, String internalName1, String logicalIdentifier, ObjectIdentifier parentIdentifier) throws WTException {
         WTContainerRef containerRef = WTContainerHelper.service.getExchangeRef();
-        ReusableAttributeWriteView attributeWriteView = new ReusableAttributeWriteView(internalName, containerRef,
-                parentIdentifier, (Collection) null,
-                dataType, orgName, (Map) null,
-                false, (ReadViewIdentifier) null);
+        ReusableAttributeWriteView attributeWriteView = new ReusableAttributeWriteView(internalName, containerRef, parentIdentifier, (Collection) null, dataType, orgName, (Map) null, false, (ReadViewIdentifier) null);
         ObjectIdentifier objectIdentifier = attributeWriteView.getOid();
         attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "internalName", internalName));
-        attributeWriteView
-                .setProperty(createPropertyValueReadView(objectIdentifier, "hierarchyDisplayName", internalName1));
+        attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "hierarchyDisplayName", internalName1));
         attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "displayName", displayName));
-        attributeWriteView
-                .setProperty(createPropertyValueReadView(objectIdentifier, "logicalIdentifier", logicalIdentifier));
+        attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "logicalIdentifier", logicalIdentifier));
         attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "description", description));
         attributeWriteView.setProperty(createPropertyValueReadView(objectIdentifier, "referenceClass", qtyOfMeasure));
         return attributeWriteView;
@@ -229,36 +213,42 @@ public class AttributeOperationHelper {
      * @param qtyOfMeasure     测量数量
      * @return {@link PropertyValueReadView}
      */
-    private static PropertyValueReadView createPropertyValueReadView(ObjectIdentifier objectIdentifier,
-                                                                     String referenceClass, String qtyOfMeasure) {
-        PropertyDefinitionReadView readView = new PropertyDefinitionReadView(
-                AbstractAttributeDefinition.class.getName(),
-                referenceClass, String.class.getName());
-        PropertyValueReadView propertyValueReadView = new PropertyValueReadView(objectIdentifier, readView,
-                qtyOfMeasure, (Map) null, (ObjectIdentifier) null,
-                false, (ReadViewIdentifier) null, false);
+    private static PropertyValueReadView createPropertyValueReadView(ObjectIdentifier objectIdentifier, String referenceClass, String qtyOfMeasure) {
+        PropertyDefinitionReadView readView = new PropertyDefinitionReadView(AbstractAttributeDefinition.class.getName(), referenceClass, String.class.getName());
+        PropertyValueReadView propertyValueReadView = new PropertyValueReadView(objectIdentifier, readView, qtyOfMeasure, (Map) null, (ObjectIdentifier) null, false, (ReadViewIdentifier) null, false);
         return propertyValueReadView;
     }
+
+
+    /**
+     * TODO: 通过分类属性直接创建即可
+     *
+     * @param ibaInnerName
+     * @param lwcStructTemplateName
+     * @return
+     * @throws WTException
+     */
+    public static AttributeDefinitionReadView createAttributeDefinition(String ibaInnerName, String lwcStructTemplateName) throws WTException {
+        // 查询两个节点 直接读取即可
+        return null;
+    }
+
 
     /**
      * 创建分类属性和IBA属性映射
      *
      * @param innerName        内部名称
-     * @param lwcDisplayName`  LWC 显示名称
+     * @param lwcDisplayName   LWC 显示名称
      * @param lwcDescription   LWC 描述
      * @param ibaSelectAttrOid 选择的可重用属性
      * @param classifyAttrOid  需要映射的分类属性
      * @return {@link AttributeDefinitionReadView}
      * @throws WTException WT异常
      */
-    public static AttributeDefinitionReadView createAttributeDefinition(String innerName,
-                                                                        String lwcDisplayName, String lwcDescription,
-                                                                        String ibaSelectAttrOid, String classifyAttrOid)
-            throws WTException {
+    public static AttributeDefinitionReadView createAttributeDefinition(String innerName, String lwcDisplayName, String lwcDescription, String ibaSelectAttrOid, String classifyAttrOid) throws WTException {
+        // IBA 属性可以自己去取def
         System.out.println("CommonOperationAttrUtil.createAttributeDefinition");
-        System.out.println("innerName = " + innerName + ", lwcDisplayName = " + lwcDisplayName + ", lwcDescription = "
-                + lwcDescription + ", ibaSelectAttrOid = " + ibaSelectAttrOid + ", classifyAttrOid = "
-                + classifyAttrOid);
+        System.out.println("innerName = " + innerName + ", lwcDisplayName = " + lwcDisplayName + ", lwcDescription = " + lwcDescription + ", ibaSelectAttrOid = " + ibaSelectAttrOid + ", classifyAttrOid = " + classifyAttrOid);
         String selectIbaClassTypeName = null;
         String ibaInternalName = LWCCommands.getIbaInternalName(ibaSelectAttrOid);
         NmOid nmOid = NmOid.newNmOid(classifyAttrOid);
@@ -327,25 +317,27 @@ public class AttributeOperationHelper {
             }
         }
 
-        TypeDefinitionReadView typeDefReadView = TYPE_DEF_SERVICE.getTypeDefView(
-                AttributeTemplateFlavorHelper.getFlavor(nmOid),
-                identifier.getId());
+        TypeDefinitionReadView typeDefReadView = TYPE_DEF_SERVICE.getTypeDefView(AttributeTemplateFlavorHelper.getFlavor(nmOid), identifier.getId());
         TypeDefinitionWriteView typeDefWriteView = typeDefReadView.getWritableView();
         // 判断是否存在当前视图
-        AttributeDefinitionWriteView attrDefWriteView = new AttributeDefinitionWriteView(
-                selectIbaClassTypeName,
-                innerName,
-                readView, defDefaultView, quantityOfMeasureDefaultView,
-                (DisplayStyleReadView) null, (DisplayStyleReadView) null,
-                (Collection) null, false, (Collection) null);
+        AttributeDefinitionWriteView attrDefWriteView = new AttributeDefinitionWriteView(selectIbaClassTypeName,
+                innerName, readView,
+                defDefaultView,
+                quantityOfMeasureDefaultView,
+                (DisplayStyleReadView) null,
+                (DisplayStyleReadView) null, (Collection) null, false, (Collection) null);
         System.out.println("attrDefWriteView = " + attrDefWriteView);
         attrDefWriteView.setTypeDefId(identifier);
         if (AUTO_ADD_SINGLE_VALUE_CONSTRAINT_TO_NEW_GLOBAL_ATT && defDefaultView != null) {
-            addSingleValuedConstraint(attrDefWriteView);
+            ConstraintDefinitionWriteView singleValuedConstraint = addSingleValuedConstraint(attrDefWriteView);
+            ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(attrDefWriteView.getName(),
+                    typeDefWriteView.getReadViewIdentifier(), 26537L);
+            attrDefWriteView.setConstraintDefinition(singleValuedConstraint);
+            attrDefWriteView.setConstraintDefinition(enumConstraint);
         }
 
-        Set allPropertyDefViews = TYPE_DEF_SERVICE.getAllPropertyDefViews(selectIbaClassTypeName,
-                typeDefReadView.getReadViewIdentifier(), readView);
+        Set allPropertyDefViews = TYPE_DEF_SERVICE.getAllPropertyDefViews(selectIbaClassTypeName, typeDefReadView.getReadViewIdentifier(), readView);
+        // 添加默认的属性
         if (allPropertyDefViews != null && !allPropertyDefViews.isEmpty()) {
             for (Object allPropertyDefView : allPropertyDefViews) {
                 PropertyDefinitionReadView propertyDefReadView = (PropertyDefinitionReadView) allPropertyDefView;
@@ -353,24 +345,16 @@ public class AttributeOperationHelper {
                 String classifyName = "lwc_" + propertyDefReadViewName;
                 // 更新属性值数据
                 System.out.println("classifyName = " + classifyName);
-                if (propertyDefReadViewName.equals("displayName") ||
-                        propertyDefReadViewName.equals("description")) {
+                if (propertyDefReadViewName.equals("displayName") || propertyDefReadViewName.equals("description")) {
                     String valueData;
                     if (propertyDefReadViewName.equals("displayName")) {
                         valueData = lwcDisplayName;
                     } else {
                         valueData = lwcDescription;
                     }
-                    boolean isUpdateSuccess = PropertyDefinitionHelper.updatePropertyValue(propertyDefReadView,
-                            (ReadViewIdentifier) null,
-                            (PropertyValueWriteView) null, valueData,
-                            (Map) null,
-                            false);
+                    boolean isUpdateSuccess = PropertyDefinitionHelper.updatePropertyValue(propertyDefReadView, (ReadViewIdentifier) null, (PropertyValueWriteView) null, valueData, (Map) null, false);
                     if (isUpdateSuccess) {
-                        PropertyValueWriteView propertyValueWriteView = new PropertyValueWriteView(
-                                (ObjectIdentifier) null,
-                                propertyDefReadView, valueData,
-                                (Map) null, identifier, false, (ReadViewIdentifier) null, false);
+                        PropertyValueWriteView propertyValueWriteView = new PropertyValueWriteView((ObjectIdentifier) null, propertyDefReadView, valueData, (Map) null, identifier, false, (ReadViewIdentifier) null, false);
                         attrDefWriteView.setProperty(propertyValueWriteView);
                     }
                 }
@@ -380,18 +364,8 @@ public class AttributeOperationHelper {
         typeDefWriteView.setAttribute(attrDefWriteView);
         // 更新类型
         typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
-        AttributeDefinitionReadView readViewAttributeByName = typeDefReadView
-                .getAttributeByName(attrDefWriteView.getName());
+        AttributeDefinitionReadView readViewAttributeByName = typeDefReadView.getAttributeByName(attrDefWriteView.getName());
         System.out.println("readViewAttributeByName = " + readViewAttributeByName);
-
-        // 26537L 固定为枚举值
-//		AttributeDefinitionWriteView writableView = readViewAttributeByName.getWritableView();
-//		typeDefWriteView = typeDefReadView.getWritableView();
-//		createConstraintsWriteView(writableView, typeDefWriteView, 26537L);
-//		typeDefWriteView.setAttribute(writableView);
-//		typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
-//		System.out.println("更新完成");
-
         return typeDefReadView.getAttributeByName(innerName);
     }
 
@@ -401,30 +375,19 @@ public class AttributeOperationHelper {
      * @param attributeDefView 属性定义视图
      * @throws WTException WT异常
      */
-    private static void addSingleValuedConstraint(AttributeDefinitionWriteView attributeDefView) throws WTException {
+    private static ConstraintDefinitionWriteView addSingleValuedConstraint(AttributeDefinitionWriteView attributeDefView) throws WTException {
         // 设置单值 基本规则 约束
-        ConstraintRuleDefinitionReadView readView = BASE_DEF_SERVICE.getConstraintRuleDefView(
-                SingleValuedConstraint.class.getName(), LWCBasicConstraint.class.getName(),
+        ConstraintRuleDefinitionReadView readView = BASE_DEF_SERVICE.getConstraintRuleDefView(SingleValuedConstraint.class.getName(),
+                LWCBasicConstraint.class.getName(),
                 attributeDefView.getDatatype().getId(),
                 (String) null);
-        ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(readView,
-                (ConstraintDefinitionReadView.RuleDataObject) null, attributeDefView.getName(),
+        return new ConstraintDefinitionWriteView(readView,
+                (ConstraintDefinitionReadView.RuleDataObject) null,
+                attributeDefView.getName(),
                 (Collection) null,
                 attributeDefView.getTypeDefId(),
                 (String) null);
-        attributeDefView.setConstraintDefinition(writeView);
 
-        // 设置枚举
-        readView = BASE_DEF_SERVICE.getConstraintRuleDefView(
-                DiscreteSetConstraint.class.getName(), LWCEnumerationBasedConstraint.class.getName(),
-                attributeDefView.getDatatype().getId(),
-                (String) null);
-        writeView = new ConstraintDefinitionWriteView(readView,
-                null, attributeDefView.getName(),
-                (Collection) null,
-                attributeDefView.getTypeDefId(),
-                (String) null);
-        attributeDefView.setConstraintDefinition(writeView);
     }
 
     /**
@@ -470,39 +433,24 @@ public class AttributeOperationHelper {
                     HashMap map = new HashMap(1);
                     map.put("inflatorMode", "newConstraint");
                     // 创建默认读取规则
-                    ConstraintRuleDefinitionReadView constraintRuleReadView = BASE_DEF_SERVICE
-                            .getConstraintRuleDefView(typeId);
+                    ConstraintRuleDefinitionReadView constraintRuleReadView = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
                     if (constraintRuleReadView == null) {
                         throw new WTException("unable to get constraint rule for id " + typeId);
                     }
 
                     // 获取分隔符
-                    ReadViewIdentifier newConstraintReadViewId = NewConstraintInflator
-                            .createUniqueFakeRvId(SeparatorReadView.class,
-                                    readViewIdentifier.getRootContextIdentifier());
+                    ReadViewIdentifier newConstraintReadViewId = NewConstraintInflator.createUniqueFakeRvId(SeparatorReadView.class, readViewIdentifier.getRootContextIdentifier());
                     System.out.println("newConstraintReadViewId = " + newConstraintReadViewId);
                     map.put("constraintRvId", newConstraintReadViewId.toEncodedString());
                     constraintRuleReadView = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
-                    System.out
-                            .println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
-                    System.out.println(
-                            "constraintRuleReadView.getRuleClassname() = " + constraintRuleReadView.getRuleClassname());
+                    System.out.println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
+                    System.out.println("constraintRuleReadView.getRuleClassname() = " + constraintRuleReadView.getRuleClassname());
 
-                    ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(
-                            constraintRuleReadView,
-                            (ConstraintDefinitionReadView.RuleDataObject) null,
-                            attributeDefinitionReadView.getName(),
-                            (Collection) null, (Set) null,
-                            (ConstraintDefinitionReadView) null,
-                            false,
-                            objectIdentifier,
-                            newConstraintReadViewId, (String) null, false);
+                    ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(constraintRuleReadView, (ConstraintDefinitionReadView.RuleDataObject) null, attributeDefinitionReadView.getName(), (Collection) null, (Set) null, (ConstraintDefinitionReadView) null, false, objectIdentifier, newConstraintReadViewId, (String) null, false);
                     // 判断是否是枚举类型
-                    System.out.println("EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView) = "
-                            + EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView));
+                    System.out.println("EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView) = " + EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView));
                     if (EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView)) {
-                        DiscreteSet discreteSet = new DiscreteSet(new Object[]{
-                                "com.ptc.core.lwc.common.dynamicEnum.provider.ClassificationEnumerationInfoProvider"});
+                        DiscreteSet discreteSet = new DiscreteSet(new Object[]{"com.ptc.core.lwc.common.dynamicEnum.provider.ClassificationEnumerationInfoProvider"});
                         writeView.setRuleDataObj(new ConstraintDefinitionReadView.RuleDataObject(discreteSet));
                     }
                     return writeView;
@@ -516,19 +464,16 @@ public class AttributeOperationHelper {
     /**
      * 创建约束写入视图
      *
-     * @param writeView        写入视图
-     * @param typeDefWriteView
-     * @param typeId           类型 ID
-     * @throws WTException WT异常
+     * @param name               名字
+     * @param typeDefWriteViewId 类型 def write view id
+     * @param typeId             类型 ID
+     * @return {@link ConstraintDefinitionWriteView }
+     * @throws WTException WTException
      */
-    public static void createConstraintsWriteView(AttributeDefinitionWriteView writeView,
-                                                  TypeDefinitionWriteView typeDefWriteView, Long typeId)
-            throws WTException {
-        ObjectIdentifier objectIdentifier = typeDefWriteView.getReadViewIdentifier().getOid();
+    public static ConstraintDefinitionWriteView createConstraintsWriteView(String name, ReadViewIdentifier typeDefWriteViewId, Long typeId) throws WTException {
+        ObjectIdentifier objectIdentifier = typeDefWriteViewId.getOid();
         System.out.println("objectIdentifier.getStringValue() = " + objectIdentifier.getStringValue());
-        // 创建默认读取规则
-        ConstraintRuleDefinitionReadView constraintRuleReadView = BASE_DEF_SERVICE
-                .getConstraintRuleDefView(typeId);
+        ConstraintRuleDefinitionReadView constraintRuleReadView = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
         System.out.println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
         System.out.println("constraintRuleReadView.getOid() = " + constraintRuleReadView.getOid());
         if (constraintRuleReadView == null) {
@@ -536,23 +481,18 @@ public class AttributeOperationHelper {
         }
 
         // 获取分隔符
-        ReadViewIdentifier newConstraintReadViewId = NewConstraintInflator
-                .createUniqueFakeRvId(SeparatorReadView.class,
-                        typeDefWriteView.getReadViewIdentifier());
+        ReadViewIdentifier newConstraintReadViewId = NewConstraintInflator.createUniqueFakeRvId(SeparatorReadView.class, typeDefWriteViewId);
         System.out.println("newConstraintReadViewId = " + newConstraintReadViewId);
         constraintRuleReadView = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
         System.out.println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
         System.out.println("constraintRuleReadView.getRuleClassname() = " + constraintRuleReadView.getRuleClassname());
-        ConstraintDefinitionWriteView constWriteView = new ConstraintDefinitionWriteView(
-                constraintRuleReadView,
+        return new ConstraintDefinitionWriteView(constraintRuleReadView,
                 (ConstraintDefinitionReadView.RuleDataObject) null,
-                writeView.getName(),
-                (Collection) null, (Set) null,
-                (ConstraintDefinitionReadView) null,
-                false,
+                name, (Collection) null, (Set) null,
+                (ConstraintDefinitionReadView) null, false,
                 objectIdentifier,
-                newConstraintReadViewId, (String) null, false);
-        writeView.setConstraintDefinition(constWriteView);
+                newConstraintReadViewId, (String) null,
+                false);
     }
 
     /**
@@ -587,14 +527,12 @@ public class AttributeOperationHelper {
         return doc;
     }
 
-    // TODO 创建枚举相关代码 待研究
-
     /**
-     * @param classificationInnerName
+     * @param classificationInnerName 分类内部值
      * @Decription:根据分类内部名称获取分类属性
      * @return: java.util.Map<java.lang.String, java.lang.String>
      * @Date: 2023/7/19 9:01
-     * @Author:Jelly
+     * @Author:anzhen
      * @Version:1.0
      */
     public static Map<String, String> findClassificationAttrs(String classificationInnerName) {
@@ -619,11 +557,15 @@ public class AttributeOperationHelper {
                 attributeDescriptionMap.put(attribute.getName(), description);
                 // 获取所有的规则
                 Collection<ConstraintDefinitionReadView> allConstraints = attribute.getAllConstraints();
+                // 获取所有的条件规则
                 for (ConstraintDefinitionReadView constraintDefinitionReadView : allConstraints) {
+                    // 获取规则对象
                     ConstraintDefinitionReadView.RuleDataObject ruleDataObj = constraintDefinitionReadView.getRuleDataObj();
+                    // 如果为空则表示是基本规则
                     if (ruleDataObj != null) {
                         System.out.println("ruleDataObj = " + ruleDataObj);
                         System.out.println("ruleDataObj.getRuleData() = " + ruleDataObj.getRuleData());
+                        // 获取枚举值查看是否存在
                         if (ruleDataObj.getEnumDef() != null) {
                             System.out.println("ruleDataObj.getEnumDef() = " + ruleDataObj.getEnumDef());
                             EnumerationDefinitionReadView enumDef = ruleDataObj.getEnumDef();

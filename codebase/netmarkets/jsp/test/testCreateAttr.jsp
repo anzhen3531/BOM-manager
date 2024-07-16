@@ -8,35 +8,39 @@
 
 <%
     // \netmarkets\jsp\test\testCreateAttr.jsp
-    //    try {
-//        ReusableAttributeReadView attributeReadView = AttributeOperationHelper.createReusableAttribute(
-//                "4A00100100101",
-//                null,
-//                "wt.iba.definition.StringDefinition",
-//                "4A00100100101",
-//                "机型",
-//                "OR:wt.iba.definition.AttributeOrganizer:112123",
-//                null);
-//
-//        ObjectIdentifier objectIdentifier = attributeReadView.getOid();
-//        String string = objectIdentifier.toString();
-//        System.out.println("string = " + string);
-//
-//        boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
-//        System.out.println("accessEnforced = " + accessEnforced);
-//        //  OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588
-//        // 通过名称查询对应的节点
-//        AttributeOperationHelper.createAttributeDefinition("4A00100100101",
-//                "机型",
-//                "4A00100100101",
-//                "OR:wt.iba.definition.StringDefinition:126002",
-//                "OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588");
+    try {
+        ReusableAttributeReadView attributeReadView = AttributeOperationHelper.createReusableAttribute(
+                "4A00100100101",
+                null,
+                "wt.iba.definition.StringDefinition",
+                "4A00100100101",
+                "机型",
+                "OR:wt.iba.definition.AttributeOrganizer:105910",
+                null);
+        ObjectIdentifier objectIdentifier = attributeReadView.getOid();
+        String string = objectIdentifier.toString();
+        System.out.println("string = " + string);
+    } catch (WTException e) {
+        e.printStackTrace();
+    }
 
-    //  创建枚举
-    //  CommonOperationAttrUtil.createConstraint(
-    //          "-com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588-com.ptc.core.lwc.server.LWCIBAAttDefinition:126007", 26537L);
-//    } catch (WTException e) {
-//        throw new RuntimeException(e);
-//    }
-    AttributeOperationHelper.findClassificationAttrs("MainGun");
+
+    try {
+
+        boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
+        System.out.println("accessEnforced = " + accessEnforced);
+        //  OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588
+        // 通过名称查询对应的节点 传递节点名称
+        AttributeOperationHelper.createAttributeDefinition("4A00100100101",
+                "机型",
+                "4A00100100101",
+                "OR:wt.iba.definition.StringDefinition:190124",
+                "OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:154177");
+        // 创建枚举
+//        AttributeOperationHelper.createConstraint(
+//                "-com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588-com.ptc.core.lwc.server.LWCIBAAttDefinition:126007", 26537L);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+//    AttributeOperationHelper.findClassificationAttrs("MainGun");
 %>
