@@ -220,18 +220,18 @@ public class AttributeOperationHelper {
     }
 
 
-    /**
-     * TODO: 通过分类属性直接创建即可
-     *
-     * @param ibaInnerName
-     * @param lwcStructTemplateName
-     * @return
-     * @throws WTException
-     */
-    public static AttributeDefinitionReadView createAttributeDefinition(String ibaInnerName, String lwcStructTemplateName) throws WTException {
-        // 查询两个节点 直接读取即可
-        return null;
-    }
+//    /**
+//     * TODO: 通过分类属性直接创建即可
+//     *
+//     * @param ibaInnerName
+//     * @param lwcStructTemplateName
+//     * @return
+//     * @throws WTException
+//     */
+//    public static AttributeDefinitionReadView createAttributeDefinition(String ibaInnerName, String lwcStructTemplateName) throws WTException {
+//        // 查询两个节点 直接读取即可
+//        return null;
+//    }
 
 
     /**
