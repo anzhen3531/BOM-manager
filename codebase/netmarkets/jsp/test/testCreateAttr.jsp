@@ -30,7 +30,7 @@
         System.out.println("accessEnforced = " + accessEnforced);
         //  OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588
         // 通过名称查询对应的节点 传递节点名称
-        TypeDefinitionReadView typeDefinitionReadView = AttributeOperationHelper.createAttributeDefinition("4A00100100101",
+        TypeDefinitionReadView typeDefinitionReadView = AttributeOperationHelper.createAttributeDefinitionAndConstraint("4A00100100101",
                 "机型",
                 "4A00100100101",
                 "OR:wt.iba.definition.StringDefinition:190124",

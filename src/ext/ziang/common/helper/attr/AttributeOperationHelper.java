@@ -12,12 +12,10 @@ import com.ptc.core.lwc.common.*;
 import com.ptc.core.lwc.common.dynamicEnum.EnumerationConstraintsHelper;
 import com.ptc.core.lwc.common.view.*;
 import com.ptc.core.lwc.server.LWCBasicConstraint;
-import com.ptc.core.lwc.server.LWCEnumerationBasedConstraint;
 import com.ptc.core.lwc.server.LWCIBAAttDefinition;
 import com.ptc.core.lwc.server.TypeDefinitionServiceHelper;
 import com.ptc.core.meta.common.CorrectableException;
 import com.ptc.core.meta.common.DiscreteSet;
-import com.ptc.core.meta.container.common.impl.DiscreteSetConstraint;
 import com.ptc.core.meta.container.common.impl.SingleValuedConstraint;
 import com.ptc.netmarkets.model.NmOid;
 
@@ -31,8 +29,6 @@ import wt.doc.WTDocumentMasterIdentity;
 import wt.fc.IdentityHelper;
 import wt.fc.ObjectIdentifier;
 import wt.fc.PersistenceHelper;
-import wt.fc.collections.WTArrayList;
-import wt.fc.collections.WTCollection;
 import wt.iba.definition.AbstractAttributeDefinition;
 import wt.iba.definition.AttributeDefinition;
 import wt.iba.definition.IBADefinitionException;
@@ -245,7 +241,7 @@ public class AttributeOperationHelper {
      * @return {@link AttributeDefinitionReadView}
      * @throws WTException WT异常
      */
-    public static TypeDefinitionReadView createAttributeDefinition(String innerName, String lwcDisplayName, String lwcDescription, String ibaSelectAttrOid, String classifyAttrOid) throws WTException {
+    public static TypeDefinitionReadView createAttributeDefinitionAndConstraint(String innerName, String lwcDisplayName, String lwcDescription, String ibaSelectAttrOid, String classifyAttrOid) throws WTException {
         // IBA 属性可以自己去取def
         System.out.println("CommonOperationAttrUtil.createAttributeDefinition");
         System.out.println("innerName = " + innerName + ", lwcDisplayName = " + lwcDisplayName + ", lwcDescription = " + lwcDescription + ", ibaSelectAttrOid = " + ibaSelectAttrOid + ", classifyAttrOid = " + classifyAttrOid);
