@@ -1,9 +1,9 @@
 <%@ page import="ext.ziang.common.helper.attr.AttributeOperationHelper" %>
 <%@ page import="wt.util.WTException" %>
 <%@ page import="wt.session.SessionServerHelper" %>
-<%@ page import="wt.iba.definition.StringDefinition" %>
 <%@ page import="com.ptc.core.lwc.common.view.ReusableAttributeReadView" %>
 <%@ page import="wt.fc.ObjectIdentifier" %>
+<%@ page import="com.ptc.core.lwc.common.view.TypeDefinitionReadView" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <%
@@ -26,16 +26,16 @@
 
 
     try {
-
         boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
         System.out.println("accessEnforced = " + accessEnforced);
         //  OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588
         // 通过名称查询对应的节点 传递节点名称
-        AttributeOperationHelper.createAttributeDefinition("4A00100100101",
+        TypeDefinitionReadView typeDefinitionReadView = AttributeOperationHelper.createAttributeDefinition("4A00100100101",
                 "机型",
                 "4A00100100101",
                 "OR:wt.iba.definition.StringDefinition:190124",
                 "OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:154177");
+        System.out.println("typeDefinitionReadView = " + typeDefinitionReadView);
         // 创建枚举
 //        AttributeOperationHelper.createConstraint(
 //                "-com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588-com.ptc.core.lwc.server.LWCIBAAttDefinition:126007", 26537L);
