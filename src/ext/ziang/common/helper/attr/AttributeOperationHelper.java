@@ -327,6 +327,10 @@ public class AttributeOperationHelper {
         if (AUTO_ADD_SINGLE_VALUE_CONSTRAINT_TO_NEW_GLOBAL_ATT && defDefaultView != null) {
             ConstraintDefinitionWriteView singleValuedConstraint = addSingleValuedConstraint(attrDefWriteView);
             attrDefWriteView.setConstraintDefinition(singleValuedConstraint);
+            // 默认设置枚举
+            ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(attrDefWriteView.getName(),
+                    typeDefWriteView.getReadViewIdentifier(), 29611L);
+            attrDefWriteView.setConstraintDefinition(enumConstraint);
         }
 
         Set allPropertyDefViews = TYPE_DEF_SERVICE.getAllPropertyDefViews(selectIbaClassTypeName, typeDefReadView.getReadViewIdentifier(), readView);
@@ -357,17 +361,17 @@ public class AttributeOperationHelper {
         typeDefWriteView.setAttribute(attrDefWriteView);
         // 更新类型
         typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
-        AttributeDefinitionReadView readViewAttributeByName = typeDefReadView.getAttributeByName(attrDefWriteView.getName());
-        System.out.println("readViewAttributeByName = " + readViewAttributeByName);
-        // 26537L 固定为枚举值
-        AttributeDefinitionWriteView writableView = readViewAttributeByName.getWritableView();
-        typeDefWriteView = typeDefReadView.getWritableView();
-        // 默认设置枚举
-        ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(writableView.getName(),
-                typeDefWriteView.getReadViewIdentifier(), 29611L);
-        writableView.setConstraintDefinition(enumConstraint);
-        typeDefWriteView.setAttribute(writableView);
-        typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
+//        AttributeDefinitionReadView readViewAttributeByName = typeDefReadView.getAttributeByName(attrDefWriteView.getName());
+//        System.out.println("readViewAttributeByName = " + readViewAttributeByName);
+//        // 26537L 固定为枚举值
+//        AttributeDefinitionWriteView writableView = readViewAttributeByName.getWritableView();
+//        typeDefWriteView = typeDefReadView.getWritableView();
+//        // 默认设置枚举
+//        ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(writableView.getName(),
+//                typeDefWriteView.getReadViewIdentifier(), 29611L);
+//        writableView.setConstraintDefinition(enumConstraint);
+//        typeDefWriteView.setAttribute(writableView);
+//        typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
         System.out.println("更新完成");
         return typeDefReadView;
     }
