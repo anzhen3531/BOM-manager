@@ -14,6 +14,7 @@ import com.ptc.core.lwc.common.view.*;
 import com.ptc.core.lwc.server.LWCBasicConstraint;
 import com.ptc.core.lwc.server.LWCIBAAttDefinition;
 import com.ptc.core.lwc.server.TypeDefinitionServiceHelper;
+import com.ptc.core.lwc.server.cache.db.DBServiceHelper;
 import com.ptc.core.meta.common.CorrectableException;
 import com.ptc.core.meta.common.DiscreteSet;
 import com.ptc.core.meta.container.common.impl.SingleValuedConstraint;
@@ -328,9 +329,9 @@ public class AttributeOperationHelper {
             ConstraintDefinitionWriteView singleValuedConstraint = addSingleValuedConstraint(attrDefWriteView);
             attrDefWriteView.setConstraintDefinition(singleValuedConstraint);
             // 默认设置枚举
-            ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(attrDefWriteView.getName(),
-                    typeDefWriteView.getReadViewIdentifier(), 29611L);
-            attrDefWriteView.setConstraintDefinition(enumConstraint);
+//            ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(attrDefWriteView.getName(),
+//                    typeDefWriteView.getReadViewIdentifier(), 29611L);
+//            attrDefWriteView.setConstraintDefinition(enumConstraint);
         }
 
         Set allPropertyDefViews = TYPE_DEF_SERVICE.getAllPropertyDefViews(selectIbaClassTypeName, typeDefReadView.getReadViewIdentifier(), readView);
@@ -453,13 +454,23 @@ public class AttributeOperationHelper {
                     System.out.println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
                     System.out.println("constraintRuleReadView.getRuleClassname() = " + constraintRuleReadView.getRuleClassname());
 
-                    ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(constraintRuleReadView, (ConstraintDefinitionReadView.RuleDataObject) null, attributeDefinitionReadView.getName(), (Collection) null, (Set) null, (ConstraintDefinitionReadView) null, false, objectIdentifier, newConstraintReadViewId, (String) null, false);
+                    ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(constraintRuleReadView, (ConstraintDefinitionReadView.RuleDataObject) null,
+                            attributeDefinitionReadView.getName(),
+                            (Collection) null, (Set) null,
+                            (ConstraintDefinitionReadView) null,
+                            false, objectIdentifier,
+                            newConstraintReadViewId,
+                            (String) null,
+                            false);
                     // 判断是否是枚举类型
                     System.out.println("EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView) = " + EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView));
                     if (EnumerationConstraintsHelper.isClassificationRule(constraintRuleReadView)) {
                         DiscreteSet discreteSet = new DiscreteSet(new Object[]{"com.ptc.core.lwc.common.dynamicEnum.provider.ClassificationEnumerationInfoProvider"});
                         writeView.setRuleDataObj(new ConstraintDefinitionReadView.RuleDataObject(discreteSet));
                     }
+                    AttributeDefinitionWriteView writableView = attributeDefinitionReadView.getWritableView();
+                    writableView.setConstraintDefinition(writeView);
+
                     return writeView;
                 }
             } else {
