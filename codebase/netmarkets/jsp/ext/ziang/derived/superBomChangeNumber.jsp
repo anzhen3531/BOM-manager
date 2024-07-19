@@ -1,6 +1,6 @@
 <%@ include file="/netmarkets/jsp/components/beginWizard.jspf" %>
 
-<jsp:include page="/netmarkets/jsp/ext/mtwit/option/superBomChangeNumberView.jsp"/>
+<jsp:include page="/netmarkets/jsp/ext/ziang/derived/superBomChangeNumberView.jsp"/>
 <input type="hidden" id="sourceOldValue" name="sourceOldValue" value="">
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
 <script type="text/javascript" src="netmarkets/javascript/ext/mt/part/refreshLifeCycleStatus.js"></script>
