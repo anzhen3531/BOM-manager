@@ -5,17 +5,23 @@
     <!--    -->
     <objecttype name="extPart" resourceBundle="ext.ziang.resource.CommonActionResource">
         <!--开启日志-->
-        <action name="derivedPart"  uicomponent="CREATE_PART" ajax="row" >
+        <action name="derivedPart" uicomponent="CREATE_PART" ajax="row">
             <command method="execute"
                      class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor"
                      url="/netmarkets/jsp/ext/ziang/derived/derivedPart.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
                      windowType="popup"/>
         </action>
+
+        <action name="copySuperBom" ajax="component" selectRequired="true">
+            <command class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor" method="execute"
+                     windowType="popup"
+                     url="/netmarkets/jsp/ext/ziang/derived/superBomChangeNumber.jsp"/>
+        </action>
     </objecttype>
 
     <!--    -->
-    <objecttype resourceBundle="com.ptc.windchill.enterprise.part.partResource" name="part" class="wt.part.WTPart" >
-        <action name="createPartWizard" uicomponent="CREATE_PART" ajax="row" >
+    <objecttype resourceBundle="com.ptc.windchill.enterprise.part.partResource" name="part" class="wt.part.WTPart">
+        <action name="createPartWizard" uicomponent="CREATE_PART" ajax="row">
             <command onClick="validateCreateLocation(event)"
                      method="execute"
                      class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor"
