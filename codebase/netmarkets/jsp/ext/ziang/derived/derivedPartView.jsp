@@ -38,11 +38,6 @@
     <c:set var="wizardTitle" value="${wizardTitleFromURL}"/>
 </c:if>
 
-<jca:initializeItem
-        operation="${createBean.create}"
-        baseTypeName="WCTYPE|wt.part.WTPart|wt.part.Placeholder"
-        attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
-
 <jca:initializeItem operation="${createBean.create}" baseTypeName="wt.part.WTPart"
                     objectHandle="<%=PartConstants.ObjectHandles.PART%>"
                     attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
