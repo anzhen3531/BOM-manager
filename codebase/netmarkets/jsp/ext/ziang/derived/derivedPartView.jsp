@@ -38,55 +38,15 @@
     <c:set var="wizardTitle" value="${wizardTitleFromURL}"/>
 </c:if>
 
+<jca:initializeItem
+        operation="${createBean.create}"
+        baseTypeName="WCTYPE|wt.part.WTPart|wt.part.Placeholder"
+        attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
 
-<c:choose>
-    <c:when  test='${param.showNewCADDocStep == "true"}'>
-        <jca:initializeItem operation="${createBean.create}"
-                            objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                            attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator" />
-<%--  --%>
-        <%
-            String baseTypeName = "wt.epm.EPMDocument" ;
-            String domain = TypeDomainHelper.getExchangeDomain();
-            String typeName = "DefaultEPMDocument";
-            String softType = baseTypeName + "|" + domain + "." + typeName;
-        %>
+<jca:initializeItem operation="${createBean.create}" baseTypeName="wt.part.WTPart"
+                    objectHandle="<%=PartConstants.ObjectHandles.PART%>"
+                    attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
 
-        <jca:initializeItem operation="${createBean.create}"
-                            objectHandle="<%=PartConstants.ObjectHandles.CADDOC%>"
-                            baseTypeName="<%=softType%>" />
-        <jca:initializeItem operation="${createBean.create}" />
-    </c:when>
-
-    <c:when  test='${param.showNewCADDocStep == "false"}'>
-        <jca:initializeItem operation="${createBean.create}" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                            attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator" />
-    </c:when>
-
-    <c:when  test='${param.isPlaceholderAction == "true"}'>
-        <fmt:setBundle basename="com.ptc.windchill.enterprise.revisionControlled.insertWizardResource"/>
-        <fmt:message var="wizardTitle" key="part.createNewPlaceholder.title" />
-        <jca:initializeItem
-                operation="${createBean.create}"
-                baseTypeName="WCTYPE|wt.part.WTPart|wt.part.Placeholder"
-                attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator" />
-    </c:when>
-
-    <c:otherwise>
-        <jca:initializeItem operation="${createBean.create}"
-                            attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator" />
-    </c:otherwise>
-</c:choose>
-
-<%--  --%>
-<c:if  test='${param.invokedfrom == "workspace" || param.showContextStep == "true"}'>
-    <jsp:setProperty name="createBean"
-                     property="contextPickerTypeComponentId"
-                     value="PDMLink.containerSearch"/>
-    <jsp:setProperty name="createBean"
-                     property="contextPickerExcludeTypes"
-                     value="WCTYPE|wt.inf.library.WTLibrary|com.ptc.QMS"/>
-</c:if>
 
 <c:set var="helpKey" value="PartCreate_help" scope="page"/>
 <c:set var="buttonList" value="DefaultWizardButtonsNoApply" scope="page"/>
