@@ -1,7 +1,6 @@
 package ext.ziang.part.service;
 
-import ext.ziang.common.result.R;
-import ext.ziang.part.entity.PartInfoEntity;
+import ext.ziang.common.result.Result;
 
 public interface PartRestService {
 	/**
@@ -11,5 +10,5 @@ public interface PartRestService {
 	 *            oid
 	 * @return {@link Object }
 	 */
-	R findPartInfoByOid(String oid);
+	Result findPartInfoByOid(String oid);
 }

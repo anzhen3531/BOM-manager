@@ -2,7 +2,7 @@ package ext.ziang.part.service;
 
 import java.util.Locale;
 
-import ext.ziang.common.result.R;
+import ext.ziang.common.result.Result;
 import ext.ziang.common.util.ToolUtils;
 import ext.ziang.part.entity.PartInfoEntity;
 import wt.fc.Persistable;
@@ -20,17 +20,17 @@ public class PartRestServiceImpl implements PartRestService {
 	 * @return {@link Object }
 	 */
 	@Override
-	public R findPartInfoByOid(String oid) {
+	public Result findPartInfoByOid(String oid) {
 		try {
 			Persistable persistable = ToolUtils.getObjectByOid(oid);
 			if (persistable instanceof WTPart) {
-				return R.ok(convertInfoBean((WTPart) persistable));
+				return Result.ok(convertInfoBean((WTPart) persistable));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return R.error(e.getMessage());
+			return Result.error(e.getMessage());
 		}
-		return R.fail();
+		return Result.fail();
 	}
 
 	/**

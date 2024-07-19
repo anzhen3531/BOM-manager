@@ -12,7 +12,7 @@ import com.sun.jndi.toolkit.chars.BASE64Encoder;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import ext.ziang.common.result.R;
+import ext.ziang.common.result.Result;
 import ext.ziang.user.entity.UserExtendedInformation;
 import ext.ziang.user.form.AccountForm;
 import ext.ziang.user.service.UserExtendedInformationService;
@@ -43,26 +43,26 @@ public class AccountController {
 	 */
 	@POST
 	@Path("/token")
-	public R accessToken(@RequestBody AccountForm form) {
+	public Result accessToken(@RequestBody AccountForm form) {
 		try {
 			if (ObjectUtil.isNull(form)) {
-				return R.error("传递数据不能为空！！！");
+				return Result.error("传递数据不能为空！！！");
 			} else {
 				if (StrUtil.isBlank(form.getUsername())) {
-					return R.error("工号不能为空！！！");
+					return Result.error("工号不能为空！！！");
 				}
 			}
 			UserExtendedInformation information = service.findUserExtendedInformationByUserName(form.getUsername());
 			if (ObjectUtil.isNull(information)) {
-				return R.error("请用户重新刷新相关的密码信息！！！");
+				return Result.error("请用户重新刷新相关的密码信息！！！");
 			}
 			// 将账号密码转换成为 token
 			String input = StrUtil.format("{}:{}", information.getUsername(), information.getPassword());
 			String encoding = new BASE64Encoder().encode(input.getBytes());
-			return R.ok(encoding);
+			return Result.ok(encoding);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return R.error(e.getMessage());
+			return Result.error(e.getMessage());
 		}
 	}
 }

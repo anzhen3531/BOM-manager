@@ -15,7 +15,7 @@ https://plm.ziang.com/Windchill/app/#netmarkets/jsp/ext/ziang/jcaTag/learnReadJc
 --%>
 <%--声明一个模型变量 数据来源调用ServiceName中指定类中MethodName指定方法--%>
 <jca:getModel var="panelModel" descriptor="${panelDescriptor}"
-              serviceName="ext.ziang.docTag.LearnJcaTagUtil"
+              serviceName="ext.ziang.doc.docTag.LearnJcaTagUtil"
               methodName="getExamplePropertyPanelData">
 </jca:getModel>
 

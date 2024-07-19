@@ -1,4 +1,4 @@
-package ext.ziang.histrory.history;
+package ext.ziang.part.histrory.history;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import ext.ziang.common.util.IBAUtils;
-import ext.ziang.histrory.entity.ImportHistoryWTPartBean;
+import ext.ziang.part.histrory.entity.ImportHistoryWTPartBean;
 import wt.fc.ObjectIdentifier;
 import wt.fc.ObjectReference;
 import wt.fc.Persistable;

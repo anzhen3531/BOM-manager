@@ -1,4 +1,4 @@
-package ext.ziang.histrory.entity;
+package ext.ziang.part.histrory.entity;
 
 import java.util.HashMap;
 

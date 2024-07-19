@@ -1,4 +1,4 @@
-package ext.ziang.docTag;
+package ext.ziang.doc.docTag;
 
 import ext.ziang.cache.CommonCacheHelper;
 import ext.ziang.common.util.LoggerHelper;

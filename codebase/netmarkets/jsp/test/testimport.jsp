@@ -1,4 +1,4 @@
-<%@ page import="ext.ziang.histrory.history.ImportHistoryWTPartService" %>
+<%@ page import="ext.ziang.part.histrory.history.ImportHistoryWTPartService" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%
 	// 读取excel

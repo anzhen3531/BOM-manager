@@ -3,7 +3,7 @@ package ext.ziang.common.result;
 /**
  * 返回结果工具类
  */
-public class R {
+public class Result {
 	/** 状态码 */
 	private Integer code;
 	/** 请求是否成功 */
@@ -17,7 +17,7 @@ public class R {
 		return code;
 	}
 
-	public R setCode(Integer code) {
+	public Result setCode(Integer code) {
 		this.code = code;
 		return this;
 	}
@@ -26,7 +26,7 @@ public class R {
 		return success;
 	}
 
-	public R setSuccess(boolean success) {
+	public Result setSuccess(boolean success) {
 		this.success = success;
 		return this;
 	}
@@ -35,7 +35,7 @@ public class R {
 		return msg;
 	}
 
-	public R setMsg(String msg) {
+	public Result setMsg(String msg) {
 		this.msg = msg;
 		return this;
 	}
@@ -44,7 +44,7 @@ public class R {
 		return data;
 	}
 
-	public R setData(Object data) {
+	public Result setData(Object data) {
 		this.data = data;
 		return this;
 	}
@@ -54,7 +54,7 @@ public class R {
 	 * 
 	 * @param code
 	 */
-	public R(Code code) {
+	public Result(Code code) {
 		this.success = code.success;
 		this.code = code.code;
 		this.msg = code.msg;
@@ -66,7 +66,7 @@ public class R {
 	 * @param code
 	 * @param data
 	 */
-	public R(Code code, Object data) {
+	public Result(Code code, Object data) {
 		this.success = code.success;
 		this.code = code.code;
 		this.msg = code.msg;
@@ -85,7 +85,7 @@ public class R {
 	 * @param data
 	 *            数据对象
 	 */
-	public R(Integer code, boolean success, String msg, Object data) {
+	public Result(Integer code, boolean success, String msg, Object data) {
 		this.code = code;
 		this.success = success;
 		this.msg = msg;
@@ -97,8 +97,8 @@ public class R {
 	 * 
 	 * @return { code：10000，success：true, msg："操作成功！", data: null }
 	 */
-	public static R ok() {
-		return new R(Code.SUCCESS);
+	public static Result ok() {
+		return new Result(Code.SUCCESS);
 	}
 
 	/**
@@ -108,8 +108,8 @@ public class R {
 	 *            数据
 	 * @return { code：10000，success：true, msg："操作成功！", data: 数据对象 }
 	 */
-	public static R ok(Object data) {
-		return new R(Code.SUCCESS.code(), Code.SUCCESS.success(), Code.SUCCESS.message(), data);
+	public static Result ok(Object data) {
+		return new Result(Code.SUCCESS.code(), Code.SUCCESS.success(), Code.SUCCESS.message(), data);
 	}
 
 	/**
@@ -121,8 +121,8 @@ public class R {
 	 *            数据
 	 * @return { code：10000，success：true, msg：返回消息, data: 数据对象 }
 	 */
-	public static R ok(String msg, Object data) {
-		return new R(Code.SUCCESS.code(), Code.SUCCESS.success(), msg, data);
+	public static Result ok(String msg, Object data) {
+		return new Result(Code.SUCCESS.code(), Code.SUCCESS.success(), msg, data);
 	}
 
 	/**
@@ -132,8 +132,8 @@ public class R {
 	 *            消息信息
 	 * @return { code：10000，success：true, msg：返回消息}
 	 */
-	public static R okMsg(String msg) {
-		return new R(Code.SUCCESS.code(), Code.SUCCESS.success(), msg, null);
+	public static Result okMsg(String msg) {
+		return new Result(Code.SUCCESS.code(), Code.SUCCESS.success(), msg, null);
 	}
 
 	/**
@@ -141,8 +141,8 @@ public class R {
 	 * 
 	 * @return { code：10001，success：true, msg："操作失败！", data: null }
 	 */
-	public static R fail() {
-		return new R(Code.FAIL);
+	public static Result fail() {
+		return new Result(Code.FAIL);
 	}
 
 	/**
@@ -152,8 +152,8 @@ public class R {
 	 *            数据
 	 * @return { code：10001，success：false, msg："操作失败！", data: 数据对象 }
 	 */
-	public static R fail(Object data) {
-		return new R(Code.FAIL.code(), Code.FAIL.success(), Code.FAIL.message(), data);
+	public static Result fail(Object data) {
+		return new Result(Code.FAIL.code(), Code.FAIL.success(), Code.FAIL.message(), data);
 	}
 
 	/**
@@ -165,8 +165,8 @@ public class R {
 	 *            数据
 	 * @return { code：10001，success：false, msg：返回消息, data: 数据对象 }
 	 */
-	public static R fail(String msg, Object data) {
-		return new R(Code.FAIL.code(), Code.FAIL.success, msg, data);
+	public static Result fail(String msg, Object data) {
+		return new Result(Code.FAIL.code(), Code.FAIL.success, msg, data);
 	}
 
 	/**
@@ -176,8 +176,8 @@ public class R {
 	 *            消息信息
 	 * @return { code：10001，success：false, msg：返回消息 }
 	 */
-	public static R failMsg(String msg) {
-		return new R(Code.FAIL.code(), Code.FAIL.success(), msg, null);
+	public static Result failMsg(String msg) {
+		return new Result(Code.FAIL.code(), Code.FAIL.success(), msg, null);
 	}
 
 	/**
@@ -187,8 +187,8 @@ public class R {
 	 *            数据对象
 	 * @return { code：10001，success：false, msg：null, data: 数据对象 }
 	 */
-	public static R okData(Object data) {
-		return new R(Code.SUCCESS.code(), Code.SUCCESS.success(), null, data);
+	public static Result okData(Object data) {
+		return new Result(Code.SUCCESS.code(), Code.SUCCESS.success(), null, data);
 	}
 
 	/**
@@ -198,8 +198,8 @@ public class R {
 	 *            异常信息
 	 * @return
 	 */
-	public static R error(String exceptionMessage) {
-		return new R(Code.SERVER_ERROR.code(), Code.SERVER_ERROR.success, exceptionMessage, null);
+	public static Result error(String exceptionMessage) {
+		return new Result(Code.SERVER_ERROR.code(), Code.SERVER_ERROR.success, exceptionMessage, null);
 	}
 
 	@Override
