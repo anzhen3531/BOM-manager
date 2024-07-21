@@ -29,7 +29,7 @@
 
 <input type="hidden" id="formType" name="formType"/>
 
-<div id='setAttributesTablePane'>
+<div id='setAttributesTablePanel'>
     <script language='Javascript'>
         PTC.wizard.loadAttributeTableURL = "${mvc:getTypeBasedComponentURL('attributesTable')}";
         // 添加销售函数
@@ -52,7 +52,6 @@
                 setSimpleBd();
             }
         });
-
     </script>
 </div>
 
