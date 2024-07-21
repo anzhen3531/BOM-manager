@@ -11,7 +11,10 @@
 <fmt:setLocale value="${localeBean.locale}"/>
 <fmt:setBundle basename="com.ptc.windchill.enterprise.part.partResource" />
 <fmt:message var="wizardTitle" key="part.createPartWizard.title"/>
-<jca:initializeItem operation="${createBean.create}" baseTypeName="wt.part.WTPart"/>
+
+<jca:initializeItem operation="${createBean.create}" baseTypeName="wt.part.WTPart"
+                    objectHandle="<%=PartConstants.ObjectHandles.PART%>"
+                    attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
 
 <c:set var="helpKey" value="PartCreate_help" scope="page"/>
 <c:set var="buttonList" value="DefaultWizardButtonsNoApply" scope="page"/>
