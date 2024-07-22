@@ -8,7 +8,7 @@
         <action name="derivedPart" uicomponent="CREATE_PART" ajax="row">
             <command method="execute"
                      class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor"
-                     url="/netmarkets/jsp/part/createPartWizard.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
+                     url="/netmarkets/jsp/ext/ziang/derived/derivedPart.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
                      windowType="popup"/>
         </action>
 
