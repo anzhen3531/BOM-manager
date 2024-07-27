@@ -4,6 +4,7 @@
 <%@ page import="com.ptc.core.lwc.common.view.ReusableAttributeReadView" %>
 <%@ page import="wt.fc.ObjectIdentifier" %>
 <%@ page import="com.ptc.core.lwc.common.view.TypeDefinitionReadView" %>
+<%@ page import="wt.session.SessionHelper" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <%
@@ -24,9 +25,8 @@
         e.printStackTrace();
     }
 
-
+    boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
     try {
-        boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
         System.out.println("accessEnforced = " + accessEnforced);
         //  OR:com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588
         // 通过名称查询对应的节点 传递节点名称
@@ -38,14 +38,8 @@
         System.out.println("typeDefinitionReadView = " + typeDefinitionReadView);
     } catch (Exception e) {
         e.printStackTrace();
-    }
-
-    try {
-        // 创建枚举
-        AttributeOperationHelper.createConstraint(
-                "-com.ptc.core.lwc.server.LWCStructEnumAttTemplate:154177-com.ptc.core.lwc.server.LWCIBAAttDefinition:206057", 29611L);
-    } catch (Exception e) {
-        e.printStackTrace();
+    } finally {
+        SessionServerHelper.manager.setAccessEnforced(accessEnforced);
     }
 //    AttributeOperationHelper.findClassificationAttrs("MainGun");
 %>
