@@ -362,17 +362,19 @@ public class AttributeOperationHelper {
         typeDefWriteView.setAttribute(attrDefWriteView);
         // 更新类型
         typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
-//        AttributeDefinitionReadView readViewAttributeByName = typeDefReadView.getAttributeByName(attrDefWriteView.getName());
-//        System.out.println("readViewAttributeByName = " + readViewAttributeByName);
-//        // 26537L 固定为枚举值
-//        AttributeDefinitionWriteView writableView = readViewAttributeByName.getWritableView();
-//        typeDefWriteView = typeDefReadView.getWritableView();
-//        // 默认设置枚举
-//        ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(writableView.getName(),
-//                typeDefWriteView.getReadViewIdentifier(), 29611L);
-//        writableView.setConstraintDefinition(enumConstraint);
-//        typeDefWriteView.setAttribute(writableView);
-//        typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
+
+        // 重新创建一个枚举的分类
+        AttributeDefinitionReadView readViewAttributeByName = typeDefReadView.getAttributeByName(attrDefWriteView.getName());
+        System.out.println("readViewAttributeByName = " + readViewAttributeByName);
+        // 26537L 固定为枚举值
+        AttributeDefinitionWriteView writableView = readViewAttributeByName.getWritableView();
+        typeDefWriteView = typeDefReadView.getWritableView();
+        // 默认设置枚举
+        ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(writableView.getName(),
+                typeDefWriteView.getReadViewIdentifier(), 29611L);
+        writableView.setConstraintDefinition(enumConstraint);
+        typeDefWriteView.setAttribute(writableView);
+        typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
         System.out.println("更新完成");
         return typeDefReadView;
     }
@@ -421,13 +423,9 @@ public class AttributeOperationHelper {
             throw new WTException("cannot get attributeRv parameter from command bean");
         } else {
             System.out.println("lwcrv = " + lwcrv);
-            // 获取读取视图
-            // LWCStructEnumAttTemplate View
-            //
             ReadView readView = LWCCommands.getReadViewObject(lwcrv);
             // com.ptc.core.lwc.server.LWCIBAAttDefinition:126007
             System.out.println("readView.getOid() = " + readView.getOid());
-
             if (readView != null && readView instanceof AttributeDefinitionReadView) {
                 // 获取抽象读取视图
                 AttributeDefinitionReadView attributeDefinitionReadView = (AttributeDefinitionReadView) readView;
@@ -445,7 +443,6 @@ public class AttributeOperationHelper {
                     if (constraintRuleReadView == null) {
                         throw new WTException("unable to get constraint rule for id " + typeId);
                     }
-
                     // 获取分隔符
                     ReadViewIdentifier newConstraintReadViewId = NewConstraintInflator.createUniqueFakeRvId(SeparatorReadView.class, readViewIdentifier.getRootContextIdentifier());
                     System.out.println("newConstraintReadViewId = " + newConstraintReadViewId);
@@ -453,10 +450,10 @@ public class AttributeOperationHelper {
                     constraintRuleReadView = BASE_DEF_SERVICE.getConstraintRuleDefView(typeId);
                     System.out.println("constraintRuleReadView.getDatatype() = " + constraintRuleReadView.getDatatype());
                     System.out.println("constraintRuleReadView.getRuleClassname() = " + constraintRuleReadView.getRuleClassname());
-
                     ConstraintDefinitionWriteView writeView = new ConstraintDefinitionWriteView(constraintRuleReadView, (ConstraintDefinitionReadView.RuleDataObject) null,
                             attributeDefinitionReadView.getName(),
-                            (Collection) null, (Set) null,
+                            (Collection) null,
+                            (Set) null,
                             (ConstraintDefinitionReadView) null,
                             false, objectIdentifier,
                             newConstraintReadViewId,
