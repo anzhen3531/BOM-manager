@@ -1,6 +1,7 @@
 package ext.ziang.common.helper.attr;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.*;
 
 import com.google.gwt.thirdparty.guava.common.collect.Maps;
@@ -242,7 +243,7 @@ public class AttributeOperationHelper {
      * @return {@link AttributeDefinitionReadView}
      * @throws WTException WT异常
      */
-    public static TypeDefinitionReadView createAttributeDefinitionAndConstraint(String innerName, String lwcDisplayName, String lwcDescription, String ibaSelectAttrOid, String classifyAttrOid) throws WTException {
+    public static TypeDefinitionReadView createAttributeDefinitionAndConstraint(String innerName, String lwcDisplayName, String lwcDescription, String ibaSelectAttrOid, String classifyAttrOid) throws WTException, RemoteException {
         // IBA 属性可以自己去取def
         System.out.println("CommonOperationAttrUtil.createAttributeDefinition");
         System.out.println("innerName = " + innerName + ", lwcDisplayName = " + lwcDisplayName + ", lwcDescription = " + lwcDescription + ", ibaSelectAttrOid = " + ibaSelectAttrOid + ", classifyAttrOid = " + classifyAttrOid);
@@ -258,7 +259,6 @@ public class AttributeOperationHelper {
             selectIbaClassTypeName = LWCIBAAttDefinition.class.getName();
         }
         System.out.println("attributeType = " + attributeType);
-
         String ibaDataTypeName;
         DatatypeReadView readView = null;
         // 判断类型是否包含文本翻译类型
@@ -273,7 +273,6 @@ public class AttributeOperationHelper {
             // 没有进入
             ibaDataTypeName = "";
         }
-
         if (selectIbaClassTypeName.contains("calculated")) {
             if (ibaDataTypeName.contains("AttributeTypeIdentifierSet")) {
                 selectIbaClassTypeName = "com.ptc.core.lwc.server.LWCAttributeSetAttDefinition";
@@ -328,10 +327,6 @@ public class AttributeOperationHelper {
         if (AUTO_ADD_SINGLE_VALUE_CONSTRAINT_TO_NEW_GLOBAL_ATT && defDefaultView != null) {
             ConstraintDefinitionWriteView singleValuedConstraint = addSingleValuedConstraint(attrDefWriteView);
             attrDefWriteView.setConstraintDefinition(singleValuedConstraint);
-            // 默认设置枚举
-//            ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(attrDefWriteView.getName(),
-//                    typeDefWriteView.getReadViewIdentifier(), 29611L);
-//            attrDefWriteView.setConstraintDefinition(enumConstraint);
         }
 
         Set allPropertyDefViews = TYPE_DEF_SERVICE.getAllPropertyDefViews(selectIbaClassTypeName, typeDefReadView.getReadViewIdentifier(), readView);
@@ -362,7 +357,6 @@ public class AttributeOperationHelper {
         typeDefWriteView.setAttribute(attrDefWriteView);
         // 更新类型
         typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
-
         // 重新创建一个枚举的分类
         AttributeDefinitionReadView readViewAttributeByName = typeDefReadView.getAttributeByName(attrDefWriteView.getName());
         System.out.println("readViewAttributeByName = " + readViewAttributeByName);
@@ -373,8 +367,7 @@ public class AttributeOperationHelper {
         ConstraintDefinitionWriteView enumConstraint = createConstraintsWriteView(writableView.getName(),
                 typeDefWriteView.getReadViewIdentifier(), 29611L);
         writableView.setConstraintDefinition(enumConstraint);
-        typeDefWriteView.setAttribute(writableView);
-        typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
+        IBA_DEF_SERVICE.updateAttributeDefinition(writableView.getIBARefView());
         System.out.println("更新完成");
         return typeDefReadView;
     }
