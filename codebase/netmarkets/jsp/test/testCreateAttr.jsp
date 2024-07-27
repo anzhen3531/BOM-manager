@@ -38,7 +38,7 @@
         System.out.println("typeDefinitionReadView = " + typeDefinitionReadView);
         // 创建枚举
         AttributeOperationHelper.createConstraint(
-                "-com.ptc.core.lwc.server.LWCStructEnumAttTemplate:125588-com.ptc.core.lwc.server.LWCIBAAttDefinition:126007", 26537L);
+                "-com.ptc.core.lwc.server.LWCStructEnumAttTemplate:154177-com.ptc.core.lwc.server.LWCIBAAttDefinition:206033", 29611L);
     } catch (Exception e) {
         e.printStackTrace();
     }
