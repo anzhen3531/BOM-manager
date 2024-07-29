@@ -75,7 +75,7 @@ public class CommonQueueHelper {
      * @throws WTException WTException
      */
     public static void addProcessEntry(ProcessingQueue queue, String className, String methodName, Class[] argsType, Object[] argsValue) throws WTException {
-        queue.addEntry(SessionHelper.getPrincipal(), className, methodName, argsType, argsValue);
+        queue.addEntry(SessionHelper.getPrincipal(), methodName, className, argsType, argsValue);
     }
 
     /**
