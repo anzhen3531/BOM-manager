@@ -3,7 +3,6 @@ package ext.ziang.common.helper.queue;
 import cn.hutool.core.collection.CollUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import wt.access.AccessPermission;
 import wt.fc.PersistenceHelper;
 import wt.fc.PersistenceServerHelper;
 import wt.fc.QueryResult;
@@ -11,7 +10,10 @@ import wt.query.ArrayExpression;
 import wt.query.ClassAttribute;
 import wt.query.QuerySpec;
 import wt.query.SearchCondition;
-import wt.queue.*;
+import wt.queue.ProcessingQueue;
+import wt.queue.QueueEntry;
+import wt.queue.QueueHelper;
+import wt.queue.WtQueueEntry;
 import wt.session.SessionHelper;
 import wt.session.SessionServerHelper;
 import wt.util.WTException;
@@ -70,11 +72,10 @@ public class CommonQueueHelper {
      * @param queue      队列
      * @param className  类名
      * @param methodName 方法名称
-     * @param args       参数
      * @throws WTException WTException
      */
-    public static void addProcessEntry(ProcessingQueue queue, String className, String methodName, LinkedHashMap<Class, Object> args) throws WTException {
-        queue.addEntry(SessionHelper.getPrincipal(), className, methodName, (Class[]) args.keySet().toArray(), args.values().toArray());
+    public static void addProcessEntry(ProcessingQueue queue, String className, String methodName, Class[] argsType, Object[] argsValue) throws WTException {
+        queue.addEntry(SessionHelper.getPrincipal(), className, methodName, argsType, argsValue);
     }
 
     /**
