@@ -13,7 +13,6 @@
     classObjectLinkedHashMap.put(String.class, "test");
     classObjectLinkedHashMap.put(Object.class, "test2");
     Class[] classes = new Class[]{String.class, Object.class};
-    CommonQueueHelper.addProcessEntry(queue, CommonQueueHelper.class.getName(), "test", classes, new String(){ "test",
-            "test2"});
+    CommonQueueHelper.addProcessEntry(queue, CommonQueueHelper.class.getName(), "test", classes, new String[]{ "test" , "test2"});
     out.print(queueAllEntry);
 %>
