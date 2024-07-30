@@ -27,8 +27,9 @@ import java.util.*;
  * @date 2024/04/29
  */
 public class CommonQueueHelper {
-    public static void test(String test, Object test2) {
+    public static void test(String test, Object test2) throws InterruptedException {
         System.out.println(String.format("CommonQueueHelper Main Exec %s -> %s", test, test2));
+        Thread.sleep(5000);
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonQueueHelper.class);
