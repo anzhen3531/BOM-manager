@@ -28,8 +28,8 @@ import java.util.*;
  */
 public class CommonQueueHelper {
     public static void test(String test, Object test2) throws InterruptedException {
-        System.out.println(String.format("CommonQueueHelper Main Exec %s -> %s", test, test2));
         Thread.sleep(5000);
+        System.out.println(String.format("CommonQueueHelper Main Exec %s -> %s", test, test2));
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonQueueHelper.class);
