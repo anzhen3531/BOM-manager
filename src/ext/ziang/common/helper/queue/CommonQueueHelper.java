@@ -21,6 +21,9 @@ import java.util.*;
 /**
  * 队列帮助程序
  *
+ * @CreoClass : QueueHelper
+ * @CreoService : QueueService
+ *
  * @author anzhen
  * @date 2024/04/29
  */
