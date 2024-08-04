@@ -135,7 +135,7 @@ public class OAuthIndexPageFilter implements Filter {
                 boolean ssoLogin = ssoLogin(request, response, filterChain, requestURI);
                 if (ssoLogin) {
                     // 重定向回首页
-                    response.sendRedirect(OAuthConfigConstant.OAUTH2_LOGIN_PAGE);
+                    // response.sendRedirect(OAuthConfigConstant.OAUTH2_LOGIN_PAGE);
                 }
                 logger.debug("SSO 登录结束");
             } catch (Exception e) {
