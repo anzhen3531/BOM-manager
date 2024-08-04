@@ -82,25 +82,32 @@
         event.preventDefault();
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
-        let url = 'http://plm.ziang.com/Windchill/app/';
-        let body = {
-            username: username,
-            password: password
-        };
-        fetch('http://plm.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp?MODE=login', {
+        let auth = createBasicAuthHeader(username,password);
+        fetch(url, {
             method: 'POST',
             headers: {
+                ...auth,
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
+            }
         }).then(function (response) {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            // 回调主页
             window.location.href = url;
         }).catch(function (error) {
             console.error('There has been a problem with your fetch operation:', error.message);
         });
     });
+
+    function createBasicAuthHeader(username, password) {
+        // 将用户名和密码拼接成一个字符串，中间用冒号分隔
+        const credentials = `${username}:${password}`;
+        // 将拼接好的字符串进行 Base64 编码
+        const base64Credentials = btoa(credentials);
+        // 返回包含 Authorization 头的对象
+        return {
+            'Authorization': `Basic ${base64Credentials}`
+        };
+    }
+
 </script>

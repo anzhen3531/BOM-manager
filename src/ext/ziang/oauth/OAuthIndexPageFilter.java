@@ -116,7 +116,6 @@ public class OAuthIndexPageFilter implements Filter {
                     }
                 }
             }
-
             // 图纸端登录则使用默认的 Basic Auth
             if (StringUtils.isNotBlank(authorization) && validateContains(NO_SSO_URLS, requestURI)) {
                 // 从Base中获取相关的用户名
@@ -128,15 +127,10 @@ public class OAuthIndexPageFilter implements Filter {
                 SSOUtil.deleteSSOTokenByCookie(request, response);
                 return;
             }
-
             // 使用 token直接获取信息登录
             try {
                 logger.debug("SSO 登录");
-                boolean ssoLogin = ssoLogin(request, response, filterChain, requestURI);
-                if (ssoLogin) {
-                    // 重定向回首页
-                    // response.sendRedirect(OAuthConfigConstant.OAUTH2_LOGIN_PAGE);
-                }
+                ssoLogin(request, response, filterChain, requestURI);
                 logger.debug("SSO 登录结束");
             } catch (Exception e) {
                 logger.error("SSO登录失败 message" + e.getMessage(), e);
@@ -210,45 +204,6 @@ public class OAuthIndexPageFilter implements Filter {
                 return false;
             }
             // 用户使用账号密码登录
-        } else if (requestURI.contains("/gwt/login.jsp")) {
-            String mode = request.getParameter("MODE");
-            if ("login".equals(mode)) {
-                // 获取请求主体数据
-                BufferedReader reader = request.getReader();
-                StringBuilder requestBody = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    requestBody.append(line);
-                }
-                JSONObject body = null;
-                if (StrUtil.isNotBlank(requestBody.toString())) {
-                    body = JSON.parseObject(requestBody.toString());
-                }
-                // 验证code
-                if (Objects.nonNull(body)) {
-                    // 可以获取body进行验证
-                    String username = body.getString("username");
-                    logger.debug("username = " + username);
-                    String password = body.getString("password");
-                    logger.debug("password = " + password);
-                    if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
-                        OpenDjPasswordService service = new OpenDjPasswordService();
-                        if (service.authentication(username, password)) {
-                            logger.debug("登录成功 用户名{}, 密码{}", username, password);
-                            // 采用其余的登录条件
-                            SSORequestWrap ssoRequestWrap = newWrapRequest(request, username);
-                            filterChain.doFilter(ssoRequestWrap, response);
-                            return true;
-                        } else {
-                            redirectBasicLogin(response);
-                        }
-                    }
-                }
-            } else {
-                // 如果不是登录直接放行
-                filterChain.doFilter(request, response);
-                return false;
-            }
         } else {
             // 获取令牌
             String token = SSOUtil.getSSOTokenByCookies(request);
@@ -266,6 +221,7 @@ public class OAuthIndexPageFilter implements Filter {
             }
         }
         // TODO 发起重定向 重定向到登陆页面
+        response.sendRedirect(OAuthConfigConstant.OAUTH2_LOGIN_PAGE);
         return false;
     }
 
@@ -332,6 +288,19 @@ public class OAuthIndexPageFilter implements Filter {
         return newRequest;
     }
 
+
+    /**
+     * 新包装请求
+     *
+     * @param request 请求
+     * @param userName 用户名
+     * @return {@link SSORequestWrap}
+     */
+    private SSORequestWrap newWrapRequest(HttpServletRequest request, String userName, String password) {
+        SSORequestWrap newRequest = new SSORequestWrap(request, userName);
+        return newRequest;
+    }
+
     /**
      * 无权限访问，重定向登录
      *
@@ -350,110 +319,4 @@ public class OAuthIndexPageFilter implements Filter {
     public void destroy() {
         logger.debug("销毁首页拦截器");
     }
-
-    // /**
-    // * DO 过滤器
-    // *
-    // * @param request 请求
-    // * @param response 响应
-    // * @param filterChain 过滤链
-    // * @throws IOException ioexception
-    // * @throws ServletException Servlet 异常
-    // */
-    // public void doFilter2(ServletRequest request, ServletResponse response, FilterChain filterChain)
-    // throws IOException, ServletException {
-    // HttpServletResponse httpResponse = (HttpServletResponse)response;
-    // HttpServletRequest httpServletRequest = (HttpServletRequest)request;
-    // HttpSession session = httpServletRequest.getSession();
-    // String auth = (String)session.getAttribute("auth");
-    // LoggerHelper.log("auth =" + auth);
-    // String remoteUser = httpServletRequest.getRemoteUser();
-    // LoggerHelper.log("username = " + remoteUser);
-    // String url = String.valueOf(httpServletRequest.getRequestURL());
-    // LoggerHelper.log("url = ", httpServletRequest.getRequestURL());
-    // String authorization = httpServletRequest.getHeader("Authorization");
-    // LoggerHelper.log("authorization = " + authorization);
-    //
-    // // 可视化登录判断
-    // if ((url.contains(SECURITYURL) || url.contains(VISLOGON) || url.contains(SIMPLETASKDISPATCHER)
-    // || url.contains(CREOLOGINPAGE)) && StringUtils.isBlank(authorization)) {
-    // // 无权限访问
-    // redirectBasicLogin(httpResponse);
-    // return;
-    // }
-    //
-    // if (validateContains(WHITE_LIST_URLS, url)) {
-    // LoggerHelper.log("url = " + url + " 放行");
-    // filterChain.doFilter(request, httpResponse);
-    // } else {
-    // if (StrUtil.isNotBlank(auth)) {
-    // SSORequestWrap SSORequestWrap = newWrapRequest(httpServletRequest, auth, session);
-    // filterChain.doFilter(SSORequestWrap, httpResponse);
-    // } else if (StrUtil.isNotBlank(authorization)) {
-    // SSORequestWrap SSORequestWrap = newWrapRequest(httpServletRequest, authorization, session);
-    // filterChain.doFilter(SSORequestWrap, httpResponse);
-    // } else {
-    // try {
-    // String code = request.getParameter("code");
-    // LoggerHelper.log("code = " + code);
-    // // 获取请求主体数据
-    // BufferedReader reader = request.getReader();
-    // StringBuilder requestBody = new StringBuilder();
-    // String line;
-    // while ((line = reader.readLine()) != null) {
-    // requestBody.append(line);
-    // }
-    // JSONObject body = null;
-    // if (StrUtil.isNotBlank(requestBody.toString())) {
-    // body = JSON.parseObject(requestBody.toString());
-    // }
-    // LoggerHelper.log("body = " + body);
-    // // 验证code
-    // if (StrUtil.isNotBlank(code)) {
-    // String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, url);
-    // LoggerHelper.log("token = " + token);
-    // session.setAttribute("token", token);
-    // if (StrUtil.isBlank(token)) {
-    // throw new WTRuntimeException("获取登录Token失败!");
-    // }
-    // // JDBC 验证用户是否存在
-    // JSONObject userInfo = GithubOAuthProvider.getUserInfo(token);
-    // LoggerHelper.log("userInfo = ", userInfo);
-    // String loginUserName = userInfo.getString("login");
-    // String input = StrUtil.format("{}:{}", loginUserName, loginUserName);
-    // String encoding = new BASE64Encoder().encode(input.getBytes());
-    // SSORequestWrap SSORequestWrap = newWrapRequest(httpServletRequest, encoding, session);
-    // httpResponse.sendRedirect(String.valueOf((SSORequestWrap.getRequestURL())));
-    // return;
-    // } else if (body != null) {
-    // // 可以获取body进行验证
-    // String username = body.getString("username");
-    // LoggerHelper.log("username = " + username);
-    // String password = body.getString("password");
-    // LoggerHelper.log("password = " + password);
-    // if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
-    // OpenDjPasswordService service = new OpenDjPasswordService();
-    // if (service.authentication(username, password)) {
-    // String input = StrUtil.format("{}:{}", username, password);
-    // String encoding = new BASE64Encoder().encode(input.getBytes());
-    // LoggerHelper.log("encoding = ", encoding);
-    // SSORequestWrap SSORequestWrap = newWrapRequest(httpServletRequest, encoding, session);
-    // httpResponse.sendRedirect(SSORequestWrap.getRequestURL().toString());
-    // return;
-    // } else {
-    // redirectBasicLogin(httpResponse);
-    // }
-    // }
-    // } else {
-    // // 默认登录地址
-    // httpResponse.sendRedirect(OAuthConfigConstant.OAUTH2_LOGIN_PAGE);
-    // return;
-    // }
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // throw new WTRuntimeException(e.getMessage());
-    // }
-    // }
-    // }
-    // }
 }
