@@ -117,7 +117,7 @@ public class OAuthIndexPageFilter implements Filter {
                 }
             }
             // 图纸端登录则使用默认的 Basic Auth
-            if (StringUtils.isNotBlank(authorization) && validateContains(NO_SSO_URLS, requestURI)) {
+            if (StringUtils.isNotBlank(authorization) || validateContains(NO_SSO_URLS, requestURI)) {
                 // 从Base中获取相关的用户名
                 boolean loginSuccess = basicLogin(authorization, request, response, filterChain);
                 if (!loginSuccess) {
