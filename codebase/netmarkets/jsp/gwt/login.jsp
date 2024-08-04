@@ -84,6 +84,7 @@
         let password = document.getElementById("password").value;
         let url = 'http://plm.ziang.com/Windchill/app/';
         let auth = createBasicAuthHeader(username,password);
+        console.log(auth)
         fetch(url, {
             method: 'POST',
             headers: {
@@ -106,6 +107,7 @@
         const credentials = `${username}:${password}`;
         // 将拼接好的字符串进行 Base64 编码
         const base64Credentials = btoa(credentials);
+        console.log(base64Credentials)
         // 返回包含 Authorization 头的对象
         return {
             'Authorization': `Basic ${base64Credentials}`
