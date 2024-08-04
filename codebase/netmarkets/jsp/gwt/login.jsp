@@ -87,7 +87,7 @@
             username: username,
             password: password
         };
-        fetch(url, {
+        fetch('http://plm.ziang.com/Windchill/netmarkets/jsp/gwt/login.jsp?MODE=login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
