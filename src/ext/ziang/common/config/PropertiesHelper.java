@@ -184,7 +184,6 @@ public class PropertiesHelper implements RemoteAccess {
 	public Map<String, String> getAll() {
 		loadProperties(); // 在每次调用 getStr 时重新加载
 		Map<String, String> map = new HashMap<>();
-
 		for (String key : properties.stringPropertyNames()) {
 			String value = properties.getProperty(key);
 			value = value.trim();
