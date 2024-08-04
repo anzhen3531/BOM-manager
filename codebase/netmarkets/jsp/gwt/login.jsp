@@ -103,8 +103,7 @@
     });
 
     function createBasicAuthHeader(username, password) {
-        // 将用户名和密码拼接成一个字符串，中间用冒号分隔
-        const credentials = `${username}:${password}`;
+        const credentials = username + ":" + password;
         // 将拼接好的字符串进行 Base64 编码
         const base64Credentials = btoa(credentials);
         console.log(base64Credentials)
