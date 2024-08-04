@@ -57,6 +57,8 @@ public class OAuthIndexPageFilter implements Filter {
                 NO_SSO_URLS.add(entry.getValue());
             }
         }
+        logger.error("NO_SSO_URLS {}", NO_SSO_URLS);
+        logger.error("WHITE_LIST_URLS {}", WHITE_LIST_URLS);
     }
 
     /**
@@ -80,11 +82,11 @@ public class OAuthIndexPageFilter implements Filter {
             String ssoAuth = (String)session.getAttribute(SSOUtil.SSO_AUTH);
             String requestURI = request.getRequestURI();
             String servletPath = request.getServletPath();
-            logger.debug("authorization {}", authorization);
-            logger.debug("cookiesToken {}", cookiesToken);
-            logger.debug("ssoAuth {}", ssoAuth);
-            logger.debug("requestURI {}", requestURI);
-            logger.debug("servletPath {}", servletPath);
+            logger.error("authorization {}", authorization);
+            logger.error("cookiesToken {}", cookiesToken);
+            logger.error("ssoAuth {}", ssoAuth);
+            logger.error("requestURI {}", requestURI);
+            logger.error("servletPath {}", servletPath);
             if (validateContains(WHITE_LIST_URLS, requestURI)) {
                 filterChain.doFilter(request, response);
                 logger.debug("OAuthIndexPageFilter:: doFilter 处理耗时为{}ms", System.currentTimeMillis() - startTime);

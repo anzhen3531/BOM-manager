@@ -1,12 +1,10 @@
 package ext.ziang.oauth;
 
-import cn.hutool.core.collection.CollUtil;
+import java.util.Objects;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Collections;
-import java.util.Objects;
 
 /**
  * 相关工具
