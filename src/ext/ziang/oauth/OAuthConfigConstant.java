@@ -42,7 +42,11 @@ public interface OAuthConfigConstant {
 	String GET_USER_INFO_URL = instance.getValueByKey("oauth.access.user.info.url");
 
 	/**
+	 *
+	 */
+	String OAUTH2_LOGIN_PAGE_FILE = "/Windchill/netmarkets/jsp/gwt/login.jsp";
+	/**
 	 * OAuth2 登录页面
 	 */
-	String OAUTH2_LOGIN_PAGE = CommonConfigConstants.HOST_URL + "/Windchill/netmarkets/jsp/gwt/login.jsp";
+	String OAUTH2_LOGIN_PAGE = CommonConfigConstants.HOST_URL + OAUTH2_LOGIN_PAGE_FILE;
 }

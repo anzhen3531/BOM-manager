@@ -221,8 +221,13 @@ public class OAuthIndexPageFilter implements Filter {
             }
         }
         // TODO 发起重定向 重定向到登陆页面
-        response.sendRedirect(OAuthConfigConstant.OAUTH2_LOGIN_PAGE);
-        return false;
+        if (!requestURI.contains(OAuthConfigConstant.OAUTH2_LOGIN_PAGE_FILE)) {
+            response.sendRedirect(OAuthConfigConstant.OAUTH2_LOGIN_PAGE);
+            return false;
+        } else {
+            filterChain.doFilter(request, response);
+            return true;
+        }
     }
 
     /**
@@ -287,7 +292,6 @@ public class OAuthIndexPageFilter implements Filter {
         SSORequestWrap newRequest = new SSORequestWrap(request, userName);
         return newRequest;
     }
-
 
     /**
      * 新包装请求
