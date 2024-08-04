@@ -1,8 +1,11 @@
 package ext.ziang.oauth;
 
+import cn.hutool.core.collection.CollUtil;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -21,9 +24,11 @@ public class SSOUtil {
      */
     public static String getSSOTokenByCookies(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
-        for (Cookie cookie : cookies) {
-            if (Objects.nonNull(cookie) && cookie.getName().contains(COOKIE_ID)) {
-                return cookie.getValue();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (Objects.nonNull(cookie) && cookie.getName().contains(COOKIE_ID)) {
+                    return cookie.getValue();
+                }
             }
         }
         return null;
