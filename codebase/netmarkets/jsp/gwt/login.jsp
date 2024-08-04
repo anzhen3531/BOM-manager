@@ -89,8 +89,7 @@
             headers: {
                 ...auth,
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(body)
+            }
         }).then(function (response) {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
