@@ -212,7 +212,7 @@ public class OAuthIndexPageFilter implements Filter {
             // 用户使用账号密码登录
         } else if (requestURI.contains("/gwt/login.jsp")) {
             String mode = request.getParameter("MODE");
-            if (mode.equals("login")) {
+            if ("login".equals(mode)) {
                 // 获取请求主体数据
                 BufferedReader reader = request.getReader();
                 StringBuilder requestBody = new StringBuilder();
