@@ -110,7 +110,7 @@
         console.log(base64Credentials)
         // 返回包含 Authorization 头的对象
         return {
-            'Authorization': `Basic ${base64Credentials}`
+            'Authorization': 'Basic ' + base64Credentials
         };
     }
 
