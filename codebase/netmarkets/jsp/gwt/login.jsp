@@ -82,17 +82,20 @@
         event.preventDefault();
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
+        let url = 'http://plm.ziang.com/Windchill/app/';
         let auth = createBasicAuthHeader(username,password);
         fetch(url, {
             method: 'POST',
             headers: {
                 ...auth,
                 'Content-Type': 'application/json'
-            }
+            },
+            body: JSON.stringify(body)
         }).then(function (response) {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+            // 回调主页
             window.location.href = url;
         }).catch(function (error) {
             console.error('There has been a problem with your fetch operation:', error.message);
