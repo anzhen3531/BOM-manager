@@ -149,11 +149,12 @@ public class OAuthIndexPageFilter implements Filter {
         logger.debug("password = {}", password);
         if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
             OpenDjPasswordService service = new OpenDjPasswordService();
+            logger.error("登录成功 用户名{}, 密码{}", username, password);
             if (service.authentication(username, password)) {
-                logger.debug("登录成功 用户名{}, 密码{}", username, password);
+                logger.error("登录成功 用户名{}, 密码{}", username, password);
                 // 采用其余的登录条件
-                SSORequestWrap SSORequestWrap = newWrapRequest(request, username);
-                filterChain.doFilter(SSORequestWrap, response);
+                SSORequestWrap ssoRequestWrap = newWrapRequest(request, username);
+                filterChain.doFilter(ssoRequestWrap, response);
                 return true;
             } else {
                 return false;
