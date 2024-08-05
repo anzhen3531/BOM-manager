@@ -27,7 +27,7 @@ public class SSORequestWrap extends HttpServletRequestWrapper {
     /**
      * 标头名称
      */
-    private ArrayList<String> headerNames;
+    private ArrayList headerNames;
 
     /**
      * 远程用户
@@ -50,16 +50,22 @@ public class SSORequestWrap extends HttpServletRequestWrapper {
         headers = new HashMap();
         this.remoteUser = userName;
         this.principal = new SSOPrincipal(this.remoteUser);
-        // 获取源请求所有的head
-        Enumeration<String> enumeration = request.getHeaderNames();
-        if (enumeration != null) {
-            while (enumeration.hasMoreElements()) {
-                String headerName = enumeration.nextElement();
-                headerNames.add(headerName);
-                Enumeration<String> headerValueEnum = request.getHeaders(headerName);
-                headers.put(headerName.toLowerCase(), headerValueEnum);
-            }
-        }
+        Enumeration enumeration = request.getHeaderNames();
+        if (enumeration != null)
+            do {
+                if (!enumeration.hasMoreElements())
+                    break;
+                String s = (String) enumeration.nextElement();
+                headerNames.add(s);
+                Enumeration enumeration1 = request.getHeaders(s);
+                if (enumeration1 != null) {
+                    ArrayList arraylist = new ArrayList();
+                    headers.put(s.toLowerCase(), arraylist);
+                    for (; enumeration1.hasMoreElements(); arraylist.add(enumeration1.nextElement()))
+                        ;
+                    arraylist.trimToSize();
+                }
+            } while (true);
         headerNames.trimToSize();
     }
 
