@@ -140,6 +140,17 @@ public class OAuthIndexPageFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
+    /**
+     * Basic Login
+     * 
+     * @param authorization
+     * @param request
+     * @param response
+     * @param filterChain
+     * @return
+     * @throws ServletException
+     * @throws IOException
+     */
     private boolean basicLogin(String authorization, HttpServletRequest request, HttpServletResponse response,
         FilterChain filterChain) throws ServletException, IOException {
         String[] strings = convertAuthHeader(authorization);
