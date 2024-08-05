@@ -85,6 +85,7 @@ public class OAuthIndexPageFilter implements Filter {
             logger.error("authorization {}", authorization);
             logger.error("cookiesToken {}", cookiesToken);
             logger.error("ssoAuth {}", ssoAuth);
+            logger.error("remoteUser {}", request.getRemoteUser());
             logger.error("requestURI {}", requestURI);
             logger.error("servletPath {}", servletPath);
             if (validateContains(WHITE_LIST_URLS, requestURI)) {
@@ -184,7 +185,7 @@ public class OAuthIndexPageFilter implements Filter {
             if (service.authentication(username, password)) {
                 logger.error("登录成功 用户名{}, 密码{}", username, password);
                 // 采用其余的登录条件
-                SSORequestWrap ssoRequestWrap = newWrapRequest(request, username);
+                SSORequestWrap ssoRequestWrap = newWrapRequest(request, username, authorization);
                 filterChain.doFilter(ssoRequestWrap, response);
                 return true;
             } else {
@@ -332,8 +333,9 @@ public class OAuthIndexPageFilter implements Filter {
      * @param userName 用户名
      * @return {@link SSORequestWrap}
      */
-    private SSORequestWrap newWrapRequest(HttpServletRequest request, String userName, String password) {
+    private SSORequestWrap newWrapRequest(HttpServletRequest request, String userName, String auth) {
         SSORequestWrap newRequest = new SSORequestWrap(request, userName);
+        newRequest.addHeader("Authorization",auth );
         return newRequest;
     }
 
