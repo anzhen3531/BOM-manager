@@ -117,7 +117,8 @@ public class OAuthIndexPageFilter implements Filter {
                 }
             }
             // 图纸端登录则使用默认的 Basic Auth
-            if (StringUtils.isNotBlank(authorization) || validateContains(NO_SSO_URLS, requestURI)) {
+            if (StringUtils.isNotBlank(authorization) || validateContains(NO_SSO_URLS, requestURI)
+                || isFormLogin(request)) {
                 // 从Base中获取相关的用户名
                 boolean loginSuccess = basicLogin(authorization, request, response, filterChain);
                 if (!loginSuccess) {
@@ -141,6 +142,16 @@ public class OAuthIndexPageFilter implements Filter {
     }
 
     /**
+     * 判断是否是表单登录的
+     * 
+     * @param request
+     * @return
+     */
+    private boolean isFormLogin(HttpServletRequest request) {
+        return StringUtils.isNotBlank(request.getRemoteUser());
+    }
+
+    /**
      * Basic Login
      * 
      * @param authorization
@@ -153,6 +164,15 @@ public class OAuthIndexPageFilter implements Filter {
      */
     private boolean basicLogin(String authorization, HttpServletRequest request, HttpServletResponse response,
         FilterChain filterChain) throws ServletException, IOException {
+
+        String remoteUser = request.getRemoteUser();
+        if (StringUtils.isNotBlank(remoteUser)) {
+            // 采用其余的登录条件
+            SSORequestWrap ssoRequestWrap = newWrapRequest(request, remoteUser);
+            filterChain.doFilter(ssoRequestWrap, response);
+            return true;
+        }
+
         String[] strings = convertAuthHeader(authorization);
         String username = strings[0];
         logger.debug("username = {}", username);
