@@ -215,6 +215,7 @@ public class OAuthIndexPageFilter implements Filter {
             + ", requestURI = " + requestURI);
         String code = request.getParameter("code");
         String mode = request.getParameter("MODE");
+        String tokenByCookies = SSOUtil.getSSOTokenByCookies(request, SSOUtil.BASIC_LOGIN);
         logger.debug("request code{}", code);
         if (StrUtil.isNotBlank(code)) {
             String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, requestURI);
@@ -240,19 +241,17 @@ public class OAuthIndexPageFilter implements Filter {
                 return false;
             }
             // 用户使用账号密码登录
-        } else if ("LOGIN".equals(mode)) {
-            String tokenByCookies = SSOUtil.getSSOTokenByCookies(request, SSOUtil.BASIC_LOGIN);
+        } else if (StringUtils.isNotBlank(tokenByCookies)) {
             if (StringUtils.isNotBlank(tokenByCookies)) {
                 return handlerBasicLogin(tokenByCookies, request, response, filterChain);
-            } else {
-                // 查找用户密码
-                JSONObject requestBody = RequestBodyUtils.getRequestBody(request);
-                String username = requestBody.getString("username");
-                String password = requestBody.getString("password");
-                String authorization =
-                    new BASE64Encoder().encode(StrUtil.format("{}:{}", username, password).getBytes());
-                return basicLogin(username, password, request, response,  authorization, filterChain);
             }
+        } else if ("LOGIN".equals(mode)) {
+            // 查找用户密码
+            JSONObject requestBody = RequestBodyUtils.getRequestBody(request);
+            String username = requestBody.getString("username");
+            String password = requestBody.getString("password");
+            String authorization = new BASE64Encoder().encode(StrUtil.format("{}:{}", username, password).getBytes());
+            return basicLogin(username, password, request, response, authorization, filterChain);
         } else {
             // 获取令牌
             String token = SSOUtil.getSSOTokenByCookies(request);
