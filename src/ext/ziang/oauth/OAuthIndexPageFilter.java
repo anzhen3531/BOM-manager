@@ -165,7 +165,6 @@ public class OAuthIndexPageFilter implements Filter {
      */
     private boolean basicLogin(String authorization, HttpServletRequest request, HttpServletResponse response,
         FilterChain filterChain) throws ServletException, IOException {
-
         String remoteUser = request.getRemoteUser();
         if (StringUtils.isNotBlank(remoteUser)) {
             // 采用其余的登录条件
@@ -186,7 +185,8 @@ public class OAuthIndexPageFilter implements Filter {
                 logger.error("登录成功 用户名{}, 密码{}", username, password);
                 // 采用其余的登录条件
                 SSORequestWrap ssoRequestWrap = newWrapRequest(request, username, authorization);
-                filterChain.doFilter(ssoRequestWrap, response);
+                // 直接跳转？？ ;
+                response.sendRedirect(ssoRequestWrap.getRequestURL().toString());
                 return true;
             } else {
                 return false;
@@ -335,7 +335,7 @@ public class OAuthIndexPageFilter implements Filter {
      */
     private SSORequestWrap newWrapRequest(HttpServletRequest request, String userName, String auth) {
         SSORequestWrap newRequest = new SSORequestWrap(request, userName);
-        newRequest.addHeader("Authorization",auth );
+        newRequest.addHeader("Authorization", auth);
         return newRequest;
     }
 
