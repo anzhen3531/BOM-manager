@@ -95,8 +95,6 @@
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            // 回调主页
-            window.location.href = url;
         }).catch(function (error) {
             console.error('There has been a problem with your fetch operation:', error.message);
         });

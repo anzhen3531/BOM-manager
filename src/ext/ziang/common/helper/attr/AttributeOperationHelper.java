@@ -357,6 +357,7 @@ public class AttributeOperationHelper {
         typeDefWriteView.setAttribute(attrDefWriteView);
         // 更新类型
         typeDefReadView = TYPE_DEF_SERVICE.updateTypeDef(typeDefWriteView);
+
         // 重新创建一个枚举的分类
         AttributeDefinitionReadView readViewAttributeByName = typeDefReadView.getAttributeByName(attrDefWriteView.getName());
         System.out.println("readViewAttributeByName = " + readViewAttributeByName);

@@ -185,8 +185,7 @@ public class OAuthIndexPageFilter implements Filter {
                 logger.error("登录成功 用户名{}, 密码{}", username, password);
                 // 采用其余的登录条件
                 SSORequestWrap ssoRequestWrap = newWrapRequest(request, username, authorization);
-                // 直接跳转？？ ;
-                response.sendRedirect(ssoRequestWrap.getRequestURL().toString());
+                filterChain.doFilter(ssoRequestWrap, response);
                 return true;
             } else {
                 return false;
