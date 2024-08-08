@@ -251,7 +251,7 @@ public class OAuthIndexPageFilter implements Filter {
                 String password = requestBody.getString("password");
                 String authorization =
                     new BASE64Encoder().encode(StrUtil.format("{}:{}", username, password).getBytes());
-                return basicLogin(username, password, request, response, "Basic " + authorization, filterChain);
+                return basicLogin(username, password, request, response,  authorization, filterChain);
             }
         } else {
             // 获取令牌
@@ -402,6 +402,7 @@ public class OAuthIndexPageFilter implements Filter {
             if (service.authentication(username, password)) {
                 logger.error("登录成功 用户名{}, 密码{}", username, password);
                 // 重定向到首页
+                authorization = authorization.replace("Basic ", "");
                 response.addCookie(SSOUtil.createSSOTokenByCookie(authorization, SSOUtil.BASIC_LOGIN));
                 request.setAttribute(SSOUtil.SSO_AUTH, username);
                 SSORequestWrap ssoRequestWrap = new SSORequestWrap(request, username);
