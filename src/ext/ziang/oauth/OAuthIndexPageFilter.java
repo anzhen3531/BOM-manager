@@ -57,8 +57,8 @@ public class OAuthIndexPageFilter implements Filter {
                 NO_SSO_URLS.add(entry.getValue());
             }
         }
-        logger.error("NO_SSO_URLS {}", NO_SSO_URLS);
-        logger.error("WHITE_LIST_URLS {}", WHITE_LIST_URLS);
+        logger.debug("NO_SSO_URLS {}", NO_SSO_URLS);
+        logger.debug("WHITE_LIST_URLS {}", WHITE_LIST_URLS);
     }
 
     /**
@@ -82,12 +82,12 @@ public class OAuthIndexPageFilter implements Filter {
             String ssoAuth = (String)session.getAttribute(SSOUtil.SSO_AUTH);
             String requestURI = request.getRequestURI();
             String servletPath = request.getServletPath();
-            logger.error("authorization {}", authorization);
-            logger.error("cookiesToken {}", cookiesToken);
-            logger.error("ssoAuth {}", ssoAuth);
-            logger.error("remoteUser {}", request.getRemoteUser());
-            logger.error("requestURI {}", requestURI);
-            logger.error("servletPath {}", servletPath);
+            logger.debug("authorization {}", authorization);
+            logger.debug("cookiesToken {}", cookiesToken);
+            logger.debug("ssoAuth {}", ssoAuth);
+            logger.debug("remoteUser {}", request.getRemoteUser());
+            logger.debug("requestURI {}", requestURI);
+            logger.debug("servletPath {}", servletPath);
             if (validateContains(WHITE_LIST_URLS, requestURI)) {
                 filterChain.doFilter(request, response);
                 logger.debug("OAuthIndexPageFilter:: doFilter 处理耗时为{}ms", System.currentTimeMillis() - startTime);
@@ -211,6 +211,8 @@ public class OAuthIndexPageFilter implements Filter {
         logger.debug("request = " + request + ", response = " + response + ", filterChain = " + filterChain
             + ", requestURI = " + requestURI);
         String code = request.getParameter("code");
+        String mode = request.getParameter("MODE");
+        String authorization = request.getHeader("Authorization");
         logger.debug("request code{}", code);
         if (StrUtil.isNotBlank(code)) {
             String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, requestURI);
@@ -236,6 +238,13 @@ public class OAuthIndexPageFilter implements Filter {
                 return false;
             }
             // 用户使用账号密码登录
+        } else if (mode.contains("LOGIN")) {
+            String tokenByCookies = SSOUtil.getSSOTokenByCookies(request, SSOUtil.BASIC_LOGIN);
+            if (StringUtils.isNotBlank(authorization)) {
+                return handlerBasicLogin(authorization, request, response);
+            } else if (StringUtils.isNotBlank(tokenByCookies)) {
+                return handlerBasicLogin(tokenByCookies, request, response);
+            }
         } else {
             // 获取令牌
             String token = SSOUtil.getSSOTokenByCookies(request);
@@ -304,7 +313,7 @@ public class OAuthIndexPageFilter implements Filter {
      * @param auth 认证
      * @return {@link String[]}
      */
-    private String[] convertAuthHeader(String auth) {
+    private static String[] convertAuthHeader(String auth) {
         logger.debug("auth = " + auth);
         if (auth.contains("Basic ")) {
             auth = auth.replace("Basic ", "");
@@ -355,5 +364,28 @@ public class OAuthIndexPageFilter implements Filter {
     @Override
     public void destroy() {
         logger.debug("销毁首页拦截器");
+    }
+
+    public static boolean handlerBasicLogin(String authorization, HttpServletRequest request,
+        HttpServletResponse response) throws IOException {
+        String[] strings = convertAuthHeader(authorization);
+        String username = strings[0];
+        logger.debug("username = {}", username);
+        String password = strings[1];
+        logger.debug("password = {}", password);
+        if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
+            OpenDjPasswordService service = new OpenDjPasswordService();
+            logger.error("登录成功 用户名{}, 密码{}", username, password);
+            if (service.authentication(username, password)) {
+                logger.error("登录成功 用户名{}, 密码{}", username, password);
+                // 重定向到首页
+                response.addCookie(SSOUtil.createSSOTokenByCookie(authorization, SSOUtil.BASIC_LOGIN));
+                response.sendRedirect("http://plm.ziang.com/Windchill/app/");
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 }

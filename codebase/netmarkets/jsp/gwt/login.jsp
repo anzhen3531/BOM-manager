@@ -91,10 +91,12 @@
                 ...auth,
                 'Content-Type': 'application/json'
             }
+
         }).then(function (response) {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+            // 登录失败即可
         }).catch(function (error) {
             console.error('There has been a problem with your fetch operation:', error.message);
         });
