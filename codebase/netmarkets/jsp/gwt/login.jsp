@@ -83,15 +83,16 @@
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
         let url = 'http://plm.ziang.com/Windchill/app/?MODE=LOGIN';
-        let auth = createBasicAuthHeader(username,password);
-        console.log(auth)
+        let data = {
+            username: username,
+            password: password
+        };
         fetch(url, {
             method: 'POST',
             headers: {
-                ...auth,
                 'Content-Type': 'application/json'
-            }
-
+            },
+            body: JSON.stringify(data)
         }).then(function (response) {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -101,16 +102,5 @@
             console.error('There has been a problem with your fetch operation:', error.message);
         });
     });
-
-    function createBasicAuthHeader(username, password) {
-        const credentials = username + ":" + password;
-        // 将拼接好的字符串进行 Base64 编码
-        const base64Credentials = btoa(credentials);
-        console.log(base64Credentials)
-        // 返回包含 Authorization 头的对象
-        return {
-            'Authorization': 'Basic ' + base64Credentials
-        };
-    }
 
 </script>

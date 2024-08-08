@@ -212,7 +212,6 @@ public class OAuthIndexPageFilter implements Filter {
             + ", requestURI = " + requestURI);
         String code = request.getParameter("code");
         String mode = request.getParameter("MODE");
-        String authorization = request.getHeader("Authorization");
         logger.debug("request code{}", code);
         if (StrUtil.isNotBlank(code)) {
             String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, requestURI);
@@ -240,10 +239,14 @@ public class OAuthIndexPageFilter implements Filter {
             // 用户使用账号密码登录
         } else if (mode.contains("LOGIN")) {
             String tokenByCookies = SSOUtil.getSSOTokenByCookies(request, SSOUtil.BASIC_LOGIN);
-            if (StringUtils.isNotBlank(authorization)) {
-                return handlerBasicLogin(authorization, request, response);
-            } else if (StringUtils.isNotBlank(tokenByCookies)) {
-                return handlerBasicLogin(tokenByCookies, request, response);
+            if (StringUtils.isNotBlank(tokenByCookies)) {
+                return handlerBasicLogin(tokenByCookies, request, response, filterChain);
+            } else {
+                String authorization = request.getHeader("Authorization");
+                if (StringUtils.isNotBlank(authorization)) {
+                    return handlerBasicLogin(tokenByCookies, request, response, filterChain);
+                }
+                return false;
             }
         } else {
             // 获取令牌
@@ -367,12 +370,27 @@ public class OAuthIndexPageFilter implements Filter {
     }
 
     public static boolean handlerBasicLogin(String authorization, HttpServletRequest request,
-        HttpServletResponse response) throws IOException {
+        HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         String[] strings = convertAuthHeader(authorization);
         String username = strings[0];
         logger.debug("username = {}", username);
         String password = strings[1];
         logger.debug("password = {}", password);
+        return basicLogin(username, password, request, response, authorization, filterChain);
+    }
+
+    /**
+     * 
+     * @param username
+     * @param password
+     * @param response
+     * @param authorization
+     * @return
+     * @throws IOException
+     */
+    public static boolean basicLogin(String username, String password, HttpServletRequest request,
+        HttpServletResponse response, String authorization, FilterChain filterChain)
+        throws IOException, ServletException {
         if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
             OpenDjPasswordService service = new OpenDjPasswordService();
             logger.error("登录成功 用户名{}, 密码{}", username, password);
@@ -380,7 +398,9 @@ public class OAuthIndexPageFilter implements Filter {
                 logger.error("登录成功 用户名{}, 密码{}", username, password);
                 // 重定向到首页
                 response.addCookie(SSOUtil.createSSOTokenByCookie(authorization, SSOUtil.BASIC_LOGIN));
-                response.sendRedirect("http://plm.ziang.com/Windchill/app/");
+                request.setAttribute(SSOUtil.SSO_AUTH, username);
+                SSORequestWrap ssoRequestWrap = new SSORequestWrap(request, username);
+                filterChain.doFilter(ssoRequestWrap, response);
                 return true;
             } else {
                 return false;
