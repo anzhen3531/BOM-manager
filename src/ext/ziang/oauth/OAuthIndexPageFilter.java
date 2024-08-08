@@ -131,6 +131,7 @@ public class OAuthIndexPageFilter implements Filter {
                 SSOUtil.deleteSSOTokenByCookie(request, response);
                 return;
             }
+
             // 使用 token直接获取信息登录
             try {
                 logger.debug("SSO 登录");
@@ -244,11 +245,13 @@ public class OAuthIndexPageFilter implements Filter {
             if (StringUtils.isNotBlank(tokenByCookies)) {
                 return handlerBasicLogin(tokenByCookies, request, response, filterChain);
             } else {
-                String authorization = request.getHeader("Authorization");
-                if (StringUtils.isNotBlank(authorization)) {
-                    return handlerBasicLogin(tokenByCookies, request, response, filterChain);
-                }
-                return false;
+                // 查找用户密码
+                JSONObject requestBody = RequestBodyUtils.getRequestBody(request);
+                String username = requestBody.getString("username");
+                String password = requestBody.getString("password");
+                String authorization =
+                    new BASE64Encoder().encode(StrUtil.format("{}:{}", username, password).getBytes());
+                return basicLogin(username, password, request, response, "Basic " + authorization, filterChain);
             }
         } else {
             // 获取令牌
