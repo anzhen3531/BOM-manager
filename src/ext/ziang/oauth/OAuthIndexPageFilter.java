@@ -78,6 +78,7 @@ public class OAuthIndexPageFilter implements Filter {
             HttpServletRequest request = (HttpServletRequest)servletRequest;
             String authorization = request.getHeader("Authorization");
             String cookiesToken = SSOUtil.getSSOTokenByCookies(request);
+            String basicToken = SSOUtil.getSSOTokenByCookies(request, SSOUtil.BASIC_LOGIN);
             HttpSession session = request.getSession();
             String ssoAuth = (String)session.getAttribute(SSOUtil.SSO_AUTH);
             String requestURI = request.getRequestURI();
@@ -88,6 +89,7 @@ public class OAuthIndexPageFilter implements Filter {
             logger.debug("remoteUser {}", request.getRemoteUser());
             logger.debug("requestURI {}", requestURI);
             logger.debug("servletPath {}", servletPath);
+            logger.debug("basicToken {}", basicToken);
             if (validateContains(WHITE_LIST_URLS, requestURI)) {
                 filterChain.doFilter(request, response);
                 logger.debug("OAuthIndexPageFilter:: doFilter 处理耗时为{}ms", System.currentTimeMillis() - startTime);
@@ -237,7 +239,7 @@ public class OAuthIndexPageFilter implements Filter {
                 return false;
             }
             // 用户使用账号密码登录
-        } else if (mode.contains("LOGIN")) {
+        } else if ("LOGIN".equals(mode)) {
             String tokenByCookies = SSOUtil.getSSOTokenByCookies(request, SSOUtil.BASIC_LOGIN);
             if (StringUtils.isNotBlank(tokenByCookies)) {
                 return handlerBasicLogin(tokenByCookies, request, response, filterChain);
