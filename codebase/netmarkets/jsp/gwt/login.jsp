@@ -82,7 +82,7 @@
         event.preventDefault();
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
-        let url = 'http://plm.ziang.com/Windchill/app/';
+        let url = 'http://plm.ziang.com/Windchill/app/?MODE=LOGIN';
         let auth = createBasicAuthHeader(username,password);
         console.log(auth)
         fetch(url, {
