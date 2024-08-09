@@ -52,7 +52,7 @@ import wt.util.WTPropertyVetoException;
 /**
  * 通用 ECN operation 助手
  *
- * @author ander
+ * @author anzhen
  * @date 2023/11/13
  */
 public class CommonECNOperationHelper {

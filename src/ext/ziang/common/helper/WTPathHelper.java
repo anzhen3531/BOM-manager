@@ -7,7 +7,7 @@ import wt.util.WTProperties;
 /**
  * WTPath 帮助程序
  *
- * @author ander
+ * @author anzhen
  * @date 2024/05/25
  */
 public class WTPathHelper {

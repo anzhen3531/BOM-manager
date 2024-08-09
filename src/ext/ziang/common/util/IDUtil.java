@@ -6,7 +6,7 @@ import cn.hutool.core.util.IdUtil;
 /**
  * 生成id工具
  * 
- * @author ander
+ * @author anzhen
  * @date 2023/12/03
  */
 public class IDUtil {

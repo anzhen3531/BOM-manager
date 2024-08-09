@@ -18,7 +18,7 @@ import ext.ziang.common.helper.WTPathHelper;
 /**
  * 工作流图片文档
  *
- * @author ander
+ * @author anzhen
  * @date 2024/05/23
  */
 public class WorkflowPictureDoc {
@@ -30,7 +30,7 @@ public class WorkflowPictureDoc {
 			// VBS脚本路径
 			String scriptPath = "D:\\project\\BOM-manager\\src\\ext\\ziang\\mpm\\vbs\\createChart.vbs";
 			// 要传递的Excel文件路径
-			String excelFilePath = "C:\\Users\\ander\\Desktop\\WorkflowPicTepm.xlsx";
+			String excelFilePath = "C:\\Users\\anzhen\\Desktop\\WorkflowPicTepm.xlsx";
 			Map<String, String> map = new HashMap<>();
 			List<String> arrayList = new ArrayList<>();
 			arrayList.add("Material");

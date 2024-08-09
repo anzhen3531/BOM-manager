@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 通用 GUI 组件帮助程序
  *
- * @author ander
+ * @author anzhen
  * @date 2024/05/17
  */
 public class CommonGuiComponentHelper {

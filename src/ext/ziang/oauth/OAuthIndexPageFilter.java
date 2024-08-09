@@ -1,39 +1,31 @@
 package ext.ziang.oauth;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.*;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import ext.ziang.common.config.PropertiesHelper;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sun.jndi.toolkit.chars.BASE64Encoder;
 
 import cn.hutool.core.util.StrUtil;
+import ext.ziang.common.config.PropertiesHelper;
 import ext.ziang.common.helper.ldap.OpenDjPasswordService;
-import ext.ziang.common.util.LoggerHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.security.access.method.P;
 import wt.util.WTException;
-import wt.util.WTRuntimeException;
 
 /**
  * OAuth 索引页筛选器 ext.ziang.oauth.OAuthIndexPageFilter
+ * 
+ * TODO 修改Filter 代码即可
  *
- * @author ander
+ * @author anzhen
  * @date 2023/12/25
  */
 public class OAuthIndexPageFilter implements Filter {
@@ -119,6 +111,32 @@ public class OAuthIndexPageFilter implements Filter {
                     }
                 }
             }
+
+            // 自定义页面的登录
+            if (StringUtils.isNotBlank(basicToken)) {
+                // 获取登录名称
+                String loginName = getBasicLoginName(basicToken, ssoAuth);
+                if (StringUtils.isNotBlank(loginName)) {
+                    logger.debug("当前用户已经登录过Windchill userName{}", loginName);
+                    if (StringUtils.isNotBlank(ssoAuth)) {
+                        request.setAttribute(SSOUtil.SSO_AUTH, loginName);
+                    }
+                    SSORequestWrap SSORequestWrap = newWrapRequest(request, loginName, basicToken);
+                    filterChain.doFilter(SSORequestWrap, response);
+                    return;
+                } else {
+                    // 使用 token直接获取信息登录
+                    try {
+                        logger.debug("SSO 登录");
+                        ssoLogin(request, response, filterChain, requestURI);
+                        logger.debug("SSO 登录结束");
+                    } catch (Exception e) {
+                        logger.error("SSO登录失败 message" + e.getMessage(), e);
+                        e.printStackTrace();
+                    }
+                }
+            }
+
             // 图纸端登录则使用默认的 Basic Auth
             if (StringUtils.isNotBlank(authorization) || validateContains(NO_SSO_URLS, requestURI)
                 || isFormLogin(request)) {
@@ -299,6 +317,27 @@ public class OAuthIndexPageFilter implements Filter {
     }
 
     /**
+     * 获取当前登录的用户名
+     *
+     * @param cookiesToken 当前令牌
+     * @param ssoAuth 用户Auth
+     * @return
+     */
+    private String getBasicLoginName(String cookiesToken, String ssoAuth) {
+        if (Objects.isNull(cookiesToken) && Objects.isNull(ssoAuth)) {
+            return null;
+        }
+        if (StringUtils.isNotBlank(ssoAuth)) {
+            return ssoAuth;
+        } else {
+            String[] strings = convertAuthHeader(cookiesToken);
+            return strings[0];
+        }
+    }
+
+
+
+    /**
      * 验证包含
      *
      * @param whiteListUrls 白名单网址
@@ -350,7 +389,7 @@ public class OAuthIndexPageFilter implements Filter {
      */
     private SSORequestWrap newWrapRequest(HttpServletRequest request, String userName, String auth) {
         SSORequestWrap newRequest = new SSORequestWrap(request, userName);
-        newRequest.addHeader("Authorization", auth);
+        newRequest.addHeader("Authorization",  "Basic "+ auth);
         return newRequest;
     }
 
