@@ -98,6 +98,7 @@
                 throw new Error('Network response was not ok');
             }
             // 登录失败即可
+            window.location.href = url;
         }).catch(function (error) {
             console.error('There has been a problem with your fetch operation:', error.message);
         });
