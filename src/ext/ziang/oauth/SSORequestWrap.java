@@ -35,21 +35,15 @@ public class SSORequestWrap extends HttpServletRequestWrapper {
     private String remoteUser;
 
     /**
-     * 用户
-     */
-    private Principal principal;
-
-    /**
-     * 
+     * 请求换行
+     *
      * @param request
-     * @param userName
+     *            请求
      */
-    public SSORequestWrap(HttpServletRequest request, String userName) {
+    public SSORequestWrap(HttpServletRequest request) {
         super(request);
         headerNames = new ArrayList();
         headers = new HashMap();
-        this.remoteUser = userName;
-        this.principal = new SSOPrincipal(this.remoteUser);
         Enumeration enumeration = request.getHeaderNames();
         if (enumeration != null)
             do {
@@ -70,13 +64,12 @@ public class SSORequestWrap extends HttpServletRequestWrapper {
     }
 
     @Override
-    public Principal getUserPrincipal() {
-        return this.principal;
-    }
-
-    @Override
     public String getRemoteUser() {
         return remoteUser;
+    }
+
+    public void setRemoteUser(String remoteUser) {
+        this.remoteUser = remoteUser;
     }
 
     public void addHeader(String name, String value) {

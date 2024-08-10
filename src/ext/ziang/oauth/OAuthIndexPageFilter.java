@@ -121,8 +121,8 @@ public class OAuthIndexPageFilter implements Filter {
                     if (StringUtils.isNotBlank(ssoAuth)) {
                         request.setAttribute(SSOUtil.SSO_AUTH, loginName);
                     }
-                    SSORequestWrap SSORequestWrap = newWrapRequest(request, loginName, basicToken);
-                    filterChain.doFilter(SSORequestWrap, response);
+                    SSORequestWrap ssoRequestWrap = newWrapRequest(request, loginName, basicToken);
+                    filterChain.doFilter(ssoRequestWrap, response);
                     return;
                 } else {
                     // 使用 token直接获取信息登录
@@ -245,7 +245,8 @@ public class OAuthIndexPageFilter implements Filter {
                 if (StringUtils.isNotBlank(token) && StringUtils.isNotBlank(loginUserName)) {
                     response.addCookie(SSOUtil.createSSOTokenByCookie(token));
                     request.setAttribute(SSOUtil.SSO_AUTH, loginUserName);
-                    SSORequestWrap ssoRequestWrap = new SSORequestWrap(request, loginUserName);
+                    SSORequestWrap ssoRequestWrap = new SSORequestWrap(request);
+
                     filterChain.doFilter(ssoRequestWrap, response);
                     return true;
                 } else {
@@ -335,8 +336,6 @@ public class OAuthIndexPageFilter implements Filter {
         }
     }
 
-
-
     /**
      * 验证包含
      *
@@ -376,8 +375,7 @@ public class OAuthIndexPageFilter implements Filter {
      * @return {@link SSORequestWrap}
      */
     private SSORequestWrap newWrapRequest(HttpServletRequest request, String userName) {
-        SSORequestWrap newRequest = new SSORequestWrap(request, userName);
-        return newRequest;
+        return  newSSOWrapRequest(request, userName);
     }
 
     /**
@@ -388,9 +386,7 @@ public class OAuthIndexPageFilter implements Filter {
      * @return {@link SSORequestWrap}
      */
     private SSORequestWrap newWrapRequest(HttpServletRequest request, String userName, String auth) {
-        SSORequestWrap newRequest = new SSORequestWrap(request, userName);
-        newRequest.addHeader("Authorization",  "Basic "+ auth);
-        return newRequest;
+        return newSSOWrapRequest(request, auth, userName);
     }
 
     /**
@@ -443,7 +439,7 @@ public class OAuthIndexPageFilter implements Filter {
                 authorization = authorization.replace("Basic ", "");
                 response.addCookie(SSOUtil.createSSOTokenByCookie(authorization, SSOUtil.BASIC_LOGIN));
                 request.setAttribute(SSOUtil.SSO_AUTH, username);
-                SSORequestWrap ssoRequestWrap = new SSORequestWrap(request, username);
+                SSORequestWrap ssoRequestWrap = newSSOWrapRequest(request, username);
                 filterChain.doFilter(ssoRequestWrap, response);
                 return true;
             } else {
@@ -451,5 +447,36 @@ public class OAuthIndexPageFilter implements Filter {
             }
         }
         return false;
+    }
+
+    /**
+     * 新包装请求
+     *
+     * @param request 请求
+     * @param token 令 牌
+     * @param username 用户名
+     * @return {@link SSORequestWrap}
+     */
+    private static SSORequestWrap newSSOWrapRequest(HttpServletRequest request, String token, String username) {
+        SSORequestWrap newRequest = new SSORequestWrap(request);
+        if (StringUtils.isNotBlank(token)) {
+            if (!token.contains("Basic ")) {
+                token = "Basic " + token;
+            }
+            newRequest.addHeader("Authorization", token);
+        }
+        newRequest.setRemoteUser(username);
+        return newRequest;
+    }
+
+    /**
+     * 新包装请求
+     *
+     * @param request  请求
+     * @param username 用户名
+     * @return {@link SSORequestWrap}
+     */
+    private static SSORequestWrap newSSOWrapRequest(HttpServletRequest request, String username) {
+        return newSSOWrapRequest(request, null, username);
     }
 }
