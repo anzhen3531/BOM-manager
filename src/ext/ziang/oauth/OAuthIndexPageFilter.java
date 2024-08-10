@@ -118,7 +118,7 @@ public class OAuthIndexPageFilter implements Filter {
                 String loginName = getBasicLoginName(basicToken, ssoAuth);
                 if (StringUtils.isNotBlank(loginName)) {
                     logger.debug("当前用户已经登录过Windchill userName{}", loginName);
-                    if (StringUtils.isNotBlank(ssoAuth)) {
+                    if (StringUtils.isBlank(ssoAuth)) {
                         request.setAttribute(SSOUtil.SSO_AUTH, loginName);
                     }
                     SSORequestWrap ssoRequestWrap = newWrapRequest(request, loginName, basicToken);
