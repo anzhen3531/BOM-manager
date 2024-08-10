@@ -176,10 +176,10 @@ public class OAuthIndexPageFilter implements Filter {
     /**
      * Basic Login
      * 
-     * @param authorization
-     * @param request
-     * @param response
-     * @param filterChain
+     * @param authorization 认证信息
+     * @param request 请求
+     * @param response 响应
+     * @param filterChain 拦截
      * @return
      * @throws ServletException
      * @throws IOException
@@ -217,15 +217,12 @@ public class OAuthIndexPageFilter implements Filter {
 
     /**
      * 登录SSO
-     * 
-     * @param request
-     * @param response
-     * @param filterChain
-     * @param requestURI
-     * @return
-     * @throws WTException
-     * @throws ServletException
-     * @throws IOException
+     *
+     * @param request 请求
+     * @param response 响应
+     * @param filterChain 拦截
+     * @param requestURI 请求地址
+     * @return 是否登录成功
      */
     private boolean ssoLogin(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain,
         String requestURI) throws WTException, ServletException, IOException {
@@ -233,7 +230,6 @@ public class OAuthIndexPageFilter implements Filter {
             + ", requestURI = " + requestURI);
         String code = request.getParameter("code");
         String mode = request.getParameter("MODE");
-        String tokenByCookies = SSOUtil.getSSOTokenByCookies(request, SSOUtil.BASIC_LOGIN);
         logger.debug("request code{}", code);
         if (StrUtil.isNotBlank(code)) {
             String token = GithubOAuthProvider.getAccessTokenByCodeAndUrl(code, requestURI);
@@ -260,12 +256,19 @@ public class OAuthIndexPageFilter implements Filter {
             }
             // 用户使用账号密码登录
         } else if ("LOGIN".equals(mode)) {
-            // 查找用户密码
+            // 获取用户名和密码
             JSONObject requestBody = RequestBodyUtils.getRequestBody(request);
             String username = requestBody.getString("username");
             String password = requestBody.getString("password");
             String authorization = new BASE64Encoder().encode(StrUtil.format("{}:{}", username, password).getBytes());
-            return basicLogin(username, password, request, response, authorization, filterChain);
+            boolean isSuccess = basicLogin(username, password, request, response, authorization, filterChain);
+            if (isSuccess) {
+                return true;
+            } else {
+                logger.error("当前输入的用户名和密码错误 username{}, password{}", username, code);
+                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "用户账号密码错误！");
+                return false;
+            }
         } else {
             // 获取令牌
             String token = SSOUtil.getSSOTokenByCookies(request);
@@ -282,7 +285,7 @@ public class OAuthIndexPageFilter implements Filter {
                 return true;
             }
         }
-        // TODO 发起重定向 重定向到登陆页面
+        // 发起重定向 重定向到登陆页面
         if (!requestURI.contains(OAuthConfigConstant.OAUTH2_LOGIN_PAGE_FILE)) {
             response.sendRedirect(OAuthConfigConstant.OAUTH2_LOGIN_PAGE);
             return false;
@@ -297,7 +300,7 @@ public class OAuthIndexPageFilter implements Filter {
      * 
      * @param cookiesToken 当前令牌
      * @param ssoAuth 用户Auth
-     * @return
+     * @return 登录用户名
      */
     private String getLoginName(String cookiesToken, String ssoAuth) {
         if (Objects.isNull(cookiesToken) && Objects.isNull(ssoAuth)) {
@@ -317,7 +320,7 @@ public class OAuthIndexPageFilter implements Filter {
      *
      * @param cookiesToken 当前令牌
      * @param ssoAuth 用户Auth
-     * @return
+     * @return 登录用户名
      */
     private String getBasicLoginName(String cookiesToken, String ssoAuth) {
         if (Objects.isNull(cookiesToken) && Objects.isNull(ssoAuth)) {
@@ -370,7 +373,7 @@ public class OAuthIndexPageFilter implements Filter {
      * @return {@link SSORequestWrap}
      */
     private SSORequestWrap newWrapRequest(HttpServletRequest request, String userName) {
-        return  newSSOWrapRequest(request, userName);
+        return newSSOWrapRequest(request, userName);
     }
 
     /**
@@ -387,8 +390,7 @@ public class OAuthIndexPageFilter implements Filter {
     /**
      * 无权限访问，重定向登录
      *
-     * @param response
-     * @throws IOException
+     * @param response 响应
      */
     private void redirectBasicLogin(HttpServletResponse response) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -414,11 +416,12 @@ public class OAuthIndexPageFilter implements Filter {
     }
 
     /**
+     * 基本账号密码登录
      * 
-     * @param username
-     * @param password
-     * @param response
-     * @param authorization
+     * @param username 账号
+     * @param password 密码
+     * @param response 响应
+     * @param authorization 认证信息
      * @return
      * @throws IOException
      */
@@ -467,7 +470,7 @@ public class OAuthIndexPageFilter implements Filter {
     /**
      * 新包装请求
      *
-     * @param request  请求
+     * @param request 请求
      * @param username 用户名
      * @return {@link SSORequestWrap}
      */
