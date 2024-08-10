@@ -83,6 +83,7 @@
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
         let url = 'http://plm.ziang.com/Windchill/app/?MODE=LOGIN';
+        let redirect = 'http://plm.ziang.com/Windchill/app';
         let data = {
             username: username,
             password: password
@@ -98,7 +99,7 @@
                 throw new Error('Network response was not ok');
             }
             // 登录失败即可
-            window.location.href = url;
+            window.location.href = redirect;
         }).catch(function (error) {
             console.error('There has been a problem with your fetch operation:', error.message);
         });

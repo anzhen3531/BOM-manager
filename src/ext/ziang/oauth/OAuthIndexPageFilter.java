@@ -246,7 +246,6 @@ public class OAuthIndexPageFilter implements Filter {
                     response.addCookie(SSOUtil.createSSOTokenByCookie(token));
                     request.setAttribute(SSOUtil.SSO_AUTH, loginUserName);
                     SSORequestWrap ssoRequestWrap = new SSORequestWrap(request);
-
                     filterChain.doFilter(ssoRequestWrap, response);
                     return true;
                 } else {
@@ -260,10 +259,6 @@ public class OAuthIndexPageFilter implements Filter {
                 return false;
             }
             // 用户使用账号密码登录
-        } else if (StringUtils.isNotBlank(tokenByCookies)) {
-            if (StringUtils.isNotBlank(tokenByCookies)) {
-                return handlerBasicLogin(tokenByCookies, request, response, filterChain);
-            }
         } else if ("LOGIN".equals(mode)) {
             // 查找用户密码
             JSONObject requestBody = RequestBodyUtils.getRequestBody(request);
