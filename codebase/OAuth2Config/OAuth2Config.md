@@ -38,6 +38,11 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 ```
+
+
+
+注意：部署这个拦截器一定要置于最开头 ，不然会存在一些接口由于没提前处理登录导致错误
+
 重启`Windchill`
 执行命令 `Windchill stop & Windchill start`
 
