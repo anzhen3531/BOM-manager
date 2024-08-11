@@ -42,12 +42,6 @@
 </c:if>
 
 
-<jca:initializeItem
-        operation="${createBean.create}"
-        baseTypeName="WCTYPE|wt.part.WTPart|wt.part.Placeholder"
-        attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
-
-
 <jca:initializeItem operation="${createBean.create}"
                     baseTypeName="WCTYPE|wt.part.WTPart|com.ziang.Panzer|com.ziang.PanzerMaterial"
                     attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
