@@ -64,7 +64,7 @@ Below javascript is required to add listener on multiPartWizAttributesTableDescr
 
 <jca:initializeItem operation="${createBean.create}"
                     objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                    baseTypeName=""
+                    baseTypeName="WCTYPE|wt.part.WTPart|com.ziang.Panzer|com.ziang.PanzerMaterial"
                     attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
 
 <%--
