@@ -11,32 +11,11 @@
 <%@ page import="com.ptc.core.meta.type.mgmt.server.impl.TypeDomainHelper" %>
 
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
-
-<%--
-D:\private\product\codebase\netmarkets\jsp\part\createPartWizard.jsp
-refreshCC.js below is required for refreshing local cache when part is created
-in active workspace within uwgm browser.
---%>
 <script type="text/javascript" SRC="templates/cadx/common/refreshCC.js"></script>
-
-<%--
-PartHelper.js below is required dynamically insert/remove the classification step
---%>
 <script language="JavaScript" src="netmarkets/javascript/part/PartHelper.js"></script>
-
-<%--
-revisionLabelPicker.js is required if insert revision action is being performed.
---%>
 <script language="JavaScript" src='netmarkets/javascript/util/revisionLabelPicker.js'></script>
-
-<%--
-CADDocument.js is required if a CAD document is created in the wizard.
---%>
 <script type="text/javascript" src="netmarkets/javascript/uwgmcadx/CADDocument.js"></script>
 
-<%--
-Below javascript is required to add listener on multiPartWizAttributesTableDescriptor table on afterRowRefresh event.
---%>
 <script type="text/javascript">
     Ext.ComponentMgr.onAvailable('multiPartWizAttributesTableDescriptor', PTC.jca.table.sortTableOnAfterRowRefresh);
 </script>
@@ -62,26 +41,51 @@ Below javascript is required to add listener on multiPartWizAttributesTableDescr
     <c:set var="wizardTitle" value="${wizardTitleFromURL}"/>
 </c:if>
 
+<%-- New CAD Doc panel populated from the New Part attributes --%>
+<c:choose>
+    <c:when test='${param.showNewCADDocStep == "true"}'>
+        <%-- Creating a part and possibly a CAD document and attachments in this wizard --%>
+        <jca:initializeItem operation="${createBean.create}" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
+                            attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
 
-<jca:initializeItem
-        operation="${createBean.create}"
-        baseTypeName="WCTYPE|wt.part.WTPart|wt.part.Placeholder"
-        attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
+        <%
+            String baseTypeName = "wt.epm.EPMDocument";
+            String domain = TypeDomainHelper.getExchangeDomain();
+            String typeName = "DefaultEPMDocument";
+            String softType = baseTypeName + "|" + domain + "." + typeName;
+        %>
 
-<jca:initializeItem operation="${createBean.create}"
-                    objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                    baseTypeName="WCTYPE|wt.part.WTPart|com.ziang.Panzer|com.ziang.PanzerMaterial"
-                    attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
+        <jca:initializeItem operation="${createBean.create}" objectHandle="<%=PartConstants.ObjectHandles.CADDOC%>"
+                            baseTypeName="<%=softType%>"/>
+        <%-- To set operation for attachment step --%>
+        <jca:initializeItem operation="${createBean.create}"/>
+    </c:when>
 
-<%--
-    Set the typeComponentId to restrict the containers to PDMLink
-    containers i.e. Product and Library. This affects the setContext
-    wizard step that only gets displayed while creating a part from
-    a workspace that is associated to a product or a library or when launched from the
-    Advanced Assembly Editor. For a workspace
-    that is associated to a project, the step validator hides the setContext
-    wizard step.
---%>
+    <c:when test='${param.showNewCADDocStep == "false"}'>
+        <jca:initializeItem operation="${createBean.create}" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
+                            baseTypeName="WCTYPE|wt.part.WTPart|com.ziang.Panzer|com.ziang.PanzerMaterial"
+                            attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
+    </c:when>
+
+    <c:when test='${param.isPlaceholderAction == "true"}'>
+        <fmt:setBundle basename="com.ptc.windchill.enterprise.revisionControlled.insertWizardResource"/>
+        <fmt:message var="wizardTitle" key="part.createNewPlaceholder.title"/>
+        <jca:initializeItem
+                operation="${createBean.create}"
+                baseTypeName="WCTYPE|wt.part.WTPart|wt.part.Placeholder"
+                attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
+    </c:when>
+
+    <c:otherwise>
+        <%-- Creating a part and attachments in this wizard --%>
+        <%-- populate number attribute for insert revision action only --%>
+        <jca:initializeItem operation="${createBean.create}"
+                            baseTypeName="WCTYPE|wt.part.WTPart|com.ziang.Panzer|com.ziang.PanzerMaterial"
+                            attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
+    </c:otherwise>
+</c:choose>
+
+
 <c:if test='${param.invokedfrom == "workspace" || param.showContextStep == "true"}'>
     <jsp:setProperty name="createBean"
                      property="contextPickerTypeComponentId" value="PDMLink.containerSearch"/>
@@ -93,12 +97,6 @@ Below javascript is required to add listener on multiPartWizAttributesTableDescr
 <c:set var="helpKey" value="PartCreate_help" scope="page"/>
 <c:set var="buttonList" value="DefaultWizardButtonsNoApply" scope="page"/>
 
-<%-->
-Depending on if the wizard is multiple part create, different steps are included in main wizard. Label for setAttributesWizStep
-is also different for multiple part create wizard.
-<--%>
-
-<!-- autoNaming fields for single part create wizard . restricted for multiPart wizard-->
 <c:if test="${isMultiPart == 'false'}">
     <input id="enforceClassificationNamingRule" type="hidden" name="enforceClassificationNamingRule">
     <input id="classificationNameOverride" type="hidden" name="classificationNameOverride">
@@ -124,9 +122,6 @@ is also different for multiple part create wizard.
 <wctags:fileSelectionAndUploadAppletUnlessMSOI forceApplet='${param.addAttachments != null }'/>
 
 <script Language="JavaScript">
-    /* Sets values of the hidden fields used for classification for multi part create wizard.
-       Called by the form processor of the Set Classifications wizard.
-    */
     function setClassificationAttributes(classificationAttributes) {
         document.getElementById('classificationAttributes').value = classificationAttributes;
     }
@@ -134,11 +129,8 @@ is also different for multiple part create wizard.
 
 
 <script Language="JavaScript">
-    /* Clicking the Apply button on a New Multi Parts wizard should reset the wizard to the initial step
-       Overridden the Apply button in order to redirect the user to the first step */
 
     function onMultipartsApply() {
-
         onApply();
         var result = PTC.wizard.checkRequired(true, true, getCurrentStep());
         //Fixed SPR 2156604. Checking whether required attribute validation returns true or false.
@@ -154,9 +146,6 @@ is also different for multiple part create wizard.
             setActiveStep(steps[1]);
         }
     }
-
-    /* Clicking the Back button on a New Multi Parts wizard should skip the "nameNumberValidation"
-	   Overridden the Back button */
 
     function onMultipartsBack() {
         var stepIndex = 0;
