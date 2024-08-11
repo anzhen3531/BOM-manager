@@ -83,7 +83,9 @@ Below javascript is required to add listener on multiPartWizAttributesTableDescr
     </c:when>
 
     <c:when test='${param.showNewCADDocStep == "false"}'>
-        <jca:initializeItem operation="${createBean.create}" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
+        <jca:initializeItem operation="${createBean.create}"
+                            objectHandle="<%=PartConstants.ObjectHandles.PART%>"
+                            baseTypeName="WCTYPE|wt.part.WTPart"
                             attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
     </c:when>
 
@@ -100,6 +102,7 @@ Below javascript is required to add listener on multiPartWizAttributesTableDescr
         <%-- Creating a part and attachments in this wizard --%>
         <%-- populate number attribute for insert revision action only --%>
         <jca:initializeItem operation="${createBean.create}"
+                            baseTypeName="WCTYPE|wt.part.WTPart"
                             attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
     </c:otherwise>
 </c:choose>
