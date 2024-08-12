@@ -12,11 +12,18 @@
 <jca:initializeItem operation="${createBean.create}"
                     objectHandle="<%=PartConstants.ObjectHandles.PART%>"
                     attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"
-                    baseTypeName="WCTYPE|wt.part.WTPart|"/>
+                    baseTypeName="WCTYPE|wt.part.WTPart"/>
 
 
 <c:set var="helpKey" value="PartCreate_help" scope="page"/>
 <c:set var="buttonList" value="DefaultWizardButtonsNoApply" scope="page"/>
+
+
+<input id="enforceClassificationNamingRule" type="hidden" name="enforceClassificationNamingRule">
+<input id="classificationNameOverride" type="hidden" name="classificationNameOverride">
+<script>
+    bundleHandler.set('com.ptc.core.ui.componentRB.NUMBER_GENERATED_DISPLAY_STRING', 'com.ptc.core.ui.componentRB.NUMBER_GENERATED_DISPLAY_STRING');
+</script>
 
 <%@include file="/netmarkets/jsp/attachments/initAttachments.jspf" %>
 <jca:wizard helpSelectorKey="${helpKey}" buttonList="${buttonList}" title="${wizardTitle}">
