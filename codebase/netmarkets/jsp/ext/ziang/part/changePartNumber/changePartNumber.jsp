@@ -18,10 +18,6 @@
 <c:set var="helpKey" value="PartCreate_help" scope="page"/>
 <c:set var="buttonList" value="DefaultWizardButtonsNoApply" scope="page"/>
 
-
-<input id="enforceClassificationNamingRule" type="hidden" name="enforceClassificationNamingRule">
-<input id="classificationNameOverride" type="hidden" name="classificationNameOverride">
-
 <%@include file="/netmarkets/jsp/attachments/initAttachments.jspf" %>
 <jca:wizard helpSelectorKey="${helpKey}" buttonList="${buttonList}" title="${wizardTitle}">
     <jca:wizardStep action="setContextWizStep" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
