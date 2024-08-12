@@ -2,7 +2,7 @@
 <!DOCTYPE listofactions SYSTEM 'actions.dtd'>
 <listofactions>
 
-    <!--   D:/private/product/codebase/netmarkets/jsp/ext/ziang/derived/createPartWizard.jsp  -->
+    <!--   D:/private/product/codebase/netmarkets/jsp/ext/ziang/derived/changePartNumber.jsp  -->
     <objecttype name="extPart" resourceBundle="ext.ziang.resource.CommonActionResource">
         <!--开启日志-->
         <action name="derivedPart" uicomponent="CREATE_PART" ajax="row">

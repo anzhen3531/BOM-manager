@@ -78,6 +78,9 @@
 
 
 <script>
+    /**
+     * 监听提交事件
+     */
     document.getElementById("login-form").addEventListener("submit", function (event) {
         event.preventDefault();
         let username = document.getElementById("username").value;
