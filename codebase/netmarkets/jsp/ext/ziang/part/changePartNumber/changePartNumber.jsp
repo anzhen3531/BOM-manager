@@ -21,9 +21,6 @@
 
 <input id="enforceClassificationNamingRule" type="hidden" name="enforceClassificationNamingRule">
 <input id="classificationNameOverride" type="hidden" name="classificationNameOverride">
-<script>
-    bundleHandler.set('com.ptc.core.ui.componentRB.NUMBER_GENERATED_DISPLAY_STRING', 'com.ptc.core.ui.componentRB.NUMBER_GENERATED_DISPLAY_STRING');
-</script>
 
 <%@include file="/netmarkets/jsp/attachments/initAttachments.jspf" %>
 <jca:wizard helpSelectorKey="${helpKey}" buttonList="${buttonList}" title="${wizardTitle}">
