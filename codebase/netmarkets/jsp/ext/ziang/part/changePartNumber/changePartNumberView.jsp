@@ -63,51 +63,10 @@ Below javascript is required to add listener on multiPartWizAttributesTableDescr
 </c:if>
 
 
-<%-- New CAD Doc panel populated from the New Part attributes --%>
-<c:choose>
-    <c:when test='${param.showNewCADDocStep == "true"}'>
-        <%-- Creating a part and possibly a CAD document and attachments in this wizard --%>
-        <jca:initializeItem operation="${createBean.create}"
-                            baseTypeName="WCTYPE|wt.part.WTPart"
-                            objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                            attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
-
-        <%
-            String baseTypeName = "wt.epm.EPMDocument";
-            String domain = TypeDomainHelper.getExchangeDomain();
-            String typeName = "DefaultEPMDocument";
-            String softType = baseTypeName + "|" + domain + "." + typeName;
-        %>
-
-        <jca:initializeItem operation="${createBean.create}" objectHandle="<%=PartConstants.ObjectHandles.CADDOC%>"
-                            baseTypeName="<%=softType%>"/>
-        <%-- To set operation for attachment step --%>
-        <jca:initializeItem operation="${createBean.create}"/>
-    </c:when>
-
-    <c:when test='${param.showNewCADDocStep == "false"}'>
-        <jca:initializeItem operation="${createBean.create}"
-                            objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                            baseTypeName="WCTYPE|wt.part.WTPart"
-                            attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
-    </c:when>
-
-    <c:when test='${param.isPlaceholderAction == "true"}'>
-        <fmt:setBundle basename="com.ptc.windchill.enterprise.revisionControlled.insertWizardResource"/>
-        <fmt:message var="wizardTitle" key="part.createNewPlaceholder.title"/>
-        <jca:initializeItem
-                operation="${createBean.create}"
-                baseTypeName="WCTYPE|wt.part.WTPart|wt.part.Placeholder"
-                attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
-    </c:when>
-
-    <c:otherwise>
-        <%-- Creating a part and attachments in this wizard --%>
-        <%-- populate number attribute for insert revision action only --%>
-        <jca:initializeItem operation="${createBean.create}"
-                            attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
-    </c:otherwise>
-</c:choose>
+<jca:initializeItem operation="${createBean.create}"
+                    objectHandle="<%=PartConstants.ObjectHandles.PART%>"
+                    baseTypeName="WCTYPE|wt.part.WTPart"
+                    attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
 
 <%--
     Set the typeComponentId to restrict the containers to PDMLink
