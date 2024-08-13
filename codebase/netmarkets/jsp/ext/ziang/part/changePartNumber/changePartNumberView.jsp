@@ -59,18 +59,13 @@
         part = ((WTPart) persistable);
     }
 
-    // 获取部件类型
-    String typename = TypedUtility.getTypeIdentifier(part).getTypename();
-    System.out.println("typename = " + typename);
-    String internalName = TypedUtility.getTypeIdentifier(part).getTypeInternalName();
-    System.out.println("internalName = " + internalName);
-
-    // 获取所有的IBA属性
+    // 获取部件类型 wt.part.WTPart|com.ziang.Panzer|com.ziang.PanzerMaterial
+    String typename = "WCTYPE|" +  TypedUtility.getTypeIdentifier(part).getTypename();
 
 %>
 <jca:initializeItem operation="${createBean.create}"
                     objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                    baseTypeName="WCTYPE|wt.part.WTPart"
+                    baseTypeName="<%=typename%>"
                     attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
 
 <%--   --%>
