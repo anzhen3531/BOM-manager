@@ -14,6 +14,8 @@
 <%@ page import="wt.fc.Persistable" %>
 <%@ page import="wt.part.WTPart" %>
 <%@ page import="wt.type.TypedUtility" %>
+<%@ page import="ext.ziang.common.helper.attr.IBAOperationHelper" %>
+<%@ page import="java.util.Map" %>
 
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
 
@@ -58,10 +60,11 @@
     if (persistable instanceof WTPart) {
         part = ((WTPart) persistable);
     }
-
     // 获取部件类型 wt.part.WTPart|com.ziang.Panzer|com.ziang.PanzerMaterial
-    String typename = "WCTYPE|" +  TypedUtility.getTypeIdentifier(part).getTypename();
-
+    String typename = "WCTYPE|" + TypedUtility.getTypeIdentifier(part).getTypename();
+    // 获取所有的IBA属性
+    Map<String, Object> allIBAValue = IBAOperationHelper.findAllIBAValue(part);
+    System.out.println("allIBAValue = " + allIBAValue);
 %>
 <jca:initializeItem operation="${createBean.create}"
                     objectHandle="<%=PartConstants.ObjectHandles.PART%>"
@@ -94,6 +97,8 @@
 <script language="Javascript">
     setPartObjectHandle('!~objectHandle~partHandle~!');
 </script>
+
+
 <%@include file="/netmarkets/jsp/attachments/initAttachments.jspf" %>
 
 <jca:wizard helpSelectorKey="${helpKey}" buttonList="${buttonList}" title="${wizardTitle}"
@@ -165,6 +170,8 @@
     /**
      * 页面加载完成之后进行处理
      */
-    PTC.onReady()
+    PTC.onReady(function () {
+        alert("加载完成！")
+    });
 
 </script>
