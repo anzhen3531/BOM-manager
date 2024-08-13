@@ -31,6 +31,7 @@
         <action name="edit" type="part"/>
         <action name="derivedPart" type="extPart"/>
         <action name="copySuperBom" type="extPart"/>
+        <action name="changePart" type="extPart"/>
         <!--  Edit  -->
         <action name="editNewPartInWorkspace" type="part"/>
         <!--  Edit newly created part in a workspace  -->

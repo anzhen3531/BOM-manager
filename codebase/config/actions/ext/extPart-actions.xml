@@ -2,7 +2,6 @@
 <!DOCTYPE listofactions SYSTEM 'actions.dtd'>
 <listofactions>
 
-    <!--   D:/private/product/codebase/netmarkets/jsp/ext/ziang/derived/changePartNumber.jsp  -->
     <objecttype name="extPart" resourceBundle="ext.ziang.resource.CommonActionResource">
         <!--开启日志-->
         <action name="derivedPart" uicomponent="CREATE_PART" ajax="row">
@@ -12,6 +11,7 @@
                      windowType="popup"/>
         </action>
 
+        <!--另存为超级BOM-->
         <action name="copySuperBom" ajax="component" selectRequired="true">
             <command class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor" method="execute"
                      windowType="popup"
@@ -19,8 +19,7 @@
         </action>
 
         <action name="changePart" uicomponent="CREATE_PART" ajax="row">
-            <command onClick="validateCreateLocation(event)"
-                     method="execute"
+            <command method="execute"
                      class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor"
                      url="/netmarkets/jsp/ext/ziang/part/changePartNumber/changePartNumber.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
                      windowType="popup"/>
