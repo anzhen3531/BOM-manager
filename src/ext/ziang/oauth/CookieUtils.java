@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 相关工具
  */
-public class SSOUtil {
+public class CookieUtils {
 
     public static final String COOKIE_ID = "github_ssoid";
     public static final String BASIC_LOGIN = "basic_ssoid";

@@ -9,34 +9,20 @@
 <%@ page import="com.ptc.windchill.enterprise.part.partResource" %>
 <%@ page import="com.ptc.windchill.uwgm.cadx.createecaddesign.documentECADResource" %>
 <%@ page import="com.ptc.core.meta.type.mgmt.server.impl.TypeDomainHelper" %>
+<%@ page import="ext.ziang.common.util.IBAUtils" %>
+<%@ page import="ext.ziang.common.util.ToolUtils" %>
+<%@ page import="wt.fc.Persistable" %>
+<%@ page import="wt.part.WTPart" %>
+<%@ page import="wt.type.TypedUtility" %>
 
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
 
-<%--
-D:\private\product\codebase\netmarkets\jsp\part\changePartNumber.jsp
-refreshCC.js below is required for refreshing local cache when part is created
-in active workspace within uwgm browser.
---%>
+<%-- 引入JS --%>
 <script type="text/javascript" SRC="templates/cadx/common/refreshCC.js"></script>
-
-<%--
-PartHelper.js below is required dynamically insert/remove the classification step
---%>
 <script language="JavaScript" src="netmarkets/javascript/part/PartHelper.js"></script>
-
-<%--
-revisionLabelPicker.js is required if insert revision action is being performed.
---%>
 <script language="JavaScript" src='netmarkets/javascript/util/revisionLabelPicker.js'></script>
-
-<%--
-CADDocument.js is required if a CAD document is created in the wizard.
---%>
 <script type="text/javascript" src="netmarkets/javascript/uwgmcadx/CADDocument.js"></script>
 
-<%--
-Below javascript is required to add listener on multiPartWizAttributesTableDescriptor table on afterRowRefresh event.
---%>
 <script type="text/javascript">
     Ext.ComponentMgr.onAvailable('multiPartWizAttributesTableDescriptor', PTC.jca.table.sortTableOnAfterRowRefresh);
 </script>
@@ -62,21 +48,32 @@ Below javascript is required to add listener on multiPartWizAttributesTableDescr
     <c:set var="wizardTitle" value="${wizardTitleFromURL}"/>
 </c:if>
 
+<%-- 设置类型属性 --%>
 
+<%
+    // 获取当前物料类型
+    String oid = request.getParameter("oid");
+    Persistable persistable = ToolUtils.getObjectByOid(oid);
+    WTPart part = null;
+    if (persistable instanceof WTPart) {
+        part = ((WTPart) persistable);
+    }
+
+    // 获取部件类型
+    String typename = TypedUtility.getTypeIdentifier(part).getTypename();
+    System.out.println("typename = " + typename);
+    String internalName = TypedUtility.getTypeIdentifier(part).getTypeInternalName();
+    System.out.println("internalName = " + internalName);
+
+    // 获取所有的IBA属性
+
+%>
 <jca:initializeItem operation="${createBean.create}"
                     objectHandle="<%=PartConstants.ObjectHandles.PART%>"
                     baseTypeName="WCTYPE|wt.part.WTPart"
                     attributePopulatorClass="com.ptc.windchill.enterprise.part.forms.PartAttributePopulator"/>
 
-<%--
-    Set the typeComponentId to restrict the containers to PDMLink
-    containers i.e. Product and Library. This affects the setContext
-    wizard step that only gets displayed while creating a part from
-    a workspace that is associated to a product or a library or when launched from the
-    Advanced Assembly Editor. For a workspace
-    that is associated to a project, the step validator hides the setContext
-    wizard step.
---%>
+<%--   --%>
 <c:if test='${param.invokedfrom == "workspace" || param.showContextStep == "true"}'>
     <jsp:setProperty name="createBean"
                      property="contextPickerTypeComponentId" value="PDMLink.containerSearch"/>
@@ -88,12 +85,7 @@ Below javascript is required to add listener on multiPartWizAttributesTableDescr
 <c:set var="helpKey" value="PartCreate_help" scope="page"/>
 <c:set var="buttonList" value="DefaultWizardButtonsNoApply" scope="page"/>
 
-<%-->
-Depending on if the wizard is multiple part create, different steps are included in main wizard. Label for setAttributesWizStep
-is also different for multiple part create wizard.
-<--%>
 
-<!-- autoNaming fields for single part create wizard . restricted for multiPart wizard-->
 <c:if test="${isMultiPart == 'false'}">
     <input id="enforceClassificationNamingRule" type="hidden" name="enforceClassificationNamingRule">
     <input id="classificationNameOverride" type="hidden" name="classificationNameOverride">
@@ -102,77 +94,27 @@ is also different for multiple part create wizard.
     </script>
 </c:if>
 
-<c:choose>
-    <c:when test="${isMultiPart == 'true'}">
-        <jca:wizard helpSelectorKey="PMPartMultipleCreate" buttonList="NewMultiPartsWizardButtons"
-                    title="${createMultiplePartWizardTitle}">
-            <jca:wizardStep action="setContextWizStep" type="object"/>
-            <jca:wizardStep action="defineItemWizStep" label="${definePartWizStepLabel}" type="object"/>
-            <jca:wizardStep action="setAttributesWizStepForCreateMultiPart"
-                            label="${setAttributesWizStepForCreateMultiPartLabel}" type="part"/>
-            <jca:wizardStep action="securityLabelStep" type="securityLabels"/>
-        </jca:wizard>
 
-        <!-- Hidden fields to store classification information -->
-        <input id="selectedClfNodes" type="hidden" name="selectedClfNodes">
-        <input id="selectedClfNodesDisplayName" type="hidden" name="selectedClfNodesDisplayName">
-        <input id="classificationAttributes" type="hidden" name="classificationAttributes">
+<%-- 设置分类属性 没有这个则会报错 --%>
+<script language="Javascript">
+    setPartObjectHandle('!~objectHandle~partHandle~!');
+</script>
+<%@include file="/netmarkets/jsp/attachments/initAttachments.jspf" %>
 
-    </c:when>
-
-    <c:when test='${param.showNewCADDocStep == "true"}'>
-        <%-->
-        Two object types might be created, so the object handle is included in the names
-        of the steps. This sets the value of a variable in PartHelper.js so the
-        classification step will have the correct name when it is attached or detached.
-        <--%>
-        <script language="Javascript">
-            setPartObjectHandle('!~objectHandle~partHandle~!');
-        </script>
-        <%@include file="/netmarkets/jsp/attachments/initAttachments.jspf" %>
-
-        <jca:wizard helpSelectorKey="${helpKey}" buttonList="${buttonList}" title="${wizardTitle}"
-                    formProcessorController="com.ptc.windchill.enterprise.part.forms.CreatePartAndCADDocFormProcessorController">
-            <jca:wizardStep action="setContextWizStep" objectHandle="partHandle" type="object"/>
-            <jca:wizardStep action="defineItemAttributesWizStep" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                            type="object"/>
-            <jca:wizardStep action="setClassificationAttributesWizStep"
-                            objectHandle="<%=PartConstants.ObjectHandles.PART%>" type="part"/>
-            <jca:wizardStep action="securityLabelStep" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                            type="securityLabels"/>
-            <jca:wizardStep action="defineItemAttributesWizStepForCADDoc"
-                            objectHandle="<%=PartConstants.ObjectHandles.CADDOC%>" type="part"
-                            label="${newCADDocWizStepLabel}"/>
-            <jca:wizardStep action="attachments_step" type="attachments"/>
-        </jca:wizard>
-    </c:when>
-
-    <c:when test='${param.showNewCADDocStep == "false"}'>
-        <%@include file="/netmarkets/jsp/attachments/initAttachments.jspf" %>
-        <jca:wizard helpSelectorKey="${helpKey}" buttonList="${buttonList}" title="${wizardTitle}">
-            <jca:wizardStep action="setContextWizStep" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                            type="object"/>
-            <jca:wizardStep action="defineItemAttributesWizStep" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                            type="object"/>
-            <jca:wizardStep action="setClassificationAttributesWizStep"
-                            objectHandle="<%=PartConstants.ObjectHandles.PART%>" type="part"/>
-            <jca:wizardStep action="securityLabelStep" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
-                            type="securityLabels"/>
-            <jca:wizardStep action="attachments_step" type="attachments"/>
-        </jca:wizard>
-    </c:when>
-
-    <c:otherwise>
-        <%@include file="/netmarkets/jsp/attachments/initAttachments.jspf" %>
-        <jca:wizard helpSelectorKey="${helpKey}" buttonList="${buttonList}" title="${wizardTitle}">
-            <jca:wizardStep action="setContextWizStep" type="object"/>
-            <jca:wizardStep action="defineItemAttributesWizStep" type="object"/>
-            <jca:wizardStep action="setClassificationAttributesWizStep" type="part"/>
-            <jca:wizardStep action="securityLabelStep" type="securityLabels"/>
-            <jca:wizardStep action="attachments_step" type="attachments"/>
-        </jca:wizard>
-    </c:otherwise>
-</c:choose>
+<jca:wizard helpSelectorKey="${helpKey}" buttonList="${buttonList}" title="${wizardTitle}"
+            formProcessorController="com.ptc.windchill.enterprise.part.forms.CreatePartAndCADDocFormProcessorController">
+    <jca:wizardStep action="setContextWizStep" objectHandle="partHandle" type="object"/>
+    <jca:wizardStep action="defineItemAttributesWizStep" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
+                    type="object"/>
+    <jca:wizardStep action="setClassificationAttributesWizStep"
+                    objectHandle="<%=PartConstants.ObjectHandles.PART%>" type="part"/>
+    <jca:wizardStep action="securityLabelStep" objectHandle="<%=PartConstants.ObjectHandles.PART%>"
+                    type="securityLabels"/>
+    <jca:wizardStep action="defineItemAttributesWizStepForCADDoc"
+                    objectHandle="<%=PartConstants.ObjectHandles.CADDOC%>" type="part"
+                    label="${newCADDocWizStepLabel}"/>
+    <jca:wizardStep action="attachments_step" type="attachments"/>
+</jca:wizard>
 
 <%--- If we are not DTI then add the applet for doing file browsing and file uploads --%>
 <wctags:fileSelectionAndUploadAppletUnlessMSOI forceApplet='${param.addAttachments != null }'/>
@@ -224,5 +166,10 @@ is also different for multiple part create wizard.
         wizardSteps[currentStepName].afterServerVK = "nameNumberValidation";
         PTC.jca.state.getLocalStateStore().clear("multiPartWizAttributesTableDescriptor-grid-state");
     }
+
+    /**
+     * 页面加载完成之后进行处理
+     */
+    PTC.onReady()
 
 </script>

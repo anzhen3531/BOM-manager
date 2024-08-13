@@ -13,7 +13,6 @@
       <!--  Upload Documents from Compressed File  -->
       <action name="separator" type="separator"/>
       <action name="createPartWizard" type="part" shortcut="true"/>
-      <action name="changePart" type="extPart" shortcut="true"/>
       <!--      一键复制BOM-->
       <action name="onceCopyBom" type="extCommonAction" shortcut="true"/>
       <!--  New Part  -->

@@ -14,7 +14,9 @@ import ext.ziang.part.service.PartRestServiceImpl;
 import io.swagger.annotations.Api;
 
 /**
- * 部件Rest相关接口
+ * 部件Rest相关接口 外部接口
+ * 内部接口采用Spring接口
+ * 外部接口需要发布Swagger
  *
  * @author anzhen
  * @date 2024/05/29

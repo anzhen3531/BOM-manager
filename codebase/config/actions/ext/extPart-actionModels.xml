@@ -35,7 +35,7 @@
         <!--  Edit  -->
         <action name="editNewPartInWorkspace" type="part"/>
         <!--  Edit newly created part in a workspace  -->
-        <action name="editCheckedOutPartInWorkspace" type="part"/>
+        <action name="editCheckedOutPartInWorkspace" type="part"/>`
         <!--  Edit part checked out to a workspace  -->
         <action name="editPartCommonAttrsWizard" type="part"/>
         <!--  Edit Common Attributes  -->
