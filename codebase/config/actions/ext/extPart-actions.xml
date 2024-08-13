@@ -22,7 +22,7 @@
             <command onClick="validateCreateLocation(event)"
                      method="execute"
                      class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor"
-                     url="/netmarkets/jsp/ext/ziang/part/changePartNumber/changePartNumber.jsp?revisionMode=create&amp;showNewCADDocStep=false&amp;hideAssociatePart=true"
+                     url="/netmarkets/jsp/ext/ziang/part/changePartNumber/changePartNumber.jsp"
                      windowType="popup"/>
         </action>
     </objecttype>
