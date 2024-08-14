@@ -16,6 +16,12 @@
 <%@ page import="wt.type.TypedUtility" %>
 <%@ page import="ext.ziang.common.util.IbaUtil" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="wt.session.SessionServerHelper" %>
+<%@ page import="org.apache.commons.lang.StringUtils" %>
+<%@ page import="wt.util.WTException" %>
+<%@ page import="com.ptc.core.lwc.server.LWCStructEnumAttTemplate" %>
+<%@ page import="com.ptc.windchill.csm.client.helpers.CSMTypeDefHelper" %>
+<%@ page import="com.ptc.core.lwc.common.view.TypeDefinitionReadView" %>
 
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
 
@@ -66,6 +72,9 @@
     Map<String, Object> allIBAValue = IbaUtil.findAllIBAValue(part);
     System.out.println("allIBAValue = " + allIBAValue);
 %>
+
+<input type="hidden" id="isInheritClassification" name="isInheritClassification" value="true">
+
 <jca:initializeItem operation="${createBean.create}"
                     objectHandle="<%=PartConstants.ObjectHandles.PART%>"
                     baseTypeName="<%=typename%>"
@@ -91,6 +100,35 @@
         bundleHandler.set('com.ptc.core.ui.componentRB.NUMBER_GENERATED_DISPLAY_STRING', 'com.ptc.core.ui.componentRB.NUMBER_GENERATED_DISPLAY_STRING');
     </script>
 </c:if>
+
+
+<%
+    // 分类内部名称
+    String classification = "";
+    // 分类显示名称
+    String classificationDisplayName = "";
+    if (StringUtils.isNotBlank(oid)) {
+        // 忽略权限
+        boolean accessFlag = SessionServerHelper.manager.setAccessEnforced(false);
+        try {
+            Object object = ToolUtils.getObjectByOid(oid);
+            if (object instanceof WTPart) {
+                part = (WTPart) object;
+                Map<String, Object> allIBAValues = IbaUtil.findAllIBAValue(part);
+                // 分类内部名称
+                classification = null != allIBAValues.get("Classify") ?
+                        (String) allIBAValues.get("Classify") : "";
+                TypeDefinitionReadView classificationTypeDefView = CSMTypeDefHelper.getClassificationTypeDefView(classification);
+                classificationDisplayName = classificationTypeDefView.getDisplayName();
+            }
+        } catch (WTException e) {
+            throw new WTException(e.getMessage());
+        } finally {
+            SessionServerHelper.manager.setAccessEnforced(accessFlag);
+        }
+    }
+
+%>
 
 
 <%-- 设置分类属性 没有这个则会报错 --%>
@@ -170,8 +208,49 @@
     /**
      * 页面加载完成之后进行处理
      */
+
+    // 页面一启动加载相关的函数
     PTC.onReady(function () {
-        alert("加载完成！")
+        // 在属性表格加载之后通过js函数进行二次加载并将当前对象的属性赋值到相关对象中
+        PTC.attributePanel.on("afterRender", function () {
+            // 新增相关属性
+            let genericTypeElement = document.getElementById("genericType");
+            if (genericTypeElement) {
+                // 设置父节点为隐藏
+                genericTypeElement.parentNode.parentNode.style.display = 'none';
+            }
+            // 将值回填
+            const isInheritClassEle = document.getElementById("isInheritClassification");
+            if (isInheritClassEle && "true" === isInheritClassEle.value) {
+                // 设置延时
+                setTimeout(function () {
+                    // 查询所有的输入框
+                    const inputs = document.querySelectorAll('input');
+                    // 遍历并打印每个input元素
+                    inputs.forEach(function (input) {
+                        if (input.name.indexOf('Classify') > -1 && input.name.indexOf('Classify~~NEW') > -1
+                            && input.name.indexOf('+null___textboxAltField') === -1) {
+                            if (input.type === "hidden") {
+                                //alert('1:input.value=:' + input.value + " input.name=" + input.name);
+                                // 分类内部名称
+                                input.value = '<%=classification%>';
+                            }
+                        }
+                        if (input.name.indexOf('Classify') > -1
+                            && input.name.indexOf('~objectHandle~partHandle~!_col_Classify___textbox') > -1) {
+                            if (input.type === "text") {
+                                //alert('2:input.value=:'+input.value + " input.name=" + input.name);
+                                // 分类显示名称
+                                input.value = '<%=classificationDisplayName%>';
+                            }
+                        }
+                    });
+                }, 200);
+                // 初始化设置完成之后，设置false，防止后面修改
+                isInheritClassEle.value = "false";
+            }
+            createChildElementByAttributePanel('optionSet', 'attributePanel-group-panel')
+        });
     });
 
 </script>
