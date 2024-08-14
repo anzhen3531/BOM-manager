@@ -239,7 +239,6 @@
                 // 初始化设置完成之后，设置false，防止后面修改
                 isInheritClassEle.value = "false";
             }
-            createChildElementByAttributePanel('optionSet', 'attributePanel-group-panel')
         });
     });
 
