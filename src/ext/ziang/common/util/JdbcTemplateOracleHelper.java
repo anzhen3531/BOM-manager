@@ -95,7 +95,6 @@ public class JdbcTemplateOracleHelper {
 	}
 
 	public static void closeResAll(ResultSet rs, Statement stmt, Connection conn) {
-
 		if (rs != null) {
 			try {
 				rs.close();// 关闭
@@ -103,7 +102,6 @@ public class JdbcTemplateOracleHelper {
 				e.printStackTrace();
 			}
 		}
-
 		if (stmt != null) {
 			try {
 				stmt.close();

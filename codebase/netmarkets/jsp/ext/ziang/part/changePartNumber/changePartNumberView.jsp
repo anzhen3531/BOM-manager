@@ -14,7 +14,7 @@
 <%@ page import="wt.fc.Persistable" %>
 <%@ page import="wt.part.WTPart" %>
 <%@ page import="wt.type.TypedUtility" %>
-<%@ page import="ext.ziang.common.helper.attr.IBAOperationHelper" %>
+<%@ page import="ext.ziang.common.util.IbaUtil" %>
 <%@ page import="java.util.Map" %>
 
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
@@ -63,7 +63,7 @@
     // 获取部件类型 wt.part.WTPart|com.ziang.Panzer|com.ziang.PanzerMaterial
     String typename = "WCTYPE|" + TypedUtility.getTypeIdentifier(part).getTypename();
     // 获取所有的IBA属性
-    Map<String, Object> allIBAValue = IBAOperationHelper.findAllIBAValue(part);
+    Map<String, Object> allIBAValue = IbaUtil.findAllIBAValue(part);
     System.out.println("allIBAValue = " + allIBAValue);
 %>
 <jca:initializeItem operation="${createBean.create}"

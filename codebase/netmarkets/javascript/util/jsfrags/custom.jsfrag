@@ -1,0 +1,15 @@
+// 检出部件
+function checkoutPart(partId,operationType){
+	var partInfo = {
+	    asynchronous: false,
+	    parameters: {
+	    	"partId":partId,
+	    	"operationType":operationType
+	    }
+	};
+	var url = "/Windchill/ptc1/ext/mt/part/checkOutPartByMpart";
+	console.log("partInfo====",partInfo);
+	var response = requestHandler.doRequest(url, partInfo);
+	var responseText = response.responseText;
+	return responseText;
+}

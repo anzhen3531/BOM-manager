@@ -44,8 +44,8 @@ public class DownloadFileUtil {
 	/**
 	 * 下载文件
 	 *
-	 * @param fileName
-	 *            文件名
+	 * @param inputStream
+	 *            文件流
 	 * @param response
 	 *            响应
 	 * @throws IOException

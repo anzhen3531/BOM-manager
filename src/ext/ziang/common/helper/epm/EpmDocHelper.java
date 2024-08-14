@@ -10,7 +10,7 @@ import com.ptc.core.meta.common.UpdateOperationIdentifier;
 import com.ptc.tml.NewTmlResource;
 import com.ptc.tml.TranslationException;
 import com.ptc.tml.utils.TMLContext;
-import ext.ziang.common.helper.attr.IBAOperationHelper;
+import ext.ziang.common.util.IbaUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wt.epm.EPMDocument;
@@ -30,7 +30,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 public class EpmDocHelper {
-    private static final Logger log = LoggerFactory.getLogger(IBAOperationHelper.class);
+    private static final Logger log = LoggerFactory.getLogger(IbaUtil.class);
     private static final String NEWRESOURCE = NewTmlResource.class.getName();
     public static final MetadataService metadataService =
         (MetadataService)ServiceFactory.getService(MetadataService.class);
@@ -76,9 +76,9 @@ public class EpmDocHelper {
                             var2.put(var5, var8.getValue());
                         } else {
                             AttributeDefDefaultView var9 =
-                                IBAOperationHelper.getAttributeDefDefaultView((String)var8.getKey());
+                                IbaUtil.getAttributeDefDefaultView((String)var8.getKey());
                             if (var9 != null && var9 instanceof StringDefView) {
-                                IBAOperationHelper.setIBAValue(var5, (String)var8.getKey(), var8.getValue());
+                                IbaUtil.setIBAValue(var5, (String)var8.getKey(), var8.getValue());
                             }
                         }
                     }
@@ -158,11 +158,11 @@ public class EpmDocHelper {
                 while (var13.hasNext()) {
                     String var16 = (String)var13.next();
                     if (var16.equals(var4)) {
-                        var1 = (EPMDocument)IBAOperationHelper.setIBAValue(var1, var16, var2, false);
+                        var1 = (EPMDocument) IbaUtil.setIBAValue(var1, var16, var2, false);
                     } else {
                         var12 = var9.get(var16);
                         if (var12 != null && !"PTC_DD_EXTENDED_DOC_TYPE".equalsIgnoreCase(var16)) {
-                            var1 = (EPMDocument)IBAOperationHelper.setIBAValue(var1, var16, var9.get(var16), false);
+                            var1 = (EPMDocument) IbaUtil.setIBAValue(var1, var16, var9.get(var16), false);
                         }
                     }
                 }
@@ -170,7 +170,7 @@ public class EpmDocHelper {
         }
 
         if (var5) {
-            IBAOperationHelper.updateIBAHolder(var1);
+            IbaUtil.updateIBAHolder(var1);
         }
 
     }
@@ -179,8 +179,8 @@ public class EpmDocHelper {
         throws WTPropertyVetoException, RemoteException, WTException {
         log.trace("setLanguageAttribute - entered");
         String var3 = var2.getDocumentLanguageAttributeId();
-        var0 = (EPMDocument)IBAOperationHelper.setStringIBAValue(var0, var3, var1);
-        if (PersistenceHelper.isPersistent(var0) && !IBAOperationHelper.updateIBAHolder(var0)) {
+        var0 = (EPMDocument) IbaUtil.setStringIBAValue(var0, var3, var1);
+        if (PersistenceHelper.isPersistent(var0) && !IbaUtil.updateIBAHolder(var0)) {
             throw new WTException(NEWRESOURCE, "EXCEPTION_UNABLE_TO_UPDATE_IBAHOLDER", (Object[])null);
         } else {
             log.trace("setLanguageAttribute - exiting");

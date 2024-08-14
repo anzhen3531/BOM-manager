@@ -1,4 +1,4 @@
-package ext.ziang.common.helper.attr;
+package ext.ziang.common.util;
 
 import com.ptc.core.lwc.server.PersistableAdapter;
 import com.ptc.tml.NewTmlResource;
@@ -26,10 +26,12 @@ import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class IBAOperationHelper {
-    private static final Logger log = LoggerFactory.getLogger(IBAOperationHelper.class);
+/**
+ * IBA操作工具
+ */
+public class IbaUtil {
+    private static final Logger log = LoggerFactory.getLogger(IbaUtil.class);
     private static final String NEWRESOURCE = NewTmlResource.class.getName();
-
     /**
      * 获取所有的IBA属性
      * 
@@ -285,17 +287,39 @@ public class IBAOperationHelper {
         }
     }
 
-    public static IBAHolder setIBAValue(IBAHolder var0, String var1, Object var2)
+    /**
+     * 设置IBA属性
+     * 
+     * @param ibaHolder IBA持有者
+     * @param ibaName 属性名
+     * @param value 属性值
+     * @return
+     * @throws WTException
+     * @throws RemoteException
+     * @throws WTPropertyVetoException
+     */
+    public static IBAHolder setIBAValue(IBAHolder ibaHolder, String ibaName, Object value)
         throws WTException, RemoteException, WTPropertyVetoException {
-        return setIBAValue(var0, var1, var2, true);
+        return setIBAValue(ibaHolder, ibaName, value, true);
     }
 
+    /**
+     * TODO 设置IBA属性 修改这个函数 通过属性的视图类型来设置对应的值 例如 一个字符类型的数据传递一个int数字是需要转换成字符串设置进去的 这样编写存在问题
+     *
+     * @param ibaHolder IBA持有者
+     * @param ibaName 属性名
+     * @param ibaValue 属性值
+     * @param isUpdateHolder 是否更新容器
+     * @return
+     * @throws WTException
+     * @throws RemoteException
+     * @throws WTPropertyVetoException
+     */
     public static IBAHolder setIBAValue(IBAHolder ibaHolder, String ibaName, Object ibaValue, boolean isUpdateHolder)
         throws WTException, RemoteException, WTPropertyVetoException {
         // 删除IBA属性值
         ibaHolder = deleteIBAValue(ibaHolder, ibaName);
-
-        // 判断类型 并设置对应的IBA属性
+        // 判断类型 并设置对应的IBA属性 TODO 缺少URL类型和其他的类型
         if (ibaValue instanceof Boolean) {
             ibaHolder = setBooleanIBAValue(ibaHolder, ibaName, ibaValue.toString());
         } else if (ibaValue instanceof String) {
@@ -311,7 +335,6 @@ public class IBAOperationHelper {
             }
             ibaHolder = setTimestampValue(ibaHolder, ibaName, (Timestamp)ibaValue);
         }
-
         if (isUpdateHolder && PersistenceHelper.isPersistent(ibaHolder)) {
             if (updateIBAHolder(ibaHolder)) {
                 return ibaHolder;
