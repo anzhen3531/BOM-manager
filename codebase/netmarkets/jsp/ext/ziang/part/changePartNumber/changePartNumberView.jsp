@@ -4,12 +4,7 @@
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/partclient" prefix="partclient" %>
 <%@ taglib prefix="wctags" tagdir="/WEB-INF/tags" %>
 
-<%@ page import="com.ptc.core.components.descriptor.DescriptorConstants" %>
 <%@ page import="com.ptc.windchill.enterprise.part.PartConstants" %>
-<%@ page import="com.ptc.windchill.enterprise.part.partResource" %>
-<%@ page import="com.ptc.windchill.uwgm.cadx.createecaddesign.documentECADResource" %>
-<%@ page import="com.ptc.core.meta.type.mgmt.server.impl.TypeDomainHelper" %>
-<%@ page import="ext.ziang.common.util.IBAUtils" %>
 <%@ page import="ext.ziang.common.util.ToolUtils" %>
 <%@ page import="wt.fc.Persistable" %>
 <%@ page import="wt.part.WTPart" %>
@@ -19,7 +14,6 @@
 <%@ page import="wt.session.SessionServerHelper" %>
 <%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page import="wt.util.WTException" %>
-<%@ page import="com.ptc.core.lwc.server.LWCStructEnumAttTemplate" %>
 <%@ page import="com.ptc.windchill.csm.client.helpers.CSMTypeDefHelper" %>
 <%@ page import="com.ptc.core.lwc.common.view.TypeDefinitionReadView" %>
 
@@ -68,9 +62,6 @@
     }
     // 获取部件类型 wt.part.WTPart|com.ziang.Panzer|com.ziang.PanzerMaterial
     String typename = "WCTYPE|" + TypedUtility.getTypeIdentifier(part).getTypename();
-    // 获取所有的IBA属性
-    Map<String, Object> allIBAValue = IbaUtil.findAllIBAValue(part);
-    System.out.println("allIBAValue = " + allIBAValue);
 %>
 
 <input type="hidden" id="isInheritClassification" name="isInheritClassification" value="true">
@@ -127,7 +118,6 @@
             SessionServerHelper.manager.setAccessEnforced(accessFlag);
         }
     }
-
 %>
 
 
