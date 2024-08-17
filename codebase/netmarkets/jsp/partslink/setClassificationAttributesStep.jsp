@@ -1,5 +1,4 @@
 <%@page import="com.ptc.windchill.enterprise.part.PartConstants" %>
-<%@ page import="com.ptc.netmarkets.util.beans.NmCommandBean" %>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="ext.ziang.common.util.IbaUtil" %>
 <%@ page import="wt.session.SessionServerHelper" %>
@@ -7,10 +6,12 @@
 <%@ page import="wt.part.WTPart" %>
 <%@ page import="java.util.Map" %>
 <%@ page import="wt.util.WTException" %>
-<%@ page import="org.json.JSONObject" %>
 <%@ page import="ext.ziang.common.helper.attr.ClassificationHelper" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
+<%@ page import="com.alibaba.fastjson.JSONObject" %>
+<%@ page import="java.util.Arrays" %>
+<%@ page import="com.alibaba.fastjson.JSON" %>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/components"
            prefix="jca" %>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/fmt" prefix="fmt" %>
@@ -45,9 +46,7 @@
                     // 通过属性列表查询对应的属性
                     Set<String> classificationAttr = ClassificationHelper.findClassificationAttr(((String) value));
                     System.out.println("classificationAttr = " + classificationAttr);
-                    JSONObject jsonObject = new JSONObject(classificationAttr);
-                    System.out.println("jsonObject = " + jsonObject);
-                    request.setAttribute("classificationAttr", StringEscapeUtils.escapeJson(jsonObject.toJSONString()));
+                    request.setAttribute("classificationAttr", JSON.toJSONString(classificationAttr));
                 }
             }
             Object object = ToolUtils.getObjectByOid(oid);
