@@ -56,6 +56,7 @@
                 Map<String, Object> allIBAValues = IbaUtil.findAllIBAValue(part);
                 System.out.println("allIBAValues = " + allIBAValues);
                 JSONObject jsonObject = new JSONObject(allIBAValues);
+                System.out.println("jsonObject = " + jsonObject);
                 request.setAttribute("allIBAValues", StringEscapeUtils.escapeJson(jsonObject.toJSONString()));
             }
         } catch (WTException e) {
