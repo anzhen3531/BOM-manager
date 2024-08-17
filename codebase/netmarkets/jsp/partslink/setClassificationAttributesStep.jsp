@@ -87,12 +87,12 @@
         let valueMap = JSON.parse(<%= request.getAttribute("allIBAValues")%>);
         console.log(valueMap)
         // 遍历所有的文本框
-        setTimeout(function () {
-            for (let i = 0; i < keySet.length; i++) {
-                let keySetElement = keySet[i];
-                setClassifyValue(keySetElement, valueMap[keySetElement])
-            }
-        }, 200);
+        // setTimeout(function () {
+        //     for (let i = 0; i < keySet.length; i++) {
+        //         let keySetElement = keySet[i];
+        //         setClassifyValue(keySetElement, valueMap[keySetElement])
+        //     }
+        // }, 200);
     });
 
 
