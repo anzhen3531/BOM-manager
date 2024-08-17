@@ -40,9 +40,11 @@
                 // 获取当前填写的分类的绑定的所有的属性
                 String keyStr = (String) key;
                 Object value = text.get(key);
+                System.out.println("value = " + value);
                 if (keyStr.contains("Classify") && value != null) {
                     // 通过属性列表查询对应的属性
                     Set<String> classificationAttr = ClassificationHelper.findClassificationAttr(((String) value));
+                    System.out.println("classificationAttr = " + classificationAttr);
                     JSONObject jsonObject = new JSONObject(classificationAttr);
                     System.out.println("jsonObject = " + jsonObject);
                     request.setAttribute("classificationAttr", StringEscapeUtils.escapeJson(jsonObject.toJSONString()));
@@ -82,9 +84,9 @@
 
     // 编写设置属性函数
     PTC.onReady(function () {
-        let keySet = JSON.parse(<%= request.getAttribute("classificationAttr")%>);
+        let keySet = JSON.parse("<%= request.getAttribute("classificationAttr")%>");
         console.log(keySet)
-        let valueMap = JSON.parse(<%= request.getAttribute("allIBAValues")%>);
+        let valueMap = JSON.parse("<%= request.getAttribute("allIBAValues")%>");
         console.log(valueMap)
         // 遍历所有的文本框
         // setTimeout(function () {
