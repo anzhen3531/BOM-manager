@@ -47,6 +47,7 @@
                     Set<String> classificationAttr = ClassificationHelper.findClassificationAttr(((String) value));
                     System.out.println("classificationAttr = " + classificationAttr);
                     request.setAttribute("classificationAttr", JSON.toJSONString(classificationAttr));
+                    break;
                 }
             }
             Object object = ToolUtils.getObjectByOid(oid);
