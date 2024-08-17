@@ -23,7 +23,6 @@
 <fmt:setBundle basename="com.ptc.windchill.partslink.partslinkClientResource"/>
 
 <%
-    NmCommandBean commandBean = new NmCommandBean();
     pageContext.setAttribute("isMultipart", PartConstants.RequestParam.Values.MULTIPART_WIZARD_TYPE
             .equals(commandBean.getTextParameter(PartConstants.RequestParam.Names.WIZARD_TYPE)));
     request.setAttribute("enforceClassificationNamingRule", commandBean.getTextParameter("enforceClassificationNamingRule"));
