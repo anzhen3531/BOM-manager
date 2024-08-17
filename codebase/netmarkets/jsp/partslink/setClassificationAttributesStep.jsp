@@ -35,6 +35,7 @@
         try {
             // 获取页面上不部件所有的分类属性
             HashMap text = commandBean.getText();
+            System.out.println("text = " + text);
             for (Object key : text.keySet()) {
                 // 获取当前填写的分类的绑定的所有的属性
                 String keyStr = (String) key;
@@ -43,6 +44,7 @@
                     // 通过属性列表查询对应的属性
                     Set<String> classificationAttr = ClassificationHelper.findClassificationAttr(((String) value));
                     JSONObject jsonObject = new JSONObject(classificationAttr);
+                    System.out.println("jsonObject = " + jsonObject);
                     request.setAttribute("classificationAttr", StringEscapeUtils.escapeJson(jsonObject.toJSONString()));
                 }
             }
@@ -50,6 +52,7 @@
             if (object instanceof WTPart) {
                 WTPart part = (WTPart) object;
                 Map<String, Object> allIBAValues = IbaUtil.findAllIBAValue(part);
+                System.out.println("allIBAValues = " + allIBAValues);
                 JSONObject jsonObject = new JSONObject(allIBAValues);
                 request.setAttribute("allIBAValues", StringEscapeUtils.escapeJson(jsonObject.toJSONString()));
             }
@@ -80,14 +83,16 @@
     // 编写设置属性函数
     PTC.onReady(function () {
         let keySet = JSON.parse(<%= request.getAttribute("classificationAttr")%>);
+        console.log(keySet)
         let valueMap = JSON.parse(<%= request.getAttribute("allIBAValues")%>);
+        console.log(valueMap)
         // 遍历所有的文本框
         setTimeout(function () {
             for (let i = 0; i < keySet.length; i++) {
                 let keySetElement = keySet[i];
                 setClassifyValue(keySetElement, valueMap[keySetElement])
             }
-        }, 20);
+        }, 200);
     });
 
 
