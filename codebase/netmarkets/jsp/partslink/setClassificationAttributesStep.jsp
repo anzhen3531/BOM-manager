@@ -10,13 +10,9 @@
 <%@ page import="java.util.Set" %>
 <%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
 <%@ page import="com.alibaba.fastjson.JSONObject" %>
-<%@ page import="java.util.Arrays" %>
-<%@ page import="com.alibaba.fastjson.JSON" %>
-<%@ taglib uri="http://www.ptc.com/windchill/taglib/components"
-           prefix="jca" %>
+<%@ taglib uri="http://www.ptc.com/windchill/taglib/components" prefix="jca" %>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/mvc" prefix="mvc" %>
 <%@ include file="/netmarkets/jsp/util/begin.jspf" %>
 
@@ -37,12 +33,10 @@
         try {
             // 获取页面上不部件所有的分类属性
             HashMap text = commandBean.getText();
-            System.out.println("text = " + text);
             for (Object key : text.keySet()) {
                 // 获取当前填写的分类的绑定的所有的属性
                 String keyStr = (String) key;
                 Object value = text.get(key);
-                System.out.println("value = " + value);
                 if (keyStr.contains("Classify") && value != null) {
                     // 通过属性列表查询对应的属性
                     Set<String> classificationAttr = ClassificationHelper.findClassificationAttr(((String) value));
@@ -54,9 +48,7 @@
             if (object instanceof WTPart) {
                 WTPart part = (WTPart) object;
                 Map<String, Object> allIBAValues = IbaUtil.findAllIBAValue(part);
-                System.out.println("allIBAValues = " + allIBAValues);
                 JSONObject jsonObject = new JSONObject(allIBAValues);
-                System.out.println("jsonObject = " + jsonObject);
                 request.setAttribute("allIBAValues", StringEscapeUtils.escapeJson(jsonObject.toJSONString()));
             }
         } catch (WTException e) {
