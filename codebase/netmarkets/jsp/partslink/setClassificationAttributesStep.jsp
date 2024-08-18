@@ -31,6 +31,7 @@
     String oid = request.getParameter("oid");
     // 判断ActionName
     String actionName = request.getParameter("actionName");
+    String classificationAttrKeys = "";
     if ("changePart".equals(actionName)) {
         boolean accessFlag = SessionServerHelper.manager.setAccessEnforced(false);
         try {
@@ -45,8 +46,7 @@
                 if (keyStr.contains("Classify") && value != null) {
                     // 通过属性列表查询对应的属性
                     Set<String> classificationAttr = ClassificationHelper.findClassificationAttr(((String) value));
-                    System.out.println("classificationAttr = " + classificationAttr);
-                    request.setAttribute("classificationAttr", JSON.toJSONString(classificationAttr));
+                    classificationAttrKeys = String.join(",", classificationAttr);
                     break;
                 }
             }
@@ -67,7 +67,7 @@
     }
 %>
 
-<input type="hidden" id="classificationAttrKeys" value="">
+<input type="hidden" id="classificationAttrKeys" value="<%=classificationAttrKeys%>>">
 <c:if test="${isMultipart == 'false' && enforceClassificationNamingRule == 'true'}">
     <input type="hidden" name="autoGenName" id="autoGenName"></input>
     <input type="hidden" name="autonameOverrideChecked" id="autonameOverrideChecked" value="false"></input>
@@ -85,8 +85,11 @@
 
     // 编写设置属性函数
     PTC.onReady(function () {
-        let keySet = JSON.parse("<%=request.getAttribute("classificationAttr")%>");
-        console.log(keySet)
+        let value = document.getElementById("classificationAttrKeys").value;
+        let split = value.split( ",");
+        for (let i = 0; i < split.length; i++) {
+            console.log(split[i]);
+        }
         let valueMap = JSON.parse("<%=request.getAttribute("allIBAValues")%>");
         console.log(valueMap)
         // 遍历所有的文本框
