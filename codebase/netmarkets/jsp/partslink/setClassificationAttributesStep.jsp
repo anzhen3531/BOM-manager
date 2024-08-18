@@ -120,9 +120,9 @@
             }
         });
 
-        const texts = document.querySelectorAll('text');
+        const textareas = document.querySelectorAll('textarea');
         // 遍历并打印每个input元素
-        texts.forEach(function (text) {
+        textareas.forEach(function (text) {
             if (text.name.indexOf(key) > -1 && text.type !== "hidden") {
                 text.value = value;
             }
