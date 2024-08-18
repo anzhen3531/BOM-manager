@@ -67,7 +67,7 @@
     }
 %>
 
-<input type="hidden" id="classificationAttrKeys" value="<%=classificationAttrKeys%>>">
+<input type="hidden" id="classificationAttrKeys" value="<%=classificationAttrKeys%>">
 <c:if test="${isMultipart == 'false' && enforceClassificationNamingRule == 'true'}">
     <input type="hidden" name="autoGenName" id="autoGenName"></input>
     <input type="hidden" name="autonameOverrideChecked" id="autonameOverrideChecked" value="false"></input>
