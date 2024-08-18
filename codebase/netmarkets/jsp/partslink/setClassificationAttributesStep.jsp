@@ -86,6 +86,7 @@
     // 编写设置属性函数
     PTC.onReady(function () {
         let value = document.getElementById("classificationAttrKeys").value;
+        console.log(value)
         let split = value.split( ",");
         for (let i = 0; i < split.length; i++) {
             console.log(split[i]);
@@ -93,12 +94,12 @@
         let valueMap = JSON.parse("<%=request.getAttribute("allIBAValues")%>");
         console.log(valueMap)
         // 遍历所有的文本框
-        // setTimeout(function () {
-        //     for (let i = 0; i < keySet.length; i++) {
-        //         let keySetElement = keySet[i];
-        //         setClassifyValue(keySetElement, valueMap[keySetElement])
-        //     }
-        // }, 200);
+        setTimeout(function () {
+            for (let i = 0; i < keySet.length; i++) {
+                let keySetElement = keySet[i];
+                setClassifyValue(keySetElement, valueMap[keySetElement])
+            }
+        }, 200);
     });
 
 
