@@ -76,6 +76,7 @@ public class StandardPickerDataUtility extends DefaultDataUtility {
 	 */
 	private Object createPickerComponent(String componentId, Object obj, ModelContext modelContext) throws WTException {
 		Object localObject = super.getDataValue(componentId, obj, modelContext);
+		// 判断是否是系统默认的数据单元
 		if (localObject instanceof AttributeInputCompositeComponent) {
 			AttributeInputCompositeComponent inputCompositeComponent = (AttributeInputCompositeComponent) localObject;
 			AttributeInputComponent inputComponent = inputCompositeComponent.getValueInputComponent();

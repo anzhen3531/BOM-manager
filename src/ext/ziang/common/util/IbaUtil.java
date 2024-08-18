@@ -55,7 +55,7 @@ public class IbaUtil {
             for (AbstractValueView attributeValue : attributeValues) {
                 // 获取IBA属性
                 AttributeDefDefaultView definition = attributeValue.getDefinition();
-                String name = definition.getName();
+                String name = definition.getLogicalIdentifier().toString();
                 if (CollectionUtils.isNotEmpty(ibaNameList) && !ibaNameList.contains(name)) {
                     continue;
                 }
@@ -65,6 +65,7 @@ public class IbaUtil {
             }
             // 获取当前值
             PersistableAdapter adapter = new PersistableAdapter((Persistable)ibaHolder, null, Locale.CHINA, null);
+            // 注意 load一定需要设置逻辑id
             adapter.load(ibaNames);
             for (String ibaName : ibaNames) {
                 map.put(ibaName, adapter.get(ibaName));
