@@ -87,7 +87,7 @@
     PTC.onReady(function () {
         let value = document.getElementById("classificationAttrKeys").value;
         console.log(value)
-        let split = value.split( ",");
+        let split = value.split(",");
         let valueMap = JSON.parse("<%=request.getAttribute("allIBAValues")%>");
         console.log(valueMap)
         // 遍历所有的文本框
@@ -113,7 +113,11 @@
         // 遍历并打印每个input元素
         inputs.forEach(function (input) {
             if (input.name.indexOf(key) && input.type !== "hidden") {
-                input.value = value;
+                if (input.class === "NumericInputComponent") {
+                    input.value = value.value;
+                } else {
+                    input.value = value;
+                }
             }
         });
 
