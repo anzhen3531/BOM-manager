@@ -85,9 +85,9 @@
 
     // 编写设置属性函数
     PTC.onReady(function () {
-        let keySet = JSON.parse("<%= request.getAttribute("classificationAttr")%>");
+        let keySet = JSON.parse("<%=request.getAttribute("classificationAttr")%>");
         console.log(keySet)
-        let valueMap = JSON.parse("<%= request.getAttribute("allIBAValues")%>");
+        let valueMap = JSON.parse("<%=request.getAttribute("allIBAValues")%>");
         console.log(valueMap)
         // 遍历所有的文本框
         // setTimeout(function () {
