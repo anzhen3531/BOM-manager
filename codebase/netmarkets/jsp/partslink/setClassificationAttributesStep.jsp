@@ -109,16 +109,14 @@
         console.log("key" + key);
         console.log("value" + value);
         // 查询所有的输入框
+        if (isPlainObject(value)){
+            value = value.value;
+        }
         const inputs = document.querySelectorAll('input');
         // 遍历并打印每个input元素
         inputs.forEach(function (input) {
             if (input.name.indexOf(key) && input.type !== "hidden") {
-                console.log("input.class" + input.class)
-                if (input.class === "NumericInputComponent") {
-                    input.value = value.value;
-                } else {
-                    input.value = value;
-                }
+                input.value = value;
             }
         });
 
