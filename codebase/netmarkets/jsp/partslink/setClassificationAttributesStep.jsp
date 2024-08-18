@@ -109,13 +109,13 @@
         console.log("key" + key);
         console.log("value" + value);
         // 查询所有的输入框
-        if (isPlainObject(value)){
+        if (isPlainObject(value)) {
             value = value.value;
         }
         const inputs = document.querySelectorAll('input');
         // 遍历并打印每个input元素
         inputs.forEach(function (input) {
-            if (input.name.indexOf(key) && input.type !== "hidden") {
+            if (input.name.indexOf(key) > -1 && input.type !== "hidden") {
                 input.value = value;
             }
         });
@@ -123,7 +123,7 @@
         const texts = document.querySelectorAll('text');
         // 遍历并打印每个input元素
         texts.forEach(function (text) {
-            if (text.name.indexOf(key) && text.type !== "hidden") {
+            if (text.name.indexOf(key) > -1 && text.type !== "hidden") {
                 text.value = value;
             }
         });
@@ -132,7 +132,7 @@
         const selects = document.querySelectorAll('select');
         // 遍历并打印每个input元素
         selects.forEach(function (select) {
-            if (select.name.indexOf(key) && select.type !== "hidden") {
+            if (select.name.indexOf(key) > -1 && select.type !== "hidden") {
                 select.value = value;
             }
         });
