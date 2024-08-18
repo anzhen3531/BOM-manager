@@ -96,7 +96,7 @@
                 let keySetElement = split[i];
                 setClassifyValue(keySetElement, valueMap[keySetElement])
             }
-        }, 200);
+        }, 20);
     });
 
 
@@ -108,6 +108,7 @@
     function setClassifyValue(key, value) {
         console.log("key" + key);
         console.log("value" + value);
+        console.log("value.value" + value.value);
         // 查询所有的输入框
         const inputs = document.querySelectorAll('input');
         // 遍历并打印每个input元素
@@ -137,5 +138,9 @@
                 select.value = value;
             }
         });
+    }
+
+    function isPlainObject(obj) {
+        return obj instanceof Object && obj.constructor === Object;
     }
 </script>
