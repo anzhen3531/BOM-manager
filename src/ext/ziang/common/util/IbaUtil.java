@@ -1,10 +1,8 @@
 package ext.ziang.common.util;
 
-import com.ptc.core.lwc.server.PersistableAdapter;
 import com.ptc.tml.NewTmlResource;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wt.fc.Persistable;
@@ -77,11 +75,11 @@ public class IbaUtil {
 
     /**
      * 获取所有的IBA属性
-     * 
+     *
      * @param ibaHolder
      * @return
      */
-    public static Map<String, Object> findAllIBAValue(IBAHolder ibaHolder) {
+    public static Map<String, List<Object>> findAllIBAValue(IBAHolder ibaHolder) {
         return findIBAValueByNameList(null, ibaHolder);
     }
 
