@@ -41,42 +41,33 @@ public class IbaUtil {
      * @param ibaHolder IBA属性持有者
      * @return
      */
-    public static Map<String, Object> findIBAValueByNameList(List<String> ibaNameList, IBAHolder ibaHolder) {
-        Map<String, Object> map = new ConcurrentHashMap<>();
+    public static Map<String, List<Object>> findIBAValueByNameList(List<String> ibaNameList, IBAHolder ibaHolder) {
+        Map<String, List<Object>> map = new ConcurrentHashMap<>();
         try {
-            Collection<String> ibaNames = new HashSet<>();
             // 刷新最新的属性和约束条件
             ibaHolder = IBAValueHelper.service.refreshAttributeContainerWithoutConstraints(ibaHolder);
-            //
             DefaultAttributeContainer attributeContainer = (DefaultAttributeContainer)ibaHolder.getAttributeContainer();
-            AbstractValueView[] attributeValues = attributeContainer.getAttributeValues();
-            if (ArrayUtils.isEmpty(attributeValues)) {
+            // 获取所有的属性
+            AttributeDefDefaultView[] attributeDefinitions = attributeContainer.getAttributeDefinitions();
+            if (ArrayUtils.isEmpty(attributeDefinitions)) {
                 return map;
             }
-
-            // 遍历所有的值视图
-            for (AbstractValueView attributeValue : attributeValues) {
-                // 获取IBA属性
-                AttributeDefDefaultView definition = attributeValue.getDefinition();
-                String name = definition.getLogicalIdentifier();
-                String localizedDisplayString = attributeValue.getLocalizedDisplayString();
-                System.out.println("localizedDisplayString = " + localizedDisplayString);
-                String localizedIBAValueDisplayString =
-                    IBAValueUtility.getLocalizedIBAValueDisplayString(attributeValue, Locale.CHINA);
-                System.out.println("localizedIBAValueDisplayString = " + localizedIBAValueDisplayString);
-                if (CollectionUtils.isNotEmpty(ibaNameList) && !ibaNameList.contains(name)) {
+            // 遍历所有的属性
+            for (AttributeDefDefaultView attributeDefinition : attributeDefinitions) {
+                // 通过属性获取值
+                if (CollectionUtils.isNotEmpty(ibaNameList) && ibaNameList.contains(attributeDefinition.getName())) {
                     continue;
                 }
-                if (StringUtils.isNotBlank(name)) {
-                    ibaNames.add(name);
+                AbstractValueView[] attributeValues = attributeContainer.getAttributeValues(attributeDefinition);
+                if (ArrayUtils.isEmpty(attributeValues)) {
+                    map.put(attributeDefinition.getName(), null);
+                    continue;
                 }
-            }
-            // 获取当前值
-            PersistableAdapter adapter = new PersistableAdapter((Persistable)ibaHolder, null, Locale.CHINA, null);
-            // 注意 load一定需要设置逻辑id
-            adapter.load(ibaNames);
-            for (String ibaName : ibaNames) {
-                map.put(ibaName, adapter.get(ibaName));
+                List<Object> valueList = new ArrayList<>(attributeValues.length);
+                for (AbstractValueView attributeValue : attributeValues) {
+                    valueList.add(IBAValueUtility.getLocalizedIBAValueDisplayString(attributeValue, Locale.CHINA));
+                }
+                map.put(attributeDefinition.getName(), valueList);
             }
         } catch (Exception e) {
             log.error("findIBAValueByNameList Exception Message:", e);
