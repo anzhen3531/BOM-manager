@@ -15,6 +15,7 @@ import wt.iba.definition.service.StandardIBADefinitionService;
 import wt.iba.value.AttributeContainer;
 import wt.iba.value.DefaultAttributeContainer;
 import wt.iba.value.IBAHolder;
+import wt.iba.value.IBAValueUtility;
 import wt.iba.value.litevalue.*;
 import wt.iba.value.service.IBAValueDBService;
 import wt.iba.value.service.IBAValueHelper;
@@ -32,6 +33,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class IbaUtil {
     private static final Logger log = LoggerFactory.getLogger(IbaUtil.class);
     private static final String NEWRESOURCE = NewTmlResource.class.getName();
+
     /**
      * 获取所有的IBA属性
      * 
@@ -51,11 +53,17 @@ public class IbaUtil {
             if (ArrayUtils.isEmpty(attributeValues)) {
                 return map;
             }
+
             // 遍历所有的值视图
             for (AbstractValueView attributeValue : attributeValues) {
                 // 获取IBA属性
                 AttributeDefDefaultView definition = attributeValue.getDefinition();
-                String name = definition.getLogicalIdentifier().toString();
+                String name = definition.getLogicalIdentifier();
+                String localizedDisplayString = attributeValue.getLocalizedDisplayString();
+                System.out.println("localizedDisplayString = " + localizedDisplayString);
+                String localizedIBAValueDisplayString =
+                    IBAValueUtility.getLocalizedIBAValueDisplayString(attributeValue, Locale.CHINA);
+                System.out.println("localizedIBAValueDisplayString = " + localizedIBAValueDisplayString);
                 if (CollectionUtils.isNotEmpty(ibaNameList) && !ibaNameList.contains(name)) {
                     continue;
                 }
