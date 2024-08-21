@@ -80,17 +80,7 @@ public class IbaUtil {
      * @param ibaHolder
      * @return
      */
-    public static Map<String, List<Object>> findAllIBAValue(IBAHolder ibaHolder) {
-        return findIBAValueByNameList(null, ibaHolder);
-    }
-
-    /**
-     * 获取所有的IBA属性
-     *
-     * @param ibaHolder
-     * @return
-     */
-    public static Map<String, Object> findAllIBAValue(IBAHolder ibaHolder, boolean isMergeMultipleValued) {
+    public static Map findAllIBAValue(IBAHolder ibaHolder, boolean isMergeMultipleValued) {
         Map<String, Object> result = new HashMap<>();
         Map<String, List<Object>> ibaValueByNameList = findIBAValueByNameList(null, ibaHolder);
         for (Map.Entry<String, List<Object>> entry : ibaValueByNameList.entrySet()) {
@@ -100,7 +90,21 @@ public class IbaUtil {
                 result.put(entry.getKey(), toString);
             }
         }
-        return result;
+        if (isMergeMultipleValued) {
+            return result;
+        } else {
+            return ibaValueByNameList;
+        }
+    }
+
+    /**
+     * 获取所有的IBA属性
+     *
+     * @param ibaHolder
+     * @return
+     */
+    public static Map<String, Object> findAllIBAValue(IBAHolder ibaHolder) {
+        return findAllIBAValue(ibaHolder, false);
     }
 
     /**
