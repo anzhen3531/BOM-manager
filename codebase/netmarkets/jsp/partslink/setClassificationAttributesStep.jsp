@@ -101,10 +101,6 @@
     function setClassifyValue(key, value) {
         console.log("key" + key);
         console.log("value" + value);
-        // 查询所有的输入框
-        if (isPlainObject(value)) {
-            value = value.value;
-        }
         const inputs = document.querySelectorAll('input');
         // 遍历并打印每个input元素
         inputs.forEach(function (input) {
@@ -115,9 +111,7 @@
             }
         });
         let split = value.split(", ");
-        console.log(split)
         const buttons = document.querySelectorAll('button');
-        console.log(buttons)
         buttons.forEach(function (button) {
             if (button.name.indexOf(key) > -1 && button.type !== "hidden") {
                 // 提取函数名称
@@ -131,11 +125,10 @@
             }
         });
 
-        const textareas = document.querySelectorAll('textarea');
-        console.log(textareas)
+        const textAreas = document.querySelectorAll('textarea');
         let i = 0;
         // 遍历并打印每个input元素
-        textareas.forEach(function (text) {
+        textAreas.forEach(function (text) {
             if (text.name.indexOf(key) > -1 && text.type !== "hidden") {
                 text.value = split[i];
                 i += 1;
@@ -150,9 +143,5 @@
                 select.value = value;
             }
         });
-    }
-
-    function isPlainObject(obj) {
-        return obj instanceof Object && obj.constructor === Object;
     }
 </script>
