@@ -10,6 +10,7 @@
 <%@ page import="java.util.Set" %>
 <%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
 <%@ page import="com.alibaba.fastjson.JSONObject" %>
+<%@ page import="java.util.List" %>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/components" prefix="jca" %>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -47,7 +48,7 @@
             Object object = ToolUtils.getObjectByOid(oid);
             if (object instanceof WTPart) {
                 WTPart part = (WTPart) object;
-                Map<String, Object> allIBAValues = IbaUtil.findAllIBAValue(part);
+                Map<String, Object> allIBAValues = IbaUtil.findAllIBAValue(part, true);
                 JSONObject jsonObject = new JSONObject(allIBAValues);
                 request.setAttribute("allIBAValues", StringEscapeUtils.escapeJson(jsonObject.toJSONString()));
             }

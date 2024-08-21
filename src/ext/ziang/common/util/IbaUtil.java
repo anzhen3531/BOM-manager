@@ -24,6 +24,7 @@ import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * IBA操作工具
@@ -34,7 +35,7 @@ public class IbaUtil {
 
     /**
      * 获取所有的IBA属性
-     * 
+     *
      * @param ibaNameList IBA Name
      * @param ibaHolder IBA属性持有者
      * @return
@@ -81,6 +82,25 @@ public class IbaUtil {
      */
     public static Map<String, List<Object>> findAllIBAValue(IBAHolder ibaHolder) {
         return findIBAValueByNameList(null, ibaHolder);
+    }
+
+    /**
+     * 获取所有的IBA属性
+     *
+     * @param ibaHolder
+     * @return
+     */
+    public static Map<String, Object> findAllIBAValue(IBAHolder ibaHolder, boolean isMergeMultipleValued) {
+        Map<String, Object> result = new HashMap<>();
+        Map<String, List<Object>> ibaValueByNameList = findIBAValueByNameList(null, ibaHolder);
+        for (Map.Entry<String, List<Object>> entry : ibaValueByNameList.entrySet()) {
+            List<Object> value = entry.getValue();
+            if (isMergeMultipleValued) {
+                String toString = listToString(value, ", ");
+                result.put(entry.getKey(), toString);
+            }
+        }
+        return result;
     }
 
     /**
@@ -468,5 +488,14 @@ public class IbaUtil {
             log.error("updateIBAHOlder: Couldn't update. " + var5);
             return false;
         }
+    }
+
+    /**
+     *
+     * @param list
+     * @return
+     */
+    public static String listToString(List<Object> list, String symbol) {
+        return list.stream().map(Object::toString).collect(Collectors.joining(symbol));
     }
 }
