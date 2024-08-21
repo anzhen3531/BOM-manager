@@ -104,7 +104,7 @@ public class IbaUtil {
      * @return
      */
     public static Map<String, Object> findAllIBAValue(IBAHolder ibaHolder) {
-        return findAllIBAValue(ibaHolder, false);
+        return findAllIBAValue(ibaHolder, true);
     }
 
     /**
