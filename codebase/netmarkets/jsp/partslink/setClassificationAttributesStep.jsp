@@ -113,13 +113,27 @@
             }
         });
         let split = value.split(", ");
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(function (button) {
+            if (button.name.indexOf(key) > -1 && button.type !== "hidden") {
+                // 提取函数名称
+                const functionName = button.split('(')[0];
+                console.log(functionName)
+                if (functionName.includes("showOneMore")) {
+                    for (let i = 1; i < split.length; i++) {
+                        button.click();
+                    }
+                }
+            }
+        });
+
+
+        const textareas = document.querySelectorAll('textarea');
         for (let i = 0; i < split.length; i++) {
-            const textareas = document.querySelectorAll('textarea');
             // 遍历并打印每个input元素
             textareas.forEach(function (text) {
                 if (text.name.indexOf(key) > -1 && text.type !== "hidden") {
                     text.value = split[i];
-                    showOneMore(split[i]);
                 }
             });
         }
