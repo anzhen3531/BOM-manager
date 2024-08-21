@@ -112,14 +112,18 @@
                 input.value = value;
             }
         });
+        let split = value.split(", ");
+        for (let i = 0; i < split.length; i++) {
+            const textareas = document.querySelectorAll('textarea');
+            // 遍历并打印每个input元素
+            textareas.forEach(function (text) {
+                if (text.name.indexOf(key) > -1 && text.type !== "hidden") {
+                    text.value = split[i];
+                    showOneMore(split[i]);
+                }
+            });
+        }
 
-        const textareas = document.querySelectorAll('textarea');
-        // 遍历并打印每个input元素
-        textareas.forEach(function (text) {
-            if (text.name.indexOf(key) > -1 && text.type !== "hidden") {
-                text.value = value;
-            }
-        });
 
         // 获取输入框
         const selects = document.querySelectorAll('select');
