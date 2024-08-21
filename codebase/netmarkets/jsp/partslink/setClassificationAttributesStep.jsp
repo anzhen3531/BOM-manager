@@ -133,14 +133,14 @@
 
         const textareas = document.querySelectorAll('textarea');
         console.log(textareas)
-        for (let i = 0; i < split.length; i++) {
-            // 遍历并打印每个input元素
-            textareas.forEach(function (text) {
-                if (text.name.indexOf(key) > -1 && text.type !== "hidden") {
-                    text.value = split[i];
-                }
-            });
-        }
+        let i = 0;
+        // 遍历并打印每个input元素
+        textareas.forEach(function (text) {
+            if (text.name.indexOf(key) > -1 && text.type !== "hidden") {
+                text.value = split[i];
+                i += 1;
+            }
+        });
 
         // 获取输入框
         const selects = document.querySelectorAll('select');
