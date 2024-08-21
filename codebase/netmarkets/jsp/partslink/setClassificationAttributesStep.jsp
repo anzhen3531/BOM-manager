@@ -109,11 +109,13 @@
         // 遍历并打印每个input元素
         inputs.forEach(function (input) {
             if (input.name.indexOf(key) > -1 && input.type !== "hidden") {
-                input.value = value;
+                input.value = value.substring(0, value.index(" "));
             }
         });
         let split = value.split(", ");
+        console.log(split)
         const buttons = document.querySelectorAll('button');
+        console.log(buttons)
         buttons.forEach(function (button) {
             if (button.name.indexOf(key) > -1 && button.type !== "hidden") {
                 // 提取函数名称
@@ -127,8 +129,8 @@
             }
         });
 
-
         const textareas = document.querySelectorAll('textarea');
+        console.log(textareas)
         for (let i = 0; i < split.length; i++) {
             // 遍历并打印每个input元素
             textareas.forEach(function (text) {
@@ -137,7 +139,6 @@
                 }
             });
         }
-
 
         // 获取输入框
         const selects = document.querySelectorAll('select');
