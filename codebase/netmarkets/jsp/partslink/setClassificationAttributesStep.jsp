@@ -109,7 +109,9 @@
         // 遍历并打印每个input元素
         inputs.forEach(function (input) {
             if (input.name.indexOf(key) > -1 && input.type !== "hidden") {
-                input.value = value.substring(0, value.index(" "));
+                let s = value.substring(0, value.indexOf(" "));
+                console.log(s)
+                input.value = s;
             }
         });
         let split = value.split(", ");
@@ -119,7 +121,7 @@
         buttons.forEach(function (button) {
             if (button.name.indexOf(key) > -1 && button.type !== "hidden") {
                 // 提取函数名称
-                const functionName = button.split('(')[0];
+                const functionName = button.getAttribute('onclick')
                 console.log(functionName)
                 if (functionName.includes("showOneMore")) {
                     for (let i = 1; i < split.length; i++) {
