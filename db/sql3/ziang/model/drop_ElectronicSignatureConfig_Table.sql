@@ -1,0 +1,1 @@
+exec WTPK.dropTable('ElectronicSignatureConfig')

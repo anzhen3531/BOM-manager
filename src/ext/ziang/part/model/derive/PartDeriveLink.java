@@ -8,11 +8,14 @@ import wt.util.WTException;
 
 /**
  * 建模快速命令
- *<p>
- * ant -f bin/tools.xml class -Dclass.includes=ext/ziang/part/model/*
  * <p>
- * ant -f bin/tools.xml sql_script -Dgen.input=ext.ziang.part.model.*
- *
+ * 遍历Class文件 ant -f bin/tools.xml class -Dclass.includes=ext/ziang/part/model/derive/*
+ * <p>
+ * 生成SQL脚本 ant -f bin/tools.xml sql_script -Dgen.input=ext.ziang.part.model.derive.*
+ * <p>
+ * @ext/ziang/part/model/derive/create_PartDeriveLink_Table.sql
+ * <p>
+ * @ext/ziang/part/model/derive/create_PartDeriveLink_Index.sql
  */
 // @formatter:off
 @GenAsBinaryLink(
