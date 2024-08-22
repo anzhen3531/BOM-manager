@@ -29,7 +29,7 @@
     // 判断ActionName
     String actionName = request.getParameter("actionName");
     String classificationAttrKeys = "";
-    if ("changePart".equals(actionName)) {
+    if ("derivedPart".equals(actionName)) {
         boolean accessFlag = SessionServerHelper.manager.setAccessEnforced(false);
         try {
             // 获取页面上不部件所有的分类属性
