@@ -131,7 +131,7 @@
         console.log(textAreas)
         let i = 0;
         // 遍历并打印每个input元素
-        textareas.forEach(function (text) {
+        textAreas.forEach(function (text) {
             if (text.name.indexOf(key) > -1 && text.type !== "hidden") {
                 text.value = split[i];
                 i += 1;
