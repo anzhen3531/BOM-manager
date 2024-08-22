@@ -2,26 +2,12 @@
 <!DOCTYPE listofactions SYSTEM 'actions.dtd'>
 <listofactions>
 
-    <objecttype name="extPart" resourceBundle="ext.ziang.resource.CommonActionResource">
+    <objecttype name="extPart" resourceBundle="ext.ziang.part.resource.PartResource">
         <!--开启日志-->
         <action name="derivedPart" uicomponent="CREATE_PART" ajax="row">
             <command method="execute"
                      class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor"
-                     url="/netmarkets/jsp/ext/ziang/derived/createPartWizard.jsp"
-                     windowType="popup"/>
-        </action>
-
-        <!--另存为超级BOM-->
-        <action name="copySuperBom" ajax="component" selectRequired="true">
-            <command class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor" method="execute"
-                     windowType="popup"
-                     url="/netmarkets/jsp/ext/ziang/derived/superBomChangeNumber.jsp"/>
-        </action>
-
-        <action name="changePart" uicomponent="CREATE_PART" ajax="row">
-            <command method="execute"
-                     class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor"
-                     url="/netmarkets/jsp/ext/ziang/part/changePartNumber/changePartNumber.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
+                     url="/netmarkets/jsp/ext/ziang/derived/derivedPart.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
                      windowType="popup"/>
         </action>
     </objecttype>

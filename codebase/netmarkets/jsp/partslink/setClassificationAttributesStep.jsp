@@ -111,7 +111,9 @@
             }
         });
         let split = value.split(", ");
+        console.log(split)
         const buttons = document.querySelectorAll('button');
+        console.log(buttons)
         buttons.forEach(function (button) {
             if (button.name.indexOf(key) > -1 && button.type !== "hidden") {
                 // 提取函数名称
@@ -126,9 +128,10 @@
         });
 
         const textAreas = document.querySelectorAll('textarea');
+        console.log(textAreas)
         let i = 0;
         // 遍历并打印每个input元素
-        textAreas.forEach(function (text) {
+        textareas.forEach(function (text) {
             if (text.name.indexOf(key) > -1 && text.type !== "hidden") {
                 text.value = split[i];
                 i += 1;
