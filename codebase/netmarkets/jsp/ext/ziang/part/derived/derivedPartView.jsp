@@ -201,6 +201,14 @@
 
     // 页面一启动加载相关的函数
     PTC.onReady(function () {
+        let button = document.getElementById("createCADDocForPart");
+        // 提取函数名称
+        const functionName = button.getAttribute('onclick')
+        console.log(functionName)
+        if (functionName.includes("toggleCreateCADDocStep")) {
+            button.click();
+        }
+
         // 在属性表格加载之后通过js函数进行二次加载并将当前对象的属性赋值到相关对象中
         PTC.attributePanel.on("afterRender", function () {
             // 新增相关属性
