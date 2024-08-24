@@ -201,14 +201,6 @@
 
     // 页面一启动加载相关的函数
     PTC.onReady(function () {
-        let button = document.getElementById("createCADDocForPart");
-        // 提取函数名称
-        const functionName = button.getAttribute('onclick')
-        console.log(functionName)
-        if (functionName.includes("toggleCreateCADDocStep")) {
-            button.click();
-        }
-
         // 在属性表格加载之后通过js函数进行二次加载并将当前对象的属性赋值到相关对象中
         PTC.attributePanel.on("afterRender", function () {
             // 新增相关属性
@@ -229,7 +221,6 @@
                         if (input.name.indexOf('Classify') > -1 && input.name.indexOf('Classify~~NEW') > -1
                             && input.name.indexOf('+null___textboxAltField') === -1) {
                             if (input.type === "hidden") {
-                                //alert('1:input.value=:' + input.value + " input.name=" + input.name);
                                 // 分类内部名称
                                 input.value = '<%=classification%>';
                             }
@@ -237,7 +228,6 @@
                         if (input.name.indexOf('Classify') > -1
                             && input.name.indexOf('~objectHandle~partHandle~!_col_Classify___textbox') > -1) {
                             if (input.type === "text") {
-                                //alert('2:input.value=:'+input.value + " input.name=" + input.name);
                                 // 分类显示名称
                                 input.value = '<%=classificationDisplayName%>';
                             }
