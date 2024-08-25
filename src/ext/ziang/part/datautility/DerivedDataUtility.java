@@ -18,7 +18,8 @@ import wt.util.WTException;
  */
 public class DerivedDataUtility extends DefaultDataUtility {
     @Override
-    public Object getDataValue(String column, Object currentObj, ModelContext modelContext) throws WTException {
+    public Object getDataValue(String column, Object currentObj, ModelContext modelContext) {
+        System.out.println("column = " + column + ", currentObj = " + currentObj + ", modelContext = " + modelContext);
         TextDisplayComponent textDisplayComponent = new TextDisplayComponent(column);
         // 设置衍生料号字段和衍生出的料号字段
         // 设置状态等信息
