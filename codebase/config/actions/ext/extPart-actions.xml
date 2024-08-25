@@ -10,5 +10,12 @@
                      url="/netmarkets/jsp/ext/ziang/part/derived/derivedPart.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
                      windowType="popup"/>
         </action>
+
+
+        <!--开启日志-->
+        <action name="derivedPartTab" uicomponent="CREATE_PART" ajax="row">
+            <command url="/netmarkets/jsp/ext/ziang/part/derived/"
+                     windowType="popup"/>
+        </action>
     </objecttype>
 </listofactions>

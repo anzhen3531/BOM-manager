@@ -11,4 +11,5 @@ http://www.ptc.com/schema/mvc http://www.ptc.com/schema/mvc/mvc-10.0.xsd">
     <!-- Configurations in this file override all other configurations -->
     <mvc:builder-scan base-package="ext.ziang"/>
 
+
 </beans>
