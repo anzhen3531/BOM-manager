@@ -13,6 +13,9 @@
 
         <Option serviceClass="ext.ziang.part.datautility.AttributeDataUtility"
                 requestor="null" selector="AttributeDataUtility" cardinality="singleton"/>
+
+        <Option serviceClass="ext.ziang.part.datautility.DerivedDataUtility"
+                requestor="null" selector="DerivedDataUtility" cardinality="singleton"/>
     </Service>
 
 

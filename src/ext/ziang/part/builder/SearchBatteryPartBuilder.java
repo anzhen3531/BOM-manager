@@ -15,7 +15,6 @@ import com.ptc.netmarkets.util.beans.NmHelperBean;
 
 import wt.util.WTException;
 
-@ComponentBuilder("ext.trinasolar.eccb.builder.SearchBatteryPartBuilder")
 public class SearchBatteryPartBuilder extends AbstractComponentBuilder {
 	/**
 	 * 构建组件配置

@@ -19,7 +19,6 @@ import wt.util.WTException;
  * @author anzhen
  * @date 2024/04/16
  */
-@ComponentBuilder("ext.trinasolar.eccb.builder.SearchBatteryConditionBuilder")
 public class SearchBatteryConditionBuilder extends AbstractComponentBuilder {
 
 	public SearchBatteryConditionBuilder() {
