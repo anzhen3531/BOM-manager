@@ -4,12 +4,6 @@
     <!--  原料申请相关信息	-->
     <Service context="default" name="com.ptc.core.components.descriptor.DataUtility"
              targetFile="codebase/service.properties">
-
-        <Option serviceClass="ext.ziang.doc.sign.datautility.ElectronicSignatureConfigUtility"
-                requestor="null" selector="ElectronicSignatureConfigUtility" cardinality="singleton"/>
-
-        <Option serviceClass="ext.ziang.doc.datautility.ValidateDocPrimaryContentDataUtility"
-                requestor="null" selector="ValidateDocPrimaryContentDataUtility" cardinality="singleton"/>
         <!-- 修改BOM -->
         <Option serviceClass="ext.ziang.change.datautility.CorrectBomDataUtility"
                 requestor="null" selector="CorrectBomDataUtility" cardinality="singleton"/>

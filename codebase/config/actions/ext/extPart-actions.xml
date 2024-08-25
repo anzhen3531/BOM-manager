@@ -6,7 +6,7 @@
         <!--开启日志-->
         <action name="derivedPart" uicomponent="CREATE_PART" ajax="row">
             <command method="execute"
-                     class="ext.ziang.part.process.ExtCreatePartAndCADDocFormProcessor"
+                     class="ext.ziang.part.process.DerivedPartProcessor"
                      url="/netmarkets/jsp/ext/ziang/part/derived/derivedPart.jsp?revisionMode=create&amp;showNewCADDocStep=true&amp;hideAssociatePart=true"
                      windowType="popup"/>
         </action>
