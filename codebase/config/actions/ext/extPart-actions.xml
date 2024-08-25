@@ -14,7 +14,7 @@
 
         <!--开启日志-->
         <action name="derivedPartTab" uicomponent="CREATE_PART" ajax="row">
-            <command url="/netmarkets/jsp/ext/ziang/part/derived/"
+            <command url="/netmarkets/jsp/ext/ziang/part/derived/derivedPartTab.jsp"
                      windowType="popup"/>
         </action>
     </objecttype>
