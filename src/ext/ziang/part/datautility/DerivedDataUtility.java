@@ -7,6 +7,7 @@ import com.ptc.core.components.rendering.guicomponents.GUIComponentArray;
 import com.ptc.core.components.rendering.guicomponents.TextDisplayComponent;
 import ext.ziang.part.builder.DerivedPartBuilder;
 import ext.ziang.part.entity.DerivedPartLinkInfo;
+import ext.ziang.part.model.derive.PartDeriveLink;
 import wt.util.WTException;
 
 /**
@@ -21,23 +22,23 @@ public class DerivedDataUtility extends DefaultDataUtility {
         TextDisplayComponent textDisplayComponent = new TextDisplayComponent(column);
         // 设置衍生料号字段和衍生出的料号字段
         // 设置状态等信息
-        if (currentObj instanceof DerivedPartLinkInfo) {
-            DerivedPartLinkInfo derivedPartLinkInfo = (DerivedPartLinkInfo)currentObj;
+        if (currentObj instanceof PartDeriveLink) {
+            PartDeriveLink link = (PartDeriveLink)currentObj;
             switch (column) {
                 case DerivedPartBuilder.DERIVED_FOR_NAME:
-                    textDisplayComponent.setValue(derivedPartLinkInfo.getDerivedForName());
+                    textDisplayComponent.setValue(link.getDeriveFor().getName());
                     break;
                 case DerivedPartBuilder.DERIVED_FOR_NUMBER:
-                    textDisplayComponent.setValue(derivedPartLinkInfo.getDerivedForNumber());
+                    textDisplayComponent.setValue(link.getDeriveFor().getNumber());
                     break;
                 case DerivedPartBuilder.DERIVES_NUMBER:
-                    textDisplayComponent.setValue(derivedPartLinkInfo.getDerivesNumber());
+                    textDisplayComponent.setValue(link.getDerives().getNumber());
                     break;
                 case DerivedPartBuilder.DERIVES_NAME:
-                    textDisplayComponent.setValue(derivedPartLinkInfo.getDerivesName());
+                    textDisplayComponent.setValue(link.getDerives().getName());
                     break;
                 case DerivedPartBuilder.STATE:
-                    textDisplayComponent.setValue(derivedPartLinkInfo.getState());
+                    textDisplayComponent.setValue(link.getState());
                     break;
             }
         }

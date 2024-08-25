@@ -59,9 +59,9 @@ public class DerivedPartBuilder extends AbstractComponentBuilder {
         NmCommandBean nmCommandBean = ((JcaComponentParams)componentParams).getHelperBean().getNmCommandBean();
         Object refObject = nmCommandBean.getPrimaryOid().getRefObject();
         if (refObject instanceof WTPart) {
-            WTPart wtPart = (WTPart) refObject;
-            return convertBean(PersistenceHelper.manager.navigate(wtPart.getMaster(),
-                    PartDeriveLink.DERIVES_ROLE, PartDeriveLink.class, false));
+            WTPart wtPart = (WTPart)refObject;
+            return PersistenceHelper.manager.navigate(wtPart.getMaster(), PartDeriveLink.DERIVES_ROLE,
+                PartDeriveLink.class, false);
         }
         return null;
     }
