@@ -196,6 +196,7 @@
         <!--  Change  -->
         <submodel name="history"/>
         <!--  History  -->
+        <submodel name="customOption"/>
         <submodel name="collaboration"/>
         <!--  Collaboration  -->
         <submodel name="prodAnalytics"/>
@@ -209,7 +210,7 @@
     </model>
 
 
-    <model name="custom-option">
+    <model name="customOption">
         <action name="derivedPartTab" type="extPart"/>
     </model>
 
