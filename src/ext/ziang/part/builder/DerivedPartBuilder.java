@@ -10,6 +10,7 @@ import ext.ziang.part.model.derive.PartDeriveLink;
 import wt.fc.Persistable;
 import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
+import wt.part.WTPart;
 import wt.part.WTPartMaster;
 import wt.util.WTException;
 
@@ -56,9 +57,13 @@ public class DerivedPartBuilder extends AbstractComponentBuilder {
         throws Exception {
 
         NmCommandBean nmCommandBean = ((JcaComponentParams)componentParams).getHelperBean().getNmCommandBean();
-        NmOid primaryOid = nmCommandBean.getPrimaryOid();
-        return convertBean(PersistenceHelper.manager.navigate((Persistable)primaryOid.getRefObject(),
-            PartDeriveLink.DERIVES_ROLE, PartDeriveLink.class, false));
+        Object refObject = nmCommandBean.getPrimaryOid().getRefObject();
+        if (refObject instanceof WTPart) {
+            WTPart wtPart = (WTPart) refObject;
+            return convertBean(PersistenceHelper.manager.navigate(wtPart.getMaster(),
+                    PartDeriveLink.DERIVES_ROLE, PartDeriveLink.class, false));
+        }
+        return null;
     }
 
     /**
