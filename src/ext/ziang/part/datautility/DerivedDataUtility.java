@@ -25,6 +25,7 @@ public class DerivedDataUtility extends DefaultDataUtility {
         // 设置状态等信息
         if (currentObj instanceof PartDeriveLink) {
             PartDeriveLink link = (PartDeriveLink)currentObj;
+            System.out.println("link = " + link);
             switch (column) {
                 case DerivedPartBuilder.DERIVED_FOR_NAME:
                     textDisplayComponent.setValue(link.getDeriveFor().getName());
