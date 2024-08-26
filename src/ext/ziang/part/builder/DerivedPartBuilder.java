@@ -41,10 +41,10 @@ public class DerivedPartBuilder extends AbstractComponentBuilder {
         // 设置展示数量
         result.setShowCount(true);
         result.setConfigurable(true);
-        createNewColumnConfig(DERIVED_FOR_NUMBER, result, factory, true);
-        createNewColumnConfig(DERIVED_FOR_NAME, result, factory, true);
-        createNewColumnConfig(DERIVES_NUMBER, result, factory, true);
-        createNewColumnConfig(DERIVES_NAME, result, factory, true);
+        createNewColumnConfig(DERIVED_FOR_NUMBER, "验证源物料编号", result, factory, true);
+        createNewColumnConfig(DERIVED_FOR_NAME, "验证源物料名称", result, factory, true);
+        createNewColumnConfig(DERIVES_NUMBER, "验证物料编号", result, factory, true);
+        createNewColumnConfig(DERIVES_NAME, "验证物料名称", result, factory, true);
         createNewColumnConfig(STATE, result, factory, true);
         createNewColumnConfig("creator", result, factory, false);
         createNewColumnConfig("modifier", result, factory, false);
@@ -74,13 +74,26 @@ public class DerivedPartBuilder extends AbstractComponentBuilder {
      * @param result 结果
      * @param factory 厂
      */
-    public static void createNewColumnConfig(String columnConfigName, TableConfig result,
+    public static void createNewColumnConfig(String columnConfigName, String displayName, TableConfig result,
         ComponentConfigFactory factory, boolean flag) {
-        ColumnConfig modifyStamp = factory.newColumnConfig(columnConfigName, true);
+        ColumnConfig modifyStamp = factory.newColumnConfig(columnConfigName, displayName, true);
         modifyStamp.setVariableHeight(true);
         if (flag) {
             modifyStamp.setDataUtilityId("derivedDataUtility");
         }
         result.addComponent(modifyStamp);
     }
+
+    /**
+     * 创建新列配置
+     *
+     * @param columnConfigName 列配置名称
+     * @param result 结果
+     * @param factory 厂
+     */
+    public static void createNewColumnConfig(String columnConfigName, TableConfig result,
+        ComponentConfigFactory factory, boolean flag) {
+        createNewColumnConfig(columnConfigName, null, result, factory, flag);
+    }
+
 }
