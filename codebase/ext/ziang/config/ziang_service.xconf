@@ -6,17 +6,7 @@
               targetFile="codebase/wt.properties"
               default="ext/ziang/config/properties/custom_dataUtilities.properties"/>
 
-    <!--  原料申请相关信息	-->
-    <Service context="default" name="com.ptc.core.components.descriptor.DataUtility"
-             targetFile="codebase/service.properties">
-        <!-- 修改BOM -->
-        <Option serviceClass="ext.ziang.change.datautility.CorrectBomDataUtility"
-                requestor="null" selector="CorrectBomDataUtility" cardinality="singleton"/>
-
-        <Option serviceClass="ext.ziang.part.datautility.StandardPickerDataUtility"
-                requestor="null" selector="StandardPickerDataUtility" cardinality="singleton"/>
-    </Service>
-
+    
 
     <!-- 文档相关配置 -->
     <Property name="ext.ziang.user.rest.account"

@@ -7,7 +7,6 @@ import com.ptc.netmarkets.util.beans.NmCommandBean;
 import ext.ziang.part.model.derive.PartDeriveLink;
 import wt.fc.PersistenceHelper;
 import wt.part.WTPart;
-import wt.util.WTException;
 
 /**
  * 验证料号列表
@@ -22,7 +21,7 @@ public class PartDerivedBuilder extends AbstractComponentBuilder {
     public static final String STATE = "state";
 
     @Override
-    public ComponentConfig buildComponentConfig(ComponentParams componentParams) throws WTException {
+    public ComponentConfig buildComponentConfig(ComponentParams componentParams) {
         // 获取组件配置工厂
         ComponentConfigFactory factory = getComponentConfigFactory();
         TableConfig result = factory.newTableConfig();
