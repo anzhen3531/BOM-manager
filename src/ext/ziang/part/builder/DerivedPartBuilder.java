@@ -10,6 +10,7 @@ import ext.ziang.part.model.derive.PartDeriveLink;
 import wt.fc.Persistable;
 import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
+import wt.org.WTPrincipalReference;
 import wt.part.WTPart;
 import wt.part.WTPartMaster;
 import wt.util.WTException;
@@ -64,32 +65,6 @@ public class DerivedPartBuilder extends AbstractComponentBuilder {
                 PartDeriveLink.class, false);
         }
         return null;
-    }
-
-    /**
-     * 将查询数据转换Bean对象
-     * 
-     * @param navigate 查询结果
-     * @return bean对象结集合
-     * @throws WTException 设置oid异常
-     */
-    private List<DerivedPartLinkInfo> convertBean(QueryResult navigate) throws WTException {
-        List<DerivedPartLinkInfo> infos = new ArrayList<>(navigate.size());
-        while (navigate.hasMoreElements()) {
-            PartDeriveLink partDeriveLink = (PartDeriveLink)navigate.nextElement();
-            DerivedPartLinkInfo info = new DerivedPartLinkInfo();
-            WTPartMaster derives = partDeriveLink.getDerives();
-            WTPartMaster deriveFor = partDeriveLink.getDeriveFor();
-            String state = partDeriveLink.getState();
-            info.setDerivedForName(deriveFor.getName());
-            info.setDerivedForNumber(deriveFor.getNumber());
-            info.setDerivesName(derives.getName());
-            info.setDerivesNumber(derives.getNumber());
-            info.setState(state);
-            info.setOid(PersistenceHelper.getObjectIdentifier(partDeriveLink));
-            infos.add(info);
-        }
-        return infos;
     }
 
     /**

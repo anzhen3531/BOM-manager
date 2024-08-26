@@ -2,13 +2,11 @@ package ext.ziang.part.datautility;
 
 import com.ptc.core.components.descriptor.ModelContext;
 import com.ptc.core.components.factory.dataUtilities.DefaultDataUtility;
-
 import com.ptc.core.components.rendering.guicomponents.GUIComponentArray;
 import com.ptc.core.components.rendering.guicomponents.TextDisplayComponent;
+
 import ext.ziang.part.builder.DerivedPartBuilder;
-import ext.ziang.part.entity.DerivedPartLinkInfo;
 import ext.ziang.part.model.derive.PartDeriveLink;
-import wt.util.WTException;
 
 /**
  * 派生数据实用程序
