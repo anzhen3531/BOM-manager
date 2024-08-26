@@ -2,27 +2,18 @@ package ext.ziang.part.builder;
 
 import com.ptc.jca.mvc.components.JcaComponentParams;
 import com.ptc.mvc.components.*;
-import com.ptc.netmarkets.model.NmOid;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
 
-import ext.ziang.part.entity.DerivedPartLinkInfo;
 import ext.ziang.part.model.derive.PartDeriveLink;
-import wt.fc.Persistable;
 import wt.fc.PersistenceHelper;
-import wt.fc.QueryResult;
-import wt.org.WTPrincipalReference;
 import wt.part.WTPart;
-import wt.part.WTPartMaster;
 import wt.util.WTException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 验证料号列表
  */
-@ComponentBuilder("ext.ziang.part.builder.DerivedPartBuilder")
-public class DerivedPartBuilder extends AbstractComponentBuilder {
+@ComponentBuilder("ext.ziang.part.builder.PartDerivedBuilder")
+public class PartDerivedBuilder extends AbstractComponentBuilder {
 
     public static final String DERIVED_FOR_NAME = "derivedForName";
     public static final String DERIVED_FOR_NUMBER = "derivedForNumber";
@@ -76,12 +67,13 @@ public class DerivedPartBuilder extends AbstractComponentBuilder {
      */
     public static void createNewColumnConfig(String columnConfigName, String displayName, TableConfig result,
         ComponentConfigFactory factory, boolean flag) {
-        ColumnConfig modifyStamp = factory.newColumnConfig(columnConfigName, displayName, true);
-        modifyStamp.setVariableHeight(true);
+        ColumnConfig columnConfig = factory.newColumnConfig(columnConfigName, displayName, true);
+        columnConfig.setVariableHeight(true);
+        columnConfig.setSortable(true);
         if (flag) {
-            modifyStamp.setDataUtilityId("derivedDataUtility");
+            columnConfig.setDataUtilityId("partDerivedDataUtility");
         }
-        result.addComponent(modifyStamp);
+        result.addComponent(columnConfig);
     }
 
     /**

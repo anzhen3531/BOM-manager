@@ -5,7 +5,7 @@ import com.ptc.core.components.factory.dataUtilities.DefaultDataUtility;
 import com.ptc.core.components.rendering.guicomponents.GUIComponentArray;
 import com.ptc.core.components.rendering.guicomponents.TextDisplayComponent;
 
-import ext.ziang.part.builder.DerivedPartBuilder;
+import ext.ziang.part.builder.PartDerivedBuilder;
 import ext.ziang.part.model.derive.PartDeriveLink;
 
 /**
@@ -14,7 +14,7 @@ import ext.ziang.part.model.derive.PartDeriveLink;
  * @author anzhen
  * @date 2024/08/25
  */
-public class DerivedDataUtility extends DefaultDataUtility {
+public class PartDerivedDataUtility extends DefaultDataUtility {
     @Override
     public Object getDataValue(String column, Object currentObj, ModelContext modelContext) {
         System.out.println("column = " + column + ", currentObj = " + currentObj + ", modelContext = " + modelContext);
@@ -25,19 +25,19 @@ public class DerivedDataUtility extends DefaultDataUtility {
             PartDeriveLink link = (PartDeriveLink)currentObj;
             System.out.println("link = " + link);
             switch (column) {
-                case DerivedPartBuilder.DERIVED_FOR_NAME:
+                case PartDerivedBuilder.DERIVED_FOR_NAME:
                     textDisplayComponent.setValue(link.getDeriveFor().getName());
                     break;
-                case DerivedPartBuilder.DERIVED_FOR_NUMBER:
+                case PartDerivedBuilder.DERIVED_FOR_NUMBER:
                     textDisplayComponent.setValue(link.getDeriveFor().getNumber());
                     break;
-                case DerivedPartBuilder.DERIVES_NUMBER:
+                case PartDerivedBuilder.DERIVES_NUMBER:
                     textDisplayComponent.setValue(link.getDerives().getNumber());
                     break;
-                case DerivedPartBuilder.DERIVES_NAME:
+                case PartDerivedBuilder.DERIVES_NAME:
                     textDisplayComponent.setValue(link.getDerives().getName());
                     break;
-                case DerivedPartBuilder.STATE:
+                case PartDerivedBuilder.STATE:
                     textDisplayComponent.setValue(link.getState());
                     break;
             }

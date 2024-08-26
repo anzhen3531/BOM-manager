@@ -6,7 +6,7 @@
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
 
 <div>
-    <jsp:include page="${mvc:getComponentURL('ext.ziang.part.builder.DerivedPartBuilder')}" flush="true"/>
+    <jsp:include page="${mvc:getComponentURL('ext.ziang.part.builder.PartDerivedBuilder')}" flush="true"/>
 </div>
 
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
