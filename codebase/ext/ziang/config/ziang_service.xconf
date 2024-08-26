@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE Configuration SYSTEM "xconf.dtd">
 <Configuration>
+    <!--    添加自定义配置文件-->
+    <Property name="wt.services.application.context.WTServiceProviderFromProperties.customPropertyFiles"
+              targetFile="codebase/wt.properties"
+              default="ext/ziang/config/properties/custom_dataUtilities.properties"/>
+
     <!--  原料申请相关信息	-->
     <Service context="default" name="com.ptc.core.components.descriptor.DataUtility"
              targetFile="codebase/service.properties">
@@ -10,12 +15,6 @@
 
         <Option serviceClass="ext.ziang.part.datautility.StandardPickerDataUtility"
                 requestor="null" selector="StandardPickerDataUtility" cardinality="singleton"/>
-
-        <Option serviceClass="ext.ziang.part.datautility.AttributeDataUtility"
-                requestor="null" selector="AttributeDataUtility" cardinality="singleton"/>
-
-        <Option serviceClass="ext.ziang.part.datautility.DerivedDataUtility"
-                requestor="null" selector="DerivedDataUtility" cardinality="singleton"/>
     </Service>
 
 
@@ -37,11 +36,11 @@
                 serviceClass="ext.ziang.part.suggestable.StandardPartPickerSuggestable"/>
     </Service>
 
-
     <Service context="default" name="com.ptc.core.components.beans.TreeHandler"
              targetFile="codebase/service.properties">
         <Option requestor="null" selector="CorrectBomBuilderHandler"
                 serviceClass="ext.ziang.change.handler.CorrectBomBuilderHandler"
                 cardinality="singleton"/>
     </Service>
+
 </Configuration>

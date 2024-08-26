@@ -79,7 +79,7 @@ public class DerivedPartBuilder extends AbstractComponentBuilder {
         ColumnConfig modifyStamp = factory.newColumnConfig(columnConfigName, true);
         modifyStamp.setVariableHeight(true);
         if (flag) {
-            modifyStamp.setDataUtilityId("DerivedDataUtility");
+            modifyStamp.setDataUtilityId("derivedDataUtility");
         }
         result.addComponent(modifyStamp);
     }
