@@ -5,7 +5,6 @@
     <Property name="wt.services.application.context.WTServiceProviderFromProperties.customPropertyFiles"
               targetFile="codebase/wt.properties"
               default="ext/ziang/config/properties/custom_dataUtilities.properties"/>
-
     
 
     <!-- 文档相关配置 -->
@@ -13,16 +12,15 @@
               targetFile="codebase/com/ptc/windchill/rest/rest.properties"
               default="ext.ziang.part.rest.PartRestController"/>
 
+
     <Property name="ext.ziang.rest.partRest"
               targetFile="codebase/com/ptc/windchill/rest/rest.properties"
               default="ext.ziang.user.rest.AccountController"/>
 
-
     <Service context="default" name="com.ptc.core.components.suggest.Suggestable"
              targetFile="codebase/service.properties">
-        <Option cardinality="singleton"
-                selector="StandardPartPickerSuggestable"
-                requestor="null"
+
+        <Option cardinality="singleton" selector="StandardPartPickerSuggestable" requestor="null"
                 serviceClass="ext.ziang.part.suggestable.StandardPartPickerSuggestable"/>
     </Service>
 

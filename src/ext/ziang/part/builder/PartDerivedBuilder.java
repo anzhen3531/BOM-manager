@@ -31,15 +31,15 @@ public class PartDerivedBuilder extends AbstractComponentBuilder {
         // 设置展示数量
         result.setShowCount(true);
         result.setConfigurable(true);
-        createNewColumnConfig(DERIVED_FOR_NUMBER, "验证源物料编号", result, factory, true);
-        createNewColumnConfig(DERIVED_FOR_NAME, "验证源物料名称", result, factory, true);
-        createNewColumnConfig(DERIVES_NUMBER, "验证物料编号", result, factory, true);
-        createNewColumnConfig(DERIVES_NAME, "验证物料名称", result, factory, true);
-        createNewColumnConfig(STATE, result, factory, true);
-        createNewColumnConfig("creator", result, factory, false);
-        createNewColumnConfig("modifier", result, factory, false);
-        createNewColumnConfig("thePersistInfo.createStamp", result, factory, false);
-        createNewColumnConfig("thePersistInfo.modifyStamp", result, factory, false);
+        createNewColumnConfig(DERIVED_FOR_NUMBER, "验证源物料编号", result, factory);
+        createNewColumnConfig(DERIVED_FOR_NAME, "验证源物料名称", result, factory);
+        createNewColumnConfig(DERIVES_NUMBER, "验证物料编号", result, factory);
+        createNewColumnConfig(DERIVES_NAME, "验证物料名称", result, factory);
+        createNewColumnConfig(STATE, result, factory);
+        createNewColumnConfig("creator", result, factory);
+        createNewColumnConfig("modifier", result, factory);
+        createNewColumnConfig("thePersistInfo.createStamp", result, factory);
+        createNewColumnConfig("thePersistInfo.modifyStamp", result, factory);
         return result;
     }
 
@@ -65,13 +65,11 @@ public class PartDerivedBuilder extends AbstractComponentBuilder {
      * @param factory 厂
      */
     public static void createNewColumnConfig(String columnConfigName, String displayName, TableConfig result,
-        ComponentConfigFactory factory, boolean flag) {
+        ComponentConfigFactory factory) {
         ColumnConfig columnConfig = factory.newColumnConfig(columnConfigName, displayName, true);
         columnConfig.setVariableHeight(true);
         columnConfig.setSortable(true);
-        if (flag) {
-            columnConfig.setDataUtilityId("partDerivedDataUtility");
-        }
+        columnConfig.setDataUtilityId("partDerivedDataUtility");
         result.addComponent(columnConfig);
     }
 
@@ -83,8 +81,8 @@ public class PartDerivedBuilder extends AbstractComponentBuilder {
      * @param factory 厂
      */
     public static void createNewColumnConfig(String columnConfigName, TableConfig result,
-        ComponentConfigFactory factory, boolean flag) {
-        createNewColumnConfig(columnConfigName, null, result, factory, flag);
+        ComponentConfigFactory factory) {
+        createNewColumnConfig(columnConfigName, null, result, factory);
     }
 
 }
