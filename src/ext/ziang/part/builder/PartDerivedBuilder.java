@@ -31,13 +31,11 @@ public class PartDerivedBuilder extends AbstractComponentBuilder {
         // 设置展示数量
         result.setShowCount(true);
         result.setConfigurable(true);
-        createNewColumnConfig(DERIVED_FOR_NUMBER, "验证源物料编号", result, factory);
-        createNewColumnConfig(DERIVED_FOR_NAME, "验证源物料名称", result, factory);
-        createNewColumnConfig(DERIVES_NUMBER, "验证物料编号", result, factory);
-        createNewColumnConfig(DERIVES_NAME, "验证物料名称", result, factory);
+        createNewColumnConfig(DERIVED_FOR_NUMBER, "衍生源物料编号", result, factory);
+        createNewColumnConfig(DERIVED_FOR_NAME, "衍生源物料名称", result, factory);
+        createNewColumnConfig(DERIVES_NUMBER, "衍生物料编号", result, factory);
+        createNewColumnConfig(DERIVES_NAME, "衍生物料名称", result, factory);
         createNewColumnConfig(STATE, result, factory);
-        createNewColumnConfig("creator", result, factory);
-        createNewColumnConfig("modifier", result, factory);
         createNewColumnConfig("thePersistInfo.createStamp", result, factory);
         createNewColumnConfig("thePersistInfo.modifyStamp", result, factory);
         return result;

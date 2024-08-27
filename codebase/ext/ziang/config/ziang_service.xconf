@@ -10,7 +10,7 @@
     <!-- 文档相关配置 -->
     <Property name="ext.ziang.user.rest.account"
               targetFile="codebase/com/ptc/windchill/rest/rest.properties"
-              default="ext.ziang.part.rest.PartRestController"/>
+              default="ext.ziang.part.rest.PartRestController" overridable="true"/>
 
 
     <Property name="ext.ziang.rest.partRest"

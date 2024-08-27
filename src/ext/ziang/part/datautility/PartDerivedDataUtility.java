@@ -17,13 +17,11 @@ import ext.ziang.part.model.derive.PartDeriveLink;
 public class PartDerivedDataUtility extends DefaultDataUtility {
     @Override
     public Object getDataValue(String column, Object currentObj, ModelContext modelContext) {
-        System.out.println("column = " + column + ", currentObj = " + currentObj + ", modelContext = " + modelContext);
         TextDisplayComponent textDisplayComponent = new TextDisplayComponent(column);
         // 设置衍生料号字段和衍生出的料号字段
         // 设置状态等信息
         if (currentObj instanceof PartDeriveLink) {
             PartDeriveLink link = (PartDeriveLink)currentObj;
-            System.out.println("link = " + link);
             switch (column) {
                 case PartDerivedBuilder.DERIVED_FOR_NAME:
                     textDisplayComponent.setValue(link.getDeriveFor().getName());
