@@ -2,9 +2,11 @@
 <!DOCTYPE listofactions SYSTEM 'actions.dtd'>
 <listofactions>
 
-    <objecttype name="extCMS" resourceBundle="ext.ziang.part.resource.PartResource">
+    <objecttype name="extCMS" resourceBundle="ext.ziang.csm.resource.CMSResource">
 
-        <!--  -->
+        <action name="configAttrMerge">
+            <command url="/netmarkets/jsp/ext/ziang/cms/configAttrMerge.jsp"/>
+        </action>
 
     </objecttype>
 </listofactions>

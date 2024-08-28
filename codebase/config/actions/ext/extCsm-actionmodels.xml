@@ -9,6 +9,7 @@
         <action name="node.attribute.multiedit" type="csm"/>
         <action name="clfNodeAutonamingProperties" type="csm"/>
         <action name="clfNodeAutonamingProperties" type="csm"/>
+        <action name="configAttrMerge" type="extCMS"/>
     </model>
 
 </actionmodels>
