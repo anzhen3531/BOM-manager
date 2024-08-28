@@ -5,30 +5,18 @@
     <Property name="wt.services.applicationcontext.WTServiceProviderFromProperties.customPropertyFiles"
               targetFile="codebase/wt.properties"
               default="ext/ziang/config/properties/custom_dataUtilities.properties"/>
-    
 
-    <!-- 文档相关配置 -->
-    <Property name="ext.ziang.user.rest.account"
-              targetFile="codebase/com/ptc/windchill/rest/rest.properties"
-              default="ext.ziang.part.rest.PartRestController" overridable="true"/>
+    <Property name="wt.services.applicationcontext.WTServiceProviderFromProperties.customPropertyFiles"
+              targetFile="codebase/wt.properties"
+              default="ext/ziang/config/properties/custom_suggestable.properties"/>
+
+    <Property name="wt.services.applicationcontext.WTServiceProviderFromProperties.customPropertyFiles"
+              targetFile="codebase/wt.properties"
+              default="ext/ziang/config/properties/custom_treeHandler.properties"/>
 
 
     <Property name="ext.ziang.rest.partRest"
               targetFile="codebase/com/ptc/windchill/rest/rest.properties"
               default="ext.ziang.user.rest.AccountController"/>
-
-    <Service context="default" name="com.ptc.core.components.suggest.Suggestable"
-             targetFile="codebase/service.properties">
-
-        <Option cardinality="singleton" selector="StandardPartPickerSuggestable" requestor="null"
-                serviceClass="ext.ziang.part.suggestable.StandardPartPickerSuggestable"/>
-    </Service>
-
-    <Service context="default" name="com.ptc.core.components.beans.TreeHandler"
-             targetFile="codebase/service.properties">
-        <Option requestor="null" selector="CorrectBomBuilderHandler"
-                serviceClass="ext.ziang.change.handler.CorrectBomBuilderHandler"
-                cardinality="singleton"/>
-    </Service>
 
 </Configuration>

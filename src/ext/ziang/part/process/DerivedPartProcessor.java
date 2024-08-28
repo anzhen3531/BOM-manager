@@ -91,9 +91,6 @@ public class DerivedPartProcessor extends CreatePartAndCADDocFormProcessor {
                     logger.error(e.getMessage(), e);
                     throw new WTException(e);
                 }
-                FeedbackMessage feedbackMessage = new FeedbackMessage();
-                feedbackMessage.addOidIdentityPair(part, Locale.CHINA);
-                formResult.addFeedbackMessage(feedbackMessage);
             }
             return formResult;
         }

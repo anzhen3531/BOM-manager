@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE listofactions SYSTEM 'actions.dtd'>
+
+<actionmodels>
+
+    <model name="csmnode_infoPage_tabSet">
+        <action name="clfNodeProperties" type="csm"/>
+        <action name="typeLayouts" type="lwcType"/>
+        <action name="node.attribute.multiedit" type="csm"/>
+        <action name="clfNodeAutonamingProperties" type="csm"/>
+        <action name="clfNodeAutonamingProperties" type="csm"/>
+    </model>
+
+</actionmodels>

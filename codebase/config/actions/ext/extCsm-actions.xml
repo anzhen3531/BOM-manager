@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE listofactions SYSTEM 'actions.dtd'>
+<listofactions>
+
+    <objecttype name="extCMS" resourceBundle="ext.ziang.part.resource.PartResource">
+
+        <!--  -->
+
+    </objecttype>
+</listofactions>
