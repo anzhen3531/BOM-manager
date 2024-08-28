@@ -9,5 +9,6 @@
     <include href="config/actions/ext/extPart-actionModels.xml"/>
     <include href="config/actions/ext/extDoc-actionModels.xml"/>
     <include href="config/actions/ext/extEpm-actionModels.xml"/>
+    <include href="config/actions/ext/extCsm-actionmodels.xml"/>
 
 </actionmodels>
