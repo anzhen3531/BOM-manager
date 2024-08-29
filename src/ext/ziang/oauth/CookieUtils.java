@@ -16,7 +16,7 @@ public class CookieUtils {
     public static final String SSO_AUTH = "sso.auth";
 
     /**
-     * 通过Cookies获取SSO token
+     * 通过Cookies 获取 SSO token
      *
      * @param request 请求
      * @return {@link String }
@@ -44,7 +44,7 @@ public class CookieUtils {
     }
 
     /**
-     * 通过Cookies获取SSO token
+     * 通过Cookies获取SSO-Token
      *
      * @param token 令 牌
      * @return {@link String }
@@ -57,7 +57,7 @@ public class CookieUtils {
     }
 
     /**
-     * 通过Cookies获取SSO token
+     * 通过Cookies获取SSO-Token
      *
      * @param token 令 牌
      * @return {@link String }

@@ -1,12 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE listofactions SYSTEM 'actions.dtd'>
 <listofactions>
-
     <objecttype name="extCMS" resourceBundle="ext.ziang.csm.resource.CMSResource">
 
         <action name="configAttrMerge">
-            <command url="/netmarkets/jsp/ext/ziang/cms/configAttrMerge.jsp"/>
+            <command url="/netmarkets/jsp/ext/ziang/cms/configAttrMerge.jsp"  windowType="popup"/>
         </action>
-
     </objecttype>
 </listofactions>
