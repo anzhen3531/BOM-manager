@@ -91,21 +91,75 @@
             username: username,
             password: password
         };
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(data)
+        // }).then(function (response) {
+        //     if (!response.ok) {
+        //         throw new Error('Network response was not ok');
+        //     }
+        //     // 登录失败即可
+        //     window.location.href = redirect;
+        // }).catch(function (error) {
+        //     console.error('There has been a problem with your fetch operation:', error.message);
+        // });
+
+
+        sendRequest('POST', url, data, headers,
+            (responseText) => {
+                console.log(responseText)
+                if (!responseText.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // 登录失败即可
+                window.location.href = redirect;
             },
-            body: JSON.stringify(data)
-        }).then(function (response) {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
+            (error) => {
+                console.error('There has been a problem with your fetch operation:', error.message);
             }
-            // 登录失败即可
-            window.location.href = redirect;
-        }).catch(function (error) {
-            console.error('There has been a problem with your fetch operation:', error.message);
-        });
+        );
+
     });
 
+
+    function sendRequest(method, url, data = null, headers = {}, onSuccess = () => {}, onError = () => {}) {
+        // 创建 XMLHttpRequest 对象
+        const xhr = new XMLHttpRequest();
+        // 初始化请求
+        xhr.open(method, url, true);
+        // 设置请求头
+        for (let key in headers) {
+            xhr.setRequestHeader(key, headers[key]);
+        }
+        // 监听请求的状态变化
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) { // 请求已完成
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // 请求成功，调用 onSuccess 回调函数
+                    onSuccess(xhr.responseText, xhr);
+                } else {
+                    // 请求失败，调用 onError 回调函数
+                    onError(xhr.status, xhr);
+                }
+            }
+        };
+        // 处理请求超时
+        xhr.ontimeout = function () {
+            onError('Request timed out', xhr);
+        };
+        // 发送请求
+        if (method === 'GET' || !data) {
+            xhr.send();
+        } else {
+            xhr.send(JSON.stringify(data));
+        }
+    }
 </script>
