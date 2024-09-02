@@ -97,12 +97,12 @@
         // 示例用法
         var http = new HttpRequest();
         http.sendRequest('POST', url, data, headers,
-            (responseText) => {
-                console.log(responseText)
+            function (responseText) {
+                console.log('Success:', responseText);
                 window.location.href = redirect;
             },
-            (error) => {
-                console.error('There has been a problem with your fetch operation:', error.message);
+            function (status) {
+                console.error('Error:', status);
             }
         );
     });
