@@ -114,12 +114,7 @@
 
 
         sendRequest('POST', url, data, headers,
-            (responseText) => {
-                console.log(responseText)
-                if (!responseText.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                // 登录失败即可
+            () => {
                 window.location.href = redirect;
             },
             (error) => {
