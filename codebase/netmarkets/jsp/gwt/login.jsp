@@ -91,30 +91,12 @@
             username: username,
             password: password
         };
-
         const headers = {
             'Content-Type': 'application/json'
         };
-
-        // fetch(url, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(data)
-        // }).then(function (response) {
-        //     if (!response.ok) {
-        //         throw new Error('Network response was not ok');
-        //     }
-        //     // 登录失败即可
-        //     window.location.href = redirect;
-        // }).catch(function (error) {
-        //     console.error('There has been a problem with your fetch operation:', error.message);
-        // });
-
-
         sendRequest('POST', url, data, headers,
-            () => {
+            (responseText) => {
+                console.log(responseText)
                 window.location.href = redirect;
             },
             (error) => {
