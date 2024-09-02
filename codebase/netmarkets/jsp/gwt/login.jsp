@@ -94,7 +94,9 @@
         const headers = {
             'Content-Type': 'application/json'
         };
-        sendRequest('POST', url, data, headers,
+        // 示例用法
+        var http = new HttpRequest();
+        http.sendRequest('POST', url, data, headers,
             (responseText) => {
                 console.log(responseText)
                 window.location.href = redirect;
@@ -103,40 +105,74 @@
                 console.error('There has been a problem with your fetch operation:', error.message);
             }
         );
-
     });
 
 
-    function sendRequest(method, url, data = null, headers = {}, onSuccess = () => {}, onError = () => {}) {
-        // 创建 XMLHttpRequest 对象
-        const xhr = new XMLHttpRequest();
-        // 初始化请求
+    function HttpRequest() {
+        // 创建 XMLHttpRequest 对象，兼容 IE 6 及以下使用 ActiveXObject
+        this.xhr = (function () {
+            if (window.XMLHttpRequest) {
+                return new XMLHttpRequest();
+            } else {
+                try {
+                    return new ActiveXObject("Microsoft.XMLHTTP");
+                } catch (e) {
+                    throw new Error("XMLHttpRequest is not supported by this browser.");
+                }
+            }
+        })();
+    }
+
+    HttpRequest.prototype.sendRequest = function (method, url, data, headers, onSuccess, onError) {
+        var xhr = this.xhr;
         xhr.open(method, url, true);
-        // 设置请求头
-        for (let key in headers) {
-            xhr.setRequestHeader(key, headers[key]);
+        // 设置请求头，兼容 IE 的做法
+        if (headers) {
+            for (var key in headers) {
+                if (headers.hasOwnProperty(key)) {
+                    xhr.setRequestHeader(key, headers[key]);
+                }
+            }
         }
-        // 监听请求的状态变化
+        // IE 8 和 9 可能不支持 `xhr.responseType`，使用 `xhr.responseText`
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) { // 请求已完成
+            if (xhr.readyState === 4) { // 请求完成
                 if (xhr.status >= 200 && xhr.status < 300) {
-                    // 请求成功，调用 onSuccess 回调函数
-                    onSuccess(xhr.responseText, xhr);
+                    if (onSuccess) {
+                        onSuccess(xhr.responseText, xhr);
+                    }
                 } else {
-                    // 请求失败，调用 onError 回调函数
-                    onError(xhr.status, xhr);
+                    if (onError) {
+                        onError(xhr.status, xhr);
+                    }
                 }
             }
         };
         // 处理请求超时
         xhr.ontimeout = function () {
-            onError('Request timed out', xhr);
+            if (onError) {
+                onError('Request timed out', xhr);
+            }
         };
-        // 发送请求
-        if (method === 'GET' || !data) {
-            xhr.send();
-        } else {
-            xhr.send(JSON.stringify(data));
+        // 处理网络错误
+        xhr.onerror = function () {
+            if (onError) {
+                onError('Network Error', xhr);
+            }
+        };
+        // 发送请求，兼容性处理
+        try {
+            if (method === 'GET' || !data) {
+                xhr.send();
+            } else {
+                xhr.send(JSON.stringify(data));
+            }
+        } catch (e) {
+            if (onError) {
+                onError(e.message, xhr);
+            }
         }
-    }
+    };
+
+
 </script>
