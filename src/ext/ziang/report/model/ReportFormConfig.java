@@ -12,8 +12,9 @@ import wt.util.WTException;
  * <p>
  * 生成SQL脚本 ant -f bin/tools.xml sql_script -Dgen.input=ext.ziang.report.model.*
  * <p>
+ * 
  * @ext/ziang/report/model/create_ReportFormConfig_Table.sql
- * <p>
+ *                                                           <p>
  * @ext/ziang/report/model/create_ReportFormConfig_Index.sql
  */
 // @formatter:off
@@ -58,7 +59,33 @@ import wt.util.WTException;
                         ),
                         columnProperties = @ColumnProperties(
                                 columnName = "state"
-                ))
+                )),
+                @GeneratedProperty(
+                        name = "creator",
+                        type = String.class,
+                        supportedAPI = SupportedAPI.PUBLIC,
+                        javaDoc = "创建者",
+                        constraints = @PropertyConstraints(
+                                upperLimit = 64,
+                                required = true
+                        ),
+                        columnProperties = @ColumnProperties(
+                                index = true,
+                                columnName = "creator"
+                        )),
+                @GeneratedProperty(
+                        name = "modifier",
+                        type = String.class,
+                        supportedAPI = SupportedAPI.PUBLIC,
+                        javaDoc = "修改者",
+                        constraints = @PropertyConstraints(
+                                upperLimit = 64,
+                                required = true
+                        ),
+                        columnProperties = @ColumnProperties(
+                                index = true,
+                                columnName = "modifier"
+                        ))
         }
 )
 // @formatter:on
