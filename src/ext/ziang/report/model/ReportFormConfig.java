@@ -53,9 +53,7 @@ import wt.util.WTException;
                         supportedAPI = SupportedAPI.PUBLIC,
                         javaDoc = "状态 1为开启 0为关闭",
                         constraints = @PropertyConstraints(
-                                stringCase = StringCase.UPPER_CASE,
-                                changeable = Changeable.VIA_OTHER_MEANS,
-                                upperLimit = 64,
+                                upperLimit = 2,
                                 required = true
                         ),
                         columnProperties = @ColumnProperties(
