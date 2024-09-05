@@ -13,7 +13,7 @@ import wt.util.WTException;
  * 生成SQL脚本 ant -f bin/tools.xml sql_script -Dgen.input=ext.ziang.report.model.*
  * <p>
  * 
- * @ext/ziang/report/model/create_ReportFormConfig_Table.sql
+ * @ext/ziang/report/model/Drop_pkg_model_Table.sql
  *                                                           <p>
  * @ext/ziang/report/model/create_ReportFormConfig_Index.sql
  */
