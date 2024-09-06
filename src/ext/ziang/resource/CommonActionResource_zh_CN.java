@@ -122,4 +122,13 @@ public class CommonActionResource_zh_CN extends WTListResourceBundle {
 	public static final String EXTCOMMONACTION_DOWNLOADEPMDOCSINGLE_DESCRIPTION = "extCommonAction.downloadEPMDocSingle.description";
 	@RBEntry("下载图纸内容")
 	public static final String EXTCOMMONACTION_DOWNLOADEPMDOCSINGLE_TOOLTIP = "extCommonAction.downloadEPMDocSingle.tooltip";
+
+
+	@RBEntry("报表SQL配置")
+	public static final String CUSTOM_REPORT_CONFIG_TITLE = "custom.reportConfig.title";
+	@RBEntry("报表SQL配置")
+	public static final String CUSTOM_REPORT_CONFIG_DESCRIPTION = "custom.reportConfig.description";
+	@RBEntry("报表SQL配置")
+	public static final String CUSTOM_REPORT_CONFIG_TOOLTIP = "custom.reportConfig.tooltip";
+
 }

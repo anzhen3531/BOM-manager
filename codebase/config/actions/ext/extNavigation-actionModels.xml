@@ -24,7 +24,7 @@
     <!-- 自定义模块的菜单 -->
     <model name="customConfig navigation">
         <description>Custom Config</description>
-        <action name="commonFilterConfig" type="custom"/>
+        <action name="reportConfig" type="custom"/>
         <action name="docSignConfig" type="custom"/>
     </model>
     <!-- 快速链接 -->

@@ -37,18 +37,12 @@
         <action name="updateSignConfig">
             <command url="/netmarkets/jsp/ext/ziang/common/updateSignConfig.jsp" windowType="popup"/>
         </action>
-    </objecttype>
 
 
-    <objecttype name="extLog" resourceBundle="ext.ziang.resource.CommonActionResource">
-        <!--开启日志-->
-        <action name="startSysLog">
-            <command url="/netmarkets/jsp/ext/ziang/log/startSysLog.jsp" windowType="popup"/>
+        <action name="reportConfig">
+            <command url="/netmarkets/jsp/ext/ziang/report/reportFromConfig.jsp" windowType="page"/>
         </action>
 
-        <!--关闭日志-->
-        <action name="stopSysLog">
-            <command url="/netmarkets/jsp/ext/ziang/log/stopSysLog.jsp" windowType="popup"/>
-        </action>
     </objecttype>
+
 </listofactions>
