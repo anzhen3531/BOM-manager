@@ -3,6 +3,7 @@ package ext.ziang.report.process;
 import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.components.forms.DefaultObjectFormProcessor;
 import com.ptc.core.components.forms.FormResult;
+import com.ptc.netmarkets.model.NmOid;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
 import ext.ziang.common.constants.StateEnum;
 import ext.ziang.report.builder.ReportFormBuilder;
@@ -27,6 +28,12 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
         String view = nmCommandBean.getTextParameter("View");
         HashMap textArea = nmCommandBean.getTextArea();
         HashMap text = nmCommandBean.getText();
+        Object object = list.get(0).getObject();
+        System.out.println("object = " + object);
+        NmOid primaryOid = nmCommandBean.getPrimaryOid();
+        System.out.println("primaryOid = " + primaryOid);
+        NmOid pageOid = nmCommandBean.getPageOid();
+        System.out.println("pageOid = " + pageOid);
         FormResult formResult = super.doOperation(nmCommandBean, list);
         switch (view) {
             case CREATE_VIEW:
