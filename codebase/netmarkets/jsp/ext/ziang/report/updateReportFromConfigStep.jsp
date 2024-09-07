@@ -14,11 +14,13 @@
     String description = reportFormConfig.getDescription();
     String content = reportFormConfig.getContent();
     Integer state = reportFormConfig.getState();
+    request.setAttribute("description", description);
+    request.setAttribute("content", content);
 %>
 
 <jca:renderPropertyPanel>
-    <w:textBox propertyLabel="描述" id="description" name="description" required="true" maxlength="200" value="<%=description%>"/>
-    <w:textArea propertyLabel="内容" id="content" name="content" cols="39" rows="5" required="true" maxLength="2000" value="<%=content%>"/>
+    <w:textBox propertyLabel="描述" id="description" name="description" required="true" maxlength="200" value="${description}"/>
+    <w:textArea propertyLabel="内容" id="content" name="content" cols="39" rows="5" required="true" maxLength="2000" value="${description}"/>
     <%--    配置选择框 是否开启或者是关闭 --%>
     <%--    默认数据反写--%>
     <w:radioButton propertyLabel="是否开启" id="start" label="开启" value="0" name="state" checked="true" onclick="doFoo()"/>
