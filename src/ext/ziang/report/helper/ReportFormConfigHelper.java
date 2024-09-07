@@ -7,11 +7,11 @@ import java.util.*;
 
 import ext.ziang.common.constants.CommonBasicEnum;
 import ext.ziang.report.model.ReportFormConfig;
-import org.apache.log4j.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
-import wt.log4j.LogR;
 import wt.method.MethodContext;
 import wt.pom.WTConnection;
 import wt.query.QuerySpec;
@@ -23,7 +23,7 @@ import wt.util.WTException;
  */
 public class ReportFormConfigHelper {
 
-    public static final Logger logger = LogR.getLogger(ReportFormConfigHelper.class.getName());
+    public static final Logger logger = LoggerFactory.getLogger(ReportFormConfigHelper.class);
 
     /**
      * 执行 SQL
@@ -32,7 +32,6 @@ public class ReportFormConfigHelper {
      * @return 数据集合
      */
     public static List<Map<String, Object>> execSQL(String sql) throws Exception {
-        Map<String, Object> map = new HashMap<>();
         // 执行SQL 返回MAP
         MethodContext context = MethodContext.getContext();
         WTConnection connection = (WTConnection)context.getConnection();
@@ -44,14 +43,16 @@ public class ReportFormConfigHelper {
             ResultSetMetaData resultSetMetaData = statement.getMetaData();
             rs = statement.executeQuery();
             while (rs.next()) {
+                Map<String, Object> map = new HashMap<>();
                 for (int i = 0; i < resultSetMetaData.getColumnCount(); i++) {
+                    logger.info("key {}", resultSetMetaData.getColumnName(i + 1));
+                    logger.info("value {}", rs.getString(i + 1));
                     map.put(resultSetMetaData.getColumnName(i + 1), rs.getString(i + 1));
-                    System.out.println(resultSetMetaData.getColumnName(i + 1) + ": " + rs.getString(i + 1));
                 }
                 result.add(map);
             }
         } catch (Exception e) {
-            logger.error(" execSQL error {}", e);
+            logger.error(" execSQL error", e);
         } finally {
             if (Objects.nonNull(statement)) {
                 statement.close();
@@ -60,7 +61,7 @@ public class ReportFormConfigHelper {
                 rs.close();
             }
         }
-        logger.info("result {}" + result);
+        logger.info("result {}", result);
         return result;
     }
 
