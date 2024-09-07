@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%
-    ArrayList selectedOidForPopup = nmCommandBean.getSelectedOidForPopup();
+    ArrayList selectedOidForPopup = commandBean.getSelectedOidForPopup();
     NmOid nmOid = (NmOid)selectedOidForPopup.get(0);
     ReportFormConfig reportFormConfig = (ReportFormConfig)nmOid.getRefObject();
     String description = reportFormConfig.getDescription();
