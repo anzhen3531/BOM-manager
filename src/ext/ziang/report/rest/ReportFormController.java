@@ -11,7 +11,7 @@ import io.swagger.annotations.Api;
 import java.util.Map;
 import java.util.Objects;
 
-@Api(value = "用户登录接口")
+@Api(value = "报表相关接口")
 @Path("/report")
 @Consumes({MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, MediaType.MULTIPART_FORM_DATA})
 @Produces(MediaType.APPLICATION_JSON)
@@ -24,7 +24,7 @@ public class ReportFormController {
      * @return 创建成功
      * @throws Exception 例外
      */
-    @POST
+    @GET
     @Path("/form/{id}")
     public Result execScript(@PathParam("id") Long id) throws Exception {
         // 通过id查询相关的信息
