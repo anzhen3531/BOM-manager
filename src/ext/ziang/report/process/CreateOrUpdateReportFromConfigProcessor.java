@@ -29,32 +29,19 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
         String view = nmCommandBean.getTextParameter("View");
         HashMap textArea = nmCommandBean.getTextArea();
         HashMap text = nmCommandBean.getText();
-        Object object = list.get(0).getObject();
-        System.out.println("object = " + object);
-        NmOid primaryOid = nmCommandBean.getPrimaryOid();
-        System.out.println("primaryOid = " + primaryOid);
-        NmOid pageOid = nmCommandBean.getPageOid();
-        System.out.println("pageOid = " + pageOid);
         FormResult formResult = super.doOperation(nmCommandBean, list);
-        System.out.println("pageOid = " + pageOid);
         ArrayList selectedOidForPopup = nmCommandBean.getSelectedOidForPopup();
-        System.out.println("selectedOidForPopup = " + selectedOidForPopup);
-        ArrayList selected = nmCommandBean.getSelected();
-        System.out.println("selected = " + selected);
-        ArrayList selectedOidForPopup1 = nmCommandBean.getSelectedOidForPopup();
-        System.out.println("selectedOidForPopup1 = " + selectedOidForPopup1);
-        ArrayList selectedInOpener = nmCommandBean.getSelectedInOpener();
-        System.out.println("selectedInOpener = " + selectedInOpener);
-        ArrayList<NmOid> nmOidSelectedInOpener = nmCommandBean.getNmOidSelectedInOpener();
+        NmOid nmOid = (NmOid)selectedOidForPopup.get(0);
         String description = (String)text.get(ReportFormBuilder.DESCRIPTION);
         String content = (String)textArea.get(ReportFormBuilder.CONTENT);
+        ReportFormConfig reportFormConfig;
         switch (view) {
             case CREATE_VIEW:
-                ReportFormConfig reportFormConfig = ReportFormConfig.newReportFormConfig();
+                reportFormConfig = ReportFormConfig.newReportFormConfig();
                 saveConfig(reportFormConfig, StateEnum.START.getValue(), content, description);
                 break;
             case EDIT_VIEW:
-                reportFormConfig = ReportFormConfig.newReportFormConfig();
+                reportFormConfig = (ReportFormConfig)nmOid.getRefObject();
                 saveConfig(reportFormConfig, StateEnum.START.getValue(), content, description);
                 break;
         }
