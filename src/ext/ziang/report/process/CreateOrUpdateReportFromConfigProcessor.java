@@ -42,7 +42,8 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
                 ArrayList selectedOidForPopup = nmCommandBean.getSelectedOidForPopup();
                 NmOid nmOid = (NmOid)selectedOidForPopup.get(0);
                 reportFormConfig = (ReportFormConfig)nmOid.getRefObject();
-                saveConfig(reportFormConfig, StateEnum.START.getValue(), content, description);
+                String state = (String)nmCommandBean.getRadio().get("state");
+                saveConfig(reportFormConfig, Integer.parseInt(state) , content, description);
                 break;
         }
         return formResult;
