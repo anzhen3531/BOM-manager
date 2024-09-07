@@ -8,6 +8,7 @@ import ext.ziang.report.helper.ReportFormConfigHelper;
 import ext.ziang.report.model.ReportFormConfig;
 import io.swagger.annotations.Api;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -32,7 +33,7 @@ public class ReportFormController {
         if (Objects.isNull(config)) {
             return Result.fail("查找当前配置失败");
         }
-        Map<String, Object> map = ReportFormConfigHelper.execSQL(config.getContent());
-        return Result.ok(map);
+        List<Map<String, Object>> maps = ReportFormConfigHelper.execSQL(config.getContent());
+        return Result.ok(maps);
     }
 }

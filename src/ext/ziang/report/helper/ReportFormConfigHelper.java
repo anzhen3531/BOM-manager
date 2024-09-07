@@ -3,9 +3,7 @@ package ext.ziang.report.helper;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import ext.ziang.common.constants.CommonBasicEnum;
 import ext.ziang.report.model.ReportFormConfig;
@@ -33,13 +31,14 @@ public class ReportFormConfigHelper {
      * @param sql sql 脚本
      * @return 数据集合
      */
-    public static Map<String, Object> execSQL(String sql) throws Exception {
+    public static List<Map<String, Object>> execSQL(String sql) throws Exception {
         Map<String, Object> map = new HashMap<>();
         // 执行SQL 返回MAP
         MethodContext context = MethodContext.getContext();
         WTConnection connection = (WTConnection)context.getConnection();
         PreparedStatement statement = null;
         ResultSet rs = null;
+        List<Map<String, Object>> result = new ArrayList<>();
         try {
             statement = connection.prepareStatement(sql);
             ResultSetMetaData resultSetMetaData = statement.getMetaData();
@@ -49,6 +48,7 @@ public class ReportFormConfigHelper {
                     map.put(resultSetMetaData.getColumnName(i + 1), rs.getString(i + 1));
                     System.out.println(resultSetMetaData.getColumnName(i + 1) + ": " + rs.getString(i + 1));
                 }
+                result.add(map);
             }
         } catch (Exception e) {
             logger.error(" execSQL error {}", e);
@@ -60,8 +60,8 @@ public class ReportFormConfigHelper {
                 rs.close();
             }
         }
-        logger.info("result map {}" + map);
-        return map;
+        logger.info("result {}" + result);
+        return result;
     }
 
     /**
