@@ -46,27 +46,45 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
         ArrayList selectedInOpener = nmCommandBean.getSelectedInOpener();
         System.out.println("selectedInOpener = " + selectedInOpener);
         ArrayList<NmOid> nmOidSelectedInOpener = nmCommandBean.getNmOidSelectedInOpener();
+        String description = (String)text.get(ReportFormBuilder.DESCRIPTION);
+        String content = (String)textArea.get(ReportFormBuilder.CONTENT);
         switch (view) {
             case CREATE_VIEW:
-                try {
-                    String name = SessionHelper.getPrincipal().getName();
-                    ReportFormConfig reportFormConfig = ReportFormConfig.newReportFormConfig();
-                    reportFormConfig.setState(StateEnum.START.getValue());
-                    reportFormConfig.setCreator(name);
-                    reportFormConfig.setModifier(name);
-                    reportFormConfig.setContent((String)textArea.get(ReportFormBuilder.CONTENT));
-                    reportFormConfig.setDescription((String)text.get(ReportFormBuilder.DESCRIPTION));
-                    logger.info("reportFormConfig {}", reportFormConfig);
-                    PersistenceHelper.manager.save(reportFormConfig);
-                } catch (Exception e) {
-                    logger.error("CreateOrUpdateReportFromConfigProcessor create ReportFormConfig Exception ", e);
-                    throw new WTException(e.getMessage());
-                }
+                ReportFormConfig reportFormConfig = ReportFormConfig.newReportFormConfig();
+                saveConfig(reportFormConfig, StateEnum.START.getValue(), content, description);
                 break;
             case EDIT_VIEW:
+                reportFormConfig = ReportFormConfig.newReportFormConfig();
+                saveConfig(reportFormConfig, StateEnum.START.getValue(), content, description);
                 break;
         }
         return formResult;
 
+    }
+
+    /**
+     * 存储配置
+     * 
+     * @param config 配置
+     * @param state 状态
+     * @param content 内容
+     * @param description 描述
+     * @throws WTException
+     */
+    public static void saveConfig(ReportFormConfig config, Integer state, String content, String description)
+        throws WTException {
+        try {
+            String name = SessionHelper.getPrincipal().getName();
+            config.setState(state);
+            config.setCreator(name);
+            config.setModifier(name);
+            config.setContent(content);
+            config.setDescription(description);
+            logger.info("reportFormConfig {}", config);
+            PersistenceHelper.manager.save(config);
+        } catch (Exception e) {
+            logger.error("CreateOrUpdateReportFromConfigProcessor create ReportFormConfig Exception ", e);
+            throw new WTException(e.getMessage());
+        }
     }
 }
