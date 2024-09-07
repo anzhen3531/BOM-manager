@@ -4,6 +4,7 @@ import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.components.forms.DefaultObjectFormProcessor;
 import com.ptc.core.components.forms.FormResult;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
+import ext.ziang.common.constants.CommonBasicEnum;
 import ext.ziang.part.process.DerivedPartProcessor;
 import ext.ziang.report.builder.ReportFormBuilder;
 import ext.ziang.report.model.ReportFormConfig;
@@ -33,7 +34,7 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
                 try {
                     String name = SessionHelper.getPrincipal().getName();
                     ReportFormConfig reportFormConfig = ReportFormConfig.newReportFormConfig();
-                    reportFormConfig.setState(0);
+                    reportFormConfig.setState(CommonBasicEnum.START.getValue());
                     reportFormConfig.setCreator(name);
                     reportFormConfig.setModifier(name);
                     reportFormConfig.setContent((String)textArea.get(ReportFormBuilder.CONTENT));

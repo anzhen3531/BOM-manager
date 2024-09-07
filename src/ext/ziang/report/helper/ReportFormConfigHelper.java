@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import ext.ziang.common.constants.CommonBasicEnum;
 import ext.ziang.report.model.ReportFormConfig;
 import org.apache.log4j.Logger;
 
@@ -74,6 +75,9 @@ public class ReportFormConfigHelper {
         QuerySpec querySpec = new QuerySpec(ReportFormConfig.class);
         querySpec.appendWhere(new SearchCondition(ReportFormConfig.class, "thePersistInfo.theObjectIdentifier.id",
             SearchCondition.EQUAL, id), new int[] {0});
+        querySpec.appendAnd();
+        querySpec.appendWhere(new SearchCondition(ReportFormConfig.class, ReportFormConfig.STATE, SearchCondition.EQUAL,
+            CommonBasicEnum.START.getValue()), new int[] {0});
         QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
         if (queryResult.hasMoreElements()) {
             return (ReportFormConfig)queryResult.nextElement();
