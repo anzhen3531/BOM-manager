@@ -39,10 +39,6 @@ public abstract class _ReportFormConfig extends wt.fc.WTObject implements java.i
       this.description = (description != null) ? description.toUpperCase() : null;
    }
    void descriptionValidate(String description) throws wt.util.WTPropertyVetoException {
-      if (!wt.fc.IdentityHelper.isChangeable(this))
-         throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.CHANGE_RESTRICTION,
-               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "description") },
-               new java.beans.PropertyChangeEvent(this, "description", this.description, description));
       if (description == null || description.trim().length() == 0)
          throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.REQUIRED_ATTRIBUTE,
                new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "description") },
@@ -89,10 +85,6 @@ public abstract class _ReportFormConfig extends wt.fc.WTObject implements java.i
       this.content = (content != null) ? content.toUpperCase() : null;
    }
    void contentValidate(String content) throws wt.util.WTPropertyVetoException {
-      if (!wt.fc.IdentityHelper.isChangeable(this))
-         throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.CHANGE_RESTRICTION,
-               new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "content") },
-               new java.beans.PropertyChangeEvent(this, "content", this.content, content));
       if (content == null || content.trim().length() == 0)
          throw new wt.util.WTPropertyVetoException("wt.fc.fcResource", wt.fc.fcResource.REQUIRED_ATTRIBUTE,
                new Object[] { new wt.introspection.PropertyDisplayName(CLASSNAME, "content") },
