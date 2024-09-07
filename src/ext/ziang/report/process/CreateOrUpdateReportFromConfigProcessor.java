@@ -14,6 +14,7 @@ import wt.fc.PersistenceHelper;
 import wt.session.SessionHelper;
 import wt.util.WTException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,6 +36,16 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
         NmOid pageOid = nmCommandBean.getPageOid();
         System.out.println("pageOid = " + pageOid);
         FormResult formResult = super.doOperation(nmCommandBean, list);
+        System.out.println("pageOid = " + pageOid);
+        ArrayList selectedOidForPopup = nmCommandBean.getSelectedOidForPopup();
+        System.out.println("selectedOidForPopup = " + selectedOidForPopup);
+        ArrayList selected = nmCommandBean.getSelected();
+        System.out.println("selected = " + selected);
+        ArrayList selectedOidForPopup1 = nmCommandBean.getSelectedOidForPopup();
+        System.out.println("selectedOidForPopup1 = " + selectedOidForPopup1);
+        ArrayList selectedInOpener = nmCommandBean.getSelectedInOpener();
+        System.out.println("selectedInOpener = " + selectedInOpener);
+        ArrayList<NmOid> nmOidSelectedInOpener = nmCommandBean.getNmOidSelectedInOpener();
         switch (view) {
             case CREATE_VIEW:
                 try {
