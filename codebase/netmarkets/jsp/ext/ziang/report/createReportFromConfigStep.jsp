@@ -7,7 +7,7 @@
 <jca:renderPropertyPanel>
     <w:textBox propertyLabel="描述" id="description" name="description" required="true"/>
 <%--    <w:textArea propertyLabel="内容" id="content" name="content" required="true"/>--%>
-    <w:textArea propertyLabel="内容" id="content" name="content"  cols="39" rows="5" required="true"/>
+    <w:textArea propertyLabel="内容" id="content" name="content"  cols="39" rows="5" required="true" maxLength="2000"/>
 </jca:renderPropertyPanel>
 
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
