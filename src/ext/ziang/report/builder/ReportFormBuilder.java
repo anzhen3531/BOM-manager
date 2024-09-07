@@ -24,13 +24,14 @@ public class ReportFormBuilder extends AbstractComponentBuilder {
         // 获取组件配置工厂
         ComponentConfigFactory factory = getComponentConfigFactory();
         TableConfig result = factory.newTableConfig();
-        result.setLabel("查看衍生部件");
+        result.setLabel("报表SQL配置");
         result.setSelectable(false);
-        result.setId("DerivedPartBuilder");
+        result.setId("ReportFormBuilder");
         // 设置展示数量
         result.setShowCount(true);
+        result.setActionModel("");
         result.setConfigurable(true);
-        createNewColumnConfig(ID, "id", result, factory, true);
+        createNewColumnConfig(ID, "ID", result, factory, true);
         createNewColumnConfig(DESCRIPTION, "描述", result, factory, false);
         createNewColumnConfig(CONTENT, "SQL内容", result, factory, false);
         createNewColumnConfig(STATE, "状态", result, factory, true);

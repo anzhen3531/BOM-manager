@@ -5,6 +5,12 @@
 <%@ include file="/netmarkets/jsp/components/beginWizard.jspf" %>
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
 
+
+<div class="inlineHelpBox">
+    当前为配置报表的快速查询接口而用
+</div>
+
+
 <div>
     <jsp:include page="${mvc:getComponentURL('ext.ziang.report.builder.PartDerivedBuilder')}" flush="true"/>
 </div>
