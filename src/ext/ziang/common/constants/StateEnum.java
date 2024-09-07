@@ -1,12 +1,18 @@
 package ext.ziang.common.constants;
 
-public enum CommonBasicEnum {
+/**
+ * 基本枚举
+ */
+public enum StateEnum {
     START(0, "开启"),
-    STOP(1, "关闭");
-    private Integer value;
-    private String name;
+    STOP(1, "关闭"),
+    DELETE (-1, "删除")
 
-    CommonBasicEnum(Integer value, String name) {
+    ;
+    private final Integer value;
+    private final String name;
+
+    StateEnum(Integer value, String name) {
         this.value = value;
         this.name = name;
     }

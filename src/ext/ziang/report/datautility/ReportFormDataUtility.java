@@ -5,10 +5,12 @@ import com.ptc.core.components.factory.dataUtilities.DefaultDataUtility;
 import com.ptc.core.components.rendering.guicomponents.GUIComponentArray;
 import com.ptc.core.components.rendering.guicomponents.TextDisplayComponent;
 
-import ext.ziang.common.constants.CommonBasicEnum;
+import ext.ziang.common.constants.StateEnum;
 import ext.ziang.report.builder.ReportFormBuilder;
 import ext.ziang.report.model.ReportFormConfig;
 import wt.util.WTException;
+
+import java.util.Objects;
 
 public class ReportFormDataUtility extends DefaultDataUtility {
     @Override
@@ -23,8 +25,8 @@ public class ReportFormDataUtility extends DefaultDataUtility {
                     break;
                 case ReportFormBuilder.STATE:
                     Integer state = formConfig.getState();
-                    String value = state == CommonBasicEnum.START.getValue() ? CommonBasicEnum.START.getName()
-                        : CommonBasicEnum.STOP.getName();
+                    String value = Objects.equals(state, StateEnum.START.getValue()) ? StateEnum.START.getName()
+                        : StateEnum.STOP.getName();
                     textDisplayComponent.setValue(value);
                     break;
             }

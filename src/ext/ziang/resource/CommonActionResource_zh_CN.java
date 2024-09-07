@@ -143,4 +143,16 @@ public class CommonActionResource_zh_CN extends WTListResourceBundle {
 	@RBComment("创建SQL配置")
 	public static final String CUSTOM_CREATEREPORTFROMCONFIG_ICON = "custom.createReportFromConfig.icon";
 
+
+	@RBEntry("修改SQL配置")
+	public static final String CUSTOM_UPDATEREPORTFROMCONFIG_TITLE = "custom.updateReportFromConfig.title";
+	@RBEntry("修改SQL配置")
+	public static final String CUSTOM_UPDATEREPORTFROMCONFIG_DESCRIPTION = "custom.updateReportFromConfig.description";
+	@RBEntry("修改SQL配置")
+	public static final String CUSTOM_UPDATEREPORTFROMCONFIG_TOOLTIP = "custom.updateReportFromConfig.tooltip";
+	@RBEntry("netmarkets/images/multi_update.gif")
+	@RBPseudo(false)
+	@RBComment("修改SQL配置")
+	public static final String CUSTOM_UPDATEREPORTFROMCONFIG_ICON = "custom.updateReportFromConfig.icon";
+
 }

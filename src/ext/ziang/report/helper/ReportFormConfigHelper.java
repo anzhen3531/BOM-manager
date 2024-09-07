@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.*;
 
-import ext.ziang.common.constants.CommonBasicEnum;
+import ext.ziang.common.constants.StateEnum;
 import ext.ziang.report.model.ReportFormConfig;
 
 import org.slf4j.Logger;
@@ -79,7 +79,7 @@ public class ReportFormConfigHelper {
             SearchCondition.EQUAL, id), new int[] {0});
         querySpec.appendAnd();
         querySpec.appendWhere(new SearchCondition(ReportFormConfig.class, ReportFormConfig.STATE, SearchCondition.EQUAL,
-            CommonBasicEnum.START.getValue()), new int[] {0});
+            StateEnum.START.getValue()), new int[] {0});
         QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
         if (queryResult.hasMoreElements()) {
             return (ReportFormConfig)queryResult.nextElement();

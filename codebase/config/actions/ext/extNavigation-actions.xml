@@ -62,6 +62,7 @@
                      class="ext.ziang.report.process.CreateOrUpdateReportFromConfigProcessor"
                      windowType="popup"/>
         </action>
+
         <!--修改配置-->
         <action name="updateReportFromConfig">
             <command url="/netmarkets/jsp/ext/ziang/report/updateReportFromConfigStep.jsp" windowType="wizard_step"/>

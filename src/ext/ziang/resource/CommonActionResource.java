@@ -146,4 +146,17 @@ public class CommonActionResource extends WTListResourceBundle {
 	@RBComment("Create Report From Config")
 	public static final String CUSTOM_CREATEREPORTFROMCONFIG_ICON = "custom.createReportFromConfig.icon";
 
+
+	@RBEntry("Update Report From Config")
+	public static final String CUSTOM_UPDATEREPORTFROMCONFIG_TITLE = "custom.updateReportFromConfig.title";
+	@RBEntry("Update Report From Config")
+	public static final String CUSTOM_UPDATEREPORTFROMCONFIG_DESCRIPTION = "custom.updateReportFromConfig.description";
+	@RBEntry("Update Report From Config")
+	public static final String CUSTOM_UPDATEREPORTFROMCONFIG_TOOLTIP = "custom.updateReportFromConfig.tooltip";
+	@RBEntry("netmarkets/images/multi_update.gif")
+	@RBPseudo(false)
+	@RBComment("Update Report From Config")
+	public static final String CUSTOM_UPDATEREPORTFROMCONFIG_ICON = "custom.updateReportFromConfig.icon";
+
+
 }
