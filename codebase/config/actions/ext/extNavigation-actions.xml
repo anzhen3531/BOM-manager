@@ -57,7 +57,7 @@
         </action>
 
         <action name="updateReportFromConfig">
-            <command url="/netmarkets/jsp/ext/ziang/report/createOrUpdateSignConfig.jsp?View=EDIT"
+            <command url="/netmarkets/jsp/ext/ziang/report/createReportFromConfig.jsp?View=EDIT"
                      method="execute"
                      class="ext.ziang.report.process.CreateOrUpdateReportFromConfigProcessor"
                      windowType="popup"/>
