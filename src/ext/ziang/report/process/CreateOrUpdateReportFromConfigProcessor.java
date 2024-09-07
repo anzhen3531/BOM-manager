@@ -4,7 +4,11 @@ import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.components.forms.DefaultObjectFormProcessor;
 import com.ptc.core.components.forms.FormResult;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
+import ext.ziang.part.process.DerivedPartProcessor;
+import ext.ziang.report.builder.ReportFormBuilder;
 import ext.ziang.report.model.ReportFormConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import wt.fc.PersistenceHelper;
 import wt.session.SessionHelper;
 import wt.util.WTException;
@@ -13,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormProcessor {
+    public static final Logger logger = LoggerFactory.getLogger(CreateOrUpdateReportFromConfigProcessor.class);
     public static final String CREATE_VIEW = "CREATE";
     public static final String EDIT_VIEW = "EDIT";
 
@@ -30,13 +35,13 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
                     reportFormConfig.setState(1);
                     reportFormConfig.setCreator(name);
                     reportFormConfig.setModifier(name);
-                    reportFormConfig.setContent((String)textArea.get(""));
-                    reportFormConfig.setDescription((String)text.get(""));
+                    reportFormConfig.setContent((String)textArea.get(ReportFormBuilder.CONTENT));
+                    reportFormConfig.setDescription((String)text.get(ReportFormBuilder.DESCRIPTION));
                     PersistenceHelper.manager.save(reportFormConfig);
                 } catch (Exception e) {
-
+                    logger.error("CreateOrUpdateReportFromConfigProcessor create ReportFormConfig Exception ", e);
+                    throw new WTException(e.getMessage());
                 }
-
                 break;
             case EDIT_VIEW:
                 break;
