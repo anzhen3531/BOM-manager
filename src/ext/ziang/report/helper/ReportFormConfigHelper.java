@@ -33,6 +33,7 @@ public class ReportFormConfigHelper {
      */
     public static List<Map<String, Object>> execSQL(String sql) throws Exception {
         // 执行SQL 返回MAP
+        logger.info("exec sql {}", sql);
         MethodContext context = MethodContext.getContext();
         WTConnection connection = (WTConnection)context.getConnection();
         PreparedStatement statement = null;
