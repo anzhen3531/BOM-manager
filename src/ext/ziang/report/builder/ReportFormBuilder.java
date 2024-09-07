@@ -29,7 +29,7 @@ public class ReportFormBuilder extends AbstractComponentBuilder {
         result.setId("ReportFormBuilder");
         // 设置展示数量
         result.setShowCount(true);
-        result.setActionModel("");
+        result.setActionModel("customReportFromConfigModel");
         result.setConfigurable(true);
         createNewColumnConfig(ID, "ID", result, factory, true);
         createNewColumnConfig(DESCRIPTION, "描述", result, factory, false);
