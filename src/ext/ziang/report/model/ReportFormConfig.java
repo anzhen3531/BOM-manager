@@ -27,7 +27,6 @@ import wt.util.WTException;
                 javaDoc = "当前SQL的描述",
                 constraints = @PropertyConstraints(
                         stringCase = StringCase.UPPER_CASE,
-                        changeable = Changeable.VIA_OTHER_MEANS,
                         upperLimit = 200,
                         required = true
                 ),
@@ -41,7 +40,6 @@ import wt.util.WTException;
                 javaDoc = "内容",
                 constraints = @PropertyConstraints(
                         stringCase = StringCase.UPPER_CASE,
-                        changeable = Changeable.VIA_OTHER_MEANS,
                         upperLimit = 2000,
                         required = true
                 ),

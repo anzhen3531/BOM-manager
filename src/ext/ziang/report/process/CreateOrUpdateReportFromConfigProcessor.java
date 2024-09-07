@@ -70,8 +70,8 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
             logger.info("reportFormConfig {}", config);
             PersistenceHelper.manager.save(config);
         } catch (Exception e) {
-            logger.error("CreateOrUpdateReportFromConfigProcessor create ReportFormConfig Exception ", e);
-            throw new WTException(e.getMessage());
+            logger.error("CreateOrUpdateReportFromConfigProcessor save ReportFormConfig Exception ", e);
+            throw new WTException(e);
         }
     }
 }
