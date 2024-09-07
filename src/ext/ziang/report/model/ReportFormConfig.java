@@ -6,7 +6,7 @@ import wt.fc.WTObject;
 import wt.util.WTException;
 
 /**
- * 建模快速命令
+ * 建模快速命令 ext.ziang.report.model.ReportFormConfig
  * <p>
  * 遍历Class文件 ant -f bin/tools.xml class -Dclass.includes=ext/ziang/report/model/*
  * <p>

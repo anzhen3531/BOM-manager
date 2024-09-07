@@ -19,4 +19,8 @@
               targetFile="codebase/com/ptc/windchill/rest/rest.properties"
               default="ext.ziang.user.rest.AccountController"/>
 
+    <Property name="ext.ziang.rest.peportFormConfig"
+              targetFile="codebase/com/ptc/windchill/rest/rest.properties"
+              default="ext.ziang.report.rest.ReportFormController"/>
+
 </Configuration>

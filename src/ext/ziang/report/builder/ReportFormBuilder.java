@@ -25,11 +25,15 @@ public class ReportFormBuilder extends AbstractComponentBuilder {
         ComponentConfigFactory factory = getComponentConfigFactory();
         TableConfig result = factory.newTableConfig();
         result.setLabel("报表SQL配置");
-        result.setSelectable(false);
+        // 设置可选择
+        result.setSelectable(true);
+        // 设置单选
+        result.setSingleSelect(true);
         result.setId("ReportFormBuilder");
         // 设置展示数量
         result.setShowCount(true);
         result.setActionModel("customReportFromConfigModel");
+        // 设置可配置
         result.setConfigurable(true);
         createNewColumnConfig(ID, "ID", result, factory, true);
         createNewColumnConfig(DESCRIPTION, "描述", result, factory, false);
