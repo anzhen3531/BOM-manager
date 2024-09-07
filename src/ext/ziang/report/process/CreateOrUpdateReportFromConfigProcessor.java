@@ -33,7 +33,7 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
                 try {
                     String name = SessionHelper.getPrincipal().getName();
                     ReportFormConfig reportFormConfig = ReportFormConfig.newReportFormConfig();
-                    reportFormConfig.setState(1);
+                    reportFormConfig.setState(0);
                     reportFormConfig.setCreator(name);
                     reportFormConfig.setModifier(name);
                     reportFormConfig.setContent((String)textArea.get(ReportFormBuilder.CONTENT));

@@ -22,7 +22,7 @@ public class ReportFormDataUtility extends DefaultDataUtility {
                     break;
                 case ReportFormBuilder.STATE:
                     Integer state = formConfig.getState();
-                    String value = state == 1 ? "开启" : "关闭";
+                    String value = state == 0 ? "开启" : "关闭";
                     textDisplayComponent.setValue(value);
                     break;
             }
