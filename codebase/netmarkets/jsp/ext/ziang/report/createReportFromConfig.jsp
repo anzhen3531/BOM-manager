@@ -15,7 +15,7 @@
 </jca:wizard>
 <% } else {%>
 <jca:wizard title="修改报表数据配置" buttonList="DefaultWizardButtonsNoApply">
-    <jca:wizardStep action="updateSignConfigStep" type="custom"/>
+    <jca:wizardStep action="updateReportFromConfigStep" type="custom"/>
 </jca:wizard>
 <%}%>
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
