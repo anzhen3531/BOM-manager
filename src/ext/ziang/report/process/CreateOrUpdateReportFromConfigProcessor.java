@@ -30,8 +30,6 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
         HashMap textArea = nmCommandBean.getTextArea();
         HashMap text = nmCommandBean.getText();
         FormResult formResult = super.doOperation(nmCommandBean, list);
-        ArrayList selectedOidForPopup = nmCommandBean.getSelectedOidForPopup();
-        NmOid nmOid = (NmOid)selectedOidForPopup.get(0);
         String description = (String)text.get(ReportFormBuilder.DESCRIPTION);
         String content = (String)textArea.get(ReportFormBuilder.CONTENT);
         ReportFormConfig reportFormConfig;
@@ -41,6 +39,8 @@ public class CreateOrUpdateReportFromConfigProcessor extends DefaultObjectFormPr
                 saveConfig(reportFormConfig, StateEnum.START.getValue(), content, description);
                 break;
             case EDIT_VIEW:
+                ArrayList selectedOidForPopup = nmCommandBean.getSelectedOidForPopup();
+                NmOid nmOid = (NmOid)selectedOidForPopup.get(0);
                 reportFormConfig = (ReportFormConfig)nmOid.getRefObject();
                 saveConfig(reportFormConfig, StateEnum.START.getValue(), content, description);
                 break;
