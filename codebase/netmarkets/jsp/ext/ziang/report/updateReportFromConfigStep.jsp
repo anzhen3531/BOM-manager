@@ -40,7 +40,7 @@
         const configState = document.getElementById('configState');
         let value = configState.value;
         console.log(value)
-        if (value === 0) {
+        if (value === "0") {
             const start = document.getElementById('start');
             start.checked = true;
         } else {
