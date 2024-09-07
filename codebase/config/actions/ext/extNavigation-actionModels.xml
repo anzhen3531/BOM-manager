@@ -64,7 +64,7 @@
 
     <model name="customReportFromConfigModel">
         <action name="createReportFromConfig" type="custom" shortcut="true"/>
-        <action name="updateReportFromConfig" type="custom" shortcut="true"/>
+<!--        <action name="updateReportFromConfig" type="custom" shortcut="true"/>-->
     </model>
 
 </actionmodels>
