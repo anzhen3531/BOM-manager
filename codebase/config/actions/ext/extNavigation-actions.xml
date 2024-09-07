@@ -46,25 +46,25 @@
 
         <!--创建配置-->
         <action name="createReportFromConfig">
-            <command url="/netmarkets/jsp/ext/ziang/common/createReportFromConfig.jsp?View=CREATE"
+            <command url="/netmarkets/jsp/ext/ziang/report/createReportFromConfig.jsp?View=CREATE"
                      method="execute"
                      class="ext.ziang.report.process.CreateOrUpdateReportFromConfigProcessor"
                      windowType="popup"/>
         </action>
 
         <action name="createReportFromConfigStep">
-            <command url="/netmarkets/jsp/ext/ziang/common/createReportFromConfigStep.jsp" windowType="wizard_step"/>
+            <command url="/netmarkets/jsp/ext/ziang/report/createReportFromConfigStep.jsp" windowType="wizard_step"/>
         </action>
 
         <action name="updateReportFromConfig">
-            <command url="/netmarkets/jsp/ext/ziang/common/createOrUpdateSignConfig.jsp?View=EDIT"
+            <command url="/netmarkets/jsp/ext/ziang/report/createOrUpdateSignConfig.jsp?View=EDIT"
                      method="execute"
                      class="ext.ziang.report.process.CreateOrUpdateReportFromConfigProcessor"
                      windowType="popup"/>
         </action>
         <!--修改配置-->
         <action name="updateReportFromConfig">
-            <command url="/netmarkets/jsp/ext/ziang/common/updateReportFromConfigStep.jsp" windowType="wizard_step"/>
+            <command url="/netmarkets/jsp/ext/ziang/report/updateReportFromConfigStep.jsp" windowType="wizard_step"/>
         </action>
 
     </objecttype>
