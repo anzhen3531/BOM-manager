@@ -36,7 +36,7 @@ public abstract class _ReportFormConfig extends wt.fc.WTObject implements java.i
     */
    public void setDescription(String description) throws wt.util.WTPropertyVetoException {
       descriptionValidate(description);
-      this.description = (description != null) ? description.toUpperCase() : null;
+      this.description = description;
    }
    void descriptionValidate(String description) throws wt.util.WTPropertyVetoException {
       if (description == null || description.trim().length() == 0)
@@ -82,7 +82,7 @@ public abstract class _ReportFormConfig extends wt.fc.WTObject implements java.i
     */
    public void setContent(String content) throws wt.util.WTPropertyVetoException {
       contentValidate(content);
-      this.content = (content != null) ? content.toUpperCase() : null;
+      this.content = content;
    }
    void contentValidate(String content) throws wt.util.WTPropertyVetoException {
       if (content == null || content.trim().length() == 0)
