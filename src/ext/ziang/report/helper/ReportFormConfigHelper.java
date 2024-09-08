@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
 import wt.method.MethodContext;
+import wt.part.WTPart;
+import wt.part.WTPartMaster;
 import wt.pom.WTConnection;
 import wt.query.QuerySpec;
 import wt.query.SearchCondition;

@@ -26,7 +26,6 @@ import wt.util.WTException;
                 supportedAPI = SupportedAPI.PUBLIC,
                 javaDoc = "当前SQL的描述",
                 constraints = @PropertyConstraints(
-                        stringCase = StringCase.UPPER_CASE,
                         upperLimit = 200,
                         required = true
                 ),
@@ -39,7 +38,6 @@ import wt.util.WTException;
                 supportedAPI = SupportedAPI.PUBLIC,
                 javaDoc = "内容",
                 constraints = @PropertyConstraints(
-                        stringCase = StringCase.UPPER_CASE,
                         upperLimit = 2000,
                         required = true
                 ),
