@@ -4,15 +4,15 @@
     <!--    添加自定义配置文件-->
     <Property name="wt.services.applicationcontext.WTServiceProviderFromProperties.customPropertyFiles"
               targetFile="codebase/wt.properties"
-              default="ext/ziang/config/properties/custom_dataUtilities.properties"/>
+              default="ext/ziang/xconf/properties/custom_dataUtilities.properties"/>
 
     <Property name="wt.services.applicationcontext.WTServiceProviderFromProperties.customPropertyFiles"
               targetFile="codebase/wt.properties"
-              default="ext/ziang/config/properties/custom_suggestable.properties"/>
+              default="ext/ziang/xconf/properties/custom_suggestable.properties"/>
 
     <Property name="wt.services.applicationcontext.WTServiceProviderFromProperties.customPropertyFiles"
               targetFile="codebase/wt.properties"
-              default="ext/ziang/config/properties/custom_treeHandler.properties"/>
+              default="ext/ziang/xconf/properties/custom_treeHandler.properties"/>
 
 
     <Property name="ext.ziang.rest.partRest"
