@@ -198,10 +198,10 @@
         </condition>
         <antcall target="git_pull">
         </antcall>
-        <antcall target="git_clone">
-        </antcall>
-        <antcall target="git_chekout">
-        </antcall>
+<!--        <antcall target="git_clone">-->
+<!--        </antcall>-->
+<!--        <antcall target="git_chekout">-->
+<!--        </antcall>-->
     </target>
     <target name="git_chekout">
         <echo>pull latest code from git</echo>
