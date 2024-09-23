@@ -16,7 +16,7 @@
     </path>
 
 <!--    <target name="install" depends="check_path,clear,rebuild_custom_bundle,compile_source,registry_merge,install_property_file,make_jar">-->
-    <target name="install" depends="check_path,clear,rebuild_custom_bundle,compile_source,registry_merge,install_property_file">
+    <target name="install" depends="check_path,clear,rebuild_custom_bundle,compile_source,registry_merge,install_property_file,make_jar">
         <echo>install end...</echo>
         <!-- <antcall target="install_property_file"/> -->
         <!-- <antcall target="make_jar"/> -->
