@@ -1,6 +1,6 @@
 package ext.ziang.common.util;
 
-import com.ptc.tml.NewTmlResource;
+import ext.ziang.resource.NewTmlResource;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
