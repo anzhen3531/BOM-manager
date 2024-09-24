@@ -9,24 +9,38 @@
 <%@ page import="com.ptc.core.lwc.common.PropertyDefinitionConstants" %>
 <%@ page import="com.ptc.core.lwc.common.view.TypeDefinitionWriteView" %>
 <%@ page import="com.ptc.core.lwc.common.view.AttributeDefinitionWriteView" %>
+<%@ page import="wt.iba.definition.AbstractAttributeDefinition" %>
+<%@ page import="java.util.Objects" %>
 <%@ page language="java" pageEncoding="UTF-8" %>
 
 <%
     // \netmarkets\jsp\test\testCreateAttr.jsp
     boolean accessEnforced = SessionServerHelper.manager.isAccessEnforced();
     try {
-        ReusableAttributeReadView attributeReadView = AttributeOperationHelper.createReusableAttribute(
-                "4A00100100101",
-                "4A00100100101",
-                "wt.iba.definition.StringDefinition",
-                "4A00100100101",
-                "机型",
-                "OR:wt.iba.definition.AttributeOrganizer:100715",
-                null);
+        AbstractAttributeDefinition attributeDefinition = AttributeOperationHelper.findAttributeDefinition("4A00100100101");
+        String displayName;
+        String description;
+        if (Objects.isNull(attributeDefinition)) {
+            ReusableAttributeReadView attributeReadView = AttributeOperationHelper.createReusableAttribute(
+                    "4A00100100101",
+                    "4A00100100101",
+                    "wt.iba.definition.StringDefinition",
+                    "4A00100100101",
+                    "机型",
+                    "OR:wt.iba.definition.AttributeOrganizer:100715",
+                    null);
+            description = attributeReadView.getPropertyValueByName(PropertyDefinitionConstants.DESCRIPTION_PROPERTY).getValueAsString();
+            displayName = attributeReadView.getPropertyValueByName(PropertyDefinitionConstants.DISPLAY_NAME_PROPERTY).getValueAsString();
+        } else {
+            description = attributeDefinition.getDescription();
+            displayName = attributeDefinition.getDisplayName();
+        }
+
         TypeDefinitionReadView classificationTypeDefView = CSMTypeDefHelper.getClassificationTypeDefView("Panzer");
-        AttributeDefinitionWriteView attributeDefinitionView = AttributeOperationHelper.createAttributeDefinitionView(attributeReadView.getName(),
-                attributeReadView.getPropertyValueByName(PropertyDefinitionConstants.DISPLAY_NAME_PROPERTY).getValueAsString(),
-                attributeReadView.getPropertyValueByName(PropertyDefinitionConstants.DESCRIPTION_PROPERTY).getValueAsString(),
+        AttributeDefinitionWriteView attributeDefinitionView = AttributeOperationHelper.createAttributeDefinitionView(
+                "4A00100100101",
+                displayName,
+                description,
                 classificationTypeDefView.getName());
         TypeDefinitionWriteView writableView = classificationTypeDefView.getWritableView();
         writableView.setAttribute(attributeDefinitionView);

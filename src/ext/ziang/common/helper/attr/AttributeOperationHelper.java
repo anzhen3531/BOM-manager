@@ -288,6 +288,7 @@ public class AttributeOperationHelper {
             }
         }
         // 创建属性写视图
+        assert readView != null;
         AttributeDefinitionWriteView attrDefWriteView = new AttributeDefinitionWriteView(selectIbaClassTypeName,
             attrInnerName, readView, defDefaultView, quantityOfMeasureDefaultView, (DisplayStyleReadView)null,
             (DisplayStyleReadView)null, (Collection)null, false, (Collection)null);
