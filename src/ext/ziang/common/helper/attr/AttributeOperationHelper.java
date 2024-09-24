@@ -237,7 +237,7 @@ public class AttributeOperationHelper {
             // 获取IBA数据类型
             ibaDataTypeName =
                 LWCCommands.getIbaDatatype(attributeDefinition.getPersistInfo().getObjectIdentifier().toString());
-            readView = BASE_DEF_SERVICE.getDatatypeView(attributeDefinition.getName());
+            readView = BASE_DEF_SERVICE.getDatatypeView(ibaDataTypeName);
         } else if (flag) {
             // 判断是否是文本翻译属性
             ibaDataTypeName = String.class.getName();
