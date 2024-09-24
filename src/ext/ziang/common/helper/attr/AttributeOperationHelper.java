@@ -297,7 +297,7 @@ public class AttributeOperationHelper {
             ConstraintDefinitionWriteView singleValuedConstraint = addSingleValuedConstraint(attrDefWriteView);
             attrDefWriteView.setConstraintDefinition(singleValuedConstraint);
             ConstraintDefinitionWriteView definitionWriteView =
-                createConstraintsWriteView(attrInnerName, attrDefWriteView.getReadViewIdentifier(), 27329L);
+                createConstraintsWriteView(attrInnerName, typeDefView.getReadViewIdentifier(), 27329L);
             attrDefWriteView.setConstraintDefinition(definitionWriteView);
         }
         // 所有的属性定义视图
