@@ -42,6 +42,7 @@
                 displayName,
                 description,
                 classificationTypeDefView.getName());
+        // 关联局部枚举 默认创建空的 如果是全局枚举则一开始创建
         TypeDefinitionWriteView writableView = classificationTypeDefView.getWritableView();
         writableView.setAttribute(attributeDefinitionView);
         AttributeOperationHelper.TYPE_DEF_SERVICE.updateTypeDef(writableView);

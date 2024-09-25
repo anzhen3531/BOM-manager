@@ -42,8 +42,8 @@ import java.util.*;
  * <p/>
  * 创建分类属性源码
  * <p/>
- * 创建枚举源码
- *
+ * 创建局部枚举源码 CreateLocalEnumFormProcessor CreateEntryFormProcessor
+ * 
  * @author anzhen
  * @date 2024/02/29
  */
@@ -246,6 +246,11 @@ public class AttributeOperationHelper {
             // 没有进入
             ibaDataTypeName = "";
         }
+
+        if (Objects.isNull(readView)) {
+            throw new WTException("创建的属性数据类型为空");
+        }
+
         // 是否是计算属性
         if (selectIbaClassTypeName.contains("calculated")) {
             if (ibaDataTypeName.contains("AttributeTypeIdentifierSet")) {
@@ -288,7 +293,6 @@ public class AttributeOperationHelper {
             }
         }
         // 创建属性写视图
-        assert readView != null;
         AttributeDefinitionWriteView attrDefWriteView = new AttributeDefinitionWriteView(selectIbaClassTypeName,
             attrInnerName, readView, defDefaultView, quantityOfMeasureDefaultView, (DisplayStyleReadView)null,
             (DisplayStyleReadView)null, (Collection)null, false, (Collection)null);
@@ -297,7 +301,9 @@ public class AttributeOperationHelper {
             ConstraintDefinitionWriteView singleValuedConstraint = addSingleValuedConstraint(attrDefWriteView);
             attrDefWriteView.setConstraintDefinition(singleValuedConstraint);
             ConstraintDefinitionWriteView definitionWriteView =
-                createConstraintsWriteView(attrInnerName, typeDefView.getReadViewIdentifier(), 27329L);
+                createConstraintsWriteView(attrInnerName, attrDefWriteView.getReadViewIdentifier(), 27329L);
+            EnumerationDefinitionReadView enumDef = definitionWriteView.getEnumDef();
+            definitionWriteView.setRuleDataObj(new ConstraintDefinitionReadView.RuleDataObject(enumDef));
             attrDefWriteView.setConstraintDefinition(definitionWriteView);
         }
         // 所有的属性定义视图
