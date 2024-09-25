@@ -301,7 +301,7 @@ public class AttributeOperationHelper {
             ConstraintDefinitionWriteView singleValuedConstraint = addSingleValuedConstraint(attrDefWriteView);
             attrDefWriteView.setConstraintDefinition(singleValuedConstraint);
             ConstraintDefinitionWriteView definitionWriteView =
-                createConstraintsWriteView(attrInnerName, attrDefWriteView.getReadViewIdentifier(), 27329L);
+                createConstraintsWriteView(attrInnerName, typeDefView.getReadViewIdentifier(), 27329L);
             EnumerationDefinitionReadView enumDef = definitionWriteView.getEnumDef();
             definitionWriteView.setRuleDataObj(new ConstraintDefinitionReadView.RuleDataObject(enumDef));
             attrDefWriteView.setConstraintDefinition(definitionWriteView);
