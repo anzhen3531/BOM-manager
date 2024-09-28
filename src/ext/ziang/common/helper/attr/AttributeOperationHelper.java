@@ -1,5 +1,12 @@
 package ext.ziang.common.helper.attr;
 
+import java.io.IOException;
+import java.util.*;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.google.gwt.thirdparty.guava.common.collect.Maps;
 import com.ptc.core.lwc.client.commands.LWCCommands;
 import com.ptc.core.lwc.client.util.PropertyDefinitionHelper;
@@ -8,12 +15,9 @@ import com.ptc.core.lwc.common.view.*;
 import com.ptc.core.lwc.server.LWCBasicConstraint;
 import com.ptc.core.lwc.server.LWCIBAAttDefinition;
 import com.ptc.core.lwc.server.TypeDefinitionServiceHelper;
-import com.ptc.core.meta.common.CorrectableException;
 import com.ptc.core.meta.container.common.impl.SingleValuedConstraint;
 import com.ptc.windchill.csm.client.helpers.CSMTypeDefHelper;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import wt.fc.ObjectIdentifier;
 import wt.fc.PersistenceHelper;
 import wt.fc.QueryResult;
@@ -31,9 +35,6 @@ import wt.units.service.QuantityOfMeasureDefaultView;
 import wt.units.service.UnitsService;
 import wt.util.WTException;
 import wt.util.WTProperties;
-
-import java.io.IOException;
-import java.util.*;
 
 /**
  * 常用操作 attr util
@@ -302,8 +303,6 @@ public class AttributeOperationHelper {
             attrDefWriteView.setConstraintDefinition(singleValuedConstraint);
             ConstraintDefinitionWriteView definitionWriteView =
                 createConstraintsWriteView(attrInnerName, typeDefView.getReadViewIdentifier(), 27329L);
-            EnumerationDefinitionReadView enumDef = definitionWriteView.getEnumDef();
-            definitionWriteView.setRuleDataObj(new ConstraintDefinitionReadView.RuleDataObject(enumDef));
             attrDefWriteView.setConstraintDefinition(definitionWriteView);
         }
         // 所有的属性定义视图
