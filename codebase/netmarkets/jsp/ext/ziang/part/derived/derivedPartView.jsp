@@ -113,6 +113,7 @@
                 classificationDisplayName = classificationTypeDefView.getDisplayName();
             }
         } catch (WTException e) {
+            e.printStackTrace();
             throw new WTException(e.getMessage());
         } finally {
             SessionServerHelper.manager.setAccessEnforced(accessFlag);

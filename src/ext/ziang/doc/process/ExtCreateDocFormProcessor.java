@@ -44,6 +44,8 @@ public class ExtCreateDocFormProcessor extends CreateDocFormProcessor {
 		System.out.println("request.getAttribute(\"partNumber\") = " + request.getAttribute("partNumber"));
 		Object obj = objectbean.getObject();
 		if (obj instanceof WTDocument) {
+			// 获取主内容
+			//
 		}
 		return rs;
 	}

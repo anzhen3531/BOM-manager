@@ -22,6 +22,15 @@
 <!--        </action>-->
 <!--    </objecttype>-->
 
+    <objecttype resourceBundle="com.ptc.windchill.enterprise.doc.documentResource" name="document" class="wt.doc.WTDocument" >
+        <action dtiUpload="true" name="create" uicomponent="CREATE_DOC" ajax="row" >
+            <command onClick="validateCreateLocation(event)" method="execute" class="com.ptc.windchill.enterprise.doc.forms.CreateDocFormProcessor" windowType="popup"/>
+            <includeFilter name="projectM4D"/>
+            <includeFilter name="showNewActionPreValidation"/>
+        </action>
+    </objecttype>
+
+
     <objecttype name="extDoc" class="wt.doc.WTDocument"
                 resourceBundle="com.ptc.windchill.enterprise.doc.documentResource">
         <!--   创建WTDocument 自定义拦截器    -->
