@@ -8,7 +8,7 @@ package ext.ziang.common.constants;
  */
 public enum AttributeConstants {
 
-    CLASSIFY("Classify", "分类");
+    CLASSIFY("classify", "分类");
 
     private String innerName;
     private String displayName;

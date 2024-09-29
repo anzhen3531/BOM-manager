@@ -16,6 +16,7 @@
 <%@ page import="wt.util.WTException" %>
 <%@ page import="com.ptc.windchill.csm.client.helpers.CSMTypeDefHelper" %>
 <%@ page import="com.ptc.core.lwc.common.view.TypeDefinitionReadView" %>
+<%@ page import="ext.ziang.common.constants.AttributeConstants" %>
 
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
 
@@ -107,14 +108,14 @@
                 part = (WTPart) object;
                 Map<String, Object> allIBAValues = IbaUtil.findAllIBAValue(part);
                 // 分类内部名称
-                classification = null != allIBAValues.get("Classify") ?
-                        (String) allIBAValues.get("Classify") : "";
+                classification = null != allIBAValues.get(AttributeConstants.CLASSIFY.getInnerName()) ?
+                        (String) allIBAValues.get(AttributeConstants.CLASSIFY.getInnerName()) : "";
                 TypeDefinitionReadView classificationTypeDefView = CSMTypeDefHelper.getClassificationTypeDefView(classification);
                 classificationDisplayName = classificationTypeDefView.getDisplayName();
             }
         } catch (WTException e) {
             e.printStackTrace();
-            throw new WTException(e.getMessage());
+            throw new WTException(e);
         } finally {
             SessionServerHelper.manager.setAccessEnforced(accessFlag);
         }
