@@ -17,6 +17,7 @@
 <%@ page import="com.ptc.windchill.csm.client.helpers.CSMTypeDefHelper" %>
 <%@ page import="com.ptc.core.lwc.common.view.TypeDefinitionReadView" %>
 <%@ page import="ext.ziang.common.constants.AttributeConstants" %>
+<%@ page import="ext.ziang.common.util.MbaUtil" %>
 
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
 
@@ -107,11 +108,15 @@
             if (object instanceof WTPart) {
                 part = (WTPart) object;
                 Map<String, Object> allIBAValues = IbaUtil.findAllIBAValue(part);
+                // 获取MBA属性
+                MbaUtil.findAllMBAValue(part);
                 // 分类内部名称
                 classification = null != allIBAValues.get(AttributeConstants.CLASSIFY.getInnerName()) ?
                         (String) allIBAValues.get(AttributeConstants.CLASSIFY.getInnerName()) : "";
-                TypeDefinitionReadView classificationTypeDefView = CSMTypeDefHelper.getClassificationTypeDefView(classification);
-                classificationDisplayName = classificationTypeDefView.getDisplayName();
+                if (StringUtils.isNotBlank(classification)){
+                    TypeDefinitionReadView classificationTypeDefView = CSMTypeDefHelper.getClassificationTypeDefView(classification);
+                    classificationDisplayName = classificationTypeDefView.getDisplayName();
+                }
             }
         } catch (WTException e) {
             e.printStackTrace();
