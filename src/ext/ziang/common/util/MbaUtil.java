@@ -14,6 +14,7 @@ import com.ptc.core.lwc.server.PersistableAdapter;
 import com.ptc.core.meta.common.SearchOperationIdentifier;
 import com.ptc.core.meta.common.TypeIdentifier;
 
+import org.eclipse.mylyn.internal.provisional.commons.ui.CommonUiUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import wt.fc.Persistable;
@@ -28,6 +29,8 @@ import wt.session.SessionHelper;
 import wt.type.TypeDefinitionReference;
 import wt.type.TypedUtility;
 import wt.util.WTException;
+
+import javax.tools.Tool;
 
 public class MbaUtil {
 
@@ -50,7 +53,7 @@ public class MbaUtil {
             if (Objects.isNull(lwcTypeDefinition)) {
                 return mapping;
             }
-            String typeOid = lwcTypeDefinition.toString();
+            String typeOid = ToolUtils.getOROid(lwcTypeDefinition);
             ArrayList<AttributeDefinitionReadView> typeAttributes = LWCCommands.getTypeAttributes(typeOid);
             PersistableAdapter persistableAdapter = new PersistableAdapter((Persistable)wtPart, null,
                 SessionHelper.getLocale(), new SearchOperationIdentifier());
