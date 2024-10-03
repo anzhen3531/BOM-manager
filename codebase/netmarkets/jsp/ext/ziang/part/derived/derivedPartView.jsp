@@ -109,11 +109,15 @@
                 part = (WTPart) object;
                 Map<String, Object> allIBAValues = IbaUtil.findAllIBAValue(part);
                 // 获取MBA属性
-                MbaUtil.findAllMBAValue(part);
+                Map<String, Object> allMBAValue = MbaUtil.findAllMBAValue(part);
                 // 分类内部名称
                 classification = null != allIBAValues.get(AttributeConstants.CLASSIFY.getInnerName()) ?
                         (String) allIBAValues.get(AttributeConstants.CLASSIFY.getInnerName()) : "";
-                if (StringUtils.isNotBlank(classification)){
+                if (StringUtils.isBlank(classification)) {
+                    classification = null != allMBAValue.get(AttributeConstants.CLASSIFY.getInnerName()) ?
+                            (String) allMBAValue.get(AttributeConstants.CLASSIFY.getInnerName()) : "";
+                }
+                if (StringUtils.isNotBlank(classification)) {
                     TypeDefinitionReadView classificationTypeDefView = CSMTypeDefHelper.getClassificationTypeDefView(classification);
                     classificationDisplayName = classificationTypeDefView.getDisplayName();
                 }
