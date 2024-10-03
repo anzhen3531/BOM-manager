@@ -232,14 +232,14 @@
                     const inputs = document.querySelectorAll('input');
                     // 遍历并打印每个input元素
                     inputs.forEach(function (input) {
-                        if (input.name.indexOf('Classify') > -1 && input.name.indexOf('classify~~NEW') > -1
+                        if (input.name.indexOf('classify') > -1 && input.name.indexOf('classify~~NEW') > -1
                             && input.name.indexOf('+null___textboxAltField') === -1) {
                             if (input.type === "hidden") {
                                 // 分类内部名称
                                 input.value = '<%=classification%>';
                             }
                         }
-                        if (input.name.indexOf('Classify') > -1
+                        if (input.name.indexOf('classify') > -1
                             && input.name.indexOf('~objectHandle~partHandle~!_col_classify___textbox') > -1) {
                             if (input.type === "text") {
                                 // 分类显示名称
