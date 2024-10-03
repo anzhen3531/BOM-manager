@@ -117,6 +117,9 @@
                     classification = null != allMBAValue.get(AttributeConstants.CLASSIFY.getInnerName()) ?
                             (String) allMBAValue.get(AttributeConstants.CLASSIFY.getInnerName()) : "";
                 }
+                System.out.println("allMBAValue = " + allMBAValue);
+                System.out.println("allIBAValues = " + allIBAValues);
+                System.out.println("classification = " + classification);
                 if (StringUtils.isNotBlank(classification)) {
                     TypeDefinitionReadView classificationTypeDefView = CSMTypeDefHelper.getClassificationTypeDefView(classification);
                     classificationDisplayName = classificationTypeDefView.getDisplayName();
