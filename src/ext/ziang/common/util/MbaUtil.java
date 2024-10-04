@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import com.ptc.core.lwc.client.util.PropertyDefinitionHelper;
+import com.ptc.core.meta.container.common.AttributeTypeSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +26,12 @@ import wt.query.QuerySpec;
 import wt.query.SearchCondition;
 import wt.session.SessionHelper;
 import wt.type.TypedUtility;
+import wt.units.FloatingPointWithUnits;
+import wt.units.Unit;
 import wt.util.WTException;
+import wt.util.WTPropertyVetoException;
+import wt.vc.wip.WorkInProgressHelper;
+import wt.vc.wip.Workable;
 
 public class MbaUtil {
     // 日志助手
@@ -98,13 +105,48 @@ public class MbaUtil {
      * @param key 字段名
      * @param value 字段值
      */
-    public static void setMBAValue(Object object, String key, Object value) throws WTException {
+    public static void setMBAValue(Object object, String key, Object value)
+        throws WTException, WTPropertyVetoException {
         Map<String, Object> allMBAValue = findAllMBAValue(object);
         if (allMBAValue.containsKey(key)) {
+
+            Workable workable = WorkInProgressHelper.service
+                .checkout((Workable)object, WorkInProgressHelper.service.getCheckoutFolder(), null).getWorkingCopy();
             PersistableAdapter persistableAdapter = new PersistableAdapter((Persistable)object, null,
                 SessionHelper.getLocale(), new UpdateOperationIdentifier());
+            persistableAdapter.load(key);
             persistableAdapter.set(key, value);
-            PersistenceHelper.manager.save((Persistable)object);
+            persistableAdapter.apply();
+            PersistenceHelper.manager.modify(workable);
+            WorkInProgressHelper.service.checkin(workable, null);
         }
+    }
+
+    /**
+     * 设置带单位的实数 MBA
+     * 
+     * @param part
+     * @param attributeName
+     * @param attributeValue
+     * @return
+     * @throws WTException
+     * @throws WTPropertyVetoException
+     */
+    public static Workable setAttributeValue(Workable workable, String attributeName, String attributeValue)
+        throws WTException, WTPropertyVetoException {
+
+        workable = WorkInProgressHelper.service
+            .checkout(workable, WorkInProgressHelper.service.getCheckoutFolder(), null).getWorkingCopy();
+        PersistableAdapter obj =
+            new PersistableAdapter(workable, null, SessionHelper.getLocale(), new UpdateOperationIdentifier());
+        obj.load(attributeName);
+        AttributeTypeSummary attInfo = obj.getAttributeDescriptor(attributeName);
+        String displayUnit = attInfo.getDisplayUnits(PropertyDefinitionHelper.getMeasurementSystem());
+        // float unitData = Float.valueOf(attributeValue);
+        Unit value = new Unit(attributeValue, -1, displayUnit);
+        obj.set(attributeName, new FloatingPointWithUnits(value));
+        obj.apply();
+        PersistenceHelper.manager.modify(workable);
+        return WorkInProgressHelper.service.checkin(workable, null);
     }
 }
