@@ -9,10 +9,10 @@
 
 <%
     // \netmarkets\jsp\ext\ziang\attr\MBATest.jsp
-    ArrayList<AttributeDefinitionReadView> typeAttributes = LWCCommands.getTypeAttributes("OR:com.ptc.core.lwc.server.LWCTypeDefinition:14763");
-    System.out.println("typeAttributes = " + typeAttributes);
+    // ArrayList<AttributeDefinitionReadView> typeAttributes = LWCCommands.getTypeAttributes("OR:com.ptc.core.lwc.server.LWCTypeDefinition:14763");
+    // System.out.println("typeAttributes = " + typeAttributes);
     //
-    WTReference referenceByOid = ToolUtils.getReferenceByOid("OR%3Awt.part.WTPart%3A110425");
+    WTReference referenceByOid = ToolUtils.getReferenceByOid("OR:wt.part.WTPart:110425");
     Persistable object = referenceByOid.getObject();
     MbaUtil.setMBAValue(object, "ipd_status", "量产");
 %>
