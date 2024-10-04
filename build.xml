@@ -113,10 +113,10 @@
     <!-- Make Jar -->
     <target name="make_jar" depends="check_path">
         <echo>Making Jar files</echo>
-        <exec executable="${shell}" failonerror="true">
-            <arg value="${shopt}"/>
-            <arg value="ant -f ${wthome}/codebase/MakeJar.xml"/>
-        </exec>
+<!--        <exec executable="${shell}" failonerror="true">-->
+<!--            <arg value="${shopt}"/>-->
+<!--            <arg value="ant -f ${wthome}/codebase/MakeJar.xml"/>-->
+<!--        </exec>-->
         <echo>start server...</echo>
         <exec executable="${shell}" failonerror="true">
             <arg value="${shopt}"/>
