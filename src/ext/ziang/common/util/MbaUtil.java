@@ -109,10 +109,9 @@ public class MbaUtil {
         throws WTException, WTPropertyVetoException {
         Map<String, Object> allMBAValue = findAllMBAValue(object);
         if (allMBAValue.containsKey(key)) {
-
             Workable workable = WorkInProgressHelper.service
                 .checkout((Workable)object, WorkInProgressHelper.service.getCheckoutFolder(), null).getWorkingCopy();
-            PersistableAdapter persistableAdapter = new PersistableAdapter((Persistable)object, null,
+            PersistableAdapter persistableAdapter = new PersistableAdapter(workable, null,
                 SessionHelper.getLocale(), new UpdateOperationIdentifier());
             persistableAdapter.load(key);
             persistableAdapter.set(key, value);
@@ -124,28 +123,30 @@ public class MbaUtil {
 
     /**
      * 设置带单位的实数 MBA
-     * 
-     * @param part
+     *
+     * @param workable
      * @param attributeName
      * @param attributeValue
      * @return
      * @throws WTException
-     * @throws WTPropertyVetoException
+     * @throws WTPropertyVetoException wtproperty 否决异常
      */
-    public static Workable setAttributeValue(Workable workable, String attributeName, String attributeValue)
+    public static Workable setUnitAttributeValue(Workable workable, String attributeName, String attributeValue)
         throws WTException, WTPropertyVetoException {
 
         workable = WorkInProgressHelper.service
             .checkout(workable, WorkInProgressHelper.service.getCheckoutFolder(), null).getWorkingCopy();
-        PersistableAdapter obj =
+        PersistableAdapter adapter =
             new PersistableAdapter(workable, null, SessionHelper.getLocale(), new UpdateOperationIdentifier());
-        obj.load(attributeName);
-        AttributeTypeSummary attInfo = obj.getAttributeDescriptor(attributeName);
+        adapter.load(attributeName);
+        // 获取属性相关的展示信息
+        AttributeTypeSummary attInfo = adapter.getAttributeDescriptor(attributeName);
+        // 获取单位显示值
         String displayUnit = attInfo.getDisplayUnits(PropertyDefinitionHelper.getMeasurementSystem());
-        // float unitData = Float.valueOf(attributeValue);
+        // 创建单位属性
         Unit value = new Unit(attributeValue, -1, displayUnit);
-        obj.set(attributeName, new FloatingPointWithUnits(value));
-        obj.apply();
+        adapter.set(attributeName, new FloatingPointWithUnits(value));
+        adapter.apply();
         PersistenceHelper.manager.modify(workable);
         return WorkInProgressHelper.service.checkin(workable, null);
     }
