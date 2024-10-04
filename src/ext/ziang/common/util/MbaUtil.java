@@ -100,7 +100,7 @@ public class MbaUtil {
      */
     public static void setMBAValue(Object object, String key, Object value) throws WTException {
         Map<String, Object> allMBAValue = findAllMBAValue(object);
-        if (allMBAValue.containsValue(key)) {
+        if (allMBAValue.containsKey(key)) {
             PersistableAdapter persistableAdapter = new PersistableAdapter((Persistable)object, null,
                 SessionHelper.getLocale(), new UpdateOperationIdentifier());
             persistableAdapter.set(key, value);
