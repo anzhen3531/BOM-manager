@@ -9,14 +9,14 @@
  *
  * ecwti
  * --%>
-<%@ taglib uri="http://www.ptc.com/windchill/taglib/components" prefix="jca"%>
-<%@ include file="/netmarkets/jsp/components/beginWizard.jspf"%>
-<%@ include file="/netmarkets/jsp/components/includeWizBean.jspf"%>
-<%@ include file="/netmarkets/jsp/variantspec/configure.jspf"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.ptc.com/windchill/taglib/components" prefix="jca" %>
+<%@ include file="/netmarkets/jsp/components/beginWizard.jspf" %>
+<%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
+<%@ include file="/netmarkets/jsp/variantspec/configure.jspf" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="jca" uri="http://www.ptc.com/windchill/taglib/components" %>
-<%@ page import="wt.util.HTMLEncoder"%>
-<%@ include file="/netmarkets/jsp/components/createEditUIText.jspf"%>
+<%@ page import="wt.util.HTMLEncoder" %>
+<%@ include file="/netmarkets/jsp/components/createEditUIText.jspf" %>
 
 <%
     String mode = HTMLEncoder.encodeForHTMLAttribute(request.getParameter("MODE"));
@@ -29,36 +29,38 @@
     </c:when>
     <c:otherwise>
         <jca:initializeItem operation="${createBean.edit}" baseTypeName="com.ptc.wpcfg.doc.VariantSpec"
-            formProcessor="com.ptc.windchill.option.variantspec.form.EditVariantSpecFormProcessor"/>
+                            formProcessor="com.ptc.windchill.option.variantspec.form.EditVariantSpecFormProcessor"/>
     </c:otherwise>
 </c:choose>
 
 <div id="configure_wizard">
 
-<c:choose>
-    <c:when test="<%=DocHelper.isGenerateVariantsSupported()%>">
-<jca:wizard helpSelectorKey="variantspec_configure_help" buttonList="ConfigureWizardButtons">
-        <jca:wizardStep action="ecStep"               type="variantspec"/>
-        <jca:wizardStep action="specedStep"           type="variantspec"/>
-        <jca:wizardStep action="specPreviewStep"      type="variantspec"/>
-        <jca:wizardStep action="defineVariantSpec"    type="variantspec"/>
-        <jca:wizardStep action="variantsPreviewStep"  type="variantspec"/>
-</jca:wizard>
-    </c:when>
-    <c:otherwise>
-<jca:wizard helpSelectorKey="variantspec_configure_help" buttonList="ConfigureWizardButtons">
-        <jca:wizardStep action="ecStep"               type="variantspec"/>
-        <jca:wizardStep action="defineVariantSpec"    type="variantspec"/>
-</jca:wizard>
-    </c:otherwise>
-</c:choose>
+    <c:choose>
+        <c:when test="<%=DocHelper.isGenerateVariantsSupported()%>">
+            <jca:wizard helpSelectorKey="variantspec_configure_help" buttonList="ConfigureWizardButtons">
+                <jca:wizardStep action="ecStep" type="variantspec"/>
+                <jca:wizardStep action="specedStep" type="variantspec"/>
+                <jca:wizardStep action="specPreviewStep" type="variantspec"/>
+                <jca:wizardStep action="defineVariantSpec" type="variantspec"/>
+                <jca:wizardStep action="variantsPreviewStep" type="variantspec"/>
+            </jca:wizard>
+        </c:when>
+        <c:otherwise>
+            <jca:wizard helpSelectorKey="variantspec_configure_help" buttonList="ConfigureWizardButtons">
+                <jca:wizardStep action="ecStep" type="variantspec"/>
+                <jca:wizardStep action="defineVariantSpec" type="variantspec"/>
+            </jca:wizard>
+        </c:otherwise>
+    </c:choose>
 
 </div>
-<%@ include file="/netmarkets/jsp/util/end.jspf"%>
+<%@ include file="/netmarkets/jsp/util/end.jspf" %>
 
 <script>
-    PTC.onReady(function() {
-        let elements = document.getElementsByClassName("x-tool x-tool-toggle x-tool-collapse-west");
-        elements[0].click();
+    PTC.onReady(function () {
+        let element = document.getElementsByClassName("ext-gen336");
+        console.log(element)
+        element.click();
+        console.log("element.click() 完成 ");
     });
 </script>
