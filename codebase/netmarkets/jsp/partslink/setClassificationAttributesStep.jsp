@@ -83,6 +83,7 @@
         let split = value.split(",");
         let valueMap = JSON.parse("<%=request.getAttribute("allIBAValues")%>");
         console.log(valueMap)
+        console.log(split)
         // 遍历所有的文本框
         setTimeout(function () {
             for (let i = 0; i < split.length; i++) {
