@@ -56,11 +56,3 @@
 </div>
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
 
-<script>
-    PTC.onReady(function () {
-        let elements = document.getElementsByClassName("x-tool x-tool-toggle x-tool-collapse-west");
-        console.log(elements)
-        elements[0].click();
-        console.log("element.click() 完成 ");
-    });
-</script>
