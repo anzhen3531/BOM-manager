@@ -17,7 +17,7 @@
             console.log(elements)
             elements[0].click();
             console.log("element.click() speced_Step.jsp");
-        }, 200);
+        }, 1000);
     });
 </script>
 
