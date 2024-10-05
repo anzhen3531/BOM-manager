@@ -38,7 +38,7 @@
                 // 获取当前填写的分类的绑定的所有的属性
                 String keyStr = (String) key;
                 Object value = text.get(key);
-                if (keyStr.contains("Classify") && value != null) {
+                if (keyStr.contains("classify") && value != null) {
                     // 通过属性列表查询对应的属性
                     Set<String> classificationAttr = ClassificationHelper.findClassificationAttr(((String) value));
                     classificationAttrKeys = String.join(",", classificationAttr);
