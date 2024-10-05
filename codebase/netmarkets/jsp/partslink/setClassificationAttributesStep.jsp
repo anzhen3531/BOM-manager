@@ -11,6 +11,7 @@
 <%@ page import="org.apache.commons.lang3.StringEscapeUtils" %>
 <%@ page import="com.alibaba.fastjson.JSONObject" %>
 <%@ page import="java.util.List" %>
+<%@ page import="ext.ziang.common.constants.AttributeConstants" %>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/components" prefix="jca" %>
 <%@ taglib uri="http://www.ptc.com/windchill/taglib/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -38,7 +39,7 @@
                 // 获取当前填写的分类的绑定的所有的属性
                 String keyStr = (String) key;
                 Object value = text.get(key);
-                if (keyStr.contains("classify") && value != null) {
+                if (keyStr.contains(AttributeConstants.CLASSIFY.getInnerName()) && value != null) {
                     // 通过属性列表查询对应的属性
                     Set<String> classificationAttr = ClassificationHelper.findClassificationAttr(((String) value));
                     classificationAttrKeys = String.join(",", classificationAttr);
