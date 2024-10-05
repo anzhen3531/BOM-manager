@@ -50,10 +50,6 @@
     PTC.onReady(function() {
         ConfigureWizard.disableAllWizBtns(true);
         loadEC();
-
-        let elements = document.getElementsByClassName("x-tool x-tool-toggle x-tool-collapse-west");
-        elements[0].click();
-
     });
 
 </script>
