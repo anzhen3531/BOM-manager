@@ -13,12 +13,14 @@
 
     PTC.onReady(function () {
         console.log(render);
-        setTimeout(function () {
-            let elements = document.getElementsByClassName("x-tool x-tool-toggle x-tool-collapse-west");
-            console.log(elements)
-            elements[0].click();
-            console.log("element.click() speced_Step.jsp");
-        }, 1000);
+        let renderElement = render[0];
+        renderElement.click();
+        // setTimeout(function () {
+        //     let elements = document.getElementsByClassName("x-tool x-tool-toggle x-tool-collapse-west");
+        //     console.log(elements)
+        //     elements[0].click();
+        //     console.log("element.click() speced_Step.jsp");
+        // }, 1000);
     });
 </script>
 
