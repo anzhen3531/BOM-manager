@@ -5,13 +5,14 @@
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
 <script>
     //create a json object and use the formdata for params
-    ConfigureWizard.render('speceditor.main.div');
+    let render = ConfigureWizard.render('speceditor.main.div');
 
     //window resize event listner.
     Ext.EventManager.onWindowResize(ConfigureWizard.syncSize);
 
 
     PTC.onReady(function () {
+        console.log(render);
         setTimeout(function () {
             let elements = document.getElementsByClassName("x-tool x-tool-toggle x-tool-collapse-west");
             console.log(elements)
