@@ -1,6 +1,7 @@
 <%@ include file="/netmarkets/jsp/util/beginPopup.jspf" %>
 <div id="speceditor.main.div" style="width:100%;height:100%"></div>
 <div id="speceditor.main.temp"></div>
+<%@page language="java" session="true" pageEncoding="UTF-8" %>
 <input type="hidden" name="pagetype" id="pagetype" value=""/>
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
 <script>
@@ -8,7 +9,6 @@
     ConfigureWizard.render('speceditor.main.div');
     //window resize event listner.
     Ext.EventManager.onWindowResize(ConfigureWizard.syncSize);
-
 
     let flag = true;
     function loopTimer() {
