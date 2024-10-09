@@ -5,22 +5,27 @@
 <%@ include file="/netmarkets/jsp/util/end.jspf" %>
 <script>
     //create a json object and use the formdata for params
-    let render = ConfigureWizard.render('speceditor.main.div');
-
+    ConfigureWizard.render('speceditor.main.div');
     //window resize event listner.
     Ext.EventManager.onWindowResize(ConfigureWizard.syncSize);
 
 
-    PTC.onReady(function () {
-        console.log(render);
-        let renderElement = render[0];
-        renderElement.click();
-        // setTimeout(function () {
-        //     let elements = document.getElementsByClassName("x-tool x-tool-toggle x-tool-collapse-west");
-        //     console.log(elements)
-        //     elements[0].click();
-        //     console.log("element.click() speced_Step.jsp");
-        // }, 1000);
-    });
+    let flag = true;
+    function loopTimer() {
+        console.log("loopTimer exec ")
+        let buttonList = document.getElementsByTagName("button");
+        for (let i = 0; i < buttonList.length; i++) {
+            if (buttonList[i].innerHTML.concat("变型解决方案")) {
+                var b=document.getElementsByClassName('x-tool x-tool-toggle x-tool-collapse-west');
+                b[0].click();
+                flag = false;
+            }
+        }
+        if (flag){
+            setTimeout(loopTimer, 500);
+        }
+    }
+    loopTimer();
+
 </script>
 
