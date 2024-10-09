@@ -12,12 +12,14 @@
 
     let flag = true;
     function loopTimer() {
-        console.log("loopTimer exec ")
         let buttonList = document.getElementsByTagName("button");
         for (let i = 0; i < buttonList.length; i++) {
-            if (buttonList[i].innerHTML.concat("变型解决方案")) {
-                var b=document.getElementsByClassName('x-tool x-tool-toggle x-tool-collapse-west');
-                b[0].click();
+            let buttonText =  buttonList[i].textContent;
+            buttonText = buttonText.replace(/\s+/g, '').trim();
+            if (buttonText.includes("变型解决方案")) {
+                let leftNode=document.getElementsByClassName('x-tool x-tool-toggle x-tool-collapse-west');
+                console.log(leftNode)
+                leftNode[0].click();
                 flag = false;
             }
         }
