@@ -56,7 +56,7 @@ public class ProductList extends JCAConfigurableTable {
 
     public List getOOTBTableViews(String var1, Locale var2) throws WTException {
         ArrayList var3 = new ArrayList(4);
-        Vector var4 = new Vector(13);
+        Vector var4 = new Vector(16);
 
         try {
             ArrayList var5 = new ArrayList();

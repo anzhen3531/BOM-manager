@@ -78,7 +78,7 @@ public class ProductListTableBuilder extends AbstractConfigurableTableBuilder {
         ColumnConfig var16 = var3.newColumnConfig("containerInfo.description", true);
         ((JcaColumnConfig)var16).setVariableHeight(true);
         // 添加业务线字段
-        ColumnConfig businessLines = var3.newColumnConfig("business_lines", true);
+        ColumnConfig businessLines = var3.newColumnConfig("business_lines", "business_lines", true);
         businessLines.setSortable(true);
         var4.addComponent(businessLines);
         var4.addComponent(var16);
