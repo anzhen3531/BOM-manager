@@ -97,7 +97,7 @@
         <exec executable="${shell}" failonerror="true">
             <arg value="${shopt}"/>
             <!--指定编译源码路径-->
-            <arg value="ant -f ${wthome}/bin/tools.xml class -Dclass.includes=&quot;&quot; -Dclass.excludes=&quot;**/model/**,**/infomodel/**,**/scenemodel/**&quot;"/>
+            <arg value="ant -f ${wthome}/bin/tools.xml class -Dclass.includes=&quot;com/ptc/windchill/enterprise/product/**,com/ptc/core/components/factory/dataUtilities/**&quot; -Dclass.excludes=&quot;**/model/**,**/infomodel/**,**/scenemodel/**&quot;"/>
         </exec>
     </target>
 

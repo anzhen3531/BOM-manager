@@ -56,7 +56,7 @@ public class ProductList extends JCAConfigurableTable {
 
     public List getOOTBTableViews(String var1, Locale var2) throws WTException {
         ArrayList var3 = new ArrayList(4);
-        Vector var4 = new Vector(12);
+        Vector var4 = new Vector(13);
 
         try {
             ArrayList var5 = new ArrayList();
@@ -71,12 +71,12 @@ public class ProductList extends JCAConfigurableTable {
             var4.add(TableColumnDefinition.newTableColumnDefinition("containerInfo.owner", false));
             var4.add(TableColumnDefinition.newTableColumnDefinition("orgid", false));
             var4.add(TableColumnDefinition.newTableColumnDefinition("type", false));
+            var4.add(TableColumnDefinition.newTableColumnDefinition("business_lines", false));
             var4.add(TableColumnDefinition.newTableColumnDefinition("thePersistInfo.modifyStamp", false));
             var4.add(TableColumnDefinition.newTableColumnDefinition("containerInfo.description", false));
             var4.add(TableColumnDefinition.newTableColumnDefinition("containerInfo.creator", false));
             var4.add(TableColumnDefinition.newTableColumnDefinition("thePersistInfo.createStamp", false));
             var4.add(TableColumnDefinition.newTableColumnDefinition("containerInfo.privateAccess", false));
-            var4.add(TableColumnDefinition.newTableColumnDefinition("business_lines", false));
             String var7 = getViewResourceEntryKey("com.ptc.windchill.enterprise.product.productResourceClient", "4");
             String var8 = getViewResourceEntryKey("com.ptc.windchill.enterprise.product.productResourceClient", "7");
             // 添加类型拦截
