@@ -1,6 +1,7 @@
 package com.ptc.windchill.enterprise.product;
 
 import com.ptc.core.htmlcomp.components.JCAConfigurableTable;
+import com.ptc.core.htmlcomp.createtableview.Attribute;
 import com.ptc.core.htmlcomp.tableview.SortColumnDescriptor;
 import com.ptc.core.htmlcomp.tableview.TableColumnDefinition;
 import com.ptc.core.htmlcomp.tableview.TableViewCriterion;
@@ -109,6 +110,7 @@ public class ProductList extends JCAConfigurableTable {
 
     public List getSpecialTableColumnsAttrDefinition(Locale var1) {
         ArrayList var2 = new ArrayList(11);
+        var2.add(new Attribute.TextAttribute("business_lines", "业务线", var1));
         return var2;
     }
 
