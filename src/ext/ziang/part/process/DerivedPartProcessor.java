@@ -1,28 +1,25 @@
 package ext.ziang.part.process;
 
 import java.util.List;
-import java.util.Locale;
 
-import com.ptc.core.components.util.FeedbackMessage;
-import com.ptc.netmarkets.model.NmOid;
-import ext.ziang.part.model.derive.PartDeriveLink;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.components.forms.FormProcessingStatus;
 import com.ptc.core.components.forms.FormResult;
+import com.ptc.netmarkets.model.NmOid;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
 import com.ptc.windchill.enterprise.part.forms.CreatePartAndCADDocFormProcessor;
 
 import ext.ziang.common.constants.AttributeConstants;
 import ext.ziang.common.helper.query.CommonMethodHelper;
 import ext.ziang.common.util.IBAUtils;
+import ext.ziang.part.model.derive.PartDeriveLink;
 import wt.fc.PersistenceHelper;
 import wt.part.WTPart;
 import wt.util.WTException;
 import wt.util.WTPropertyVetoException;
-import wt.wcdb.doc.node._parentKey;
 
 /**
  * 处理衍生物料
@@ -87,6 +84,7 @@ public class DerivedPartProcessor extends CreatePartAndCADDocFormProcessor {
                     logger.error("classify is {}", classify);
                     CommonMethodHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(),
                         part.getOrganization());
+                    throw new WTException("123");
                 } catch (Exception e) {
                     logger.error(e.getMessage(), e);
                     throw new WTException(e);
