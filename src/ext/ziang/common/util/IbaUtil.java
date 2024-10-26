@@ -140,16 +140,15 @@ public class IbaUtil {
     /**
      * 获取IBA属性视图
      * 
-     * @param ibaName
+     * @param ibaName 字符
      * @return
      * @throws RemoteException
      * @throws WTException
      */
     public static AttributeDefDefaultView getAttributeDefDefaultView(String ibaName)
         throws RemoteException, WTException {
-        StandardIBADefinitionService var1 = new StandardIBADefinitionService();
-        AttributeDefDefaultView var2 = var1.getAttributeDefDefaultViewByPath(ibaName);
-        return var2;
+        StandardIBADefinitionService ibaDefinitionService = new StandardIBADefinitionService();
+        return ibaDefinitionService.getAttributeDefDefaultViewByPath(ibaName);
     }
 
     /**
@@ -185,59 +184,56 @@ public class IbaUtil {
     }
 
     /**
-     *
+     * 如果是多指字符串则用"|” 拼接
+     * 
      * @param ibaHolder 持有者对象
      * @param ibaName iba名称
-     * @param var2
+     * @param isRefreshHolder
      * @return
      * @throws WTException
      */
-    public static String getStringIBAValue(IBAHolder ibaHolder, String ibaName, boolean var2) throws WTException {
+    public static String getStringIBAValue(IBAHolder ibaHolder, String ibaName, boolean isRefreshHolder)
+        throws WTException {
         try {
-            DefaultAttributeContainer var3 = getRefreshableAttributeContainer(ibaHolder, var2);
-            if (var3 == null) {
+            DefaultAttributeContainer container = getRefreshableAttributeContainer(ibaHolder, isRefreshHolder);
+            if (container == null) {
                 return null;
             } else {
-                AttributeDefDefaultView var4 = getAttributeDefDefaultView(ibaName);
-                ArrayList var5 = new ArrayList();
-                AbstractValueView[] var6 = var3.getAttributeValues(var4);
-                int var7 = var6.length;
-
-                for (int var8 = 0; var8 < var7; ++var8) {
-                    AbstractValueView var9 = var6[var8];
-                    if (var9.getState() != 2) {
-                        var5.add(var9);
+                AttributeDefDefaultView defDefaultView = getAttributeDefDefaultView(ibaName);
+                ArrayList<AbstractValueView> list = new ArrayList<>();
+                AbstractValueView[] attributeValues = container.getAttributeValues(defDefaultView);
+                for (AbstractValueView valueView : attributeValues) {
+                    if (valueView.getState() != 2) {
+                        list.add(valueView);
                     }
                 }
 
-                StringBuffer var11 = new StringBuffer();
-                if (var5.size() > 1) {
-                    Iterator var12 = var5.iterator();
-
-                    while (var12.hasNext()) {
-                        AbstractValueView var13 = (AbstractValueView)var12.next();
-                        if (var13 instanceof StringValueDefaultView) {
-                            var11.append(((StringValueDefaultView)var13).getValueAsString()).append('|');
-                        } else if (var13 instanceof BooleanValueDefaultView) {
-                            var11.append(((BooleanValueDefaultView)var13).getValueAsString()).append('|');
+                StringBuffer buffer = new StringBuffer();
+                if (list.size() > 1) {
+                    Iterator iterator = list.iterator();
+                    while (iterator.hasNext()) {
+                        AbstractValueView valueView = (AbstractValueView)iterator.next();
+                        if (valueView instanceof StringValueDefaultView) {
+                            buffer.append(((StringValueDefaultView)valueView).getValueAsString()).append('|');
+                        } else if (valueView instanceof BooleanValueDefaultView) {
+                            buffer.append(((BooleanValueDefaultView)valueView).getValueAsString()).append('|');
                         }
                     }
-
-                    return var11.toString();
-                } else if (var5.size() == 1) {
-                    if (var5.get(0) instanceof StringValueDefaultView) {
-                        return ((StringValueDefaultView)var5.get(0)).getValueAsString();
-                    } else if (var5.get(0) instanceof BooleanValueDefaultView) {
-                        return ((BooleanValueDefaultView)var5.get(0)).getValueAsString();
+                    return buffer.toString();
+                } else if (list.size() == 1) {
+                    if (list.get(0) instanceof StringValueDefaultView) {
+                        return ((StringValueDefaultView)list.get(0)).getValueAsString();
+                    } else if (list.get(0) instanceof BooleanValueDefaultView) {
+                        return ((BooleanValueDefaultView)list.get(0)).getValueAsString();
                     } else {
-                        return ((AbstractValueView)var5.get(0)).toString();
+                        return ((AbstractValueView)list.get(0)).toString();
                     }
                 } else {
                     return "";
                 }
             }
-        } catch (RemoteException var10) {
-            var10.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -368,6 +364,17 @@ public class IbaUtil {
         }
     }
 
+    /**
+     * 是指
+     * 
+     * @param var0
+     * @param var1
+     * @param var2
+     * @return
+     * @throws WTException
+     * @throws RemoteException
+     * @throws WTPropertyVetoException
+     */
     private static IBAHolder setIntegerIBAValue(IBAHolder var0, String var1, String var2)
         throws WTException, RemoteException, WTPropertyVetoException {
         var2 = var2.trim();
@@ -501,5 +508,70 @@ public class IbaUtil {
      */
     public static String listToString(List<Object> list, String symbol) {
         return list.stream().map(Object::toString).collect(Collectors.joining(symbol));
+    }
+
+    /**
+     * 如果是多指字符串则用"|” 拼接
+     * 
+     * @param ibaHolder 持有者对象
+     * @param ibaName iba名称
+     * @param isRefreshHolder
+     * @return
+     * @throws WTException
+     */
+    public static List<String> getStringIBAValueList(IBAHolder ibaHolder, String ibaName, boolean isRefreshHolder)
+        throws WTException {
+        List<String> valueList = new ArrayList<>();
+        try {
+            DefaultAttributeContainer container = getRefreshableAttributeContainer(ibaHolder, isRefreshHolder);
+            if (container == null) {
+                return valueList;
+            } else {
+                List<AbstractValueView> list = getValueViewList(ibaName, container);
+                valueList = new ArrayList<>(list.size());
+                if (list.size() > 1) {
+                    for (AbstractValueView valueView : list) {
+                        if (valueView instanceof StringValueDefaultView) {
+                            valueList.add(((StringValueDefaultView)valueView).getValueAsString());
+                        } else if (valueView instanceof BooleanValueDefaultView) {
+                            valueList.add(((BooleanValueDefaultView)valueView).getValueAsString());
+                        }
+                    }
+                } else if (list.size() == 1) {
+                    if (list.get(0) instanceof StringValueDefaultView) {
+                        valueList.add(((StringValueDefaultView)list.get(0)).getValueAsString());
+                    } else if (list.get(0) instanceof BooleanValueDefaultView) {
+                        valueList.add(((BooleanValueDefaultView)list.get(0)).getValueAsString());
+                    } else {
+                        valueList.add(list.get(0).toString());
+                    }
+                }
+            }
+        } catch (RemoteException e) {
+            log.error("getStringIBAValue error", e);
+        }
+        return valueList;
+    }
+
+    /**
+     * 获取值视图集合
+     * 
+     * @param ibaName iba名称
+     * @param container 容器
+     * @return
+     * @throws WTException
+     * @throws RemoteException
+     */
+    public static List<AbstractValueView> getValueViewList(String ibaName, DefaultAttributeContainer container)
+        throws WTException, RemoteException {
+        AttributeDefDefaultView defDefaultView = getAttributeDefDefaultView(ibaName);
+        ArrayList<AbstractValueView> list = new ArrayList<>();
+        AbstractValueView[] attributeValues = container.getAttributeValues(defDefaultView);
+        for (AbstractValueView valueView : attributeValues) {
+            if (valueView.getState() != 2) {
+                list.add(valueView);
+            }
+        }
+        return list;
     }
 }
