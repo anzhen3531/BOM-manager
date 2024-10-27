@@ -252,8 +252,7 @@ public class FormResult implements Serializable {
                 var2.append(
                     "top.eval('Ext.Msg.show({title: \"系统异常\",msg:\"<div style=\\'overflow-y: auto; height: 150px\\'>");
                 var2.append(HTMLEncoder.encodeAndFormatForHTMLContent(var5));
-                var2.append(
-                    "</div>\",width:550,buttons:Ext.Msg.OK,icon:Ext.Msg.WARNING})');top.clearActionFormData();");
+                var2.append("</div>\",width:550,buttons:Ext.Msg.OK,icon:Ext.Msg.WARNING})');top.clearActionFormData();");
             }
         }
 
@@ -279,8 +278,7 @@ public class FormResult implements Serializable {
                     var2.append(
                         "top.eval('Ext.Msg.show({title: \"系统异常\",msg:\"<div style=\\'overflow-y: auto; height: 150px\\'>");
                     var2.append(HTMLEncoder.encodeAndFormatForHTMLContent(var5));
-                    var2.append(
-                        "</div>\",width:550,buttons:Ext.Msg.OK,icon:Ext.Msg.WARNING})');top.clearActionFormData();");
+                    var2.append("</div>\",width:550,buttons:Ext.Msg.OK,icon:Ext.Msg.WARNING})');top.clearActionFormData();");
                 }
             }
         }

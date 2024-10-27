@@ -84,7 +84,6 @@ public class DerivedPartProcessor extends CreatePartAndCADDocFormProcessor {
                     logger.error("classify is {}", classify);
                     CommonMethodHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(),
                         part.getOrganization());
-                    throw new WTException("123");
                 } catch (Exception e) {
                     logger.error(e.getMessage(), e);
                     throw new WTException(e);
