@@ -6,8 +6,12 @@
 <%@ include file="/netmarkets/jsp/components/includeWizBean.jspf" %>
 
 
-<div class="inlineHelpBox">
-    当前为配置报表的快速查询接口而用
+<%
+    String inlineHelp = "<B style='color:red'>注意</B></br></br>" +
+            " <p>当前为配置报表的快速查询接口而用</p >";
+%>
+<div style="padding: 0pt 8px;">
+    <wctags:inlineHelpBox helptext="<%=inlineHelp %>"/>
 </div>
 
 
