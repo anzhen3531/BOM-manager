@@ -38,15 +38,7 @@ public class FormResult implements Serializable {
 
     // @formatter:off
     public static final String JS_SCRIPT =
-                "Ext.MessageBox.show({\n" +
-                "    title: '注意',       \n" +
-                "    msg: '%s',   \n" +
-                "    width: 500,\n" +
-                "    buttons: Ext.MessageBox.OKCANCEL,\n" +
-                "    fn: function (btn, text) {    \n" +
-                "        alert('你刚刚点击了' + btn + ',你刚刚输入了' + text);\n" +
-                "    }\n" +
-                "});";
+                   "Ext.messageBox.show({ title: \\'系统异常\\', msg: \"<div style=\\'overflow-y: auto; height: 150px\\'>%s</div>\", buttons: { ok: \\'完成\\'), cancel: \\'取消页面\\'}, fn: function (button) {if (button == \\'ok\\') { window.close()}}, icon: Ext.MessageBox.WARNING})";
     // @formatter:on
     public static final String NAV_TREE_NODES_UPDATE = "navigatorTreePanelNodesforUpdate";
     private static final long serialVersionUID = 1L;
@@ -262,10 +254,14 @@ public class FormResult implements Serializable {
                 // var2.append(HTMLEncoder.encodeForJavascript(var5));
                 // var2.append(");top.clearActionFormData();");
                 // 修改提示 改为更加完美些的
-                var2.append("top.eval(");
-                String message = String.format(JS_SCRIPT, HTMLEncoder.encodeForJavascript(var5));
-                var2.append(message);
-                var2.append(");top.clearActionFormData();");
+                 var2.append("top.eval('");
+                 String message = String.format(JS_SCRIPT, HTMLEncoder.encodeForJavascript(var5));
+                 var2.append(message);
+                 var2.append("');top.clearActionFormData();");
+//                var2.append("top.eval('Ext.Msg.show({msg:\"<div style=\\'overflow-y: auto; height: 150px\\'>");
+//                var2.append(HTMLEncoder.encodeAndFormatForHTMLContent(var5));
+//                var2.append(
+//                    "</div>\",width:550,buttons:Ext.Msg.OK,icon:Ext.Msg.WARNING})');top.clearActionFormData();");
             }
         }
 
