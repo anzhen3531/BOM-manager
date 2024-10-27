@@ -38,7 +38,7 @@ public class FormResult implements Serializable {
 
     // @formatter:off
     public static final String JS_SCRIPT =
-                   "Ext.messageBox.show({ title: \\'系统异常\\', msg: \"<div style=\\'overflow-y: auto; height: 150px\\'>%s</div>\", buttons: { ok: \\'完成\\'), cancel: \\'取消页面\\'}, fn: function (button) {if (button == \\'ok\\') { window.close()}}, icon: Ext.MessageBox.WARNING})";
+                   "Ext.messageBox.show({ title: \"系统异常\", msg: \"<div style=\\'overflow-y: auto; height: 150px\\'>%s</div>\", buttons: { ok: \"完成\"), cancel: \"取消页面\"}, fn: function (button) {if (button == \"ok\") { window.close()}}, icon: Ext.MessageBox.WARNING})";
     // @formatter:on
     public static final String NAV_TREE_NODES_UPDATE = "navigatorTreePanelNodesforUpdate";
     private static final long serialVersionUID = 1L;
