@@ -35,11 +35,6 @@ import wt.vc.Iterated;
 import wt.vc.VersionReference;
 
 public class FormResult implements Serializable {
-
-    // @formatter:off
-    public static final String JS_SCRIPT =
-                   "Ext.messageBox.show({ title: \"系统异常\", msg: \"<div style=\\'overflow-y: auto; height: 150px\\'>%s</div>\", buttons: { ok: \"完成\"), cancel: \"取消页面\"}, fn: function (button) {if (button == \"ok\") { window.close()}}, icon: Ext.MessageBox.WARNING})";
-    // @formatter:on
     public static final String NAV_TREE_NODES_UPDATE = "navigatorTreePanelNodesforUpdate";
     private static final long serialVersionUID = 1L;
     private static final Logger log = LogR.getLogger(FormResult.class.getName());
@@ -254,14 +249,11 @@ public class FormResult implements Serializable {
                 // var2.append(HTMLEncoder.encodeForJavascript(var5));
                 // var2.append(");top.clearActionFormData();");
                 // 修改提示 改为更加完美些的
-                 var2.append("top.eval('");
-                 String message = String.format(JS_SCRIPT, HTMLEncoder.encodeForJavascript(var5));
-                 var2.append(message);
-                 var2.append("');top.clearActionFormData();");
-//                var2.append("top.eval('Ext.Msg.show({msg:\"<div style=\\'overflow-y: auto; height: 150px\\'>");
-//                var2.append(HTMLEncoder.encodeAndFormatForHTMLContent(var5));
-//                var2.append(
-//                    "</div>\",width:550,buttons:Ext.Msg.OK,icon:Ext.Msg.WARNING})');top.clearActionFormData();");
+                var2.append(
+                    "top.eval('Ext.Msg.show({title: \"系统异常\",msg:\"<div style=\\'overflow-y: auto; height: 150px\\'>");
+                var2.append(HTMLEncoder.encodeAndFormatForHTMLContent(var5));
+                var2.append(
+                    "</div>\",width:550,buttons:Ext.Msg.OK,icon:Ext.Msg.WARNING})');top.clearActionFormData();");
             }
         }
 
@@ -281,9 +273,14 @@ public class FormResult implements Serializable {
                 for (var4 = 0; var4 < this.feedbackMessages.size(); ++var4) {
                     var5 = ((FeedbackMessage)this.feedbackMessages.get(var4)).getLocalizedDisplayMessage();
                     // 生成js alert
-                    var2.append("top.wfalert_gen('");
-                    var2.append(HTMLEncoder.encodeForJavascript(var5));
-                    var2.append("');");
+                    // var2.append("top.wfalert_gen('");
+                    // var2.append(HTMLEncoder.encodeForJavascript(var5));
+                    // var2.append("');");
+                    var2.append(
+                        "top.eval('Ext.Msg.show({title: \"系统异常\",msg:\"<div style=\\'overflow-y: auto; height: 150px\\'>");
+                    var2.append(HTMLEncoder.encodeAndFormatForHTMLContent(var5));
+                    var2.append(
+                        "</div>\",width:550,buttons:Ext.Msg.OK,icon:Ext.Msg.WARNING})');top.clearActionFormData();");
                 }
             }
         }
