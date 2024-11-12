@@ -95,4 +95,5 @@ public class CommonGuiComponentHelper {
         comboBox.setRequired(true);
         return comboBox;
     }
+
 }
