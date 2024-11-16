@@ -241,7 +241,8 @@ public class OAuthIndexPageFilter implements Filter {
                 String loginUserName = userInfo.getString("login");
                 if (StringUtils.isNotBlank(token) && StringUtils.isNotBlank(loginUserName)) {
                     response.addCookie(CookieUtils.createSSOTokenByCookie(token));
-                    request.setAttribute(CookieUtils.SSO_AUTH, loginUserName);
+                    // 添加Session
+                    request.getSession().setAttribute(CookieUtils.SSO_AUTH, loginUserName);
                     SSORequestWrap ssoRequestWrap = new SSORequestWrap(request);
                     filterChain.doFilter(ssoRequestWrap, response);
                     return true;
