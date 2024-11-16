@@ -95,7 +95,7 @@ public class OAuthIndexPageFilter implements Filter {
                     logger.debug("当前用户已经登录过Windchill userName{}", loginName);
                     // 如果Token过期则直接返回为空
                     if (StringUtils.isBlank(ssoAuth)) {
-                        request.setAttribute(CookieUtils.SSO_AUTH, loginName);
+                        request.getSession().setAttribute(CookieUtils.SSO_AUTH, loginName);
                     }
                     SSORequestWrap SSORequestWrap = newWrapRequest(request, loginName);
                     filterChain.doFilter(SSORequestWrap, response);
@@ -120,7 +120,7 @@ public class OAuthIndexPageFilter implements Filter {
                 if (StringUtils.isNotBlank(loginName)) {
                     logger.debug("当前用户已经登录过Windchill userName{}", loginName);
                     if (StringUtils.isBlank(ssoAuth)) {
-                        request.setAttribute(CookieUtils.SSO_AUTH, loginName);
+                        request.getSession().setAttribute(CookieUtils.SSO_AUTH, loginName);
                     }
                     SSORequestWrap ssoRequestWrap = newWrapRequest(request, loginName, basicToken);
                     filterChain.doFilter(ssoRequestWrap, response);
@@ -279,7 +279,7 @@ public class OAuthIndexPageFilter implements Filter {
                 String loginName = getLoginName(token, ssoAuth);
                 if (StringUtils.isBlank(ssoAuth)) {
                     logger.debug("当前用户已经登录过Windchill userName{}", loginName);
-                    request.setAttribute(CookieUtils.SSO_AUTH, loginName);
+                    request.getSession().setAttribute(CookieUtils.SSO_AUTH, loginName);
                 }
                 SSORequestWrap SSORequestWrap = newWrapRequest(request, loginName);
                 filterChain.doFilter(SSORequestWrap, response);
@@ -304,6 +304,9 @@ public class OAuthIndexPageFilter implements Filter {
      * @return 登录用户名
      */
     private String getLoginName(String cookiesToken, String ssoAuth) {
+        if (StringUtils.isBlank(cookiesToken)){
+            return null;
+        }
         if (StringUtils.isNotBlank(ssoAuth)) {
             return ssoAuth;
         } else {
@@ -321,7 +324,7 @@ public class OAuthIndexPageFilter implements Filter {
      * @return 登录用户名
      */
     private String getBasicLoginName(String cookiesToken, String ssoAuth) {
-        if (Objects.isNull(cookiesToken) && Objects.isNull(ssoAuth)) {
+        if (Objects.isNull(cookiesToken)) {
             return null;
         }
         if (StringUtils.isNotBlank(ssoAuth)) {
@@ -434,7 +437,7 @@ public class OAuthIndexPageFilter implements Filter {
                 // 重定向到首页
                 authorization = authorization.replace("Basic ", "");
                 response.addCookie(CookieUtils.createSSOTokenByCookie(authorization, CookieUtils.BASIC_LOGIN));
-                request.setAttribute(CookieUtils.SSO_AUTH, username);
+                request.getSession().setAttribute(CookieUtils.SSO_AUTH, username);
                 SSORequestWrap ssoRequestWrap = newSSOWrapRequest(request, username);
                 filterChain.doFilter(ssoRequestWrap, response);
                 return true;
