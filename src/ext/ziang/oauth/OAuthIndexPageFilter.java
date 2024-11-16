@@ -93,7 +93,8 @@ public class OAuthIndexPageFilter implements Filter {
                 String loginName = getLoginName(cookiesToken, ssoAuth);
                 if (StringUtils.isNotBlank(loginName)) {
                     logger.debug("当前用户已经登录过Windchill userName{}", loginName);
-                    if (StringUtils.isNotBlank(ssoAuth)) {
+                    // 如果Token过期则直接返回为空
+                    if (StringUtils.isBlank(ssoAuth)) {
                         request.setAttribute(CookieUtils.SSO_AUTH, loginName);
                     }
                     SSORequestWrap SSORequestWrap = newWrapRequest(request, loginName);
@@ -276,7 +277,7 @@ public class OAuthIndexPageFilter implements Filter {
                 HttpSession session = request.getSession();
                 String ssoAuth = (String)session.getAttribute(CookieUtils.SSO_AUTH);
                 String loginName = getLoginName(token, ssoAuth);
-                if (StringUtils.isNotBlank(ssoAuth)) {
+                if (StringUtils.isBlank(ssoAuth)) {
                     logger.debug("当前用户已经登录过Windchill userName{}", loginName);
                     request.setAttribute(CookieUtils.SSO_AUTH, loginName);
                 }
@@ -303,9 +304,6 @@ public class OAuthIndexPageFilter implements Filter {
      * @return 登录用户名
      */
     private String getLoginName(String cookiesToken, String ssoAuth) {
-        if (Objects.isNull(cookiesToken) && Objects.isNull(ssoAuth)) {
-            return null;
-        }
         if (StringUtils.isNotBlank(ssoAuth)) {
             return ssoAuth;
         } else {
