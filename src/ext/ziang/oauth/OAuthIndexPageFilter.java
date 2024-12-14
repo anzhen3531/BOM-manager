@@ -22,8 +22,7 @@ import wt.util.WTException;
 
 /**
  * OAuth 索引页筛选器 ext.ziang.oauth.OAuthIndexPageFilter
- * 
- * TODO 修改Filter 代码即可
+ *
  *
  * @author anzhen
  * @date 2023/12/25
@@ -187,6 +186,9 @@ public class OAuthIndexPageFilter implements Filter {
      */
     private boolean basicLogin(String authorization, HttpServletRequest request, HttpServletResponse response,
         FilterChain filterChain) throws ServletException, IOException {
+        if (StringUtils.isBlank(authorization)){
+            return false;
+        }
         String remoteUser = request.getRemoteUser();
         if (StringUtils.isNotBlank(remoteUser)) {
             // 采用其余的登录条件
@@ -194,7 +196,6 @@ public class OAuthIndexPageFilter implements Filter {
             filterChain.doFilter(ssoRequestWrap, response);
             return true;
         }
-
         String[] strings = convertAuthHeader(authorization);
         String username = strings[0];
         logger.debug("username = {}", username);

@@ -79,15 +79,14 @@ public class ChoiceSelectorComponentController {
             try {
                 RequestHelper.initializeCommandBean(var1, var2);
                 NmCommandBean var4 = (NmCommandBean)var1.getAttribute("commandBean");
-                String var5 = var4.getTextParameter("actionType");
-                String panzerVersion = var4.getTextParameter("panzerVersion");
-                if ("customDefaultSelections".equals(var5)){
-                    var3 = CustomOptionHelper.customDefaultSelections(panzerVersion);
-                } else if ("initialSelections".equals(var5)) {
+                String actionType = var4.getTextParameter("actionType");
+                if ("customDefaultSelections".equals(actionType)){
+                    var3 = CustomOptionHelper.customDefaultSelections(var4);
+                } else if ("initialSelections".equals(actionType)) {
                     var3 = this.getInitiallySelectedChoices(var4);
-                } else if ("selectAll".equals(var5)) {
+                } else if ("selectAll".equals(actionType)) {
                     var3 = this.selectAllOptionChoices(var4);
-                } else if ("currentSelections".equals(var5)) {
+                } else if ("currentSelections".equals(actionType)) {
                     String var6 = var1.getParameter("rulesSessionId");
                     var3 = this.getCurrentlySelectedChoices(var4, var6);
                 } else {

@@ -1,10 +1,13 @@
 package ext.ziang.common.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.rmi.RemoteException;
 
 import com.ptc.windchill.enterprise.templateutil.ActionValidator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import wt.access.AccessControlHelper;
 import wt.access.AccessPermission;
 import wt.doc.WTDocument;
@@ -17,11 +20,15 @@ import wt.inf.container.WTContainer;
 import wt.inf.container.WTContainerRef;
 import wt.method.RemoteAccess;
 import wt.method.RemoteMethodServer;
+import wt.org.WTPrincipal;
+import wt.org.WTPrincipalReference;
 import wt.part.WTPart;
 import wt.util.WTException;
 import wt.util.WTPropertyVetoException;
 import wt.vc.Iterated;
+import wt.vc.IterationInfo;
 import wt.vc.VersionReference;
+import wt.vc._IterationInfo;
 import wt.vc.wip.CheckoutLink;
 import wt.vc.wip.WorkInProgressException;
 import wt.vc.wip.WorkInProgressHelper;
@@ -34,6 +41,7 @@ import wt.vc.wip.Workable;
  * @date 2024/03/30
  */
 public class ToolUtils implements RemoteAccess {
+    private static final Logger log = LoggerFactory.getLogger(IbaUtil.class);
 
     public static String getOROid(Persistable persistable) throws WTException {
         ReferenceFactory refFactory = new ReferenceFactory();
@@ -218,4 +226,43 @@ public class ToolUtils implements RemoteAccess {
         map.put(contained, folder);
         FolderHelper.assignLocations(map);
     }
+
+    /**
+     * 设置创建者和修改者
+     *
+     * @param persistable 对象
+     * @param iterationInfo 版本信息
+     * @param reference     参考
+     */
+    public static void setCreator(Persistable persistable, IterationInfo iterationInfo,
+        WTPrincipalReference reference) {
+        updatePrincipal(persistable, iterationInfo, reference, "setCreator");
+    }
+
+    public static void setModifier(Persistable persistable, IterationInfo iterationInfo,
+        WTPrincipalReference reference) {
+        updatePrincipal(persistable, iterationInfo, reference, "setModifier");
+    }
+
+    /**
+     * 更新用户信息
+     * 
+     * @param revisionControlledObject 当前对象
+     * @param iterationInfo 版本信息对象
+     * @param reference 用户对象
+     * @param methodName 方法名
+     */
+    public static void updatePrincipal(Persistable revisionControlledObject, IterationInfo iterationInfo,
+        WTPrincipalReference reference, String methodName) {
+        try {
+            Class[] classWTPrinicipalReference = new Class[] {WTPrincipalReference.class};
+            Method method = _IterationInfo.class.getDeclaredMethod(methodName, classWTPrinicipalReference);
+            method.setAccessible(true);
+            method.invoke(iterationInfo, new Object[] {reference});
+            PersistenceServerHelper.manager.update(revisionControlledObject);
+        } catch (Exception e) {
+            log.error("updatePrincipal error {}", e);
+        }
+    }
+
 }
