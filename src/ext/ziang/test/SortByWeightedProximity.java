@@ -8,33 +8,9 @@ import java.util.*;
 public class SortByWeightedProximity {
 
     public static void main(String[] args) {
+        String message = "DD2402   PCB遮光板";
+        List<JSONObject> paramsObject = new ArrayList<>();
 
-        // 查询参数
-        List<JSONObject> params = new ArrayList<>();
-
-        // 返回的数据
-        List<List<JSONObject>> selectData = new ArrayList<>();
-
-        // 配置查询的Key
-        List<String> keyList = new ArrayList<>();
-        keyList.add("LENGTH");
-        keyList.add("WIDTH");
-        keyList.add("C_THICKNESS");
-
-        // 配置查询的权重
-        Map<String, Double> weights = new HashMap<>();
-        weights.put("LENGTH", 1.0);
-        weights.put("WIDTH", 2.0);
-        weights.put("C_THICKNESS", 3.0);
-
-        Collections.sort(selectData, new Comparator<List<JSONObject>>() {
-            @Override
-            public int compare(List<JSONObject> jsonObjectLeft, List<JSONObject> jsonObjectRight) {
-                double leftDistance = weightedDistance(params, weights, keyList, jsonObjectLeft);
-                double rightDistance = weightedDistance(params, weights, keyList, jsonObjectRight);
-                return Double.compare(leftDistance, rightDistance);
-            }
-        });
     }
 
     /**

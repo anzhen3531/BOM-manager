@@ -10,7 +10,13 @@ import ext.ziang.common.helper.query.CommonMethodHelper;
 import ext.ziang.common.util.IBAUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import wt.fc.PersistenceHelper;
+import wt.fc.QueryResult;
 import wt.part.WTPart;
+import wt.part.WTPartMaster;
+import wt.part.WTPartMasterIdentity;
+import wt.query.QuerySpec;
+import wt.query.SearchCondition;
 import wt.util.WTException;
 
 import java.util.List;
@@ -28,7 +34,8 @@ public class ExtCreatePartAndCADDocFormProcessor extends CreatePartAndCADDocForm
     @Override
     public FormResult postProcess(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
         logger.debug("into postProcess {} ", nmCommandBean);
-        return super.postProcess(nmCommandBean, list);
+        FormResult formResult = super.postProcess(nmCommandBean, list);
+        return formResult;
     }
 
     /**
@@ -53,7 +60,7 @@ public class ExtCreatePartAndCADDocFormProcessor extends CreatePartAndCADDocForm
                 String classify;
                 try {
                     classify = IBAUtils.getIBAValue(part, AttributeConstants.CLASSIFY.getInnerName());
-                    logger.error("classify is {}",classify);
+                    logger.error("classify is {}", classify);
                     CommonMethodHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(), part.getOrganization());
                 } catch (Exception e) {
                     logger.error(e.getMessage(), e);
@@ -62,5 +69,16 @@ public class ExtCreatePartAndCADDocFormProcessor extends CreatePartAndCADDocForm
             }
             return formResult;
         }
+    }
+
+    public static boolean findPartByName(String name) throws WTException {
+        QuerySpec querySpec = new QuerySpec(WTPartMaster.class);
+        // select * from WTPartMaster;
+        querySpec.appendWhere(
+                new SearchCondition(WTPartMaster.class, WTPartMaster.NAME, SearchCondition.EQUAL, name),
+                new int[]{0});
+        // select * from WTPartMaster where name = ''
+        QueryResult queryResult = PersistenceHelper.manager.find(querySpec);
+        return queryResult.hasMoreElements();
     }
 }

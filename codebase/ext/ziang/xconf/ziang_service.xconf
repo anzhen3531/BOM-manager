@@ -23,4 +23,9 @@
               targetFile="codebase/com/ptc/windchill/rest/rest.properties"
               default="ext.ziang.report.rest.ReportFormController"/>
 
+    <Property name="ext.ziang.rest.ZCChangeECRService"
+              targetFile="codebase/com/ptc/windchill/rest/rest.properties"
+              default="ext.mgl.designChange.service.ZCChangeECRService"/>
+
+<!--    xconfmanager -i codebase/ext/ziang/xconf/ziang.service.properties.xconf -p  -->
 </Configuration>

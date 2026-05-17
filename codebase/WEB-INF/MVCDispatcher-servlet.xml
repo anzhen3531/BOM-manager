@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	- Application context definition for "MVC" DispatcherServlet.
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+    <import resource="classpath:config/mvc/mvc.xml" />
+	<import resource="classpath:config/mvc/jca-mvc.xml" />
+	<import resource="classpath:config/mvc/*-configs.xml" />
+	<import resource="classpath:config/mvc/xworks/*-configs.xml" />
+	<import resource="classpath:config/mvc/custom.xml" />
+
+	<bean id="defaultHandlerMappings"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>
+					classpath:/config/mvc/*-urlMappings.properties
+				</value>
+				<value>classpath:/config/mvc/custom.properties</value>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>

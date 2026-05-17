@@ -11,5 +11,6 @@ http://www.ptc.com/schema/mvc http://www.ptc.com/schema/mvc/mvc-10.0.xsd">
     <!-- Configurations in this file override all other configurations -->
     <mvc:builder-scan base-package="ext.ziang"/>
 
-
+    <!--扫描相关配置文件-->
+    <context:component-scan base-package="ext.ziang.part"/>
 </beans>

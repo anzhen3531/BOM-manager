@@ -17,6 +17,7 @@ import ext.ziang.common.helper.query.CommonMethodHelper;
 import ext.ziang.common.util.IBAUtils;
 import ext.ziang.part.model.derive.PartDeriveLink;
 import wt.fc.PersistenceHelper;
+import wt.fc.PersistenceServerHelper;
 import wt.part.WTPart;
 import wt.util.WTException;
 import wt.util.WTPropertyVetoException;
@@ -58,38 +59,38 @@ public class DerivedPartProcessor extends CreatePartAndCADDocFormProcessor {
         return super.postProcess(nmCommandBean, list);
     }
 
-    /**
-     * 设置结果下一个操作
-     *
-     * @param formResult 表单结果
-     * @param nmCommandBean nm 命令 bean
-     * @param list 列表
-     * @return {@link FormResult }
-     * @throws WTException WTException
-     */
-    @Override
-    public FormResult setResultNextAction(FormResult formResult, NmCommandBean nmCommandBean, List<ObjectBean> list)
-        throws WTException {
-        if (!formResult.getStatus().equals(FormProcessingStatus.SUCCESS)) {
-            return formResult;
-        } else {
-            formResult = super.setResultNextAction(formResult, nmCommandBean, list);
-            logger.debug("list = " + list);
-            Object object = list.get(0).getObject();
-            if (object instanceof WTPart) {
-                WTPart part = (WTPart)object;
-                String classify;
-                try {
-                    classify = IBAUtils.getIBAValue(part, AttributeConstants.CLASSIFY.getInnerName());
-                    logger.error("classify is {}", classify);
-                    CommonMethodHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(),
-                        part.getOrganization());
-                } catch (Exception e) {
-                    logger.error(e.getMessage(), e);
-                    throw new WTException(e);
-                }
-            }
-            return formResult;
-        }
-    }
+//    /**
+//     * 设置结果下一个操作
+//     *
+//     * @param formResult 表单结果
+//     * @param nmCommandBean nm 命令 bean
+//     * @param list 列表
+//     * @return {@link FormResult }
+//     * @throws WTException WTException
+//     */
+//    @Override
+//    public FormResult setResultNextAction(FormResult formResult, NmCommandBean nmCommandBean, List<ObjectBean> list)
+//        throws WTException {
+//        if (!formResult.getStatus().equals(FormProcessingStatus.SUCCESS)) {
+//            return formResult;
+//        } else {
+//            formResult = super.setResultNextAction(formResult, nmCommandBean, list);
+//            logger.debug("list = " + list);
+//            Object object = list.get(0).getObject();
+//            if (object instanceof WTPart) {
+//                WTPart part = (WTPart)object;
+//                String classify;
+//                try {
+//                    classify = IBAUtils.getIBAValue(part, AttributeConstants.CLASSIFY.getInnerName());
+//                    logger.error("classify is {}", classify);
+//                    CommonMethodHelper.updateNameAndNumberByObject(part.getMaster(), classify, part.getNumber(),
+//                        part.getOrganization());
+//                } catch (Exception e) {
+//                    logger.error(e.getMessage(), e);
+//                    throw new WTException(e);
+//                }
+//            }
+//            return formResult;
+//        }
+//    }
 }

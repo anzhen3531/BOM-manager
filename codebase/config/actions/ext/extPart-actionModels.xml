@@ -186,30 +186,6 @@
     </model>
 
 
-    <!--自定义相关的配置-->
-    <model name="third_level_nav_part">
-        <submodel name="general"/>
-        <!--  General  -->
-        <submodel name="relatedItems"/>
-        <!--  Related Objects  -->
-        <submodel name="changes"/>
-        <!--  Change  -->
-        <submodel name="history"/>
-        <!--  History  -->
-        <submodel name="customOption"/>
-        <submodel name="collaboration"/>
-        <!--  Collaboration  -->
-        <submodel name="prodAnalytics"/>
-        <!--  Product Analytics  -->
-        <submodel name="security3rdnav"/>
-        <!--  Security  -->
-        <submodel name="configLinks"/>
-        <submodel name="thingworxCustomizeMenu"/>
-        <submodel name="quality"/>
-        <!--  Quality Objects  -->
-    </model>
-
-
     <model name="customOption">
         <action name="derivedPartTab" type="extPart"/>
     </model>

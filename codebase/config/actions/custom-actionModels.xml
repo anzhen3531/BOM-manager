@@ -11,4 +11,52 @@
     <include href="config/actions/ext/extEpm-actionModels.xml"/>
     <include href="config/actions/ext/extCsm-actionmodels.xml"/>
 
+<!--    <include href="config/actions/xworks/xworks-actionModels.xml" />-->
+    <include href="config/actions/xworks/PromotionNotice-actionModels.xml" />
+    <include href="config/actions/xworks/xworksExample-actionModels.xml" />
+    <include href="config/actions/xworks/Promotable-actionModels.xml" />
+    <include href="config/actions/xworks/customizedTaskTab-actionModel.xml" />
+
+
+    <!--自定义相关的配置-->
+    <model name="third_level_nav_part">
+        <submodel name="general"/>
+        <!--  General  -->
+        <submodel name="relatedItems"/>
+        <!--  Related Objects  -->
+        <submodel name="changes"/>
+        <!--  Change  -->
+        <submodel name="history"/>
+        <!--  History  -->
+        <submodel name="customOption"/>
+        <submodel name="collaboration"/>
+        <!--  Collaboration  -->
+        <submodel name="prodAnalytics"/>
+        <!--  Product Analytics  -->
+        <submodel name="security3rdnav"/>
+        <!--  Security  -->
+        <submodel name="configLinks"/>
+        <submodel name="thingworxCustomizeMenu"/>
+        <submodel name="quality"/>
+        <!--  Quality Objects  -->
+        <action name="configurablePartConfigTab" type="xworks_wpcfg"/>
+    </model>
+
+    <model name="configurablePartConfigRightPaneTabSet" resourceBundle="ext.ptc.xworks.examples.wpcfg.wpcfgResourcesRB">
+        <action name="attributes" type="object"/>
+        <action name="rightPaneTab1" type="xworks_wpcfg"/>
+        <action name="rightPaneTab2" type="xworks_wpcfg"/>
+        <action name="rightPaneTab3" type="xworks_wpcfg"/>
+        <action name="rightPaneTab4" type="xworks_wpcfg"/>
+        <action name="rightPaneTab5" type="xworks_wpcfg"/>
+    </model>
+
+    <model name="configurablePartTreeTableContextMenu">
+        <action name="checkoutPart" type="xworks_wpcfg"/>
+        <action name="undoCheckoutPart" type="xworks_wpcfg"/>
+        <action name="checkinPart" type="xworks_wpcfg"/>
+        <action name="revisePart" type="xworks_wpcfg"/>
+    </model>
+
+
 </actionmodels>

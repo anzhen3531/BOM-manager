@@ -1,11 +1,9 @@
 package ext.ziang.common.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import com.ptc.core.lwc.client.util.PropertyDefinitionHelper;
+import com.ptc.core.lwc.common.view.AttributeDefaultValueReadView;
 import com.ptc.core.meta.container.common.AttributeTypeSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

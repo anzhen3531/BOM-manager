@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<description>PTC Windchill XWorks Web Tag library</description>
+	<display-name>PTC Windchill XWorks Web Tag library</display-name>
+	<tlib-version>1.1</tlib-version>
+	<short-name>xworks</short-name>
+	<uri>http://www.ptc.com/windchill/xworks</uri>
+
+	<tag>
+		<description>
+         Participant Picker Common component.
+      </description>
+		<name>participantPicker</name>
+		<tag-class>com.ptc.xworks.windchill.web.principalpicker.ExtentedPrincipalPickerTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<description>
+            Name of the action class that needs to be invoked for processing the selected Participants.
+         </description>
+			<name>actionClass</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Name of the action method that needs to be invoked for processing the selected Participants.
+         </description>
+			<name>actionMethod</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            This can take values &quot;single&quot; / &quot;multi&quot;. When this is set to &quot;single&quot;,
+            one can select only one Participant at a time. Default is &quot;multi&quot;.
+            If this attribute is not passed or set to &quot;multi&quot;,
+            Picker will enable to select multiple Participants.
+         </description>
+			<name>select</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Use this to set the default to any Participant type.
+            The class com.ptc.core.components.beans.PrincipalBean has four string
+            constants defined, which one can pass to this attribute.
+            The constants are ALL_PARTICIPANT, USER, GROUP, ORG.
+         </description>
+			<name>participantType</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Use this to set the default Participant type specified above
+            as the only supported type. This takes value true/false. When set
+            to true, it will restrict to single type specified as in
+            the attribute participantType. When set to false or left unspecified,
+            the picker supports participant types ALL_PARTICIPANT, USER, GROUP, ORG.
+         </description>
+			<name>singleParticipantType</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            This map contains key, value pairs of association to be displayed
+            in association drop down list. Keys are Java String literals that
+            are returned to the user upon selection of any association.
+            Value is a localized string that is displayed in association drop down list.
+            As an example, for the team usage, this is the list of roles available for
+            adding users to.
+         </description>
+			<name>associationMap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.util.HashMap</type>
+		</attribute>
+		<attribute>
+			<description>
+            The default association should be passed in this attribute.
+            This is the association that will be selected by default when the picker is launched.
+         </description>
+			<name>defaultAssociation</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            The localized string for Display Label of the association.
+         </description>
+			<name>associationLabel</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Set this to &quot;true&quot; for the email TextBox to be rendered.
+            Default is &quot;false&quot;.
+         </description>
+			<name>emailAllowed</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            If this attribute is set to &quot;true&quot; than in user search result only users with email are obtained,
+            Default is &quot;false&quot;.
+         </description>
+			<name>filterEmail</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Set this to &quot;false&quot; to prevent the recent participants TextBox from being rendered.
+            Default is &quot;true&quot;.
+         </description>
+			<name>recentAllowed</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            If this attribute is set to &quot;true&quot; than in user search result the user in that application context will be rendered,
+            Default is &quot;false&quot;.
+         </description>
+			<name>applicationContextSearch</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            The List of Context in which one wants to perform Search.
+         </description>
+			<name>contextMap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.util.LinkedHashMap</type>
+		</attribute>
+		<attribute>
+			<description>
+            The default Context should be passed in this attribute.
+         </description>
+			<name>defaultContext</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            LDAP server&apos;s list is passed, to perform search.
+            Default this attribute is not supplied.
+         </description>
+			<name>serviceMap</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.util.LinkedHashMap</type>
+		</attribute>
+		<attribute>
+			<description>
+            Set this to &quot;true&quot; to search for internal groups.
+            Default is &quot;false&quot;.
+         </description>
+			<name>includeInternal</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Set this to &quot;true&quot; to bypass the restricted search scope set on the organization.
+            Default is &quot;false&quot;.
+         </description>
+			<name>disableRestrictedSearchScope</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Set this to &quot;true&quot; to force the restricted search scope, despite how it is set on the organization.
+            Default is &quot;false&quot;.
+         </description>
+			<name>enforceRestrictedSearchScope</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Set this to &quot;false&quot; to remove principals from a read-only adapter from the search results.
+            Default is &quot;true&quot;.
+         </description>
+			<name>includeReadOnlyPrincipals</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Set this to &quot;true&quot; to add a filter on search to restrict search scope to the selected role.
+            This option will only display when the type option is User.
+            When true, this will provide a dropdown list of available roles in the search criteria.  The roles will come from the passed in context.
+            Default is &quot;false&quot;.
+         </description>
+			<name>showRoles</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            This will provide the pool of principals to search.
+            All access control rules will still apply.
+         </description>
+			<name>resourcePool</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.util.LinkedHashMap</type>
+		</attribute>
+		<attribute>
+			<description>
+            Set this to &quot;true&quot; to search only profile groups in the system.
+            Default is &quot;false&quot;.
+         </description>
+			<name>searchProfileGroups</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Set this to &quot;PrincipalBean.LDAP&quot; to search only disconnected principals in LDAP.
+            Set this to &quot;PrincipalBean.DB&quot; to search only disconnected principals in the DB.
+            Default is &quot;false&quot;.
+         </description>
+			<name>searchDisconnectedPrincipals</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            This will provide the title for the participant picker window.
+            Default is &quot;Find Participant&quot;.
+         </description>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            This will determine whether the picker allows multiple selections ("multi"), or just a single select ("single").
+            Default is &quot;multi&quot;.
+         </description>
+			<name>select</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            This will determine whether or not the "Search In:" field shows up in the participant picker. Default is "true" to preserve existing functionality.
+         </description>
+			<name>showSearchIn</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            This will set the help link for the picker, if nothing is provided it will default to the service.properties value for ParticipantPickerHelp
+         </description>
+			<name>helpSelectorKey</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            This will filter the search results to only return objects that the current user has MODIFY permission on.
+         </description>
+			<name>enforceModifyPermission</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Action Name of the Wizard Step Action, the default value is principalPickerCD_step  
+         </description>
+			<name>actionNameOfWizardStep</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+		<attribute>
+			<description>
+            Object Type of the Wizard Step Action, the default value is principalpicker 
+         </description>
+			<name>objectTypeOfWizardStep</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+</taglib>
