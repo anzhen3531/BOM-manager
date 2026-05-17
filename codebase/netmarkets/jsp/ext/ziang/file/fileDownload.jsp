@@ -21,6 +21,6 @@
             }
         }
     }catch (Exception e){
-        e.printStackTrace();
+        org.slf4j.LoggerFactory.getLogger("jsp").error("Unexpected error", e);
     }
 %>

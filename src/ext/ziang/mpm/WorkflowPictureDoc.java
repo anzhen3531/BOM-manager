@@ -1,5 +1,7 @@
 package ext.ziang.mpm;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -22,6 +24,8 @@ import ext.ziang.common.helper.WTPathHelper;
  * @date 2024/05/23
  */
 public class WorkflowPictureDoc {
+	private static final Logger logger = LoggerFactory.getLogger(WorkflowPictureDoc.class);
+
 
 	public static final String SCRIPT_PATH = WTPathHelper.HOME + WTPathHelper.VBS_SCRIPT_PATH + "createChart.vbs";
 
@@ -60,17 +64,17 @@ public class WorkflowPictureDoc {
 					.map(entry -> encode(entry.getKey()) + "=" + encode(entry.getValue()))
 					.collect(Collectors.joining(","));
 
-			System.out.println("mapString = " + mapString);
-			System.out.println("listString = " + listString);
+			logger.debug("{}", "mapString = " + mapString);
+			logger.debug("{}", "listString = " + listString);
 			String command = String.format("cscript //NoLogo \"%s\" \"%s\" \"%s\" \"%s\"",
 					scriptPath, excelFilePath, listString, mapString);
-			System.out.println("Command: " + command);
+			logger.debug("{}", "Command: " + command);
 			Process process = Runtime.getRuntime().exec(command);
 			Charset charset = Charset.forName("GBK");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), charset));
 			String line;
 			while ((line = reader.readLine()) != null) {
-				System.out.println("Handler Excel  Info" + line);
+				logger.debug("{}", "Handler Excel  Info" + line);
 			}
 			BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream(), charset));
 			while ((line = errorReader.readLine()) != null) {
@@ -78,17 +82,17 @@ public class WorkflowPictureDoc {
 			}
 			// 等待脚本执行完毕
 			int exitCode = process.waitFor();
-			System.out.println("Process exited with code: " + exitCode);
+			logger.debug("{}", "Process exited with code: " + exitCode);
 			// 检查退出代码
 			if (exitCode == 0) {
-				System.out.println("脚本执行成功。");
+				logger.debug("{}", "脚本执行成功。");
 			} else {
 				System.err.println("脚本执行失败，退出代码：" + exitCode);
 			}
 			reader.close();
 			errorReader.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 	}
 
@@ -121,17 +125,17 @@ public class WorkflowPictureDoc {
 			String mapString = map.entrySet().stream()
 					.map(entry -> encode(entry.getKey()) + "=" + encode(entry.getValue()))
 					.collect(Collectors.joining(","));
-			System.out.println("mapString = " + mapString);
-			System.out.println("listString = " + listString);
+			logger.debug("{}", "mapString = " + mapString);
+			logger.debug("{}", "listString = " + listString);
 			String command = String.format("cscript //NoLogo \"%s\" \"%s\" \"%s\" \"%s\"",
 					SCRIPT_PATH, excelFilePath, listString, mapString);
-			System.out.println("Command: " + command);
+			logger.debug("{}", "Command: " + command);
 			Process process = Runtime.getRuntime().exec(command);
 			Charset charset = Charset.forName("GBK");
 			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(), charset));
 			String line;
 			while ((line = reader.readLine()) != null) {
-				System.out.println("Handler Excel  Info" + line);
+				logger.debug("{}", "Handler Excel  Info" + line);
 			}
 			BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream(), charset));
 			while ((line = errorReader.readLine()) != null) {
@@ -139,17 +143,17 @@ public class WorkflowPictureDoc {
 			}
 			// 等待脚本执行完毕
 			int exitCode = process.waitFor();
-			System.out.println("Process exited with code: " + exitCode);
+			logger.debug("{}", "Process exited with code: " + exitCode);
 			// 检查退出代码
 			if (exitCode == 0) {
-				System.out.println("脚本执行成功。");
+				logger.debug("{}", "脚本执行成功。");
 			} else {
 				System.err.println("脚本执行失败，退出代码：" + exitCode);
 			}
 			reader.close();
 			errorReader.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 	}
 

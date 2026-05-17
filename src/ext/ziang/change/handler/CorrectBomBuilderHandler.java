@@ -1,5 +1,7 @@
 package ext.ziang.change.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,6 +46,8 @@ import wt.vc.VersionControlHelper;
  * @date 2024/02/21
  */
 public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
+	private static final Logger logger = LoggerFactory.getLogger(CorrectBomBuilderHandler.class);
+
 	/**
 	 * 正确 BOM 生成器处理程序
 	 */
@@ -87,16 +91,16 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 					String internalName = nmSimpleOid.getInternalName();
 					List<CorrectBomEntity> correctBomEntities = new ArrayList<>();
 					ObjectIdentifier identifier = nmSimpleOid.getOidObject();
-					System.out.println("identifier = " + identifier);
+					logger.debug("{}", "identifier = " + identifier);
 					hashMap = handlerChildNode(internalName, correctBomEntities, nmSimpleOid);
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(bool);
 		}
-		System.out.println("hashMap = " + hashMap);
+		logger.debug("{}", "hashMap = " + hashMap);
 		return hashMap;
 	}
 
@@ -112,7 +116,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 	 */
 	private static void handlerSubstitutePart(WTPart part, WTPart parentPart,
 			List<CorrectBomEntity> correctBomEntities) {
-		System.out.println("CorrectBomBuilderHandler.handlerSubstitutePart");
+		logger.debug("{}", "CorrectBomBuilderHandler.handlerSubstitutePart");
 		if (parentPart == null || part == null) {
 			return;
 		}
@@ -120,7 +124,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 		try {
 			// 先查询替代件
 			WTPartUsageLink link = PartHelper.findWTPartUsageLink(parentPart, part);
-			System.out.println("parentPart = " + parentPart.getNumber() + "=>  part" + part.getNumber());
+			logger.debug("{}", "parentPart = " + parentPart.getNumber() + "=>  part" + part.getNumber());
 			if (link == null) {
 				return;
 			}
@@ -140,7 +144,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(flag);
 		}
@@ -155,7 +159,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 	 */
 	@Override
 	public List getRootNodes() throws WTException {
-		System.out.println("CorrectBomBuilderHandler.getRootNodes");
+		logger.debug("{}", "CorrectBomBuilderHandler.getRootNodes");
 		ArrayList<CorrectBomEntity> beanList = new ArrayList<>();
 		ArrayList<WTPart> partList = new ArrayList<>();
 		boolean bool = SessionServerHelper.manager.isAccessEnforced();
@@ -169,7 +173,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 				LoggerHelper.log("changeablesBefore.size() = " + changeablesBefore.size());
 				while (changeablesBefore.hasMoreElements()) {
 					Object object = changeablesBefore.nextElement();
-					System.out.println("object = " + object);
+					logger.debug("{}", "object = " + object);
 					if (object instanceof AffectedActivityData) {
 						AffectedActivityData affectedActivityData = (AffectedActivityData) object;
 						Persistable roleBObject = affectedActivityData.getRoleBObject();
@@ -224,7 +228,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 			entity.setSelect(flag);
 			return entity;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 		return null;
 	}
@@ -254,7 +258,7 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 			entity.setSelect(flag);
 			return entity;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 		return null;
 	}
@@ -346,11 +350,11 @@ public class CorrectBomBuilderHandler extends TreeHandlerAdapter {
 			link = (WTPartUsageLink) qr.nextElement();
 			// 构建一个子对象
 			Persistable persistable = link.getRoleBObject();
-			System.out.println("persistable = " + persistable);
+			logger.debug("{}", "persistable = " + persistable);
 			if (persistable instanceof WTPartMaster) {
 				// 查询使用部件
 				WTPartMaster master = (WTPartMaster) persistable;
-				System.out.println("master = " + master);
+				logger.debug("{}", "master = " + master);
 				latestPart = PartHelper.findLatestWTPartByMasterAndView(master, part.getViewName());
 				if (latestPart == null) {
 					continue;

@@ -1,5 +1,7 @@
 package ext.ziang.change.helper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -56,6 +58,8 @@ import wt.util.WTPropertyVetoException;
  * @date 2023/11/13
  */
 public class CommonECNOperationHelper {
+	private static final Logger logger = LoggerFactory.getLogger(CommonECNOperationHelper.class);
+
 	/**
 	 * ECCB Store libray 名称
 	 */
@@ -107,7 +111,7 @@ public class CommonECNOperationHelper {
 				createECAByTemplate(ecn, templateEcn);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(flag);
 		}
@@ -201,7 +205,7 @@ public class CommonECNOperationHelper {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 			throw new WTException(e);
 		}
 	}
@@ -229,7 +233,7 @@ public class CommonECNOperationHelper {
 		// querySpec.appendWhere(new SearchCondition(new
 		// ClassAttribute(WTChangeOrder2.class, WTChangeOrder2.TEMPLATED),
 		// SearchCondition.EQUAL, new ConstantExpression(0)), new int[] { 0 });
-		System.out.println("查询ECN querySpec = " + querySpec);
+		logger.debug("{}", "查询ECN querySpec = " + querySpec);
 		QueryResult qr = PersistenceHelper.manager.find(querySpec);
 		if (qr.hasMoreElements()) {
 			return (WTChangeOrder2) qr.nextElement();
@@ -376,9 +380,9 @@ public class CommonECNOperationHelper {
 		querySpec.appendAnd();
 		querySpec.appendWhere(new SearchCondition(new TableColumn(aliasAt, "IDA3B5"), SearchCondition.EQUAL,
 				ConstantExpression.newExpression(documentId)), new int[] { 0 });
-		System.out.println("querySpec = " + querySpec);
+		logger.debug("{}", "querySpec = " + querySpec);
 		QueryResult qr = PersistenceHelper.manager.find(querySpec);
-		System.out.println("qr.size() = " + qr.size());
+		logger.debug("{}", "qr.size() = " + qr.size());
 		if (qr.hasMoreElements()) {
 			return (ChangeRecord2) qr.nextElement();
 		}
@@ -395,11 +399,11 @@ public class CommonECNOperationHelper {
 	 * @throws WTException
 	 */
 	public static void createRecord2LinkObject(Object object, WTChangeActivity2 activity2) throws WTException {
-		System.out.println("ExtWTChangeActivityHelper.createRecord2Link");
-		System.out.println("object = " + object + ", activity2 = " + activity2);
+		logger.debug("{}", "ExtWTChangeActivityHelper.createRecord2Link");
+		logger.debug("{}", "object = " + object + ", activity2 = " + activity2);
 		ChangeRecord2 record2 = validateExistRecord2(object, activity2);
 		if (record2 != null) {
-			System.out.println("当前已经Eca关联了产生了相同的对象");
+			logger.debug("{}", "当前已经Eca关联了产生了相同的对象");
 			// throw new WTException("当前已经Eca关联了产生了相同的对象");
 		}
 		ChangeRecord2 changeRecord2 = null;
@@ -430,7 +434,7 @@ public class CommonECNOperationHelper {
 	 */
 	public static WTChangeOrder2 createECN(String name, String description, String needDate,
 			String type) {
-		System.out.println("==start Time" + LocalDateTime.now());
+		logger.debug("{}", "==start Time" + LocalDateTime.now());
 		WTChangeOrder2 ecn = null;
 		try {
 			ecn = WTChangeOrder2.newWTChangeOrder2(name);
@@ -457,10 +461,10 @@ public class CommonECNOperationHelper {
 			// 之后创建eca 通过模板创建 // 没模板则不创建
 			ecn = (WTChangeOrder2) ChangeHelper2.service.saveChangeOrder(ecn);
 			// 设置ECA
-			System.out.println("==end of creating ECN " + ecn);
-			System.out.println("==end Time" + LocalDateTime.now());
+			logger.debug("{}", "==end of creating ECN " + ecn);
+			logger.debug("{}", "==end Time" + LocalDateTime.now());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 		return ecn;
 	}
@@ -480,13 +484,13 @@ public class CommonECNOperationHelper {
 					SearchCondition.EQUAL,
 					new KeywordExpression("'" + cProductFamily + "'"));
 			qs.appendWhere(namecontainerinfo, new int[] { 0 });
-			System.out.println("查询产品库 = " + qs);
+			logger.debug("{}", "查询产品库 = " + qs);
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
 				library = (WTLibrary) qr.nextElement();
 			}
 		} catch (WTException e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(access);
 		}
@@ -504,7 +508,7 @@ public class CommonECNOperationHelper {
 	 *             WT异常
 	 */
 	public static void createAffectedActivityData(Object object, WTChangeActivity2 activity2) throws WTException {
-		System.out.println("ExtWTChangeActivityHelper.createRecord2Link");
+		logger.debug("{}", "ExtWTChangeActivityHelper.createRecord2Link");
 		AffectedActivityData affectedActivityData = validateExistActivityData(object, activity2);
 		if (affectedActivityData != null) {
 			throw new WTException("当前已经Eca关联了产生了同类型对象");
@@ -548,9 +552,9 @@ public class CommonECNOperationHelper {
 		querySpec.appendAnd();
 		querySpec.appendWhere(new SearchCondition(new TableColumn(aliasAt, "IDA3B5"), SearchCondition.EQUAL,
 				ConstantExpression.newExpression(documentId)), new int[] { 0 });
-		System.out.println("querySpec = " + querySpec);
+		logger.debug("{}", "querySpec = " + querySpec);
 		QueryResult qr = PersistenceHelper.manager.find(querySpec);
-		System.out.println("qr.size() = " + qr.size());
+		logger.debug("{}", "qr.size() = " + qr.size());
 		if (qr.hasMoreElements()) {
 			return (AffectedActivityData) qr.nextElement();
 		}

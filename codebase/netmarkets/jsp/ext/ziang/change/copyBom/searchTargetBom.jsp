@@ -15,7 +15,7 @@
     } else if (tableID.contains("SelectTargetBomBuilder")) {
         tableBuilderId = "SelectTargetBomBuilder";
     }
-    System.out.println("tableBuilderId = " + tableBuilderId);
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "tableBuilderId = " + tableBuilderId);
 %>
 
 <wctags:itemPicker id="searchAffectBom"

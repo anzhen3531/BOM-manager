@@ -233,7 +233,7 @@ public class IbaUtil {
                 }
             }
         } catch (RemoteException e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
             return null;
         }
     }
@@ -266,7 +266,7 @@ public class IbaUtil {
 
             var0.setAttributeContainer(var4);
         } catch (WTException var9) {
-            var9.printStackTrace();
+            log.error("Unexpected error", var9);
         }
 
         return var0;

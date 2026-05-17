@@ -1,5 +1,7 @@
 package ext.ziang.doc.sign.script;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -13,6 +15,8 @@ import java.util.List;
  * @date 2024/03/17
  */
 public class OpenPython {
+	private static final Logger logger = LoggerFactory.getLogger(OpenPython.class);
+
 
 	private static final String EVN = "LOCAL";
 	/**
@@ -45,19 +49,19 @@ public class OpenPython {
 		hashTable.put("批准", "admin 2023-02-01");
 		hashTable.put("制作", "admin 2023-02-01");
 		String signKey = hashTable.toString();
-		System.out.println("signKey = " + signKey);
+		logger.debug("{}", "signKey = " + signKey);
 		argg.add("D:\\pythonProject\\handlerWordToDocx\\temp\\testDoc.docx");
 		argg.add("D:\\pythonProject\\handlerWordToDocx\\temp\\newTestDoc.docx");
 		argg.add(signKey);
 		// 增加签名参数
 		OpenPython open = new OpenPython(path, argg);
 		Integer run = open.run();
-		System.out.println("run = " + run);
+		logger.debug("{}", "run = " + run);
 		if (run == -1) {
-			System.out.println("run py script failed code = " + run);
+			logger.debug("{}", "run py script failed code = " + run);
 		}
 		List<String> result = open.getResult();
-		System.out.println("result = " + result);
+		logger.debug("{}", "result = " + result);
 	}
 
 	/**
@@ -76,12 +80,12 @@ public class OpenPython {
 		argg.add(selfFilePath);
 		argg.add(targetFilePath);
 		argg.add(table.toString());
-		System.out.println("table = " + table);
+		logger.debug("{}", "table = " + table);
 		OpenPython open = new OpenPython(PYTHON_WORD_SIGN_SCRIPT_PATH, argg);
 		Integer run = open.run();
-		System.out.println("run = " + run);
+		logger.debug("{}", "run = " + run);
 		if (run == -1) {
-			System.out.println("run py script failed code = " + run);
+			logger.debug("{}", "run py script failed code = " + run);
 			return null;
 		}
 		List<String> result = open.getResult();
@@ -146,7 +150,7 @@ public class OpenPython {
 			}
 			return pr.waitFor();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 			return -1;
 		}
 	}

@@ -9,11 +9,11 @@
 
 <%
     ArrayList selectedInOpener = commandBean.getSelectedContextsForPopup();
-    System.out.println("commandBean.getNmOidSelected() = " + commandBean.getNmOidSelected());
-    System.out.println("commandBean.getNmOidSelectedInOpener() = " + commandBean.getNmOidSelectedInOpener());
-    System.out.println("commandBean.getSelectedOidForPopup() = " + commandBean.getSelectedOidForPopup());
-    System.out.println("commandBean.getSelectedOidForPopup() = " + commandBean.getSelectedOidForPopup());
-    System.out.println("commandBean.getSelectedContextsForPopup() = " + commandBean.getSelectedContextsForPopup());
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "commandBean.getNmOidSelected() = " + commandBean.getNmOidSelected());
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "commandBean.getNmOidSelectedInOpener() = " + commandBean.getNmOidSelectedInOpener());
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "commandBean.getSelectedOidForPopup() = " + commandBean.getSelectedOidForPopup());
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "commandBean.getSelectedOidForPopup() = " + commandBean.getSelectedOidForPopup());
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "commandBean.getSelectedContextsForPopup() = " + commandBean.getSelectedContextsForPopup());
     ArrayList<String> strings = new ArrayList<>();
     String filePath;
     String parameter = request.getParameter("type");
@@ -21,7 +21,7 @@
         for (Object selected : selectedInOpener) {
             if (selected instanceof NmContext) {
                 NmContext context = (NmContext) selected;
-                System.out.println("context.getTargetOid() = " + context.getTargetOid());
+                org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "context.getTargetOid() = " + context.getTargetOid());
                 strings.add(context.getTargetOid().toString());
             }
         }
@@ -31,7 +31,7 @@
     }
     if (StrUtil.isNotBlank(filePath)) {
         filePath = ApplicationDataOperationHelper.escapePathForJavaScript(filePath);
-        System.out.println("filePath = " + filePath);
+        org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "filePath = " + filePath);
 %>
 <script>
     let filePath = '<%=filePath%>';

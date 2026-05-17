@@ -1,5 +1,7 @@
 package ext.ziang.part.helper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ext.ziang.common.util.LoggerHelper;
 import ext.ziang.common.util.ToolUtils;
 import wt.fc.ObjectReference;
@@ -28,6 +30,8 @@ import wt.vc.wip.Workable;
  * @date 2024/01/12
  */
 public class CommonHandlerBomStructHelper {
+	private static final Logger logger = LoggerFactory.getLogger(CommonHandlerBomStructHelper.class);
+
 	/**
 	 * 复制 BOM 结构
 	 *
@@ -98,7 +102,7 @@ public class CommonHandlerBomStructHelper {
 			// 4、检入当前BOM
 			ToolUtils.checkin(originPartBak, "一键复制BOM结构检入");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package ext.ziang.change.process;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +44,8 @@ import wt.vc.wip.Workable;
  * @date 2024/02/21
  */
 public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements RemoteAccess {
+	private static final Logger logger = LoggerFactory.getLogger(ReplaceBomLinkProcess.class);
+
 
 	@Override
 	public FormResult doOperation(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
@@ -52,9 +56,9 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 		boolean flag = SessionServerHelper.manager.setAccessEnforced(false);
 		try {
 			HashMap text = nmCommandBean.getText();
-			System.out.println("text = " + text);
+			logger.debug("{}", "text = " + text);
 			HashMap radio = nmCommandBean.getRadio();
-			System.out.println("radio = " + radio);
+			logger.debug("{}", "radio = " + radio);
 			String replacePartNumber = (String) text.get("replacePartPicker$label$");
 			String originPartNumber = (String) text.get("originPartPicker$label$");
 			String substitutionAmountName = (String) text.get("substitutionAmountName");
@@ -65,16 +69,16 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 			}
 			String replaceType = (String) radio.get("radio");
 			ArrayList selected = nmCommandBean.getSelected();
-			System.out.println("selected = " + selected);
+			logger.debug("{}", "selected = " + selected);
 			for (Object object : selected) {
 				if (object instanceof NmContext) {
 					NmContext context = (NmContext) object;
 					NmOid targetOid = context.getTargetOid();
-					System.out.println("targetOid = " + targetOid);
+					logger.debug("{}", "targetOid = " + targetOid);
 					Object refObject = targetOid.getRefObject();
-					System.out.println("refObject = " + refObject);
+					logger.debug("{}", "refObject = " + refObject);
 					WTPart componentPart = (WTPart) ToolUtils.getObjectByOid(targetOid.toString());
-					System.out.println("componentPart = " + componentPart);
+					logger.debug("{}", "componentPart = " + componentPart);
 					try {
 						Workable workable = handlerReplaceAndSubstitution(componentPart, originPartNumber,
 								replacePartNumber, replaceType, amount);
@@ -82,7 +86,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 							workables.add(workable);
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						logger.error("Unexpected error", e);
 						errors.add(e.getMessage());
 						// 回退之前的所有版本
 						for (Workable workable : workables) {
@@ -97,7 +101,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 			}
 			handlerProcessMessage(formResult, "操作成功", true);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 			errors.add(e.getMessage());
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(flag);
@@ -127,13 +131,13 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 			String replaceType, Double personInputAmount) throws WTException {
 		Workable workable;
 		try {
-			System.out.println("ReplaceBomLinkProcess.handlerReplaceAndSubstitution");
-			System.out.println("componentPart = " + componentPart + ", originNumber = " + originNumber
-					+ ", replaceNumber = " + replaceNumber + ", replaceType = " + replaceType);
+			logger.debug("{}", "ReplaceBomLinkProcess.handlerReplaceAndSubstitution");
+			logger.debug("componentPart={}, originNumber={}, replaceNumber={}, replaceType={}", componentPart,
+					originNumber, replaceNumber, replaceType);
 			WTPartMaster originMaster = PartHelper.getWTPartMasterByNumber(originNumber);
 			WTPartMaster replaceMaster = PartHelper.getWTPartMasterByNumber(replaceNumber);
-			System.out.println("replaceMaster = " + replaceMaster);
-			System.out.println("originMaster = " + originMaster);
+			logger.debug("{}", "replaceMaster = " + replaceMaster);
+			logger.debug("{}", "originMaster = " + originMaster);
 			if (originMaster == null || replaceMaster == null) {
 				return null;
 			}
@@ -152,13 +156,13 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 			WTPart componentWorkCopy = (WTPart) workable;
 			switch (replaceType) {
 				case "replace":
-					System.out.println("进入替换结构相关");
+					logger.debug("{}", "进入替换结构相关");
 					WTPartUsageLink checkoutVersionLink = PartHelper.findWTPartUsageLink(componentWorkCopy,
 							originLatestPart);
 					QueryResult result = PersistenceServerHelper.manager.query(WTPartUsageLink.class, componentWorkCopy,
 							WTPartUsageLink.USED_BY_ROLE,
 							replaceMaster);
-					System.out.println("result = " + result.size());
+					logger.debug("{}", "result = " + result.size());
 					if (result.size() > 0) {
 						throw new WTException(
 								String.format("存在重复绑定替换 父部件{%s}  -> 子件{%s}", componentWorkCopy.getNumber(),
@@ -174,7 +178,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 				case "substitution":
 					WTPartUsageLink originLink = PartHelper.findWTPartUsageLink(componentWorkCopy,
 							originLatestPart);
-					System.out.println("originLink = " + originLink);
+					logger.debug("{}", "originLink = " + originLink);
 					if (originLink == null) {
 						return workable;
 					}
@@ -197,7 +201,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 								quantity.getUnit());
 						wtPartSubstituteLink.setQuantity(substituteQuantity);
 						PersistenceHelper.manager.save(wtPartSubstituteLink);
-						System.out.println("保存成功替代");
+						logger.debug("{}", "保存成功替代");
 						return workable;
 					}
 				case "deleteSubstitution":
@@ -222,7 +226,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 				case "mainChangeSubstitute":
 					WTPartUsageLink originPartLink = PartHelper.findWTPartUsageLink(componentWorkCopy,
 							originLatestPart);
-					System.out.println("originLink = " + originPartLink);
+					logger.debug("{}", "originLink = " + originPartLink);
 					if (originPartLink == null) {
 						return workable;
 					}
@@ -242,9 +246,9 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 									SubstituteQuantity quantity = targetLink.getQuantity();
 									if (quantity != null) {
 										QuantityUnit unit = quantity.getUnit();
-										System.out.println("unit = " + unit);
+										logger.debug("{}", "unit = " + unit);
 										Double amount = quantity.getAmount();
-										System.out.println("amount = " + amount);
+										logger.debug("{}", "amount = " + amount);
 										if (amount != null) {
 											wtPartUsageLink.setQuantity(
 													Quantity.newQuantity(amount, replaceMaster.getDefaultUnit()));
@@ -257,7 +261,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 											.newWTPartSubstituteLink(wtPartUsageLink, originMaster);
 									Quantity linkQuantity = originPartLink.getQuantity();
 									QuantityUnit unit = linkQuantity.getUnit();
-									System.out.println("linkQuantity = " + linkQuantity);
+									logger.debug("{}", "linkQuantity = " + linkQuantity);
 									Double amount = linkQuantity.getAmount();
 									wtPartUsageLink.setQuantity(Quantity.newQuantity(amount, unit));
 									PersistenceHelper.manager.delete(originPartLink);
@@ -265,7 +269,7 @@ public class ReplaceBomLinkProcess extends DefaultObjectFormProcessor implements
 									return workable;
 									// ts.commit();
 								} catch (Exception e) {
-									e.printStackTrace();
+									logger.error("Unexpected error", e);
 									// ts.rollback();
 								}
 							}

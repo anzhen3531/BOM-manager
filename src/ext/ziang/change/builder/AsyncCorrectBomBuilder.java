@@ -1,5 +1,7 @@
 package ext.ziang.change.builder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,8 @@ import wt.util.WTException;
  */
 @ComponentBuilder({ "ext.ziang.change.builder.AsyncCorrectBomBuilder" })
 public class AsyncCorrectBomBuilder extends AbstractConfigurableTableBuilder implements TreeDataBuilderAsync {
+	private static final Logger logger = LoggerFactory.getLogger(AsyncCorrectBomBuilder.class);
+
 
 	/**
 	 * 处理器
@@ -87,13 +91,13 @@ public class AsyncCorrectBomBuilder extends AbstractConfigurableTableBuilder imp
 	 */
 	@Override
 	public void buildNodeData(Object node, ComponentResultProcessor resultProcessor) throws Exception {
-		System.out.println("SingleCorrectBomBuilder.buildNodeData");
-		System.out.println("node = " + node + ", resultProcessor = " + resultProcessor);
+		logger.debug("{}", "SingleCorrectBomBuilder.buildNodeData");
+		logger.debug("{}", "node = " + node + ", resultProcessor = " + resultProcessor);
 		if (node == TreeNode.RootNode) {
 			resultProcessor.setPresorted(true);
 			handler = new AsyncCorrectBomBuilderHandler(resultProcessor.getParams());
 			List<Object> objects = handler.getRootNodes();
-			System.out.println("objects = " + objects);
+			logger.debug("{}", "objects = " + objects);
 			resultProcessor.addElements(objects);
 		} else {
 			List nodeList = new ArrayList();

@@ -30,7 +30,7 @@ import java.util.*;
 public class CommonQueueHelper {
     public static void test(String test, Object test2) throws InterruptedException {
         Thread.sleep(5000);
-        System.out.println(String.format("CommonQueueHelper Main Exec %s -> %s", test, test2));
+        LOGGER.debug("{}", String.format("CommonQueueHelper Main Exec %s -> %s", test, test2));
     }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonQueueHelper.class);
@@ -38,12 +38,12 @@ public class CommonQueueHelper {
 
     public static void main(String[] args) {
         long var8 = new Date().getTime();
-        System.out.println("new Date() = " + new Date());
-        System.out.println("var8 = " + var8);
+        LOGGER.debug("{}", "new Date() = " + new Date());
+        LOGGER.debug("{}", "var8 = " + var8);
         var8 = var8 / 1000L * 1000L;
-        System.out.println("var8 = " + var8);
+        LOGGER.debug("{}", "var8 = " + var8);
         Timestamp var10 = new Timestamp(var8);
-        System.out.println("new Date(var10.getTime()) = " + new Date(var10.getTime()));
+        LOGGER.debug("{}", "new Date(var10.getTime()) = " + new Date(var10.getTime()));
     }
 
     /**

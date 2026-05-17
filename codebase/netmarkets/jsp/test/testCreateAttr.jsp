@@ -47,7 +47,7 @@
         writableView.setAttribute(attributeDefinitionView);
         AttributeOperationHelper.TYPE_DEF_SERVICE.updateTypeDef(writableView);
     } catch (Exception e) {
-        e.printStackTrace();
+        org.slf4j.LoggerFactory.getLogger("jsp").error("Unexpected error", e);
     } finally {
         SessionServerHelper.manager.setAccessEnforced(accessEnforced);
     }

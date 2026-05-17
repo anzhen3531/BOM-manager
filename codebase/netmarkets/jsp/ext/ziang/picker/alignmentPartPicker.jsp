@@ -13,8 +13,8 @@
 <%
     String ecaOid = request.getParameter("ecaOid");
     String partType = request.getParameter("partType");
-    System.out.println("partType = " + partType);
-    System.out.println("ecaOid = " + ecaOid);
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "partType = " + partType);
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "ecaOid = " + ecaOid);
     String status;
     Persistable persistable = ToolUtils.getObjectByOid(ecaOid);
     if (persistable instanceof WTChangeActivity2) {
@@ -46,7 +46,7 @@
     } else {
         type = "WCTYPE|wt.part.WTPart";
     }
-    System.out.println("type = " + type);
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "type = " + type);
 %>
 
 <%--可以自定义picker

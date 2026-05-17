@@ -1,5 +1,7 @@
 package ext.ziang.common.helper.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Enumeration;
 
 import wt.fc.PersistenceServerHelper;
@@ -20,6 +22,8 @@ import wt.util.WTException;
  *       WTPrincipalUtil.getContextUserLast()
  */
 public class WTPrincipalHelper {
+	private static final Logger logger = LoggerFactory.getLogger(WTPrincipalHelper.class);
+
 	/**
 	 * 获取上下文用户 Last
 	 *
@@ -33,7 +37,7 @@ public class WTPrincipalHelper {
 			WTUser wtUser = (WTUser) principal;
 			return wtUser.getEMail();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 		return null;
 	}
@@ -84,7 +88,7 @@ public class WTPrincipalHelper {
 			}
 			return null;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 		return null;
 	}

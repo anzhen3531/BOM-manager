@@ -1,5 +1,7 @@
 package ext.ziang.part.builder;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 
 import com.ptc.jca.mvc.components.JcaComponentParams;
@@ -16,6 +18,8 @@ import com.ptc.netmarkets.util.beans.NmHelperBean;
 import wt.util.WTException;
 
 public class SearchBatteryPartBuilder extends AbstractComponentBuilder {
+	private static final Logger logger = LoggerFactory.getLogger(SearchBatteryPartBuilder.class);
+
 	/**
 	 * 构建组件配置
 	 *
@@ -56,7 +60,7 @@ public class SearchBatteryPartBuilder extends AbstractComponentBuilder {
 		NmHelperBean helperBean = ((JcaComponentParams) componentParams).getHelperBean();
 		NmCommandBean commandBean = helperBean.getNmCommandBean();
 		HashMap changedComboBox = commandBean.getChangedComboBox();
-		System.out.println("changedComboBox = " + changedComboBox);
+		logger.debug("{}", "changedComboBox = " + changedComboBox);
 		// {nameproductType=[156.75], nametype=[P TYPE], nameproductClassify=[Backsheet], namefragment=[]}
 		Object object = changedComboBox.get("nameproductType");
 		Object object1 = changedComboBox.get("nametype");

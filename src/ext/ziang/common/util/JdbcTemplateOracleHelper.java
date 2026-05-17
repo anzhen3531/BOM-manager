@@ -1,5 +1,7 @@
 package ext.ziang.common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -17,6 +19,8 @@ import ext.ziang.common.config.PropertiesHelper;
  * @date 2024/03/26
  */
 public class JdbcTemplateOracleHelper {
+	private static final Logger logger = LoggerFactory.getLogger(JdbcTemplateOracleHelper.class);
+
 	private static PropertiesHelper helper = PropertiesHelper.getInstance("commonConfig.properties");
 	/**
 	 * 网址
@@ -39,7 +43,7 @@ public class JdbcTemplateOracleHelper {
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 	}
 
@@ -57,8 +61,8 @@ public class JdbcTemplateOracleHelper {
 			// 把jdbc 链接 设置成 非自动提交
 			conn.setAutoCommit(isAutoCommit);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("获得链接失败!");
+			logger.error("Unexpected error", e);
+			logger.debug("{}", "获得链接失败!");
 		}
 		return conn;
 	}
@@ -71,8 +75,8 @@ public class JdbcTemplateOracleHelper {
 		try {
 			st = conn.createStatement();
 		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("创建状态通道失败!");
+			logger.error("Unexpected error", e);
+			logger.debug("{}", "创建状态通道失败!");
 		}
 		return st;
 	}
@@ -82,14 +86,14 @@ public class JdbcTemplateOracleHelper {
 			try {
 				stmt.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error("Unexpected error", e);
 			}
 		}
 		if (conn != null) {
 			try {
 				conn.close();// 关闭
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error("Unexpected error", e);
 			}
 		}
 	}
@@ -99,21 +103,21 @@ public class JdbcTemplateOracleHelper {
 			try {
 				rs.close();// 关闭
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error("Unexpected error", e);
 			}
 		}
 		if (stmt != null) {
 			try {
 				stmt.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error("Unexpected error", e);
 			}
 		}
 		if (conn != null) {
 			try {
 				conn.close();// 关闭
 			} catch (SQLException e) {
-				e.printStackTrace();
+				logger.error("Unexpected error", e);
 			}
 		}
 	}

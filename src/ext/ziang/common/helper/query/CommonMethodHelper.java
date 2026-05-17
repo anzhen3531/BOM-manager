@@ -196,7 +196,7 @@ public class CommonMethodHelper implements RemoteAccess {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Unexpected error", e);
             LOGGER.error("CustomCommonUtil.updateNameAndNumberByObject  error ====> " + e.getMessage(), e);
         }
     }
@@ -269,7 +269,7 @@ public class CommonMethodHelper implements RemoteAccess {
                 return (String) ((Object[]) qr.nextElement())[0];
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Unexpected error", e);
         }
         LOGGER.debug("CustomCommonUtil.findLastSerialNumberByPrefix End");
         return number;
@@ -303,7 +303,7 @@ public class CommonMethodHelper implements RemoteAccess {
                     return qr.nextElement();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.error("Unexpected error", e);
             }
             LOGGER.debug("CustomCommonUtil.findLastSerialNumberByPrefix End :" + LocalDateTime.now());
             return null;
@@ -542,9 +542,9 @@ public class CommonMethodHelper implements RemoteAccess {
                     }
                 }
             } catch (UnsupportedOperationException e) {
-                e.printStackTrace();
+                LOGGER.error("Unexpected error", e);
             } catch (WTPropertyVetoException e) {
-                e.printStackTrace();
+                LOGGER.error("Unexpected error", e);
             }
         } finally {
             SessionServerHelper.manager.setAccessEnforced(flag);

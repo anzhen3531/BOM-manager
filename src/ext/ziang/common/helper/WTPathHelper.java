@@ -1,5 +1,7 @@
 package ext.ziang.common.helper;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 
 import wt.util.WTProperties;
@@ -11,6 +13,8 @@ import wt.util.WTProperties;
  * @date 2024/05/25
  */
 public class WTPathHelper {
+	private static final Logger logger = LoggerFactory.getLogger(WTPathHelper.class);
+
 
 	/** 临时 */
 	public static String TEMP;
@@ -24,7 +28,7 @@ public class WTPathHelper {
 			HOME = properties.getProperty("wt.home", "");
 			TEMP = properties.getProperty("wt.temp");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 	}
 

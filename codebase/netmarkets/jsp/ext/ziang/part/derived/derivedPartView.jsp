@@ -117,16 +117,16 @@
                     classification = null != allMBAValue.get(AttributeConstants.CLASSIFY.getInnerName()) ?
                             (String) allMBAValue.get(AttributeConstants.CLASSIFY.getInnerName()) : "";
                 }
-                System.out.println("allMBAValue = " + allMBAValue);
-                System.out.println("allIBAValues = " + allIBAValues);
-                System.out.println("classification = " + classification);
+                org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "allMBAValue = " + allMBAValue);
+                org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "allIBAValues = " + allIBAValues);
+                org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "classification = " + classification);
                 if (StringUtils.isNotBlank(classification)) {
                     TypeDefinitionReadView classificationTypeDefView = CSMTypeDefHelper.getClassificationTypeDefView(classification);
                     classificationDisplayName = classificationTypeDefView.getDisplayName();
                 }
             }
         } catch (WTException e) {
-            e.printStackTrace();
+            org.slf4j.LoggerFactory.getLogger("jsp").error("Unexpected error", e);
             throw new WTException(e);
         } finally {
             SessionServerHelper.manager.setAccessEnforced(accessFlag);

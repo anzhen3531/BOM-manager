@@ -1,5 +1,7 @@
 package ext.ziang.common.helper.promotion;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
@@ -30,6 +32,8 @@ import wt.vc.baseline.BaselineHelper;
  * @date 2024/04/19
  */
 public class PromotionOperationHelper {
+	private static final Logger logger = LoggerFactory.getLogger(PromotionOperationHelper.class);
+
 
 	/**
 	 * 创建升级请求
@@ -90,7 +94,7 @@ public class PromotionOperationHelper {
 			trx.commit();
 			trx = null;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			if (trx != null) {
 				trx.rollback();

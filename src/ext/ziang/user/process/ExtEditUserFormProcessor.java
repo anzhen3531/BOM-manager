@@ -1,5 +1,7 @@
 package ext.ziang.user.process;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import cn.hutool.core.util.StrUtil;
@@ -19,6 +21,8 @@ import wt.util.WTException;
  * @date 2024/04/01
  */
 public class ExtEditUserFormProcessor extends EditUserFormProcessor {
+	private static final Logger logger = LoggerFactory.getLogger(ExtEditUserFormProcessor.class);
+
 
 	@Override
 	public FormResult doOperation(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
@@ -26,7 +30,7 @@ public class ExtEditUserFormProcessor extends EditUserFormProcessor {
 		ObjectBean objectBean = (ObjectBean) list.get(0);
 		WTUser user = (WTUser) objectBean.getObject();
 		String authenticationName = user.getAuthenticationName();
-		System.out.println("authenticationName = " + authenticationName);
+		logger.debug("{}", "authenticationName = " + authenticationName);
 		String password = (String) nmCommandBean.getText().get("password");
 		String alternateUserName = (String) nmCommandBean.getText().get("alternateUserName1");
 		if (StrUtil.isNotBlank(password)){

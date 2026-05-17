@@ -1,5 +1,7 @@
 package ext.ziang.oauth;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ import wt.util.WTException;
  * @date 2024/02/06
  */
 public class GithubOAuthProvider {
+	private static final Logger logger = LoggerFactory.getLogger(GithubOAuthProvider.class);
+
 	/**
 	 * 通过代码和 URL 获取访问令牌
 	 *
@@ -111,7 +115,7 @@ public class GithubOAuthProvider {
 				LoggerHelper.log("接口调用失败！");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			try {
 				if (response != null) {
@@ -121,7 +125,7 @@ public class GithubOAuthProvider {
 					httpclient.close();
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Unexpected error", e);
 			}
 		}
 		LoggerHelper.log("GithubOAuthProvider.buildCommonRequest END " + LocalDateTime.now());
@@ -161,7 +165,7 @@ public class GithubOAuthProvider {
 				LoggerHelper.log("接口调用失败！");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			try {
 				if (response != null) {
@@ -171,7 +175,7 @@ public class GithubOAuthProvider {
 					httpclient.close();
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Unexpected error", e);
 			}
 		}
 		LoggerHelper.log("GithubOAuthProvider.buildCommonRequestTOGet END " + LocalDateTime.now());

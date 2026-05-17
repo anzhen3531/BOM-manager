@@ -107,7 +107,7 @@ public class OAuthIndexPageFilter implements Filter {
                         logger.debug("SSO 登录结束");
                     } catch (Exception e) {
                         logger.error("SSO登录失败 message" + e.getMessage(), e);
-                        e.printStackTrace();
+                        logger.error("Unexpected error", e);
                     }
                 }
             }
@@ -132,7 +132,7 @@ public class OAuthIndexPageFilter implements Filter {
                         logger.debug("SSO 登录结束");
                     } catch (Exception e) {
                         logger.error("SSO登录失败 message" + e.getMessage(), e);
-                        e.printStackTrace();
+                        logger.error("Unexpected error", e);
                     }
                 }
             }
@@ -200,12 +200,12 @@ public class OAuthIndexPageFilter implements Filter {
         String username = strings[0];
         logger.debug("username = {}", username);
         String password = strings[1];
-        logger.debug("password = {}", password);
+        logger.debug("credential is present");
         if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
             OpenDjPasswordService service = new OpenDjPasswordService();
-            logger.error("登录成功 用户名{}, 密码{}", username, password);
+            logger.debug("Try basic login, username={}", username);
             if (service.authentication(username, password)) {
-                logger.error("登录成功 用户名{}, 密码{}", username, password);
+                logger.info("Basic login succeeded, username={}", username);
                 // 采用其余的登录条件
                 SSORequestWrap ssoRequestWrap = newWrapRequest(request, username, authorization);
                 filterChain.doFilter(ssoRequestWrap, response);
@@ -268,7 +268,7 @@ public class OAuthIndexPageFilter implements Filter {
             if (isSuccess) {
                 return true;
             } else {
-                logger.error("当前输入的用户名和密码错误 username{}, password{}", username, code);
+                logger.warn("Basic login failed, username={}", username);
                 response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "用户账号密码错误！");
                 return false;
             }
@@ -414,7 +414,7 @@ public class OAuthIndexPageFilter implements Filter {
         String username = strings[0];
         logger.debug("username = {}", username);
         String password = strings[1];
-        logger.debug("password = {}", password);
+        logger.debug("credential is present");
         return basicLogin(username, password, request, response, authorization, filterChain);
     }
 
@@ -433,9 +433,9 @@ public class OAuthIndexPageFilter implements Filter {
         throws IOException, ServletException {
         if (StrUtil.isNotBlank(username) && StrUtil.isNotBlank(password)) {
             OpenDjPasswordService service = new OpenDjPasswordService();
-            logger.error("登录成功 用户名{}, 密码{}", username, password);
+            logger.debug("Try basic login, username={}", username);
             if (service.authentication(username, password)) {
-                logger.error("登录成功 用户名{}, 密码{}", username, password);
+                logger.info("Basic login succeeded, username={}", username);
                 // 重定向到首页
                 authorization = authorization.replace("Basic ", "");
                 response.addCookie(CookieUtils.createSSOTokenByCookie(authorization, CookieUtils.BASIC_LOGIN));

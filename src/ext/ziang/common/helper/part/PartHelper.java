@@ -1,5 +1,7 @@
 package ext.ziang.common.helper.part;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 
@@ -30,6 +32,8 @@ import wt.vc.views.ViewHelper;
  * @date 2024/04/20
  */
 public class PartHelper {
+	private static final Logger logger = LoggerFactory.getLogger(PartHelper.class);
+
 	/**
 	 * 按号码获取 WTPART Master
 	 *
@@ -124,7 +128,7 @@ public class PartHelper {
 				return (WTPartUsageLink) result.nextElement();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(flag);
 		}

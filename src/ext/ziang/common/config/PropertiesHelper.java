@@ -1,5 +1,7 @@
 package ext.ziang.common.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +27,8 @@ import wt.method.RemoteAccess;
  */
 
 public class PropertiesHelper implements RemoteAccess {
+	private static final Logger logger = LoggerFactory.getLogger(PropertiesHelper.class);
+
 
 	/**
 	 * 单例模式实例对象
@@ -91,10 +95,10 @@ public class PropertiesHelper implements RemoteAccess {
 				String className = stackTrace[3].getClassName();
 				return Class.forName(className);
 			} else {
-				System.out.println("----->当前文件夹找不到配置文件");
+				logger.debug("{}", "----->当前文件夹找不到配置文件");
 			}
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 		return null;
 	}
@@ -109,7 +113,7 @@ public class PropertiesHelper implements RemoteAccess {
 			LoggerHelper.log("加载配置文件成功:" + LocalDateTime.now());
 			properties.load(reader);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 	}
 
@@ -217,7 +221,7 @@ public class PropertiesHelper implements RemoteAccess {
 			// 将已修改的属性存储回文件
 			properties.store(writer, null);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 
 		return affectedRows;

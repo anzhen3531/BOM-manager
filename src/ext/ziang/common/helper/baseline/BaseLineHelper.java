@@ -1,5 +1,7 @@
 package ext.ziang.common.helper.baseline;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.List;
 
 import wt.fc.PersistenceHelper;
@@ -31,6 +33,8 @@ import wt.vc.baseline.ManagedBaseline;
  * @Core BaselineService 系统提供的针对基线的API
  */
 public class BaseLineHelper {
+	private static final Logger logger = LoggerFactory.getLogger(BaseLineHelper.class);
+
 
 	/**
 	 * 根据基线名称获取基线
@@ -42,7 +46,7 @@ public class BaseLineHelper {
 	 *             WT异常
 	 */
 	public static ManagedBaseline getBaseLineByName(String baseLineName) throws WTException {
-		System.out.println("基线名称:" + baseLineName);
+		logger.debug("{}", "基线名称:" + baseLineName);
 		QuerySpec qs = new QuerySpec(ManagedBaseline.class);
 		SearchCondition sc = new SearchCondition(ManagedBaseline.class, "name", SearchCondition.EQUAL, baseLineName);
 		qs.appendSearchCondition(sc);

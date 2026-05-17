@@ -1,5 +1,7 @@
 package ext.ziang.change.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +46,8 @@ import wt.vc.VersionControlHelper;
  * @date 2024/02/21
  */
 public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
+	private static final Logger logger = LoggerFactory.getLogger(AsyncCorrectBomBuilderHandler.class);
+
 	/**
 	 * 正确 BOM 生成器处理程序
 	 */
@@ -92,7 +96,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(bool);
 		}
@@ -140,7 +144,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(flag);
 		}
@@ -224,7 +228,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 			entity.setSelect(flag);
 			return entity;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 		return null;
 	}
@@ -254,7 +258,7 @@ public class AsyncCorrectBomBuilderHandler extends TreeHandlerAdapter {
 			entity.setSelect(flag);
 			return entity;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		}
 		return null;
 	}

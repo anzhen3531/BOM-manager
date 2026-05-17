@@ -1,5 +1,7 @@
 package ext.ziang.part.datautility;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +20,11 @@ import wt.util.WTException;
  * @date 2024/04/16
  */
 public class SearchConditionDataUtility extends DefaultDataUtility {
+	private static final Logger logger = LoggerFactory.getLogger(SearchConditionDataUtility.class);
+
 	@Override
 	public Object getDataValue(String column, Object o, ModelContext modelContext) throws WTException {
-		System.out.println("column = " + column);
+		logger.debug("{}", "column = " + column);
 		List list = new ArrayList<String>();
 		list.add("productType");
 		list.add("fragment");
@@ -58,7 +62,7 @@ public class SearchConditionDataUtility extends DefaultDataUtility {
 		ArrayList<String> selectValueList = new ArrayList<>();
 		ComboBox createCheckBox = new ComboBox(innerList, displayList, selectValueList);
 		createCheckBox.setEditable(true);
-		System.out.println("createCheckBox = " + createCheckBox);
+		logger.debug("{}", "createCheckBox = " + createCheckBox);
 		createCheckBox.setId(columnConfigName);
 		createCheckBox.setName("name" + columnConfigName);
         switch (columnConfigName) {

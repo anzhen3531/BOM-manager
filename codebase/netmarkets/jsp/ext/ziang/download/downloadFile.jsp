@@ -5,7 +5,7 @@
          pageEncoding="UTF-8" %>
 <%
     String fileName = request.getParameter("fileName");
-    System.out.println("fileName = " + fileName);
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "fileName = " + fileName);
     if (StrUtil.isBlank(fileName)) {
         return;
     }

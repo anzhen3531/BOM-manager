@@ -17,6 +17,8 @@ import wt.method.RemoteAccess;
  * @date 2024/03/13
  */
 public class LoggerHelper implements RemoteAccess {
+	private static final org.slf4j.Logger slf4jLogger = org.slf4j.LoggerFactory.getLogger(LoggerHelper.class);
+
 
 	private static Map<String, Logger> loggerMap = new HashMap<String, Logger>();
 
@@ -71,7 +73,7 @@ public class LoggerHelper implements RemoteAccess {
 				log = Logger.getLogger(Class.forName(className));
 				loggerMap.put(className, log);
 			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
+				slf4jLogger.error("Unexpected error", e);
 			}
 		}
 		return log;
@@ -107,10 +109,10 @@ public class LoggerHelper implements RemoteAccess {
 	public static void log(String prefix, Object obj) {
 		if (DEBUG) {
 			if (obj == null) {
-				System.out.println(prefix + "null");
+				slf4jLogger.debug("{}", prefix + "null");
 				return;
 			}
-			System.out.println(prefix + obj.toString());
+			slf4jLogger.debug("{}", prefix + obj.toString());
 		}
 	}
 
@@ -122,7 +124,7 @@ public class LoggerHelper implements RemoteAccess {
 	 */
 	public static void log(String msg) {
 		if (DEBUG) {
-			System.out.println(msg);
+			slf4jLogger.debug("{}", msg);
 		}
 	}
 
@@ -135,8 +137,8 @@ public class LoggerHelper implements RemoteAccess {
 	 *            e
 	 */
 	public static void error(String unableToGetLocalProperties, Exception e) {
-		System.out.println("unableToGetLocalProperties = " + unableToGetLocalProperties);
-		e.printStackTrace();
+		slf4jLogger.debug("{}", "unableToGetLocalProperties = " + unableToGetLocalProperties);
+		slf4jLogger.error("Unexpected error", e);
 	}
 
 	public static void main(String[] args) {
@@ -146,7 +148,7 @@ public class LoggerHelper implements RemoteAccess {
 		String snakeCaseStr = StrUtil.toUnderlineCase(camelCaseStr);
 
 		// 打印转换后的字符串
-		System.out.println("转换后的字符串: " + snakeCaseStr);
+		slf4jLogger.debug("{}", "转换后的字符串: " + snakeCaseStr);
 	}
 
 }

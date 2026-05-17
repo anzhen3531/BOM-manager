@@ -1,5 +1,7 @@
 package ext.ziang.part.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Locale;
 
 import ext.ziang.common.result.Result;
@@ -12,6 +14,8 @@ import wt.vc.VersionControlHelper;
 import wt.vc.VersionReference;
 
 public class PartRestServiceImpl implements PartRestService {
+	private static final Logger logger = LoggerFactory.getLogger(PartRestServiceImpl.class);
+
 	/**
 	 * 按 OID 查找零件信息
 	 *
@@ -27,8 +31,8 @@ public class PartRestServiceImpl implements PartRestService {
 				return Result.ok(convertInfoBean((WTPart) persistable));
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			return Result.error(e.getMessage());
+			logger.error("Unexpected error", e);
+			return Result.error(e);
 		}
 		return Result.fail();
 	}

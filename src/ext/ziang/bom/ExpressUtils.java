@@ -1,5 +1,7 @@
 package ext.ziang.bom;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import cn.hutool.cache.CacheUtil;
 import cn.hutool.cache.impl.LRUCache;
 import org.apache.commons.lang3.StringUtils;
@@ -22,6 +24,8 @@ import java.util.regex.Pattern;
  * @date 2022/7/12
  */
 public class ExpressUtils {
+	private static final Logger logger = LoggerFactory.getLogger(ExpressUtils.class);
+
     static ScriptEngine scriptEngine;
 
     static {
@@ -79,7 +83,7 @@ public class ExpressUtils {
         // !ain('{item_attribute32}','SMBB3') && !ain('{item_attribute32}','SMBB3') ) )
         // )
         for (String pk : params.keySet()) {
-            System.out.println("pk = " + pk);
+            logger.debug("{}", "pk = " + pk);
             express = express.replaceAll("\\{" + pk + "\\}", Optional.ofNullable(params.get(pk)).orElse("").trim());
         }
         return express;
@@ -101,7 +105,7 @@ public class ExpressUtils {
         try {
             return (String) scriptEngine.eval(currentExpress);
         } catch (ScriptException e) {
-            e.printStackTrace();
+            logger.error("Unexpected error", e);
             return null;
         }
     }
@@ -117,14 +121,14 @@ public class ExpressUtils {
         if (StringUtils.isBlank(express)) {
             return false;
         }
-        System.out.println("express = " + express + ", params = " + params);
+        logger.debug("{}", "express = " + express + ", params = " + params);
         // log.info("执行表达式: {} ,params: {}", express, params);
         String currentExpress = ExpressUtils.analysisExpress(express, params);
-        System.out.println("currentExpress = " + currentExpress);
+        logger.debug("{}", "currentExpress = " + currentExpress);
         try {
             return (boolean) scriptEngine.eval(currentExpress);
         } catch (ScriptException e) {
-            e.printStackTrace();
+            logger.error("Unexpected error", e);
             return false;
         }
     }
@@ -315,12 +319,12 @@ public class ExpressUtils {
         try {
             // 执行JavaScript代码
             Object eval = scriptEngine.eval("(((" + "ain('{item_attribute18}','H(N)') || " + "ain('{item_attribute18}','H') || " + "ain('{item_attribute18}','H(N)') || " + "ain('{item_attribute18}','H'))))");
-            System.out.println("eval = " + eval);
+            logger.debug("{}", "eval = " + eval);
         } catch (ScriptException e) {
-            e.printStackTrace();
+            logger.error("Unexpected error", e);
         }
 
-        System.out.println("validateIsNotBlankAttr(\"123123\",\"123\",\"12312\",null) = " + validateIsNotBlankAttr("123123", "123", "12312", null));
+        logger.debug("{}", "validateIsNotBlankAttr(\"123123\",\"123\",\"12312\",null) = " + validateIsNotBlankAttr("123123", "123", "12312", null));
 
     }
 

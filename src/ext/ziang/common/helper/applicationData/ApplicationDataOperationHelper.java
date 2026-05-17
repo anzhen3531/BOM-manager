@@ -50,7 +50,7 @@ public class ApplicationDataOperationHelper {
             tempPath = wtproperties.getProperty("wt.temp") + File.separator + "downloadOperation" + File.separator
                     + "download";
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
         }
     }
 
@@ -75,13 +75,13 @@ public class ApplicationDataOperationHelper {
         String absoluteFileName = "";
         Representation representation;
         try {
-            // 获取所有的表示法
+            // 获取所有的表示�?
             QueryResult representations = RepresentationHelper.service.getRepresentations(epmDoc);
             if (representations.size() < 1) {
                 return null;
             }
-            System.out.println("representations = " + representations);
-            // 获取所有的表示法
+            log.debug("{}", "representations = " + representations);
+            // 获取所有的表示�?
             while (representations.hasMoreElements()) {
                 representation = (Representation) representations.nextElement();
                 ContentHolder holder = ContentHelper.service.getContents(representation);
@@ -90,7 +90,7 @@ public class ApplicationDataOperationHelper {
                 if (qr == null) {
                     return null;
                 }
-                System.out.println("qr.size() = " + qr.size());
+                log.debug("{}", "qr.size() = " + qr.size());
                 List<ApplicationData> applicationDataList = new ArrayList<>();
                 while (qr.hasMoreElements()) {
                     ApplicationData appData = (ApplicationData) qr.nextElement();
@@ -98,7 +98,7 @@ public class ApplicationDataOperationHelper {
                 }
                 Optional<ApplicationData> applicationDataOptional = applicationDataList.stream()
                         .sorted(Comparator.comparing(ApplicationData::getModifyTimestamp).reversed()).findFirst();
-                System.out.println("applicationDataOptional = " + applicationDataOptional);
+                log.debug("{}", "applicationDataOptional = " + applicationDataOptional);
                 if (applicationDataOptional.isPresent()) {
                     String newPath = tempPath;
                     File file = new File(newPath);
@@ -111,7 +111,7 @@ public class ApplicationDataOperationHelper {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
         }
         return absoluteFileName;
     }
@@ -134,13 +134,13 @@ public class ApplicationDataOperationHelper {
         String absoluteFileName = "";
         Representation representation;
         try {
-            // 获取所有的表示法
+            // 获取所有的表示�?
             QueryResult representations = RepresentationHelper.service.getRepresentations(epmDoc);
             if (representations.size() < 1) {
                 return null;
             }
-            System.out.println("representations = " + representations);
-            // 获取所有的表示法
+            log.debug("{}", "representations = " + representations);
+            // 获取所有的表示�?
             while (representations.hasMoreElements()) {
                 representation = (Representation) representations.nextElement();
                 ContentHolder holder = ContentHelper.service.getContents(representation);
@@ -149,7 +149,7 @@ public class ApplicationDataOperationHelper {
                 if (qr == null) {
                     return null;
                 }
-                System.out.println("qr.size() = " + qr.size());
+                log.debug("{}", "qr.size() = " + qr.size());
                 List<ApplicationData> applicationDataList = new ArrayList<>();
                 while (qr.hasMoreElements()) {
                     ApplicationData appData = (ApplicationData) qr.nextElement();
@@ -157,7 +157,7 @@ public class ApplicationDataOperationHelper {
                 }
                 Optional<ApplicationData> applicationDataOptional = applicationDataList.stream()
                         .sorted(Comparator.comparing(ApplicationData::getModifyTimestamp).reversed()).findFirst();
-                System.out.println("applicationDataOptional = " + applicationDataOptional);
+                log.debug("{}", "applicationDataOptional = " + applicationDataOptional);
                 if (applicationDataOptional.isPresent()) {
                     File file = new File(filepath);
                     if (!file.exists()) {
@@ -169,7 +169,7 @@ public class ApplicationDataOperationHelper {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
         }
         return absoluteFileName;
     }
@@ -194,7 +194,7 @@ public class ApplicationDataOperationHelper {
             QueryResult qr = ContentHelper.service.getContentsByRole(holder, ContentRoleType.SECONDARY);
             absoluteFileName = getFilePath(fileName2d, absoluteFileName, qr, tempPath);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
             throw new WTException(e);
         }
         return absoluteFileName;
@@ -217,18 +217,18 @@ public class ApplicationDataOperationHelper {
             QueryResult qr = ContentHelper.service.getContentsByRole(holder, ContentRoleType.SECONDARY);
             absoluteFileName = getFilePath(fileName2d, absoluteFileName, qr, filePath);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
             throw new WTException(e);
         }
         return absoluteFileName;
     }
 
     /**
-     * 获取字符串
+     * 获取字符�?
      *
-     * @param fileName2d       文件名2D
-     * @param absoluteFileName 绝对文件名
-     * @param qr               二维码
+     * @param fileName2d       文件�?D
+     * @param absoluteFileName 绝对文件�?
+     * @param qr               二维�?
      * @param tempPath         临时路径
      * @return {@link String }
      * @throws WTException WT异常
@@ -278,7 +278,7 @@ public class ApplicationDataOperationHelper {
             absoluteFileName = newPath + File.separator + sendU8FileName;
             ContentServerHelper.service.writeContentStream(primary, absoluteFileName);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
             throw new WTException(e);
         }
         return absoluteFileName;
@@ -320,7 +320,7 @@ public class ApplicationDataOperationHelper {
 
         if (persistable instanceof WTPart) {
             WTPart part = (WTPart) persistable;
-            // 获取参考文档
+            // 获取参考文�?
             List<WTDocument> partRefDocs = getPartRefDocs(part);
             for (WTDocument partRefDoc : partRefDocs) {
                 String s = downloadPrimaryDoc(partRefDoc);
@@ -337,7 +337,7 @@ public class ApplicationDataOperationHelper {
                 EPMDocument epm2d = getSldDRW(epm3D);
                 // 获取2d
                 String epm2dpath = downloadSecondaryDoc(epm2d);
-                System.out.println("查询签名附件 epm2dpath = " + epm2dpath);
+                log.debug("{}", "查询签名附件 epm2dpath = " + epm2dpath);
                 if (StrUtil.isNotBlank(epm2dpath)) {
                     epm2dpath = downloadRepresentationDoc(epm2d, true);
                 }
@@ -363,7 +363,7 @@ public class ApplicationDataOperationHelper {
      *
      * @param fileList           文件列表
      * @param zipFile            压缩文件路径
-     * @param isDeleteSourceFile 是否删除源文件
+     * @param isDeleteSourceFile 是否删除源文�?
      * @return boolean
      */
     public static boolean handlerFileZip(List<File> fileList, File zipFile, boolean isDeleteSourceFile) {
@@ -395,16 +395,16 @@ public class ApplicationDataOperationHelper {
             zipOut.close();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
             return false;
         }
     }
 
     /**
-     * 通过部件得到其参考文档，返回参考文档列表
+     * 通过部件得到其参考文档，返回参考文档列�?
      *
      * @param part 条件部件
-     * @return 依附于条件部件的参考文档列表(WTDocument)
+     * @return 依附于条件部件的参考文档列�?WTDocument)
      */
     public static List<WTDocument> getPartRefDocs(WTPart part) throws WTException {
         List<WTDocument> results = new ArrayList<WTDocument>();
@@ -423,7 +423,7 @@ public class ApplicationDataOperationHelper {
 
     // 生成指定位数的不重复随机数字
     public static String generateUniqueRandomNumber(int length) {
-        // 创建一个包含0到9的数字列表
+        // 创建一个包�?�?的数字列�?
         List<Integer> digits = new ArrayList<>();
         for (int i = 0; i <= 9; i++) {
             digits.add(i);
@@ -445,7 +445,7 @@ public class ApplicationDataOperationHelper {
         OutputStream os = response.getOutputStream();
         response.setContentType("application/x-msdownload; charset=UTF-8");
         response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
-        System.out.println("Test fileName = " + fileName);
+        log.debug("{}", "Test fileName = " + fileName);
         File temp = new File(fileName);
         InputStream input = new FileInputStream(temp);
         byte[] buff = new byte[512];
@@ -462,7 +462,7 @@ public class ApplicationDataOperationHelper {
     /**
      * 下载 EPM 文档列表
      *
-     * @param strings 字符串
+     * @param strings 字符�?
      * @return {@link String }
      * @throws WTException WT异常
      */
@@ -496,7 +496,7 @@ public class ApplicationDataOperationHelper {
         String filePath = null;
         if (epmDocument.getCADName().contains(".SLDDRW")) {
             filePath = downloadSecondaryDoc(epmDocument);
-            System.out.println("查询签名附件 epm2dpath = " + filePath);
+            log.debug("{}", "查询签名附件 epm2dpath = " + filePath);
             if (StrUtil.isBlank(filePath)) {
                 filePath = downloadRepresentationDoc(epmDocument, true);
             }
@@ -530,7 +530,7 @@ public class ApplicationDataOperationHelper {
     /**
      * 下载文档列表
      *
-     * @param strings 字符串
+     * @param strings 字符�?
      * @return {@link String }
      * @throws WTException WT异常
      */
@@ -565,7 +565,7 @@ public class ApplicationDataOperationHelper {
     }
 
     /**
-     * 由 ASM 下载
+     * �?ASM 下载
      *
      * @param epmDocument EPM 文档
      * @param selectPath  选择路径
@@ -576,11 +576,11 @@ public class ApplicationDataOperationHelper {
             List<EPMDocument> epmDrwList;
             List<EPMDocument> epmThirdDocList = new ArrayList<>();
             List<File> filePathList = new ArrayList<>();
-            // 查询子文档
+            // 查询子文�?
             epmThirdDocList = getChildEPMByRoot(epmDocument, epmThirdDocList);
-            System.out.println("epmThirdDocList = " + epmThirdDocList);
+            log.debug("{}", "epmThirdDocList = " + epmThirdDocList);
             epmDrwList = getDrwEPMByASM(epmThirdDocList);
-            System.out.println("epmDrwList = " + epmDrwList);
+            log.debug("{}", "epmDrwList = " + epmDrwList);
             if (CollUtil.isNotEmpty(epmThirdDocList)) {
                 for (EPMDocument document : epmThirdDocList) {
                     String path = downloadRepresentationDoc(document, false, selectPath);
@@ -590,25 +590,25 @@ public class ApplicationDataOperationHelper {
             if (CollUtil.isNotEmpty(epmDrwList)) {
                 for (EPMDocument document : epmDrwList) {
                     String filePath = downloadSecondaryDoc(document, selectPath);
-                    System.out.println("查询签名附件 epm2dpath = " + filePath);
+                    log.debug("{}", "查询签名附件 epm2dpath = " + filePath);
                     if (StrUtil.isBlank(filePath)) {
                         filePath = downloadRepresentationDoc(document, true, selectPath);
                     }
                     filePathList.add(new File(filePath));
                 }
             }
-            System.out.println("filePathList = " + filePathList);
+            log.debug("{}", "filePathList = " + filePathList);
             String path = tempPath + File.separator + epmDocument.getCADName() + ".zip";
             handlerFileZip(filePathList, new File(path), true);
             return path;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
         }
         return null;
     }
 
     /**
-     * 通过根模型获取全部的子模型 Widnchill内置API版本
+     * 通过根模型获取全部的子模�?Widnchill内置API版本
      *
      * @return
      */
@@ -618,7 +618,7 @@ public class ApplicationDataOperationHelper {
                 true);
         while (qr.hasMoreElements()) {
             EPMDocumentMaster master = (EPMDocumentMaster) qr.nextElement();
-            // 获取最新部件
+            // 获取最新部�?
             EPMDocument latestEPMDocument = findLatestEPMDocument(master);
             // 图纸类型只能为最新的图纸
             if (!epmList.contains(latestEPMDocument) && (latestEPMDocument.getCADName().contains(".SLDPRT")
@@ -639,12 +639,12 @@ public class ApplicationDataOperationHelper {
     private static EPMDocument findLatestEPMDocument(EPMDocumentMaster master) {
         if (master != null) {
             try {
-                QueryResult qr = VersionControlHelper.service.allVersionsOf(master);/* 通过版本控制获取最新版本 */
+                QueryResult qr = VersionControlHelper.service.allVersionsOf(master);/* 通过版本控制获取最新版�?*/
                 if (qr.hasMoreElements()) {
                     return (EPMDocument) qr.nextElement();
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("Unexpected error", e);
             }
         }
         return null;
@@ -678,17 +678,17 @@ public class ApplicationDataOperationHelper {
     public static EPMDocument getSldDRW(EPMDocument epm) throws WTException {
         String samName = epm.getCADName().toUpperCase();
         samName = samName.substring(0, samName.lastIndexOf(".")) + ".SLDDRW";
-        // 直接获取参考
+        // 直接获取参�?
         EPMDocument drw = getEPMDocumentByNumber(samName);
-        System.out.println("drw = " + drw);
+        log.debug("{}", "drw = " + drw);
         if (drw != null) {
             EPMReferenceLink refLink = queryEpmRefLink(drw, epm);
-            System.out.println("refLink = " + refLink);
+            log.debug("{}", "refLink = " + refLink);
             if (refLink != null) {
                 return drw;
             }
         }
-        System.out.println("LocalDateTime.now() = " + LocalDateTime.now());
+        log.debug("{}", "LocalDateTime.now() = " + LocalDateTime.now());
         return null;
     }
 
@@ -711,15 +711,15 @@ public class ApplicationDataOperationHelper {
                 return epm = (EPMDocument) qr.nextElement();
             }
         } catch (QueryException e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
         } catch (WTException e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
         }
         return null;
     }
 
     /**
-     * 查找二维图和三维模型的参考关系
+     * 查找二维图和三维模型的参考关�?
      *
      * @param drw 二维图纸对象
      * @param epm 三维模型对象

@@ -71,7 +71,7 @@ public class ToolUtils implements RemoteAccess {
                 return wtreference == null ? null : wtreference.getObject();
             }
         } catch (RemoteException | InvocationTargetException e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
         }
         return null;
     }
@@ -93,7 +93,7 @@ public class ToolUtils implements RemoteAccess {
                 return referencefactory.getReference(oid);
             }
         } catch (RemoteException | InvocationTargetException e) {
-            e.printStackTrace();
+            log.error("Unexpected error", e);
         }
         return null;
     }
@@ -193,14 +193,14 @@ public class ToolUtils implements RemoteAccess {
                 folder = FolderHelper.service.getFolder(folderPath, containerRef);
                 return folder;
             } catch (Exception e) {
-                e.printStackTrace();
+                log.error("Unexpected error", e);
             }
             if (folder == null) {
                 try {
                     folder = FolderHelper.service.createSubFolder(folderPath, containerRef);
                     return folder;
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    log.error("Unexpected error", e);
                 }
             }
         }

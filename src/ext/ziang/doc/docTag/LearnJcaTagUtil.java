@@ -1,5 +1,7 @@
 package ext.ziang.doc.docTag;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ext.ziang.cache.CommonCacheHelper;
 import ext.ziang.common.util.LoggerHelper;
 import wt.method.RemoteAccess;
@@ -14,6 +16,8 @@ import java.util.HashMap;
  * @date 2024/05/06
  */
 public class LearnJcaTagUtil implements RemoteAccess {
+	private static final Logger logger = LoggerFactory.getLogger(LearnJcaTagUtil.class);
+
 
     static {
         initAttr();
@@ -43,7 +47,7 @@ public class LearnJcaTagUtil implements RemoteAccess {
     public static HashMap<Object, Object> getExamplePropertyPanelData() {
         HashMap<Object, Object> jcaTagMap = new HashMap<>();
         Object learnJcaTagUtilMap = CommonCacheHelper.get("LearnJcaTagUtil_Map");
-        System.out.println("learnJcaTagUtilMap = " + learnJcaTagUtilMap);
+        logger.debug("{}", "learnJcaTagUtilMap = " + learnJcaTagUtilMap);
         jcaTagMap.put("className", "ext.ziang.docTag.LearnJcaTagUtil");
         jcaTagMap.put("cache", "ext.ziang.common.helper.cache.CommonSingleCache");
         jcaTagMap.put("test", "test");

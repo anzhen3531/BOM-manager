@@ -202,6 +202,14 @@ public class Result {
 		return new Result(Code.SERVER_ERROR.code(), Code.SERVER_ERROR.success, exceptionMessage, null);
 	}
 
+	public static Result error() {
+		return new Result(Code.SERVER_ERROR);
+	}
+
+	public static Result error(Throwable throwable) {
+		return error();
+	}
+
 	@Override
 	public String toString() {
 		return "R{" +

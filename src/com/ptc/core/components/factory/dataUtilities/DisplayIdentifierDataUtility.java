@@ -1,5 +1,7 @@
 package com.ptc.core.components.factory.dataUtilities;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.ptc.core.components.descriptor.ModelContext;
 import com.ptc.core.components.rendering.guicomponents.AttributeGuiComponent;
 import com.ptc.core.components.rendering.guicomponents.TextDisplayComponent;
@@ -14,6 +16,8 @@ import java.util.Locale;
  * @date 2024/07/04
  */
 public class DisplayIdentifierDataUtility extends StringDataUtility {
+	private static final Logger logger = LoggerFactory.getLogger(DisplayIdentifierDataUtility.class);
+
     public DisplayIdentifierDataUtility() {
     }
 
@@ -28,8 +32,8 @@ public class DisplayIdentifierDataUtility extends StringDataUtility {
      * @throws WTException WTException
      */
     public AttributeGuiComponent createSingleValueDisplayComponent(String var1, Object var2, Object var3, ModelContext var4) throws WTException {
-        System.out.println("DisplayIdentifierDataUtility.createSingleValueDisplayComponent");
-        System.out.println("var1 = " + var1 + ", var2 = " + var2 + ", var3 = " + var3);
+        logger.debug("{}", "DisplayIdentifierDataUtility.createSingleValueDisplayComponent");
+        logger.debug("{}", "var1 = " + var1 + ", var2 = " + var2 + ", var3 = " + var3);
         AttributeGuiComponent var5 = super.createSingleValueDisplayComponent(var1, var2, var3, var4);
         if (var5 instanceof TextDisplayComponent) {
             ((TextDisplayComponent) var5).setCreateHyperlinks(false);

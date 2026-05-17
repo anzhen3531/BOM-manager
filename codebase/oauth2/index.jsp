@@ -3,7 +3,7 @@
 <%@ page import="ext.ziang.common.util.EncryptionUtils" %>
 <%
     String auth = request.getParameter("token");
-    System.out.println("auth = " + auth);
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "auth = " + auth);
     if (auth.contains("Basic ")) {
         auth = auth.replace("Basic ", "");
     }
@@ -11,8 +11,8 @@
     String[] split = credentials.split(":", 2);
     String userName = split[0];
     String password = EncryptionUtils.decrypt(split[1]);
-    System.out.println("password = " + password);
-    System.out.println("userName = " + userName);
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("credential is present");
+    org.slf4j.LoggerFactory.getLogger("jsp").debug("{}", "userName = " + userName);
 %>
 
 <script>

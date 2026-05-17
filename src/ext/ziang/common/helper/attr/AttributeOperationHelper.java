@@ -91,7 +91,7 @@ public class AttributeOperationHelper {
             falg =
                 WTProperties.getServerProperties().getProperty("com.ptc.core.lwc.autoAddSingleValuedConstraint", falg);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Unexpected error", e);
         }
         // 是否全局约束
         AUTO_ADD_SINGLE_VALUE_CONSTRAINT_TO_NEW_GLOBAL_ATT = falg;
@@ -281,7 +281,7 @@ public class AttributeOperationHelper {
                 unitDefinitionClassName = null;
             }
         }
-        System.out.println("unitDefinitionClassName = " + unitDefinitionClassName);
+        logger.debug("{}", "unitDefinitionClassName = " + unitDefinitionClassName);
         QuantityOfMeasureDefaultView quantityOfMeasureDefaultView = null;
         if (selectIbaClassTypeName.contains("LWCIBAAttDefinition") && unitDefinitionClassName != null) {
             try {
@@ -315,7 +315,7 @@ public class AttributeOperationHelper {
                 String propertyDefReadViewName = propertyDefReadView.getName();
                 String classifyName = "lwc_" + propertyDefReadViewName;
                 // 更新属性值数据
-                System.out.println("classifyName = " + classifyName);
+                logger.debug("{}", "classifyName = " + classifyName);
                 if (propertyDefReadViewName.equals("displayName") || propertyDefReadViewName.equals("description")) {
                     String valueData;
                     if (propertyDefReadViewName.equals("displayName")) {

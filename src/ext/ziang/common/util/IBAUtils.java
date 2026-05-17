@@ -1,5 +1,7 @@
 package ext.ziang.common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.rmi.RemoteException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -58,6 +60,8 @@ import wt.util.WTPropertyVetoException;
  * @date 2024/03/01
  */
 public class IBAUtils implements RemoteAccess {
+	private static final Logger logger = LoggerFactory.getLogger(IBAUtils.class);
+
     Hashtable ibaContainer;
 
     private IBAUtils() {
@@ -143,7 +147,7 @@ public class IBAUtils implements RemoteAccess {
                             stringbuffer.append(
                                     s + delim + format.format(formats.parse(w.getLocalizedDisplayString())) + delim);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            logger.error("Unexpected error", e);
                         }
                     } else {
                         stringbuffer
@@ -153,7 +157,7 @@ public class IBAUtils implements RemoteAccess {
                 }
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
         return stringbuffer.toString();
     }
@@ -171,7 +175,7 @@ public class IBAUtils implements RemoteAccess {
                 stringbuffer.append('\n');
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
         return stringbuffer.toString();
     }
@@ -186,7 +190,7 @@ public class IBAUtils implements RemoteAccess {
         try {
             return getIBAValue(s, SessionHelper.manager.getLocale());
         } catch (WTException wte) {
-            wte.printStackTrace();
+            logger.error("Unexpected error", wte);
         }
         return null;
     }
@@ -210,7 +214,7 @@ public class IBAUtils implements RemoteAccess {
         try {
             return IBAValueUtility.getLocalizedIBAValueDisplayString(avv, locale);
         } catch (WTException wte) {
-            wte.printStackTrace();
+            logger.error("Unexpected error", wte);
         }
         return null;
     }
@@ -219,7 +223,7 @@ public class IBAUtils implements RemoteAccess {
         try {
             return getIBAValueWithDefault(s, SessionHelper.manager.getLocale());
         } catch (WTException wte) {
-            wte.printStackTrace();
+            logger.error("Unexpected error", wte);
         }
         return null;
     }
@@ -259,7 +263,7 @@ public class IBAUtils implements RemoteAccess {
                 }
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
     }
 
@@ -286,7 +290,7 @@ public class IBAUtils implements RemoteAccess {
                     defaultattributecontainer.addAttributeValue(abstractvalueview);
                 }
             } catch (Exception exception) {
-                exception.printStackTrace();
+                logger.error("Unexpected error", exception);
             }
         }
 
@@ -314,12 +318,12 @@ public class IBAUtils implements RemoteAccess {
             attributedefdefaultview = getAttributeDefinition(ibaAttrKey);
         }
         if (attributedefdefaultview == null) {
-            System.out.println("definition is null ...");
+            logger.debug("{}", "definition is null ...");
             return;
         }
         abstractvalueview = internalCreateValue(attributedefdefaultview, value);
         if (abstractvalueview == null) {
-            System.out.println("after creation, iba value is null ..");
+            logger.debug("{}", "after creation, iba value is null ..");
         } else {
             abstractvalueview.setState(1);
             Object[] aobj1 = new Object[2];
@@ -348,7 +352,7 @@ public class IBAUtils implements RemoteAccess {
                 }
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
         return attributedefdefaultview;
     }
@@ -398,7 +402,7 @@ public class IBAUtils implements RemoteAccess {
                 }
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
         return attributedefdefaultview;
     }
@@ -476,22 +480,22 @@ public class IBAUtils implements RemoteAccess {
         if (!newValue.equals("")) {
             if (attributedefdefaultview instanceof FloatDefView) {
                 setIBAFloatValue(obj, ibaName, Float.parseFloat(newValue));
-                System.out.println("setIBAFloatValue");
+                logger.debug("{}", "setIBAFloatValue");
             } else if (attributedefdefaultview instanceof StringDefView) {
                 if (newValue.contains("strMultiValuePTC")) {
                     String[] newMultiString = newValue.split("strMultiValuePTC");
                     setIBAStringValues(obj, ibaName, newMultiString);
-                    System.out.println("setIBAStringMultiValue");
+                    logger.debug("{}", "setIBAStringMultiValue");
                 } else {
                     setIBAStringValue(obj, ibaName, newValue);
-                    System.out.println("setIBAStringValue");
+                    logger.debug("{}", "setIBAStringValue");
                 }
             } else if (attributedefdefaultview instanceof IntegerDefView) {
                 setIBAIntegerValue(obj, ibaName, Integer.parseInt(newValue));
-                System.out.println("setIBAIntegerValue");
+                logger.debug("{}", "setIBAIntegerValue");
             } else if (attributedefdefaultview instanceof RatioDefView) {
                 setIBARatioValue(obj, ibaName, Double.parseDouble(newValue));
-                System.out.println("setIBARatioValue");
+                logger.debug("{}", "setIBARatioValue");
             } else if (attributedefdefaultview instanceof TimestampDefView) {
                 if (!newValue.contains(":")) {
                     newValue = newValue + " 00:00:00";
@@ -505,18 +509,18 @@ public class IBAUtils implements RemoteAccess {
                 java.text.SimpleDateFormat formats = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 java.text.SimpleDateFormat formatSource = new java.text.SimpleDateFormat(format);
                 setIBATimestampValue(obj, ibaName, Timestamp.valueOf(formats.format(formatSource.parse(newValue))));
-                System.out.println("setIBATimestampValue");
+                logger.debug("{}", "setIBATimestampValue");
             } else if (attributedefdefaultview instanceof BooleanDefView) {
                 setIBABooleanValue(obj, ibaName, Boolean.parseBoolean(newValue));
-                System.out.println("setIBABooleanValue");
+                logger.debug("{}", "setIBABooleanValue");
             } else if (attributedefdefaultview instanceof URLDefView) {
                 setIBAURLValue(obj, ibaName, newValue);
-                System.out.println("setIBAURLValue");
+                logger.debug("{}", "setIBAURLValue");
             } else if (attributedefdefaultview instanceof ReferenceDefView) {
-                System.out.println("ReferenceDefView");
+                logger.debug("{}", "ReferenceDefView");
             } else if (attributedefdefaultview instanceof UnitDefView) {
                 setIBAUnitValue(obj, ibaName, Double.parseDouble(newValue));
-                System.out.println("setIBAUnitValue");
+                logger.debug("{}", "setIBAUnitValue");
             }
         }
     }
@@ -531,7 +535,7 @@ public class IBAUtils implements RemoteAccess {
      */
     public static void setIBAStringValue(@NotNull WTObject obj, @NotNull String ibaName, @NotNull String newValue) {
         String ibaClass = "wt.iba.definition.StringDefinition";
-        System.out.println("ENTER..." + ibaName + "..." + newValue);
+        logger.debug("{}", "ENTER..." + ibaName + "..." + newValue);
         if (ObjectUtil.isEmpty(obj) || StrUtil.equalsAny(ibaName, newValue)) {
             return;
         }
@@ -560,7 +564,7 @@ public class IBAUtils implements RemoteAccess {
                 // wt.iba.value.service.LoadValue.applySoftAttributes(ibaHolder);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
     }
 
@@ -593,9 +597,9 @@ public class IBAUtils implements RemoteAccess {
                     // wt.iba.value.service.LoadValue.applySoftAttributes(ibaHolder);
                 }
             }
-            System.out.println("ENTER..." + ibaName + "..." + newValue.toString());
+            logger.debug("{}", "ENTER..." + ibaName + "..." + newValue.toString());
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
     }
 
@@ -625,7 +629,7 @@ public class IBAUtils implements RemoteAccess {
                 ibaHolder = IBAValueHelper.service.refreshAttributeContainer(ibaHolder, "CSM", null, null);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
 
     }
@@ -656,7 +660,7 @@ public class IBAUtils implements RemoteAccess {
                 ibaHolder = IBAValueHelper.service.refreshAttributeContainer(ibaHolder, "CSM", null, null);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
     }
 
@@ -673,7 +677,7 @@ public class IBAUtils implements RemoteAccess {
 
                 String strFloatValue = String.valueOf(newValue);
                 StringTokenizer st = new StringTokenizer(strFloatValue, ".");
-                System.out.println();
+                logger.debug("");
                 int iFloatLength = 0;
                 if (st.hasMoreElements()) {
                     st.nextElement();
@@ -704,7 +708,7 @@ public class IBAUtils implements RemoteAccess {
                 ibaHolder = IBAValueHelper.service.refreshAttributeContainer(ibaHolder, "CSM", null, null);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
     }
 
@@ -735,7 +739,7 @@ public class IBAUtils implements RemoteAccess {
                 ibaHolder = IBAValueHelper.service.refreshAttributeContainer(ibaHolder, "CSM", null, null);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
     }
 
@@ -766,7 +770,7 @@ public class IBAUtils implements RemoteAccess {
                 ibaHolder = IBAValueHelper.service.refreshAttributeContainer(ibaHolder, "CSM", null, null);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
     }
 
@@ -815,7 +819,7 @@ public class IBAUtils implements RemoteAccess {
                 ibaHolder = IBAValueHelper.service.refreshAttributeContainer(ibaHolder, "CSM", null, null);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
     }
 
@@ -842,7 +846,7 @@ public class IBAUtils implements RemoteAccess {
 
                 String strFloatValue = String.valueOf(newValue);
                 StringTokenizer st = new StringTokenizer(strFloatValue, ".");
-                System.out.println();
+                logger.debug("");
                 int iFloatLength = 0;
                 if (st.hasMoreElements()) {
                     st.nextElement();
@@ -866,7 +870,7 @@ public class IBAUtils implements RemoteAccess {
                 ibaHolder = IBAValueHelper.service.refreshAttributeContainer(ibaHolder, "CSM", null, null);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            logger.error("Unexpected error", exception);
         }
     }
 
@@ -904,7 +908,7 @@ public class IBAUtils implements RemoteAccess {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Unexpected error", e);
         }
         return contained;
     }
@@ -946,7 +950,7 @@ public class IBAUtils implements RemoteAccess {
             try {
                 setIBAStringValue(object, entry.getKey(), entry.getValue());
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Unexpected error", e);
             }
         }
     }

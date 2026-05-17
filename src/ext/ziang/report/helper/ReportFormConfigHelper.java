@@ -56,6 +56,7 @@ public class ReportFormConfigHelper {
             }
         } catch (Exception e) {
             logger.error(" execSQL error", e);
+            throw e;
         } finally {
             if (Objects.nonNull(statement)) {
                 statement.close();

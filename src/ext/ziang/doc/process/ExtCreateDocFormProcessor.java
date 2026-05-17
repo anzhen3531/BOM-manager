@@ -1,5 +1,7 @@
 package ext.ziang.doc.process;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import com.ptc.core.components.beans.ObjectBean;
 import com.ptc.core.components.forms.FormResult;
 import com.ptc.netmarkets.util.beans.NmCommandBean;
@@ -18,6 +20,8 @@ import java.util.List;
  * @date 2024/03/01
  */
 public class ExtCreateDocFormProcessor extends CreateDocFormProcessor {
+	private static final Logger logger = LoggerFactory.getLogger(ExtCreateDocFormProcessor.class);
+
 
 	/**
 	 * 后处理
@@ -35,13 +39,13 @@ public class ExtCreateDocFormProcessor extends CreateDocFormProcessor {
 		FormResult rs = super.postProcess(nmCommandBean, list);
 		ObjectBean objectbean = list.get(0);
 		HashMap text = nmCommandBean.getText();
-		System.out.println("text = " + text);
+		logger.debug("{}", "text = " + text);
 		HashMap textArea = nmCommandBean.getTextArea();
-		System.out.println("textArea = " + textArea);
+		logger.debug("{}", "textArea = " + textArea);
 		HttpServletRequest request = nmCommandBean.getRequest();
 		String partOid = request.getParameter("partOid");// 部件的oid
-		System.out.println("partOid = " + partOid);
-		System.out.println("request.getAttribute(\"partNumber\") = " + request.getAttribute("partNumber"));
+		logger.debug("{}", "partOid = " + partOid);
+		logger.debug("{}", "request.getAttribute(\"partNumber\") = " + request.getAttribute("partNumber"));
 		Object obj = objectbean.getObject();
 		if (obj instanceof WTDocument) {
 			// 获取主内容

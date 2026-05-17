@@ -1,5 +1,7 @@
 package ext.ziang.mpm;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.beans.PropertyVetoException;
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -49,6 +51,8 @@ import wt.util.WTException;
  * @date 2024/05/23
  */
 public class ExportWorkFlowDoc {
+	private static final Logger logger = LoggerFactory.getLogger(ExportWorkFlowDoc.class);
+
 
 	public static final Integer startWriteOpIndex = 8;
 	public static final Integer endWriteOpIndex = 25;
@@ -100,7 +104,7 @@ public class ExportWorkFlowDoc {
 			Map<String, Object> dataMap = collectData(plan);
 			String excelPath = handlerDataWriteExcel(plan, dataMap);
 			// 通过类型获取默认这个图文档是否存在
-			System.out.println("excelPath = " + excelPath);
+			logger.debug("{}", "excelPath = " + excelPath);
 			String docType = "com.ziang.WorkFlowPic";
 			WTDocument describeDoc = MPMCustomHelper.getDocDescribeOfProcessPlan(plan, docType);
 			if (describeDoc == null) {
@@ -119,7 +123,7 @@ public class ExportWorkFlowDoc {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 			throw new WTException(e.getMessage());
 		} finally {
 			try {
@@ -127,14 +131,14 @@ public class ExportWorkFlowDoc {
 					os.close();
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error("Unexpected error", e);
 			}
 			try {
 				if (input != null) {
 					input.close();
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				logger.error("Unexpected error", e);
 			}
 		}
 		return newPath;
@@ -158,7 +162,7 @@ public class ExportWorkFlowDoc {
 		}
 		String docName = plan.getName() + "_WorkflowPicTepm工序卡";
 		String newPath = filePath + File.separator + docName + ".xlsx";
-		System.out.println("newPath = " + newPath);
+		logger.debug("{}", "newPath = " + newPath);
 		File oldfile = new File(newPath);
 		if (oldfile != null) {
 			oldfile.delete();
@@ -179,7 +183,7 @@ public class ExportWorkFlowDoc {
 			//
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 			return null;
 		}
 	}
@@ -201,7 +205,7 @@ public class ExportWorkFlowDoc {
 		int size = opLabelList.size();
 		// 判断是否需要进行扩容
 		int tempSize = endWriteOpIndex - startWriteOpIndex;
-		System.out.println("tempSize = " + tempSize);
+		logger.debug("{}", "tempSize = " + tempSize);
 		if (size > tempSize) {
 			for (int i = 0; i < (size - tempSize - 1); i++) {
 				if (sheet != null) {

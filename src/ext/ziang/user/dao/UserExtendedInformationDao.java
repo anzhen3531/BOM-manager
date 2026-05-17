@@ -1,5 +1,7 @@
 package ext.ziang.user.dao;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +19,8 @@ import wt.session.SessionHelper;
  * @date 2024/03/26
  */
 public class UserExtendedInformationDao {
+	private static final Logger logger = LoggerFactory.getLogger(UserExtendedInformationDao.class);
+
 
 	/**
 	 * 按用户名查找用户扩展信息
@@ -47,7 +51,7 @@ public class UserExtendedInformationDao {
 				return userExtendedInformation;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			JdbcTemplateOracleHelper.closeResAll(rs, statement, connection);
 		}
@@ -61,8 +65,8 @@ public class UserExtendedInformationDao {
 	 *            用户扩展信息
 	 */
 	public void createUserExtendedInformation(UserExtendedInformation userExtendedInformation) {
-		System.out.println("UserExtendedInformationDao.createUserExtendedInformation ====================> ");
-		System.out.println("createUserExtendedInformation param userExtendedInformation = " + userExtendedInformation);
+		logger.debug("{}", "UserExtendedInformationDao.createUserExtendedInformation ====================> ");
+		logger.debug("{}", "createUserExtendedInformation param userExtendedInformation = " + userExtendedInformation);
 		String sql = "INSERT INTO USEREXTENDEDINFORMATION (ID,USERNAME, PASSWORD, STATE, CREATED_BY, MODIFY_BY) VALUES(?,?,?,?,?,?)";
 		Connection connection = JdbcTemplateOracleHelper.getConnection(false);
 		PreparedStatement statement = null;
@@ -78,19 +82,19 @@ public class UserExtendedInformationDao {
 			statement.setString(6, SessionHelper.manager.getPrincipal().getName());
 			int flag = statement.executeUpdate();
 			if (flag > 0) {
-				System.out.println("创建用户扩展信息成功");
+				logger.debug("{}", "创建用户扩展信息成功");
 				connection.commit();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			JdbcTemplateOracleHelper.closeResAll(rs, statement, connection);
 		}
 	}
 
 	public void updateUserExtendedInformation(UserExtendedInformation userExtendedInformation) {
-		System.out.println("UserExtendedInformationDao.updateUserExtendedInformation ====================> ");
-		System.out.println("updateUserExtendedInformation param userExtendedInformation = " + userExtendedInformation);
+		logger.debug("{}", "UserExtendedInformationDao.updateUserExtendedInformation ====================> ");
+		logger.debug("{}", "updateUserExtendedInformation param userExtendedInformation = " + userExtendedInformation);
 		// 先查询后更新
 		String sql = "UPDATE USEREXTENDEDINFORMATION SET USERNAME= ?,PASSWORD= ? WHERE ID = ?";
 		Connection connection = JdbcTemplateOracleHelper.getConnection(false);
@@ -103,11 +107,11 @@ public class UserExtendedInformationDao {
 			statement.setLong(3, userExtendedInformation.getId());
 			int flag = statement.executeUpdate();
 			if (flag > 0) {
-				System.out.println("创建用户扩展信息成功");
+				logger.debug("{}", "创建用户扩展信息成功");
 				connection.commit();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			JdbcTemplateOracleHelper.closeResAll(rs, statement, connection);
 		}
@@ -121,8 +125,8 @@ public class UserExtendedInformationDao {
 	 *            用户名
 	 */
 	public void deleteUserExtendedInformation(String username) {
-		System.out.println("UserExtendedInformationDao.deleteUserExtendedInformation ====================> ");
-		System.out.println("deleteUserExtendedInformation param username = " + username);
+		logger.debug("{}", "UserExtendedInformationDao.deleteUserExtendedInformation ====================> ");
+		logger.debug("{}", "deleteUserExtendedInformation param username = " + username);
 		String sql = "DELETE USEREXTENDEDINFORMATION WHERE USERNAME = ?";
 		Connection connection = JdbcTemplateOracleHelper.getConnection(false);
 		PreparedStatement statement = null;
@@ -135,9 +139,9 @@ public class UserExtendedInformationDao {
 				connection.commit();
 				return;
 			}
-			System.out.println("执行删除失败 ！ 表示为: flag = " + flag);
+			logger.debug("{}", "执行删除失败 ！ 表示为: flag = " + flag);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			JdbcTemplateOracleHelper.closeResAll(rs, statement, connection);
 		}

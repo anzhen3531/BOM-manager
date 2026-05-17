@@ -1,5 +1,7 @@
 package ext.ziang.common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -9,6 +11,8 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 public class DownloadFileUtil {
+	private static final Logger logger = LoggerFactory.getLogger(DownloadFileUtil.class);
+
 
 	/**
 	 * 下载文件
@@ -27,7 +31,7 @@ public class DownloadFileUtil {
 		OutputStream os = response.getOutputStream();
 		response.setContentType("application/x-msdownload; charset=UTF-8");
 		response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
-		System.out.println("Test fileName = " + fileName);
+		logger.debug("{}", "Test fileName = " + fileName);
 		File temp = new File(fileName);
 		InputStream input = new FileInputStream(temp);
 		byte[] buff = new byte[512];

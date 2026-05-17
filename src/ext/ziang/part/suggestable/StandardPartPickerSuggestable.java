@@ -1,5 +1,7 @@
 package ext.ziang.part.suggestable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,6 +23,8 @@ import wt.part.WTPart;
  * @date 2024/04/10
  */
 public class StandardPartPickerSuggestable implements Suggestable {
+	private static final Logger logger = LoggerFactory.getLogger(StandardPartPickerSuggestable.class);
+
 	/**
 	 * 建议使用标准零件拾取器
 	 */
@@ -53,7 +57,7 @@ public class StandardPartPickerSuggestable implements Suggestable {
 				parts.forEach(part -> results
 						.add(SuggestResult.valueOf(part.getNumber(), part.getName() + "," + part.getViewName())));
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.error("Unexpected error", e);
 				results.add(SuggestResult.valueOf("根据编号查询物料报错"));
 			}
 		} else {

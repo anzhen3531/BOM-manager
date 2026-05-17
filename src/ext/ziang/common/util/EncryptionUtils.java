@@ -1,5 +1,7 @@
 package ext.ziang.common.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.Base64;
 
 import javax.crypto.Cipher;
@@ -12,6 +14,8 @@ import javax.crypto.spec.SecretKeySpec;
  * @date 2024/04/03
  */
 public class EncryptionUtils {
+	private static final Logger logger = LoggerFactory.getLogger(EncryptionUtils.class);
+
 
 	/**
 	 * 算法
@@ -37,7 +41,7 @@ public class EncryptionUtils {
 			byte[] encryptedBytes = cipher.doFinal(strToEncrypt.getBytes());
 			return Base64.getEncoder().encodeToString(encryptedBytes);
 		} catch (Exception e) {
-			System.out.println("Error while encrypting: " + e.toString());
+			logger.debug("{}", "Error while encrypting: " + e.toString());
 		}
 		return null;
 	}
@@ -57,7 +61,7 @@ public class EncryptionUtils {
 			byte[] decryptedBytes = cipher.doFinal(Base64.getDecoder().decode(strToDecrypt));
 			return new String(decryptedBytes);
 		} catch (Exception e) {
-			System.out.println("Error while decrypting: " + e.toString());
+			logger.debug("{}", "Error while decrypting: " + e.toString());
 		}
 		return null;
 	}
@@ -67,8 +71,8 @@ public class EncryptionUtils {
 		String encryptedString = encrypt(originalString);
 		String decryptedString = decrypt(encryptedString);
 
-		System.out.println("Original: " + originalString);
-		System.out.println("Encrypted: " + encryptedString);
-		System.out.println("Decrypted: " + decryptedString);
+		logger.debug("{}", "Original: " + originalString);
+		logger.debug("{}", "Encrypted: " + encryptedString);
+		logger.debug("{}", "Decrypted: " + decryptedString);
 	}
 }

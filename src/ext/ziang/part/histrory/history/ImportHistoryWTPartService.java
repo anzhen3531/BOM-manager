@@ -1,5 +1,7 @@
 package ext.ziang.part.histrory.history;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +58,8 @@ import wt.vc.views.ViewHelper;
  *       windchill ext.ziang.histrory.history.ImportHistoryWTPartService
  */
 public class ImportHistoryWTPartService {
+	private static final Logger logger = LoggerFactory.getLogger(ImportHistoryWTPartService.class);
+
 
 	static HashMap<String, String> lifeCycle = new HashMap<>();
 	static HashMap<String, String> classifyType = new HashMap<>();
@@ -100,12 +104,12 @@ public class ImportHistoryWTPartService {
 			XSSFSheet sheetAt = workbook.getSheetAt(i);
 			// 读取到 Excel
 			List<ImportHistoryWTPartBean> list = readTOExcelToSheet(sheetAt);
-			System.out.println(list);
+			logger.debug("{}", list);
 			// 批量创建部件-】
 			for (ImportHistoryWTPartBean importHistoryWTPartBean : list) {
 				boolean createFlag = createPart(importHistoryWTPartBean);
 				if (createFlag) {
-					System.out.println("创建当前对象成功! -> " + importHistoryWTPartBean);
+					logger.debug("{}", "创建当前对象成功! -> " + importHistoryWTPartBean);
 				} else {
 					errorList.add("创建当前对象失败! -> " + importHistoryWTPartBean);
 				}
@@ -161,7 +165,7 @@ public class ImportHistoryWTPartService {
 				if (StrUtil.isNotBlank(value)) {
 					String title = titleMap.get(cellIndex);
 					String ibaName = title.substring(title.lastIndexOf("(") + 1, title.length() - 1);
-					System.out.println("ibaName = " + ibaName);
+					logger.debug("{}", "ibaName = " + ibaName);
 					ibaMapping.put(ibaName, value);
 				}
 			}
@@ -261,13 +265,13 @@ public class ImportHistoryWTPartService {
 					PDMLinkProduct.class, PDMLinkProduct.DESCRIPTION,
 					SearchCondition.LIKE, cProductFamily);
 			qs.appendWhere(namecontainerinfo, new int[] { 0 });
-			System.out.println("查询产品库 = " + qs);
+			logger.debug("{}", "查询产品库 = " + qs);
 			QueryResult qr = PersistenceHelper.manager.find(qs);
 			if (qr.hasMoreElements()) {
 				product = (PDMLinkProduct) qr.nextElement();
 			}
 		} catch (WTException e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(access);
 		}
@@ -295,7 +299,7 @@ public class ImportHistoryWTPartService {
 				library = (WTLibrary) qr.nextElement();
 			}
 		} catch (WTException e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 		} finally {
 			SessionServerHelper.manager.setAccessEnforced(access);
 		}
@@ -383,7 +387,7 @@ public class ImportHistoryWTPartService {
 			}
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Unexpected error", e);
 			tx.rollback();
 			return false;
 		}
@@ -402,7 +406,7 @@ public class ImportHistoryWTPartService {
 			QuantityUnit[] quantityUnitArray = QuantityUnit.getQuantityUnitSet();
 			for (QuantityUnit quantityUnit : quantityUnitArray) {
 				qu = quantityUnit;
-				System.out.println("qu = " + qu);
+				logger.debug("{}", "qu = " + qu);
 				if (unit.equalsIgnoreCase(qu.toString())) {
 					break;
 				}

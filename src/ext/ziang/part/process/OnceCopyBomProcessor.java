@@ -1,5 +1,7 @@
 package ext.ziang.part.process;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,6 +30,8 @@ import wt.util.WTException;
  * @date 2024/04/03
  */
 public class OnceCopyBomProcessor extends DefaultObjectFormProcessor {
+	private static final Logger logger = LoggerFactory.getLogger(OnceCopyBomProcessor.class);
+
 	/**
 	 * 预处理
 	 *
@@ -41,9 +45,9 @@ public class OnceCopyBomProcessor extends DefaultObjectFormProcessor {
 	 */
 	@Override
 	public FormResult preProcess(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
-		System.out.println("OnceCopyBomProcessor.preProcess");
+		logger.debug("{}", "OnceCopyBomProcessor.preProcess");
 		ArrayList selected = nmCommandBean.getSelected();
-		System.out.println("selected = " + selected);
+		logger.debug("{}", "selected = " + selected);
 		validateCopyBomObject(selected);
 		return super.preProcess(nmCommandBean, list);
 	}
@@ -61,11 +65,11 @@ public class OnceCopyBomProcessor extends DefaultObjectFormProcessor {
 	 */
 	@Override
 	public FormResult doOperation(NmCommandBean nmCommandBean, List<ObjectBean> list) throws WTException {
-		System.out.println("OnceCopyBomProcessor.doOperation");
+		logger.debug("{}", "OnceCopyBomProcessor.doOperation");
 		ArrayList selected = nmCommandBean.getSelected();
-		System.out.println("selected = " + selected);
+		logger.debug("{}", "selected = " + selected);
 		Map<String, List<WTPart>> stringListHashMap = validateCopyBomObject(selected);
-		System.out.println("stringListHashMap = " + stringListHashMap);
+		logger.debug("{}", "stringListHashMap = " + stringListHashMap);
 		List<WTPart> targetPartList = stringListHashMap.get("targetParts");
 		List<WTPart> originPartList = stringListHashMap.get("originPart");
 		// 复制BOM
@@ -90,7 +94,7 @@ public class OnceCopyBomProcessor extends DefaultObjectFormProcessor {
 		for (Object object : selected) {
 			if (object instanceof NmContext) {
 				NmContext context = (NmContext) object;
-				System.out.println("context = " + context);
+				logger.debug("{}", "context = " + context);
 				String contextStr = context.toString();
 				// 获取源对象
 				if (contextStr.contains("selectAffectionBomStep")) {

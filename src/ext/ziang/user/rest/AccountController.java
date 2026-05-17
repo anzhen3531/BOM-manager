@@ -1,5 +1,7 @@
 package ext.ziang.user.rest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -31,6 +33,8 @@ import io.swagger.annotations.Api;
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.TEXT_HTML, MediaType.MULTIPART_FORM_DATA })
 @Produces(MediaType.APPLICATION_JSON)
 public class AccountController {
+	private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
+
 
 	// 通过数据库查询相关的数据
 	UserExtendedInformationService service = new UserExtendedInformationServiceImpl();
@@ -49,20 +53,20 @@ public class AccountController {
 				return Result.error("传递数据不能为空！！！");
 			} else {
 				if (StrUtil.isBlank(form.getUsername())) {
-					return Result.error("工号不能为空！！！");
+					return Result.error("username is required");
 				}
 			}
 			UserExtendedInformation information = service.findUserExtendedInformationByUserName(form.getUsername());
 			if (ObjectUtil.isNull(information)) {
-				return Result.error("请用户重新刷新相关的密码信息！！！");
+				return Result.error("user password information is missing");
 			}
 			// 将账号密码转换成为 token
 			String input = StrUtil.format("{}:{}", information.getUsername(), information.getPassword());
 			String encoding = new BASE64Encoder().encode(input.getBytes());
 			return Result.ok(encoding);
 		} catch (Exception e) {
-			e.printStackTrace();
-			return Result.error(e.getMessage());
+			logger.error("Unexpected error", e);
+			return Result.error(e);
 		}
 	}
 }
