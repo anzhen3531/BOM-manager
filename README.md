@@ -1,3 +1,5 @@
+
+
 # `Windchill Secondary Development`
 
 ## 概述
@@ -9,6 +11,8 @@
 `JDK`: 1.8
 
 `Windchill Version` :  11.M030
+
+`构建部署`: 确保 `WT_HOME` 环境变量已正确配置，在项目根目录执行 `ant install` 即可自动完成编译与部署。
 
 :red_circle:注意事项
 
@@ -34,13 +38,3 @@
 - [ ] 代码增加可重用属性并绑定到相关的类型中
 - [ ] 工序图
 - [ ] 自定义文件夹
-
-
-
-
-
-
-
-
-
-
